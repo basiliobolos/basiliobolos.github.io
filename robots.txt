@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://basiliobolos.github.io/sitemap.xml
