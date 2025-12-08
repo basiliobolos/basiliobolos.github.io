@@ -27,12 +27,13 @@ document.addEventListener('DOMContentLoaded', function(){
 
   // WhatsApp default link (placeholder)
   const WA_NUMBER = '5511968101912';
-  const WA_MSG = encodeURIComponent('Olá! Vi seus doces e gostaria de receber mais informações. Pode me ajudar?');
-  const WA_LINK = `https://wa.me/${WA_NUMBER}?text=${WA_MSG}`;
+  const DEFAULT_WA_MSG = 'Olá! Vi seus doces e gostaria de receber mais informações. Pode me ajudar?';
 
-  // set whatsapp links
-  document.querySelectorAll('#whatsappBtn, #whatsappBtnNav, #whatsFooter, #modalWhats').forEach(el => {
-    el.href = WA_LINK;
+  // set whatsapp links (supports custom messages via data attribute)
+  document.querySelectorAll('[data-wa-message]').forEach(el => {
+    const customMsg = el.dataset.waMessage || DEFAULT_WA_MSG;
+    const encodedMsg = encodeURIComponent(customMsg);
+    el.href = `https://wa.me/${WA_NUMBER}?text=${encodedMsg}`;
   });
 
   // Load JSON data (fetch from /data)

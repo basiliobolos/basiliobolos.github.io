@@ -29,6 +29,17 @@
   <meta name="msapplication-TileImage" content="assets/icons/android-icon-192x192.png" />
   <meta name="msapplication-config" content="assets/icons/browserconfig.xml" />
 
+  <!-- Google Analytics 4 (comentado até definição do ID) -->
+  <!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  -->
+
   <!-- Google Fonts: Nunito Sans -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -117,9 +128,9 @@
           <li class="nav-item"><a class="nav-link" href="#produtos">Produtos</a></li>
           <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
           <li class="nav-item ms-3">
-            <a id="whatsappBtnNav" class="btn btn-sm btn-whatsapp" href="https://wa.me/5511968101912?text=Ol%C3%A1!%20Vi%20seus%20doces%20e%20gostaria%20de%20receber%20mais%20informa%C3%A7%C3%B5es.%20Pode%20me%20ajudar%3F" target="_blank">
+          <a id="whatsappBtnNav" class="btn btn-sm btn-whatsapp" href="#" data-wa-message="Olá! Gostaria de fazer uma cotação personalizada." target="_blank">
               <i class="fa-brands fa-whatsapp"></i>
-              WhatsApp
+              Faça uma cotação
             </a>
           </li>
         </ul>
@@ -213,9 +224,9 @@
     <div class="container text-center">
       <h3 style="color:#5A3E36;">Fale conosco</h3>
       <p style="color:#5b4540;">Clique no botão abaixo para pedir pelo WhatsApp ou tirar suas dúvidas.</p>
-      <a id="whatsappBtn" class="btn btn-lg btn-whatsapp" href="https://wa.me/5511968101912?text=Ol%C3%A1!%20Vi%20seus%20doces%20e%20gostaria%20de%20receber%20mais%20informa%C3%A7%C3%B5es.%20Pode%20me%20ajudar%3F" target="_blank">
+      <a id="whatsappBtn" class="btn btn-lg btn-whatsapp" href="#" data-wa-message="Olá! Tenho algumas dúvidas e gostaria de conversar com você." target="_blank">
         <i class="fa-brands fa-whatsapp"></i>
-        Chamar no WhatsApp
+        Converse com a gente
       </a>
     </div>
     <div class="container text-center" style="margin-top: 36px;">
@@ -243,7 +254,7 @@
         <a href="https://www.instagram.com/basiliobolos/" class="social-link" aria-label="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
         <a href="https://web.facebook.com/basiliobolos/" class="social-link" aria-label="Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
         <a href="https://www.tiktok.com/@basiliobolos" class="social-link" aria-label="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-        <a id="whatsFooter" href="https://wa.me/5511968101912" target="_blank" aria-label="WhatsApp" target="_blank" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
+  <a id="whatsFooter" href="#" data-wa-message="Olá! Estou no site da Basilio Bolos e quero falar sobre encomendas." target="_blank" aria-label="WhatsApp" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
         <a href="https://maps.app.goo.gl/2Jw8sBdD5A7s3rWm9" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Ver endereço no Google Maps"><i class="fa-solid fa-location-dot"></i></a>
       </div>
     </div>
@@ -261,7 +272,7 @@
           <!-- conteúdo injetado -->
         </div>
         <div class="modal-footer">
-          <a id="modalWhats" class="btn btn-whatsapp" href="#" target="_blank">Pedir pelo WhatsApp</a>
+          <a id="modalWhats" class="btn btn-whatsapp" href="#" data-wa-message="Olá! Vi os detalhes do produto e gostaria de fazer um pedido." target="_blank">Pedir pelo WhatsApp</a>
         </div>
       </div>
     </div>
