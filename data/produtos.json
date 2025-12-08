@@ -1,0 +1,44 @@
+[
+  {
+    "titulo": "Bolo confeitado",
+  "imagem": "assets/images/produtos/bolo-confeitado.jpeg",
+    "descricao": "Bolos personalizados para aniversários e celebrações.",
+    "valor": 0
+  },
+  {
+    "titulo": "Doces de festa",
+  "imagem": "assets/images/produtos/doces-festa.jpeg",
+    "descricao": "Docinhos artesanais perfeitos para qualquer evento.",
+    "valor": 0
+  },
+  {
+    "titulo": "Cupcake",
+  "imagem": "assets/images/produtos/cupcake.jpeg",
+    "descricao": "Cupcakes decorados com sabores diversos.",
+    "valor": 0
+  },
+  {
+    "titulo": "Trufas",
+  "imagem": "assets/images/produtos/trufas.jpeg",
+    "descricao": "Trufas artesanais com chocolate de alta qualidade.",
+    "valor": 0
+  },
+  {
+    "titulo": "Brownie",
+  "imagem": "assets/images/produtos/brownie.jpeg",
+    "descricao": "Brownies macios com chocolate intenso.",
+    "valor": 0
+  },
+  {
+    "titulo": "Bolo no pote",
+  "imagem": "assets/images/produtos/bolo-no-pote.png",
+    "descricao": "Nossa receita clássica desde 2016.",
+    "valor": 0
+  },
+  {
+    "titulo": "Bentô cake",
+  "imagem": "assets/images/produtos/bento-cake.jpeg",
+    "descricao": "Mini bolos decorados, perfeitos para presentear.",
+    "valor": 0
+  }
+]

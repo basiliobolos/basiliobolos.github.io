@@ -1,0 +1,40 @@
+{
+  "campanha": "Natal 2025",
+  "ativo": true,
+  "cor_fundo": "#801909",
+  "cor_secundaria": "#c89a51",
+  "cor_texto": "#ffffff",
+  "descricao": "Delícias natalinas para tornar seu fim de ano ainda mais especial!",
+  "produtos": [
+    {
+      "titulo": "Pipoca gourmet",
+  "imagem": "assets/images/campanhas/pipoca-gourmet.jpeg",
+      "descricao": "Pipoca caramelizada com toque natalino.",
+      "valor": 0
+    },
+    {
+      "titulo": "Chocotone",
+  "imagem": "assets/images/campanhas/chocotone.jpg",
+      "descricao": "Chocotone artesanal recheado.",
+      "valor": 0
+    },
+    {
+      "titulo": "Mini chocotone",
+  "imagem": "assets/images/campanhas/mini-chocotone.jpeg",
+      "descricao": "Mini chocotone perfeito para presentear.",
+      "valor": 0
+    },
+    {
+      "titulo": "Caixa de biscoitos",
+  "imagem": "assets/images/campanhas/caixa-biscoitos.jpeg",
+      "descricao": "Caixa especial com biscoitos decorados.",
+      "valor": 0
+    },
+    {
+      "titulo": "Bolo guirlanda",
+  "imagem": "assets/images/campanhas/bolo-guirlanda.jpg",
+      "descricao": "Bolo decorado em formato de guirlanda.",
+      "valor": 0
+    }
+  ]
+}
