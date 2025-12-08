@@ -97,8 +97,9 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   // adjust scroll position to account for fixed navbar height
-  const navAnchorLinks = document.querySelectorAll('#navbarContent a[href^="#"], .navbar-brand[href^="#"]');
-  navAnchorLinks.forEach(link => {
+  const registerAnchorLink = (link) => {
+    if(!link || link.dataset.anchorScrollBound === 'true') return;
+    link.dataset.anchorScrollBound = 'true';
     link.addEventListener('click', (event) => {
       const hash = link.getAttribute('href');
       if(!hash || hash === '#') return;
@@ -111,7 +112,9 @@ document.addEventListener('DOMContentLoaded', function(){
         performAnchoredScroll(hash);
       }
     });
-  });
+  };
+
+  document.querySelectorAll('#navbarContent a[href^="#"], .navbar-brand[href^="#"], #hero a[href^="#"], #heroCtas a[href^="#"]').forEach(registerAnchorLink);
 
   function performAnchoredScroll(hash){
     if(!hash || hash === '#') return;
@@ -162,6 +165,7 @@ document.addEventListener('DOMContentLoaded', function(){
     button.style.background = baseColor;
     button.style.color = campaign.cor_texto || getReadableColor(baseColor);
     button.innerText = campaign.campanha || 'Campanha especial';
+    registerAnchorLink(button);
 
     btnWrapper.appendChild(button);
     container.insertBefore(btnWrapper, container.lastElementChild);
