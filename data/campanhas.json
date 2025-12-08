@@ -14,8 +14,8 @@
     },
     {
       "titulo": "Chocotone",
-  "imagem": "assets/images/campanhas/chocotone.jpg",
-      "descricao": "Chocotone artesanal recheado.",
+  "imagem": "assets/images/campanhas/chocotone.jpeg",
+      "descricao": "Chocotone recheado.",
       "valor": 0
     },
     {
@@ -32,7 +32,7 @@
     },
     {
       "titulo": "Bolo guirlanda",
-  "imagem": "assets/images/campanhas/bolo-guirlanda.jpg",
+  "imagem": "assets/images/campanhas/bolo-guirlanda.jpeg",
       "descricao": "Bolo decorado em formato de guirlanda.",
       "valor": 0
     }
