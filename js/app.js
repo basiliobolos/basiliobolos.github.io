@@ -193,15 +193,19 @@ document.addEventListener('DOMContentLoaded', function(){
     const priceClass = hasPriceNumber ? 'price' : 'price price-alt price-placeholder';
     const priceAria = hasPriceNumber ? '' : ' aria-label="Valor sob consulta"';
 
+    const flipHint = '<span class="flip-hint" aria-hidden="true"><i class="fa-solid fa-arrows-rotate"></i></span>';
+
     card.innerHTML = `
       <div class="flip-inner">
         <div class="flip-front" aria-hidden="false">
           <img src="${prod.imagem}" alt="${escapeHtml(prod.titulo)}">
           <h5 id="${titleId}">${escapeHtml(prod.titulo)}</h5>
           <p id="${priceId}" class="${priceClass}"${priceAria}>${escapeHtml(priceLabel)}</p>
+          ${flipHint}
         </div>
         <div class="flip-back" aria-hidden="true">
           <div class="back-text">${escapeHtml(descText)}</div>
+          ${flipHint}
         </div>
       </div>
       <p id="${descId}" class="sr-only">Descrição completa: ${escapeHtml(descText)}</p>
@@ -322,17 +326,6 @@ document.addEventListener('DOMContentLoaded', function(){
       maxOffset: 0
     };
 
-    viewport.style.touchAction = 'pan-y';
-
-  let pointerActive = false;
-  let pointerId = null;
-  let pointerStartX = 0;
-
-    const getSwipeThreshold = () => {
-      const basis = state.cardWidth || baseCardWidth;
-      return Math.max(30, Math.min(120, basis * 0.25));
-    };
-
     const updateButtons = () => {
       prevBtn.disabled = state.currentIndex === 0;
       nextBtn.disabled = state.currentIndex >= state.maxIndex;
@@ -345,8 +338,13 @@ document.addEventListener('DOMContentLoaded', function(){
       state.gap = getGap(track);
       const viewportWidth = viewport.clientWidth;
       const desired = baseCardWidth;
-      let items = Math.max(1, Math.floor((viewportWidth + state.gap) / (desired + state.gap)));
-      items = Math.min(items, cards.length);
+      let items = Math.floor((viewportWidth + state.gap) / (desired + state.gap));
+      const minItemsByWidth = viewportWidth >= (desired * 2 + state.gap) ? 2 : 1;
+      items = Math.max(minItemsByWidth, items);
+      items = Math.min(items, cards.length || 1);
+      if(items < 1){
+        items = 1;
+      }
       const cardWidth = Math.floor((viewportWidth - state.gap * (items - 1)) / items);
 
       cards.forEach(card => {
@@ -386,53 +384,11 @@ document.addEventListener('DOMContentLoaded', function(){
       updatePosition();
     };
 
-    const handlePointerDown = (event) => {
-      if(event.pointerType === 'mouse' && event.button !== 0) return;
-      pointerActive = true;
-      pointerId = event.pointerId;
-      pointerStartX = event.clientX;
-    };
-
-    const handlePointerMove = (event) => {
-      if(!pointerActive || event.pointerId !== pointerId) return;
-      const deltaX = event.clientX - pointerStartX;
-      if(Math.abs(deltaX) > 10 && event.cancelable){
-        event.preventDefault();
-      }
-    };
-
-    const finalizeSwipe = (event) => {
-      if(!pointerActive || event.pointerId !== pointerId) return;
-      pointerActive = false;
-      const deltaX = event.clientX - pointerStartX;
-      pointerId = null;
-      const threshold = getSwipeThreshold();
-      if(deltaX > threshold){
-        handlePrev();
-      } else if(deltaX < -threshold){
-        handleNext();
-      }
-    };
-
-    const handlePointerUp = (event) => {
-      finalizeSwipe(event);
-    };
-
-    const handlePointerCancel = () => {
-      pointerActive = false;
-      pointerId = null;
-    };
-
     const resizeHandler = debounce(updateLayout, 150);
 
     prevBtn.addEventListener('click', handlePrev);
     nextBtn.addEventListener('click', handleNext);
     window.addEventListener('resize', resizeHandler);
-  viewport.addEventListener('pointerdown', handlePointerDown);
-  viewport.addEventListener('pointermove', handlePointerMove, {passive:false});
-  viewport.addEventListener('pointerup', handlePointerUp);
-  viewport.addEventListener('pointercancel', handlePointerCancel);
-  viewport.addEventListener('pointerleave', handlePointerCancel);
 
     updateLayout();
 
@@ -440,11 +396,6 @@ document.addEventListener('DOMContentLoaded', function(){
       prevBtn.removeEventListener('click', handlePrev);
       nextBtn.removeEventListener('click', handleNext);
       window.removeEventListener('resize', resizeHandler);
-      viewport.removeEventListener('pointerdown', handlePointerDown);
-      viewport.removeEventListener('pointermove', handlePointerMove);
-      viewport.removeEventListener('pointerup', handlePointerUp);
-      viewport.removeEventListener('pointercancel', handlePointerCancel);
-      viewport.removeEventListener('pointerleave', handlePointerCancel);
     };
   }
 
