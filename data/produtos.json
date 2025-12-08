@@ -1,44 +1,46 @@
-[
-  {
-    "titulo": "Bolo confeitado",
-  "imagem": "assets/images/produtos/bolo-confeitado.jpeg",
-    "descricao": "Bolos personalizados para aniversários e celebrações.",
-    "valor": 0
-  },
-  {
-    "titulo": "Doces de festa",
-  "imagem": "assets/images/produtos/doces-festa.jpeg",
-    "descricao": "Docinhos artesanais perfeitos para qualquer evento.",
-    "valor": 0
-  },
-  {
-    "titulo": "Cupcake",
-  "imagem": "assets/images/produtos/cupcake.jpeg",
-    "descricao": "Cupcakes decorados com sabores diversos.",
-    "valor": 0
-  },
-  {
-    "titulo": "Trufas",
-  "imagem": "assets/images/produtos/trufas.jpeg",
-    "descricao": "Trufas artesanais com chocolate de alta qualidade.",
-    "valor": 0
-  },
-  {
-    "titulo": "Brownie",
-  "imagem": "assets/images/produtos/brownie.jpeg",
-    "descricao": "Brownies macios com chocolate intenso.",
-    "valor": 0
-  },
-  {
-    "titulo": "Bolo no pote",
-  "imagem": "assets/images/produtos/bolo-no-pote.png",
-    "descricao": "Nossa receita clássica desde 2016.",
-    "valor": 0
-  },
-  {
-    "titulo": "Bentô cake",
-  "imagem": "assets/images/produtos/bento-cake.jpeg",
-    "descricao": "Mini bolos decorados, perfeitos para presentear.",
-    "valor": 0
-  }
-]
+{
+  "produtos": [
+    {
+      "titulo": "Bolo confeitado",
+      "imagem": "assets/images/produtos/bolo-confeitado.jpeg",
+      "descricao": "Bolos personalizados por kg, preparados com muito carinho para aniversários, eventos e celebrações especiais.",
+      "valor": "A partir de R$ 79/kg"
+    },
+    {
+      "titulo": "Doces — cento",
+      "imagem": "assets/images/produtos/doces-festa.jpeg",
+      "descricao": "Docinhos artesanais variados, perfeitos para festas e eventos.",
+      "valor": "A partir de R$ 170"
+    },
+    {
+      "titulo": "Cupcake — 2 unidades",
+      "imagem": "assets/images/produtos/cupcake.jpeg",
+      "descricao": "Duas unidades de cupcake em uma linda caixa para presentear. Decoração totalmente personalizada para sua ocasião. Massa fofinha recheada. Sabor e beleza em cada detalhe.",
+      "valor": "R$ 24"
+    },
+    {
+      "titulo": "Kit mini trufas",
+      "imagem": "assets/images/produtos/trufas.jpeg",
+      "descricao": "Mini trufas artesanais vendidas a partir de 10 unidades. Cremosas, delicadas e perfeitas para adoçar qualquer momento.",
+      "valor": "A partir de R$ 35"
+    },
+    {
+      "titulo": "Bento cake",
+      "imagem": "assets/images/produtos/bento-cake.jpeg",
+      "descricao": "Bolo individual de 10cm de diâmetro com uma camada de recheio. Ideal para presentes e comemorações íntimas. Charmoso e delicioso.",
+      "valor": "A partir de R$ 30"
+    },
+    {
+      "titulo": "Bolo no pote",
+      "imagem": "assets/images/produtos/bolo-no-pote.jpeg",
+      "descricao": "Nosso clássico! O produto que deu início à nossa história, quando vendíamos de porta em porta. Camadas generosas de bolo e recheio.",
+      "valor": "A partir de R$ 15"
+    },
+    {
+      "titulo": "Pipoca gourmet",
+      "imagem": "assets/images/produtos/pipoca-gourmet.png",
+      "descricao": "Pipoca gourmet fresca e crocante, vendida a partir de 100g. Sabores: chocolate ou leite ninho.",
+      "valor": "A partir de R$ 15"
+    }
+  ]
+}

@@ -81,9 +81,15 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     // ---------- PRODUTOS ----------
-    if(Array.isArray(produtosData)){
+    const normalizedProducts = Array.isArray(produtosData)
+      ? produtosData
+      : Array.isArray(produtosData?.produtos)
+        ? produtosData.produtos
+        : [];
+
+    if(normalizedProducts.length){
       const prodList = document.getElementById('prodList');
-      produtosData.forEach(prod => {
+      normalizedProducts.forEach(prod => {
         prodList.appendChild(createFlipCard(prod));
       });
       initCarousel('#prodList', '#prodPrev', '#prodNext', 230);
@@ -216,11 +222,9 @@ document.addEventListener('DOMContentLoaded', function(){
     card.setAttribute('aria-labelledby', titleId);
     card.setAttribute('aria-describedby', `${priceId} ${descId} ${instructionsId}`);
 
-    const numericValue = Number(prod.valor);
-    const hasPriceNumber = Number.isFinite(numericValue) && numericValue > 0;
-    const priceLabel = hasPriceNumber ? `R$ ${numericValue.toFixed(2)}` : 'Valor sob consulta';
-    const priceClass = hasPriceNumber ? 'price' : 'price price-alt price-placeholder';
-    const priceAria = hasPriceNumber ? '' : ' aria-label="Valor sob consulta"';
+  const priceLabel = getPriceLabel(prod.valor);
+  const priceClass = priceLabel.isCustom ? 'price price-alt' : 'price';
+  const priceAria = priceLabel.isCustom ? '' : ' aria-label="Valor sob consulta"';
 
     const flipHint = '<span class="flip-hint" aria-hidden="true"><i class="fa-solid fa-arrows-rotate"></i></span>';
 
@@ -229,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function(){
         <div class="flip-front" aria-hidden="false">
           <img src="${prod.imagem}" alt="${escapeHtml(productTitle)}">
           <h5 id="${titleId}">${escapeHtml(productTitle)}</h5>
-          <p id="${priceId}" class="${priceClass}"${priceAria}>${escapeHtml(priceLabel)}</p>
+          <p id="${priceId}" class="${priceClass}"${priceAria}>${escapeHtml(priceLabel.text)}</p>
           ${flipHint}
         </div>
         <div class="flip-back" aria-hidden="true">
@@ -458,6 +462,18 @@ document.addEventListener('DOMContentLoaded', function(){
       clearTimeout(timeout);
       timeout = setTimeout(() => fn.apply(this, args), delay);
     };
+  }
+
+  function getPriceLabel(value){
+    const trimmed = typeof value === 'string' ? value.trim() : '';
+    if(trimmed){
+      return {text: trimmed, isCustom: true};
+    }
+    const numericValue = Number(value);
+    if(Number.isFinite(numericValue) && numericValue > 0){
+      return {text: `R$ ${numericValue.toFixed(2)}`, isCustom: false};
+    }
+    return {text: 'Valor sob consulta', isCustom: false};
   }
 
   // simple escape
