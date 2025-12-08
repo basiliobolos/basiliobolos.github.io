@@ -29,11 +29,28 @@ document.addEventListener('DOMContentLoaded', function(){
   const WA_NUMBER = '5511968101912';
   const DEFAULT_WA_MSG = 'Olá! Vi seus doces e gostaria de receber mais informações. Pode me ajudar?';
 
+  const trackEvent = (eventName, params = {}) => {
+    if(typeof window !== 'undefined' && typeof window.gtag === 'function'){
+      window.gtag('event', eventName, params);
+    } else if(Array.isArray(window?.dataLayer)){
+      window.dataLayer.push({event: eventName, ...params});
+    }
+  };
+
   // set whatsapp links (supports custom messages via data attribute)
   document.querySelectorAll('[data-wa-message]').forEach(el => {
     const customMsg = el.dataset.waMessage || DEFAULT_WA_MSG;
     const encodedMsg = encodeURIComponent(customMsg);
     el.href = `https://wa.me/${WA_NUMBER}?text=${encodedMsg}`;
+
+    if(el.dataset.waMetricsBound === 'true') return;
+    el.dataset.waMetricsBound = 'true';
+    el.addEventListener('click', () => {
+      trackEvent('whatsapp_click', {
+        location: el.id || el.getAttribute('aria-label') || el.textContent?.trim() || 'cta',
+        message_preview: customMsg.substring(0, 60)
+      });
+    });
   });
 
   // Load JSON data (fetch from /data)
@@ -101,9 +118,14 @@ document.addEventListener('DOMContentLoaded', function(){
   const registerAnchorLink = (link) => {
     if(!link || link.dataset.anchorScrollBound === 'true') return;
     link.dataset.anchorScrollBound = 'true';
+    const linkLabel = link.dataset.analyticsName || link.getAttribute('aria-label') || link.textContent?.trim() || link.id || 'anchor';
     link.addEventListener('click', (event) => {
       const hash = link.getAttribute('href');
       if(!hash || hash === '#') return;
+      trackEvent('anchor_click', {
+        target: hash,
+        source: linkLabel
+      });
       event.preventDefault();
       const isMenuOpen = navbarContent && navbarContent.classList.contains('show');
       if(isMenuOpen && collapseController){
@@ -159,13 +181,14 @@ document.addEventListener('DOMContentLoaded', function(){
     const btnWrapper = document.createElement('div');
     btnWrapper.className = 'hero-cta-dynamic';
 
-    const button = document.createElement('a');
+  const button = document.createElement('a');
     button.href = '#campanhas';
     button.className = 'btn btn-lg cta-campaign';
     const baseColor = campaign.cor_fundo || '#D8A657';
     button.style.background = baseColor;
     button.style.color = campaign.cor_texto || getReadableColor(baseColor);
     button.innerText = campaign.campanha || 'Campanha especial';
+  button.dataset.analyticsName = `cta_${(campaign.campanha || 'campanha').toLowerCase()}`;
     registerAnchorLink(button);
 
     btnWrapper.appendChild(button);
@@ -181,7 +204,8 @@ document.addEventListener('DOMContentLoaded', function(){
     const priceId = `${cardId}-price`;
     const descId = `${cardId}-desc`;
     const instructionsId = `${cardId}-instructions`;
-    const descText = prod.descricao && prod.descricao.trim().length ? prod.descricao : prod.titulo;
+  const productTitle = prod && prod.titulo ? prod.titulo : 'Produto Basilio';
+  const descText = prod.descricao && prod.descricao.trim().length ? prod.descricao : productTitle;
 
     const card = document.createElement('article');
     card.className = 'flip-card';
@@ -203,8 +227,8 @@ document.addEventListener('DOMContentLoaded', function(){
     card.innerHTML = `
       <div class="flip-inner">
         <div class="flip-front" aria-hidden="false">
-          <img src="${prod.imagem}" alt="${escapeHtml(prod.titulo)}">
-          <h5 id="${titleId}">${escapeHtml(prod.titulo)}</h5>
+          <img src="${prod.imagem}" alt="${escapeHtml(productTitle)}">
+          <h5 id="${titleId}">${escapeHtml(productTitle)}</h5>
           <p id="${priceId}" class="${priceClass}"${priceAria}>${escapeHtml(priceLabel)}</p>
           ${flipHint}
         </div>
@@ -228,6 +252,11 @@ document.addEventListener('DOMContentLoaded', function(){
       }
       if(backFace){
         backFace.setAttribute('aria-hidden', isFlipped ? 'false' : 'true');
+      }
+      if(isFlipped){
+        trackEvent('product_details_view', {
+          product_title: productTitle
+        });
       }
     };
 
@@ -320,6 +349,8 @@ document.addEventListener('DOMContentLoaded', function(){
       return null;
     }
 
+    const carouselName = trackSelector.replace('#','') || 'carousel';
+
     const state = {
       itemsPerView: 1,
       viewWidth: viewport.clientWidth,
@@ -381,12 +412,22 @@ document.addEventListener('DOMContentLoaded', function(){
       if(state.currentIndex === 0) return;
       state.currentIndex -= 1;
       updatePosition();
+      trackEvent('carousel_navigate', {
+        carousel: carouselName,
+        direction: 'prev',
+        index: state.currentIndex
+      });
     };
 
     const handleNext = () => {
       if(state.currentIndex >= state.maxIndex) return;
       state.currentIndex += 1;
       updatePosition();
+      trackEvent('carousel_navigate', {
+        carousel: carouselName,
+        direction: 'next',
+        index: state.currentIndex
+      });
     };
 
     const resizeHandler = debounce(updateLayout, 150);
