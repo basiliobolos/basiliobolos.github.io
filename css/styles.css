@@ -1576,28 +1576,6 @@ section[id]{
   }
 }
 
-/* ========== SCROLL REVEAL ANIMATIONS ========== */
-.scroll-reveal{
-  opacity:0;
-  transform:translateY(40px);
-  transition:opacity 0.8s ease, transform 0.8s ease;
-}
-.scroll-reveal.revealed{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* Stagger animation for cards */
-.flip-card{
-  opacity:0;
-  transform:translateY(20px);
-  transition:opacity 0.5s ease, transform 0.5s ease;
-}
-.flip-card.card-visible{
-  opacity:1;
-  transform:translateY(0);
-}
-
 /* Smooth scrolling for all anchor links */
 html{scroll-behavior:smooth}
 
@@ -1636,9 +1614,5 @@ html{scroll-behavior:smooth}
     animation-iteration-count:1 !important;
     transition-duration:0.01ms !important;
     scroll-behavior:auto !important;
-  }
-  .scroll-reveal{
-    opacity:1;
-    transform:none;
   }
 }
