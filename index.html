@@ -45,6 +45,12 @@
   <meta name="msapplication-TileImage" content="assets/icons/favicon-144x144.png" />
   <meta name="msapplication-config" content="browserconfig.xml" />
 
+  <!-- Preconnect para CDNs críticos (melhora performance) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
   <!-- Google Analytics 4 (comentado até definição do ID) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-C07W6E0102"></script>
   <script>
@@ -257,7 +263,7 @@
   <nav id="mainNav" class="navbar navbar-expand-lg navbar-light fixed-top navbar-glass">
     <div class="container">
       <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#hero" style="color:#5A3E36;">
-        <img src="assets/images/brand/logo.jpeg" alt="Logo Basilio Bolos" class="brand-icon">
+        <img src="assets/images/brand/logo.jpeg" alt="Logo Basilio Bolos" class="brand-icon" width="34" height="34" loading="eager">
         <span class="brand-text">Basilio Bolos</span>
       </a>
       <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
@@ -327,7 +333,7 @@
         </div>
         <div class="col-lg-6 hero-visual-wrapper">
           <div class="hero-visual" aria-hidden="true">
-            <img src="assets/images/hero/hero-placeholder-circle.png" alt="Seleção de bolos Basilio" loading="eager">
+            <img src="assets/images/hero/hero-placeholder-circle.png" alt="Seleção de bolos Basilio" loading="eager" width="502" height="497">
           </div>
         </div>
       </div>
@@ -370,7 +376,7 @@
       <div class="row align-items-center g-5 sobre-grid">
         <div class="col-lg-5 text-center sobre-image">
           <div class="image-frame">
-            <img src="assets/images/sobre/irmas-placeholder.jpeg" class="img-fluid" alt="Irmãs Basilio">
+            <img src="assets/images/sobre/irmas-placeholder.jpeg" class="img-fluid" alt="Irmãs Basilio" width="1024" height="1024" loading="lazy">
           </div>
         </div>
         <div class="col-lg-7 sobre-text">
