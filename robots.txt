@@ -1,4 +1,13 @@
+# robots.txt - Basilio Bolos
+# https://basiliobolos.com.br
+
 User-agent: *
 Allow: /
+Allow: /assets/images/
+Disallow: /data/
 
+# Sitemaps
 Sitemap: https://basiliobolos.com.br/sitemap.xml
+
+# Crawl-delay (opcional - ajustar se necessário)
+# Crawl-delay: 1
