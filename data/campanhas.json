@@ -8,85 +8,85 @@
   "produtos": [
     {
       "titulo": "Caixa de biscoitos amanteigados",
-      "imagem": "assets/images/campanhas/caixa-biscoitos.jpeg",
+      "imagem": "assets/images/campanhas/caixa-biscoitos-natal.jpg",
       "descricao": "12 unidades de biscoitos amanteigados — 6 decorados à mão e 6 banhados no chocolate. Presente perfeito para compartilhar o encanto do Natal.",
       "valor": "R$ 45"
     },
     {
       "titulo": "Pacotinho de biscoitos decorados",
-      "imagem": "assets/images/campanhas/pacotinho-biscoitos.jpeg",
+      "imagem": "assets/images/campanhas/pacotinho-biscoitos-natal.jpg",
       "descricao": "Pacotinho com 3 biscoitos amanteigados decorados com muito carinho. Ideal para lembrancinhas natalinas.",
       "valor": "R$ 15"
     },
     {
       "titulo": "Biscoito aquarela",
-      "imagem": "assets/images/campanhas/biscoito-aquarela.jpeg",
+      "imagem": "assets/images/campanhas/biscoito-aquarela-natal.jpg",
       "descricao": "Caixinha com 2 biscoitos grandes, acompanhados de tinta comestível e pincel. A criança pinta, se diverte e depois devora!",
       "valor": "R$ 29"
     },
     {
       "titulo": "Bites de brownie",
-      "imagem": "assets/images/campanhas/bites-brownie.jpeg",
+      "imagem": "assets/images/campanhas/bites-brownie-natal.jpg",
       "descricao": "Caixa com aproximadamente 215g de bites de brownie bem chocolatudo, macio e irresistível.",
       "valor": "R$ 48"
     },
     {
       "titulo": "Bites de chocotone",
-      "imagem": "assets/images/campanhas/bites-chocotone.jpeg",
+      "imagem": "assets/images/campanhas/bites-chocotone-natal.jpg",
       "descricao": "Bites feitos com massa de chocotone, super macios. Caixa com cerca de 215g.",
       "valor": "R$ 32"
     },
     {
       "titulo": "Caixa de cupcakes natalinos",
-      "imagem": "assets/images/campanhas/caixa-cupcakes.jpeg",
+      "imagem": "assets/images/campanhas/caixa-cupcakes-natal.jpg",
       "descricao": "Caixa com 2 cupcakes decorados no clima natalino — árvore, biscoito e um lindo efeito de globo de neve sobre brigadeiro branco. Sabores variados.",
       "valor": "R$ 24"
     },
     {
       "titulo": "Pipoca gourmet natalina",
-      "imagem": "assets/images/campanhas/pipoca-gourmet.jpeg",
+      "imagem": "assets/images/campanhas/pipoca-gourmet-natal.jpg",
       "descricao": "Pacotes natalinos a partir de 120g. Pipoca crocante, caramelizada e com sabor especial de fim de ano.",
       "valor": "A partir de R$ 18"
     },
     {
       "titulo": "Card pipoca",
-      "imagem": "assets/images/campanhas/card-pipoca.jpeg",
+      "imagem": "assets/images/campanhas/card-pipoca-natal.jpg",
       "descricao": "Cartão de Natal com globo recheado de pipocas gourmet de leite ninho. Um mimo doce e especial para presentear quem você ama.",
       "valor": "A partir de R$ 10"
     },
     {
       "titulo": "Brigadeiros gourmet (caixa natalina)",
-      "imagem": "assets/images/campanhas/brigadeiros-gourmet.jpeg",
+      "imagem": "assets/images/campanhas/brigadeiros-gourmet-natal.jpg",
       "descricao": "Caixa elegante com 6 brigadeiros gourmet. É possível escolher até dois sabores. Presente perfeito!",
       "valor": "R$ 19"
     },
     {
       "titulo": "Mini chocotone unitário",
-      "imagem": "assets/images/campanhas/mini-chocotone-unitario.jpeg",
+      "imagem": "assets/images/campanhas/mini-chocotone-unitario-natal.jpg",
       "descricao": "Mini chocotone decorado como um globo de neve, com muito recheio e acabamento impecável.",
       "valor": "R$ 22"
     },
     {
       "titulo": "Mini chocotone duplo",
-      "imagem": "assets/images/campanhas/mini-chocotone-duplo.jpeg",
+      "imagem": "assets/images/campanhas/mini-chocotone-duplo-natal.jpg",
       "descricao": "Caixa com 2 mini chocotones super recheados e decorados em estilo natalino.",
       "valor": "R$ 42"
     },
     {
       "titulo": "Chocotone especial",
-      "imagem": "assets/images/campanhas/chocotone.jpeg",
+      "imagem": "assets/images/campanhas/chocotone-natal.jpg",
       "descricao": "Chocotone grande com cerca de 800g, extremamente recheado e com cobertura generosa.",
       "valor": "A partir de R$ 80"
     },
     {
       "titulo": "Bolo guirlanda simples",
-      "imagem": "assets/images/campanhas/bolo-guirlanda-simples.jpeg",
+      "imagem": "assets/images/campanhas/bolo-guirlanda-simples-natal.jpg",
       "descricao": "Bolo de 19cm de diâmetro com cobertura da sua escolha. Decorado no formato de guirlanda de Natal.",
       "valor": "R$ 39"
     },
     {
       "titulo": "Bolo guirlanda duplo",
-      "imagem": "assets/images/campanhas/bolo-guirlanda.jpeg",
+      "imagem": "assets/images/campanhas/bolo-guirlanda-natal.jpg",
       "descricao": "Bolo red velvet de 22cm de diâmetro com recheio e cobertura de brigadeiro de leite ninho. Decorado com bombons Ouro Branco, morango, cereja e folhas de ouro.",
       "valor": "R$ 85"
     }

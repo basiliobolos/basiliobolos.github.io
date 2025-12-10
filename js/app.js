@@ -6,21 +6,18 @@ document.addEventListener('DOMContentLoaded', function(){
   const navbarContent = document.getElementById('navbarContent');
   let collapseController = null;
   let pendingScrollHash = null;
-  let baseNavHeight = 0;
+  let navbarHeight = 0;
 
-  const measureNavHeight = () => {
+  // Capturar a altura da navbar no carregamento (sempre colapsada)
+  const captureNavbarHeight = () => {
     if(!mainNav) return;
-    if(navbarContent && navbarContent.classList.contains('show')) return;
-    baseNavHeight = mainNav.getBoundingClientRect().height;
+    navbarHeight = mainNav.getBoundingClientRect().height;
+    console.log('Navbar height captured:', navbarHeight);
   };
 
-  measureNavHeight();
-
-  window.addEventListener('load', measureNavHeight);
-  window.addEventListener('resize', () => {
-    if(navbarContent && navbarContent.classList.contains('show')) return;
-    measureNavHeight();
-  });
+  // Capturar altura assim que possível
+  captureNavbarHeight();
+  window.addEventListener('load', captureNavbarHeight);
 
   // insert current year
   document.getElementById('anoAtual').innerText = new Date().getFullYear();
@@ -70,12 +67,15 @@ document.addEventListener('DOMContentLoaded', function(){
       const campList = document.getElementById('campList');
       activeCampaigns.forEach(camp => {
         camp.produtos.forEach(prod => {
-          campList.appendChild(createFlipCard(prod));
+          const slide = document.createElement('div');
+          slide.className = 'swiper-slide';
+          slide.appendChild(createFlipCard(prod));
+          campList.appendChild(slide);
         });
         insertHeroButton(heroCtas, camp);
       });
       applyCampaignTheme(activeCampaigns[0]);
-      initCarousel('#campList', '#campPrev', '#campNext');
+      initSwiper('.campSwiper');
     } else {
       document.getElementById('campanhas').style.display = 'none';
     }
@@ -90,9 +90,12 @@ document.addEventListener('DOMContentLoaded', function(){
     if(normalizedProducts.length){
       const prodList = document.getElementById('prodList');
       normalizedProducts.forEach(prod => {
-        prodList.appendChild(createFlipCard(prod));
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        slide.appendChild(createFlipCard(prod));
+        prodList.appendChild(slide);
       });
-      initCarousel('#prodList', '#prodPrev', '#prodNext', 230);
+      initSwiper('.prodSwiper');
     }
 
   }).catch(err=>{
@@ -113,7 +116,6 @@ document.addEventListener('DOMContentLoaded', function(){
       link.addEventListener('click', closeOnClick);
     });
     navbarContent.addEventListener('hidden.bs.collapse', () => {
-      measureNavHeight();
       if(!pendingScrollHash) return;
       performAnchoredScroll(pendingScrollHash);
       pendingScrollHash = null;
@@ -151,9 +153,9 @@ document.addEventListener('DOMContentLoaded', function(){
     if(!targetId) return;
     const targetEl = document.getElementById(targetId);
     if(!targetEl) return;
-  const navHeight = baseNavHeight || (mainNav ? mainNav.getBoundingClientRect().height : 0);
+    // Usar sempre a altura inicial da navbar (colapsada)
     const extraOffset = 12;
-    const targetTop = targetEl.getBoundingClientRect().top + window.scrollY - navHeight - extraOffset;
+    const targetTop = targetEl.getBoundingClientRect().top + window.scrollY - navbarHeight - extraOffset;
     window.scrollTo({
       top: Math.max(targetTop, 0),
       behavior: 'smooth'
@@ -203,74 +205,62 @@ document.addEventListener('DOMContentLoaded', function(){
 
   let flipIdCounter = 0;
 
-  // helper: create flip card element from product object
+  // helper: create modern card element from product object
   function createFlipCard(prod){
     const cardId = `flip-card-${++flipIdCounter}`;
     const titleId = `${cardId}-title`;
     const priceId = `${cardId}-price`;
     const descId = `${cardId}-desc`;
-    const instructionsId = `${cardId}-instructions`;
-  const productTitle = prod && prod.titulo ? prod.titulo : 'Produto Basilio';
-  const descText = prod.descricao && prod.descricao.trim().length ? prod.descricao : productTitle;
+    const productTitle = prod && prod.titulo ? prod.titulo : 'Produto Basilio';
+    const descText = prod.descricao && prod.descricao.trim().length ? prod.descricao : productTitle;
 
     const card = document.createElement('article');
     card.className = 'flip-card';
     card.setAttribute('tabindex', '0');
     card.setAttribute('role', 'button');
-    card.setAttribute('aria-expanded', 'false');
-    card.setAttribute('aria-controls', descId);
     card.setAttribute('aria-labelledby', titleId);
-    card.setAttribute('aria-describedby', `${priceId} ${descId} ${instructionsId}`);
+    card.setAttribute('aria-describedby', `${priceId} ${descId}`);
+    card.dataset.productTitle = productTitle;
+    card.dataset.productDesc = descText;
+    card.dataset.productImage = prod.imagem;
+    card.dataset.productPrice = getPriceLabel(prod.valor).text;
 
-  const priceLabel = getPriceLabel(prod.valor);
-  const priceClass = priceLabel.isCustom ? 'price price-alt' : 'price';
-  const priceAria = priceLabel.isCustom ? '' : ' aria-label="Valor sob consulta"';
-
-    const flipHint = '<span class="flip-hint" aria-hidden="true"><i class="fa-solid fa-arrows-rotate"></i></span>';
+    const priceLabel = getPriceLabel(prod.valor);
+    const priceClass = priceLabel.isCustom ? 'price price-alt' : 'price';
+    const priceAria = priceLabel.isCustom ? '' : ' aria-label="Valor sob consulta"';
+    
+    const badge = prod.badge || (prod.destaque ? 'Destaque' : '');
+    const badgeHTML = badge ? `<span class="card-badge">${escapeHtml(badge)}</span>` : '';
 
     card.innerHTML = `
       <div class="flip-inner">
-        <div class="flip-front" aria-hidden="false">
-          <img src="${prod.imagem}" alt="${escapeHtml(productTitle)}">
-          <h5 id="${titleId}">${escapeHtml(productTitle)}</h5>
-          <p id="${priceId}" class="${priceClass}"${priceAria}>${escapeHtml(priceLabel.text)}</p>
-          ${flipHint}
-        </div>
-        <div class="flip-back" aria-hidden="true">
-          <div class="back-text">${escapeHtml(descText)}</div>
-          ${flipHint}
+        <div class="flip-front">
+          <div class="card-image-wrapper">
+            <img src="${prod.imagem}" alt="${escapeHtml(productTitle)}" loading="lazy">
+            ${badgeHTML}
+          </div>
+          <div class="card-content">
+            <h5 id="${titleId}">${escapeHtml(productTitle)}</h5>
+            <p class="card-description" id="${descId}">${escapeHtml(descText)}</p>
+            <p id="${priceId}" class="${priceClass}"${priceAria}>${escapeHtml(priceLabel.text)}</p>
+          </div>
         </div>
       </div>
-      <p id="${descId}" class="sr-only">Descrição completa: ${escapeHtml(descText)}</p>
-      <p id="${instructionsId}" class="sr-only">Pressione Enter ou Espaço para ouvir a descrição completa do produto.</p>
     `;
 
-    const frontFace = card.querySelector('.flip-front');
-    const backFace = card.querySelector('.flip-back');
+    // Click to open modal
+    card.addEventListener('click', () => {
+      openProductModal(productTitle, descText, prod.imagem, priceLabel.text);
+    });
 
-    const toggleFlip = () => {
-      const isFlipped = card.classList.toggle('flipped');
-      card.setAttribute('aria-expanded', isFlipped);
-      if(frontFace){
-        frontFace.setAttribute('aria-hidden', isFlipped ? 'true' : 'false');
-      }
-      if(backFace){
-        backFace.setAttribute('aria-hidden', isFlipped ? 'false' : 'true');
-      }
-      if(isFlipped){
-        trackEvent('product_details_view', {
-          product_title: productTitle
-        });
-      }
-    };
-
-    card.addEventListener('click', toggleFlip);
-    card.addEventListener('keydown', (ev) => {
-      if(ev.key === 'Enter' || ev.key === ' '){
-        ev.preventDefault();
-        toggleFlip();
+    // Enter/Space to open modal
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openProductModal(productTitle, descText, prod.imagem, priceLabel.text);
       }
     });
+
     return card;
   }
 
@@ -343,6 +333,94 @@ document.addEventListener('DOMContentLoaded', function(){
     return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
   }
 
+  // ========== SWIPER CAROUSEL INITIALIZATION ==========
+  function initSwiper(containerSelector) {
+    if (typeof Swiper === 'undefined') {
+      console.warn('Swiper library not loaded');
+      return null;
+    }
+
+    const container = document.querySelector(containerSelector);
+    if (!container) return null;
+
+    const swiper = new Swiper(containerSelector, {
+      slidesPerView: 1.2,
+      spaceBetween: 20,
+      grabCursor: true,
+      loop: false,
+      watchOverflow: true,
+      
+      // Pagination (bolinhas)
+      pagination: {
+        el: `${containerSelector} .swiper-pagination`,
+        clickable: true,
+        dynamicBullets: true,
+        dynamicMainBullets: 3,
+      },
+      
+      // Navigation (setas)
+      navigation: {
+        nextEl: `${containerSelector} .swiper-button-next`,
+        prevEl: `${containerSelector} .swiper-button-prev`,
+      },
+      
+      // Breakpoints responsivos
+      breakpoints: {
+        // Mobile small
+        480: {
+          slidesPerView: 1.5,
+          spaceBetween: 16,
+        },
+        // Mobile
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        // Tablet
+        768: {
+          slidesPerView: 2.5,
+          spaceBetween: 20,
+        },
+        // Desktop small
+        992: {
+          slidesPerView: 3,
+          spaceBetween: 24,
+        },
+        // Desktop
+        1200: {
+          slidesPerView: 3.5,
+          spaceBetween: 24,
+        },
+        // Desktop large
+        1400: {
+          slidesPerView: 4,
+          spaceBetween: 24,
+        }
+      },
+      
+      // Acessibilidade
+      a11y: {
+        enabled: true,
+        prevSlideMessage: 'Slide anterior',
+        nextSlideMessage: 'Próximo slide',
+        paginationBulletMessage: 'Ir para o slide {{index}}',
+      },
+      
+      // Eventos para analytics
+      on: {
+        slideChange: function() {
+          trackEvent('carousel_navigate', {
+            carousel: containerSelector.replace('.', ''),
+            index: this.activeIndex
+          });
+        }
+      }
+    });
+
+    return swiper;
+  }
+
+  // OLD CAROUSEL - Manter por compatibilidade (não usado atualmente)
   function initCarousel(trackSelector, prevSelector, nextSelector, baseCardWidth = 240){
     const track = document.querySelector(trackSelector);
     const viewport = track ? track.closest('.carousel-viewport') : null;
@@ -440,12 +518,52 @@ document.addEventListener('DOMContentLoaded', function(){
     nextBtn.addEventListener('click', handleNext);
     window.addEventListener('resize', resizeHandler);
 
+    // Touch/Swipe Support
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let isDragging = false;
+
+    const handleTouchStart = (e) => {
+      touchStartX = e.touches[0].clientX;
+      isDragging = true;
+    };
+
+    const handleTouchMove = (e) => {
+      if (!isDragging) return;
+      touchEndX = e.touches[0].clientX;
+    };
+
+    const handleTouchEnd = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          // Swipe left - next
+          handleNext();
+        } else {
+          // Swipe right - prev
+          handlePrev();
+        }
+      }
+    };
+
+    viewport.addEventListener('touchstart', handleTouchStart, {passive: true});
+    viewport.addEventListener('touchmove', handleTouchMove, {passive: true});
+    viewport.addEventListener('touchend', handleTouchEnd);
+
     updateLayout();
 
     return () => {
       prevBtn.removeEventListener('click', handlePrev);
       nextBtn.removeEventListener('click', handleNext);
       window.removeEventListener('resize', resizeHandler);
+      viewport.removeEventListener('touchstart', handleTouchStart);
+      viewport.removeEventListener('touchmove', handleTouchMove);
+      viewport.removeEventListener('touchend', handleTouchEnd);
     };
   }
 
@@ -481,6 +599,108 @@ document.addEventListener('DOMContentLoaded', function(){
     if(!str) return '';
     return String(str).replace(/[&<>"']/g, function(m){
       return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];
+    });
+  }
+
+  // ========== PRODUCT MODAL WITH ZOOM ==========
+  function openProductModal(title, description, imageSrc, price) {
+    const modal = document.getElementById('detailModal');
+    if (!modal) return;
+
+    const modalBody = document.getElementById('modalBody');
+    
+    if (modalBody) {
+      const msg = `Olá! Vi o item "${title}" no site e gostaria de encomendar.`;
+      const encodedMsg = encodeURIComponent(msg);
+      const whatsappLink = `https://wa.me/${WA_NUMBER}?text=${encodedMsg}`;
+      
+      modalBody.innerHTML = `
+        <div class="product-modal-image">
+          <img src="${imageSrc}" alt="${escapeHtml(title)}">
+        </div>
+        <div class="product-modal-text">
+          <h3 class="product-modal-title">${escapeHtml(title)}</h3>
+          <p class="product-modal-price">${escapeHtml(price)}</p>
+          <p class="product-modal-description">${escapeHtml(description)}</p>
+          <a href="${whatsappLink}" class="product-modal-btn" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+            Encomendar pelo WhatsApp
+          </a>
+        </div>
+      `;
+    }
+
+    const bsModal = new bootstrap.Modal(modal);
+    bsModal.show();
+
+    trackEvent('product_modal_opened', {
+      product_name: title
+    });
+  }
+
+  // ========== SCROLL REVEAL ANIMATIONS ==========
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        // Reveal cards with stagger effect
+        if (entry.target.id === 'produtos' || entry.target.id === 'campanhas') {
+          const cards = entry.target.querySelectorAll('.flip-card');
+          cards.forEach((card, index) => {
+            setTimeout(() => {
+              card.classList.add('card-visible');
+            }, index * 100);
+          });
+        }
+      }
+    });
+  }, observerOptions);
+
+  // Observe all scroll-reveal elements
+  document.querySelectorAll('.scroll-reveal').forEach(el => {
+    revealObserver.observe(el);
+  });
+
+  // ========== NAVBAR SCROLL EFFECT ==========
+  let lastScroll = 0;
+  const navbar = document.getElementById('mainNav');
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > 100) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+    
+    lastScroll = currentScroll;
+  });
+
+  // ========== LAZY LOADING FOR IMAGES ==========
+  if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+          }
+          imageObserver.unobserve(img);
+        }
+      });
+    });
+
+    document.querySelectorAll('img[data-src]').forEach(img => {
+      imageObserver.observe(img);
     });
   }
 

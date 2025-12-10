@@ -63,6 +63,9 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/styles.css">
 
@@ -285,27 +288,52 @@
   <a class="skip-link" href="#conteudoPrincipal">Pular para o conteúdo principal</a>
 
   <!-- NAVBAR -->
-  <nav id="mainNav" class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" style="background:#F7EEDB;">
+  <nav id="mainNav" class="navbar navbar-expand-lg navbar-light fixed-top navbar-glass">
     <div class="container">
       <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#hero" style="color:#5A3E36;">
-  <img src="assets/images/brand/logo.jpeg" alt="Logo Basilio Bolos" class="brand-icon">
-        Basilio Bolos
+        <img src="assets/images/brand/logo.jpeg" alt="Logo Basilio Bolos" class="brand-icon">
+        <span class="brand-text">Basilio Bolos</span>
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
               aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
-          <li class="nav-item"><a class="nav-link" href="#hero">Início</a></li>
-          <li class="nav-item"><a class="nav-link" href="#campanhas">Campanhas</a></li>
-          <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
-          <li class="nav-item"><a class="nav-link" href="#produtos">Produtos</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
-          <li class="nav-item ms-3">
-          <a id="whatsappBtnNav" class="btn btn-sm btn-whatsapp" href="#" data-wa-message="Olá! Gostaria de fazer uma cotação personalizada." target="_blank">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-2">
+          <li class="nav-item">
+            <a class="nav-link" href="#hero">
+              <i class="fa-solid fa-home"></i>
+              Início
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#campanhas">
+              <i class="fa-solid fa-star"></i>
+              Campanhas
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#sobre">
+              <i class="fa-solid fa-heart"></i>
+              Sobre
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#produtos">
+              <i class="fa-solid fa-cake-candles"></i>
+              Produtos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contato">
+              <i class="fa-solid fa-envelope"></i>
+              Contato
+            </a>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <a id="whatsappBtnNav" class="btn btn-sm btn-whatsapp" href="#" data-wa-message="Olá! Gostaria de fazer uma cotação personalizada. Pode me ajudar?" target="_blank">
               <i class="fa-brands fa-whatsapp"></i>
-              Faça uma cotação
+              Fazer Pedido
             </a>
           </li>
         </ul>
@@ -315,56 +343,73 @@
 
   <main id="conteudoPrincipal" tabindex="-1">
   <!-- HERO -->
-  <header id="hero" class="py-5 hero-surface">
+  <header id="hero" class="hero-surface">
     <div class="container">
       <div class="row align-items-center g-4">
-        <div class="col-xl-6 col-lg-7 col-md-8 hero-copy">
-          <h1 class="display-5 fw-bold">Basilio Bolos</h1>
-          <p class="lead">Transformando momentos em doces memórias</p>
+        <div class="col-lg-6 hero-copy">
+          <h1 class="display-4 fw-bold hero-title">Basilio Bolos</h1>
+          <p class="hero-subtitle">Transformando momentos em doces memórias</p>
           <div class="hero-cta-stack" id="heroCtas">
-            <a href="#contato" class="btn btn-outline-secondary">Fale conosco</a>
+            <a id="heroWhatsAppPedido" href="#" data-wa-message="Olá! Gostaria de fazer uma cotação personalizada. Pode me ajudar?" class="btn btn-primary btn-lg hero-cta-primary" target="_blank">
+              <i class="fa-brands fa-whatsapp"></i>
+              Fazer Pedido
+            </a>
+            <a href="#produtos" class="btn btn-outline-light btn-lg hero-cta-secondary">
+              Ver Produtos
+            </a>
           </div>
         </div>
-        <div class="col-xl-5 col-lg-4 d-none d-lg-flex justify-content-end">
+        <div class="col-lg-6 hero-visual-wrapper">
           <div class="hero-visual" aria-hidden="true">
-            <img src="assets/images/hero/hero-placeholder.jpeg" alt="Seleção de bolos Basilio" loading="lazy">
+            <img src="assets/images/hero/hero-placeholder-circle.png" alt="Seleção de bolos Basilio" loading="eager">
           </div>
         </div>
       </div>
     </div>
+    <div class="hero-decoration"></div>
   </header>
 
+  <!-- WhatsApp Floating Button -->
+  <!-- <a id="whatsappFloat" href="#" data-wa-message="Olá! Quero fazer uma encomenda 🎂" target="_blank" class="whatsapp-float" aria-label="Fale conosco no WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+    <span class="pulse-ring"></span>
+  </a> -->
+
   <!-- CAMPANHAS -->
-  <section id="campanhas" class="py-5 section-campaign" data-default-bg="#fff">
+  <section id="campanhas" class="py-5 section-campaign scroll-reveal" data-default-bg="#fff">
     <div class="container">
       <div class="section-header">
         <p class="section-eyebrow" id="campSubtitle">Campanha em destaque</p>
         <h2 class="mb-3" id="campTitle">Campanha especial</h2>
         <p class="mb-4" id="campDescription">Descubra os itens sazonais com a mesma qualidade artesanal.</p>
       </div>
-      <div class="carousel-shell" aria-label="Carrossel de campanhas">
-        <button id="campPrev" class="carousel-btn" type="button" aria-label="Campanha anterior">◀</button>
-        <div class="carousel-viewport">
-          <div id="campList" class="carousel-track"><!-- cards --></div>
-        </div>
-        <button id="campNext" class="carousel-btn" type="button" aria-label="Próxima campanha">▶</button>
+      <div class="swiper campSwiper">
+        <div class="swiper-wrapper" id="campList"><!-- cards --></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-pagination"></div>
       </div>
     </div>
   </section>
 
   <!-- SOBRE NÓS -->
-  <section id="sobre" class="py-5 section-gradient-sand">
+  <section id="sobre" class="py-5 section-gradient-sand scroll-reveal">
     <div class="container sobre-container">
-      <div class="sobre-title text-center text-lg-start">
-        <h3 class="sobre-heading">Sobre nós</h3>
+      <div class="section-header text-center mb-5">
+        <h2 class="section-badge-title">Nossa História</h2>
+        <!-- <p class="lead text-center mx-auto" style="max-width:700px;color:#6b4f46;">
+          Há 10 anos transformando momentos especiais em doces memórias
+        </p> -->
       </div>
-      <div class="row align-items-center g-4 sobre-grid">
+      <div class="row align-items-center g-5 sobre-grid">
         <div class="col-lg-5 text-center sobre-image">
-          <img src="assets/images/sobre/irmas-placeholder.jpeg" class="img-fluid rounded-circle" alt="Irmãs Basilio">
+          <div class="image-frame">
+            <img src="assets/images/sobre/irmas-placeholder.jpeg" class="img-fluid" alt="Irmãs Basilio">
+          </div>
         </div>
         <div class="col-lg-7 sobre-text">
           <p class="lead">
-            A Basilio Bolos nasceu há <strong>10 anos</strong>, quando começamos a vender bolo no pote de porta em porta.
+            A <strong>Basilio Bolos</strong> nasceu há <strong>10 anos</strong>, quando começamos a vender bolo no pote de porta em porta.
             Com paixão, estudo e dedicação, hoje oferecemos uma confeitaria artesanal especializada, com produtos altamente
             personalizáveis, feitos com carinho e atenção aos detalhes.
           </p>
@@ -372,51 +417,109 @@
             Nosso prazer é fazer parte dos melhores momentos das pessoas, mesmo que nos bastidores — alegrar e adoçar histórias,
             uma encomenda por vez.
           </p>
+          <div class="sobre-features mt-4">
+            <div class="feature-item">
+              <i class="fa-solid fa-heart"></i>
+              <div>
+                <strong>100% Artesanal</strong>
+                <span>Feito com amor e ingredientes selecionados</span>
+              </div>
+            </div>
+            <div class="feature-item">
+              <i class="fa-solid fa-star"></i>
+              <div>
+                <strong>10 Anos de Tradição</strong>
+                <span>Experiência e dedicação em cada receita</span>
+              </div>
+            </div>
+            <div class="feature-item">
+              <i class="fa-solid fa-cake-candles"></i>
+              <div>
+                <strong>Personalização Total</strong>
+                <span>Seu pedido exatamente como você imaginou</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- PRODUTOS -->
-  <section id="produtos" class="py-5 section-soft">
+  <section id="produtos" class="py-5 section-soft scroll-reveal">
     <div class="container">
-      <div class="section-header">
-        <h2 class="mb-3" style="color:#5A3E36;">Nossos Produtos</h2>
-        <p class="mb-4">Clique no cartão para ver a descrição do produto.</p>
+      <div class="section-header text-center mb-5">
+        <h2 class="section-badge-title">Nossos Produtos</h2>
+        <p class="mb-4" style="color:#6b4f46;">Explore nossa seleção de produtos feitos com carinho</p>
       </div>
-      <div class="carousel-shell" aria-label="Carrossel de produtos">
-        <button id="prodPrev" class="carousel-btn" type="button" aria-label="Produto anterior">◀</button>
-        <div class="carousel-viewport">
-          <div id="prodList" class="carousel-track"><!-- product cards injected by JS --></div>
-        </div>
-        <button id="prodNext" class="carousel-btn" type="button" aria-label="Próximo produto">▶</button>
+      <div class="swiper prodSwiper">
+        <div class="swiper-wrapper" id="prodList"><!-- product cards injected by JS --></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-pagination"></div>
       </div>
     </div>
   </section>
 
   <!-- CONTATO -->
-  <section id="contato" class="py-5 section-gradient-sand">
-    <div class="container text-center">
-      <h3 style="color:#5A3E36;">Fale conosco</h3>
-      <p style="color:#5b4540;">Clique no botão abaixo para pedir pelo WhatsApp ou tirar suas dúvidas.</p>
-      <a id="whatsappBtn" class="btn btn-lg btn-whatsapp" href="#" data-wa-message="Olá! Tenho algumas dúvidas e gostaria de conversar com você." target="_blank">
-        <i class="fa-brands fa-whatsapp"></i>
-        Converse com a gente
-      </a>
-    </div>
-    <div class="container text-center" style="margin-top: 36px;">
-       <h4 style="color:#5A3E36;">Localização</h4>
-      <address class="contact-address" aria-label="Endereço físico">
-        <span class="address-icon">
-          <a href="https://maps.app.goo.gl/2Jw8sBdD5A7s3rWm9" target="_blank" rel="noopener noreferrer" aria-label="Abrir localização no Google Maps">
-            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+  <section id="contato" class="py-5 section-contato scroll-reveal">
+    <div class="container">
+      <div class="section-header text-center mb-5">
+        <h2 class="section-badge-title-dark">Contatos</h2>
+        <p class="lead text-center mx-auto" style="max-width:650px;color:rgba(255,255,255,0.9);">
+          Estamos prontos para criar algo especial para você
+        </p>
+      </div>
+
+      <div class="row g-4 justify-content-center mb-5">
+        <div class="col-md-4">
+          <a href="#" id="contatoWhatsApp" class="contact-card" target="_blank">
+            <div class="contact-icon">
+              <i class="fa-brands fa-whatsapp"></i>
+            </div>
+            <h4>WhatsApp</h4>
+            <p>Fale conosco agora</p>
+            <span class="contact-arrow">→</span>
           </a>
-        </span>
-        <span class="address-text">
-          <strong>Basilio Bolos</strong>
-          Av. Estados Unidos, 439 · Parque das Nações · Santo André/SP
-        </span>
-      </address>
+        </div>
+        <div class="col-md-4">
+          <a href="https://www.instagram.com/basiliobolos/" class="contact-card" target="_blank" rel="noopener">
+            <div class="contact-icon">
+              <i class="fa-brands fa-instagram"></i>
+            </div>
+            <h4>Instagram</h4>
+            <p>@basiliobolos</p>
+            <span class="contact-arrow">→</span>
+          </a>
+        </div>
+        <div class="col-md-4">
+          <a href="https://maps.app.goo.gl/2Jw8sBdD5A7s3rWm9" class="contact-card" target="_blank" rel="noopener">
+            <div class="contact-icon">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <h4>Localização</h4>
+            <p>Ver no mapa</p>
+            <span class="contact-arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <address class="contact-address-modern" aria-label="Endereço físico">
+          <h5 style="color:#fff;margin-bottom:1.5rem;font-size:1.3rem;font-weight: bold;">
+            <i class="fa-solid fa-map-marker-alt"></i>
+            Nosso Endereço
+          </h5>
+          <p style="color:rgba(255,255,255,0.95);font-size:1rem;margin:0 0 1.5rem 0;">
+            Av. Estados Unidos, 439 <span class="d-none d-md-inline">·</span><br class="d-md-none"> Parque das Nações<br>
+            Santo André/SP · CEP 09210-300
+          </p>
+          <p style="color:rgba(255,255,255,0.85);margin:0;font-size:0.9rem;">
+            <i class="fa-regular fa-clock"></i>
+            Segunda a Domingo · 08:00 às 20:00
+          </p>
+        </address>
+      </div>
     </div>
   </section>
   </main>
@@ -429,7 +532,7 @@
         <a href="https://www.instagram.com/basiliobolos/" class="social-link" aria-label="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
         <a href="https://web.facebook.com/basiliobolos/" class="social-link" aria-label="Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
         <a href="https://www.tiktok.com/@basiliobolos" class="social-link" aria-label="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-  <a id="whatsFooter" href="#" data-wa-message="Olá! Estou no site da Basilio Bolos e quero falar sobre encomendas." target="_blank" aria-label="WhatsApp" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
+  <a id="whatsFooter" href="#" target="_blank" aria-label="WhatsApp" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
         <a href="https://maps.app.goo.gl/2Jw8sBdD5A7s3rWm9" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Ver endereço no Google Maps"><i class="fa-solid fa-location-dot"></i></a>
       </div>
     </div>
@@ -437,17 +540,11 @@
 
   <!-- Modal para exibir detalhes -->
   <div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalTitle">Detalhes</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-        </div>
-        <div class="modal-body" id="modalBody">
+    <div class="modal-dialog modal-dialog-centered product-modal-dialog">
+      <div class="modal-content product-modal-content">
+        <button type="button" class="btn-close product-modal-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        <div class="modal-body product-modal-body" id="modalBody">
           <!-- conteúdo injetado -->
-        </div>
-        <div class="modal-footer">
-          <a id="modalWhats" class="btn btn-whatsapp" href="#" data-wa-message="Olá! Vi os detalhes do produto e gostaria de fazer um pedido." target="_blank">Pedir pelo WhatsApp</a>
         </div>
       </div>
     </div>
@@ -455,6 +552,9 @@
 
   <!-- Bootstrap JS (bundle includes Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   <!-- App JS -->
   <script src="js/app.js"></script>
