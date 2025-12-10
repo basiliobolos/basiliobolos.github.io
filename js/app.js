@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function(){
   const captureNavbarHeight = () => {
     if(!mainNav) return;
     navbarHeight = mainNav.getBoundingClientRect().height;
-    console.log('Navbar height captured:', navbarHeight);
   };
 
   // Capturar altura assim que possível
