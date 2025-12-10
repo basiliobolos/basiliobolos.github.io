@@ -48,6 +48,9 @@ temp/
 
 # Ambiente
 .env
+
+# Documentação interna
+*.internal.md
 .env.local
 .env.*.local
 

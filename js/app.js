@@ -649,15 +649,6 @@ document.addEventListener('DOMContentLoaded', function(){
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('revealed');
-        // Reveal cards with stagger effect
-        if (entry.target.id === 'produtos' || entry.target.id === 'campanhas') {
-          const cards = entry.target.querySelectorAll('.flip-card');
-          cards.forEach((card, index) => {
-            setTimeout(() => {
-              card.classList.add('card-visible');
-            }, index * 100);
-          });
-        }
       }
     });
   }, observerOptions);
@@ -666,6 +657,17 @@ document.addEventListener('DOMContentLoaded', function(){
   document.querySelectorAll('.scroll-reveal').forEach(el => {
     revealObserver.observe(el);
   });
+
+  // Mostrar cards dos carrosséis imediatamente (sem scroll reveal)
+  const showCarouselCards = () => {
+    const carouselCards = document.querySelectorAll('#produtos .flip-card, #campanhas .flip-card');
+    carouselCards.forEach(card => {
+      card.classList.add('card-visible');
+    });
+  };
+  
+  // Executar após um pequeno delay para garantir que os cards foram criados
+  setTimeout(showCarouselCards, 100);
 
   // ========== NAVBAR SCROLL EFFECT ==========
   let lastScroll = 0;
