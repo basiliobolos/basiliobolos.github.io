@@ -801,6 +801,7 @@ section[id]{
 @media(max-width:768px){
   .carousel-container{
     position:relative;
+    padding-bottom: 30px;
   }
   
   .carousel-wrapper{
@@ -997,7 +998,6 @@ section[id]{
     margin:0 -10px;
     padding-left:10px;
     padding-right:10px;
-    padding-bottom:50px;
   }
   
   .swiper-pagination{
