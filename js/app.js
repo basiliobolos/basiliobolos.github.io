@@ -352,9 +352,9 @@ document.addEventListener('DOMContentLoaded', function(){
       // Pagination (bolinhas)
       pagination: {
         el: `${containerSelector} .swiper-pagination`,
-        clickable: true,
+        clickable: false,
         dynamicBullets: true,
-        dynamicMainBullets: 3,
+        dynamicMainBullets: 1,
       },
       
       // Navigation (setas)
@@ -415,6 +415,16 @@ document.addEventListener('DOMContentLoaded', function(){
         }
       }
     });
+
+    // Remover animação de convite após primeiro clique no botão next
+    const nextButton = container.querySelector('.swiper-button-next');
+    if (nextButton) {
+      const removeInviteAnimation = () => {
+        nextButton.classList.add('clicked');
+        nextButton.removeEventListener('click', removeInviteAnimation);
+      };
+      nextButton.addEventListener('click', removeInviteAnimation);
+    }
 
     return swiper;
   }
