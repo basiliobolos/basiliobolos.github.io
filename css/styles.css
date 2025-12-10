@@ -791,23 +791,70 @@ section[id]{
 }
 
 /* ========== SWIPER CAROUSEL ========== */
-.campSwiper,
-.prodSwiper{
-  padding-bottom:55px !important;
-  margin:0 -15px;
-  padding-left:15px;
-  padding-right:15px;
-  overflow:visible !important;
+/* Container principal do carrossel com botões laterais */
+.carousel-container{
   position:relative;
+  padding-bottom:55px;
 }
 
-/* Desktop: adicionar padding lateral para comportar os botões */
-@media(min-width:769px){
-  .campSwiper,
-  .prodSwiper{
-    padding-left:60px !important;
-    padding-right:60px !important;
+/* No mobile, os botões ficam sobre o carrossel */
+@media(max-width:768px){
+  .carousel-container{
+    position:relative;
   }
+  
+  .carousel-wrapper{
+    width:100%;
+    margin:0 -15px;
+    padding:0 15px;
+  }
+  
+  .swiper-button-prev,
+  .swiper-button-next{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:10;
+  }
+  
+  .swiper-button-prev{
+    left:10px;
+  }
+  
+  .swiper-button-next{
+    right:10px;
+  }
+}
+
+/* No desktop, layout flexbox com botões fora do wrapper */
+@media(min-width:769px){
+  .carousel-container{
+    display:flex;
+    align-items:center;
+    gap:20px;
+  }
+  
+  .carousel-wrapper{
+    flex:1;
+    overflow:hidden;
+    position:relative;
+  }
+  
+  .swiper-button-prev,
+  .swiper-button-next{
+    position:relative;
+    top:auto;
+    left:auto;
+    right:auto;
+    margin-top:0;
+    flex-shrink:0;
+  }
+}
+
+.campSwiper,
+.prodSwiper{
+  overflow:visible !important;
+  position:relative;
 }
 
 .swiper-wrapper{
@@ -842,9 +889,16 @@ section[id]{
 .swiper-button-prev:hover:not(.swiper-button-disabled),
 .swiper-button-next:hover:not(.swiper-button-disabled){
   background:#fff;
-  transform:scale(1.15);
   box-shadow:0 8px 32px rgba(0,0,0,0.3);
   border-color:rgba(90,62,54,0.25);
+}
+
+/* No desktop, o transform scale do hover precisa ser relativo */
+@media(min-width:769px){
+  .swiper-button-prev:hover:not(.swiper-button-disabled),
+  .swiper-button-next:hover:not(.swiper-button-disabled){
+    transform:scale(1.15);
+  }
 }
 
 .swiper-button-prev:active:not(.swiper-button-disabled),
@@ -885,9 +939,9 @@ section[id]{
 }
 
 /* Paginação (bolinhas) */
-.swiper-pagination{
+.carousel-container .swiper-pagination{
   position:absolute !important;
-  bottom:12px !important;
+  bottom:0 !important;
   left:50% !important;
   right:auto !important;
   width:auto !important;

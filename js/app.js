@@ -342,6 +342,9 @@ document.addEventListener('DOMContentLoaded', function(){
     const container = document.querySelector(containerSelector);
     if (!container) return null;
 
+    // Buscar os botões e paginação no container pai (.carousel-container)
+    const carouselContainer = container.closest('.carousel-container');
+    
     const swiper = new Swiper(containerSelector, {
       slidesPerView: 1.2,
       spaceBetween: 20,
@@ -349,18 +352,18 @@ document.addEventListener('DOMContentLoaded', function(){
       loop: false,
       watchOverflow: true,
       
-      // Pagination (bolinhas)
+      // Pagination (bolinhas) - buscar no container pai
       pagination: {
-        el: `${containerSelector} .swiper-pagination`,
+        el: carouselContainer ? carouselContainer.querySelector('.swiper-pagination') : `${containerSelector} .swiper-pagination`,
         clickable: false,
         dynamicBullets: true,
         dynamicMainBullets: 1,
       },
       
-      // Navigation (setas)
+      // Navigation (setas) - buscar no container pai
       navigation: {
-        nextEl: `${containerSelector} .swiper-button-next`,
-        prevEl: `${containerSelector} .swiper-button-prev`,
+        nextEl: carouselContainer ? carouselContainer.querySelector('.swiper-button-next') : `${containerSelector} .swiper-button-next`,
+        prevEl: carouselContainer ? carouselContainer.querySelector('.swiper-button-prev') : `${containerSelector} .swiper-button-prev`,
       },
       
       // Breakpoints responsivos
@@ -417,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     // Remover animação de convite após primeiro clique no botão next
-    const nextButton = container.querySelector('.swiper-button-next');
+    const nextButton = carouselContainer ? carouselContainer.querySelector('.swiper-button-next') : container.querySelector('.swiper-button-next');
     if (nextButton) {
       const removeInviteAnimation = () => {
         nextButton.classList.add('clicked');
