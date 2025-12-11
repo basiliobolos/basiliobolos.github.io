@@ -194,7 +194,14 @@
       "Bentô cake",
       "Presentes",
       "Lembrancinhas"
-    ]
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.6",
+      "reviewCount": "7",
+      "bestRating": "5",
+      "worstRating": "4"
+    }
   }
   </script>
 
@@ -272,7 +279,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-2">
-          <li class="nav-item">
+          <li class="nav-item" hidden>
             <a class="nav-link" href="#hero">
               <i class="fa-solid fa-home"></i>
               Início
@@ -280,7 +287,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#campanhas">
-              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-gift"></i>
               Campanhas
             </a>
           </li>
@@ -294,6 +301,12 @@
             <a class="nav-link" href="#produtos">
               <i class="fa-solid fa-cake-candles"></i>
               Produtos
+            </a>
+          </li>
+          <li id="menu-item-avaliacoes" class="nav-item">
+            <a class="nav-link" href="#avaliacoes">
+              <i class="fa-solid fa-star"></i>
+              Avaliações
             </a>
           </li>
           <li class="nav-item">
@@ -437,6 +450,50 @@
         </div>
         <div class="swiper-button-next"></div>
         <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVALIAÇÕES -->
+  <section id="avaliacoes" class="py-5 section-avaliacoes">
+    <div class="container">
+      <div class="section-header text-center mb-5">
+        <h2 class="section-badge-title">O que dizem nossos clientes</h2>
+        <p class="lead text-center mx-auto" style="max-width:700px;color:#6b4f46;">
+          A opinião de quem já provou nossos produtos
+        </p>
+      </div>
+      
+      <div class="google-rating-card">
+        <div class="rating-header">
+          <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google" class="google-logo" width="92" height="30">
+          <div class="rating-info">
+            <div class="rating-stars">
+              <span class="star-number" id="avgRating">0.0</span>
+              <div class="stars" id="avgStars">
+                <!-- stars will be injected by JS -->
+              </div>
+            </div>
+            <p class="review-count" id="reviewCount">Baseado em avaliações do Google</p>
+          </div>
+        </div>
+        
+        <div class="rating-cta">
+          <a id="viewAllReviewsBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-google">
+            <i class="fa-solid fa-external-link-alt"></i>
+            Ver todas as avaliações
+          </a>
+          <a id="writeReviewBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-write-review">
+            <i class="fa-solid fa-pen"></i>
+            Deixe sua avaliação
+          </a>
+        </div>
+      </div>
+
+      <div class="reviews-highlight mt-5">
+        <div class="row g-4" id="reviewsList">
+          <!-- review cards will be injected by JS -->
+        </div>
       </div>
     </div>
   </section>

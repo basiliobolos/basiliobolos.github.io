@@ -1,0 +1,67 @@
+{
+  "enabled": false,
+  "googleMapsUrl": "https://maps.app.goo.gl/KhbrkQj8LVgPtn6P7",
+  "writeReviewUrl": "https://g.page/r/CUvQXQhIxtA1EBI/review",
+  "displayConfig": {
+    "minRating": 4,
+    "maxRating": 5,
+    "displayCount": 3
+  },
+  "statistics": {
+    "total": 7,
+    "average": 4.79,
+    "min": 4,
+    "max": 5
+  },
+  "reviews": [
+    {
+      "author": "Cliente Google",
+      "date": "2024-12-05",
+      "text": "Produtos de excelente qualidade! Os bolos são maravilhosos e sempre frescos. Super recomendo!",
+      "rating": 5,
+      "showOnSite": true
+    },
+    {
+      "author": "Cliente Google",
+      "date": "2024-11-20",
+      "text": "Atendimento impecável e produtos deliciosos. A festa na caixa foi um sucesso!",
+      "rating": 5,
+      "showOnSite": true
+    },
+    {
+      "author": "Cliente Google",
+      "date": "2024-10-15",
+      "text": "Melhor confeitaria da região! Sempre peço para ocasiões especiais. Nunca decepciona!",
+      "rating": 5,
+      "showOnSite": true
+    },
+    {
+      "author": "Maria Silva",
+      "date": "2024-09-08",
+      "text": "Adorei o bolo personalizado! Ficou lindo e muito saboroso. Só achei o preço um pouco alto.",
+      "rating": 4.5,
+      "showOnSite": true
+    },
+    {
+      "author": "João Santos",
+      "date": "2024-08-22",
+      "text": "Os docinhos são perfeitos! Encomendei para o aniversário da minha filha e todos adoraram.",
+      "rating": 5,
+      "showOnSite": true
+    },
+    {
+      "author": "Ana Paula",
+      "date": "2024-07-10",
+      "text": "Ótimos produtos, mas o prazo de entrega poderia ser mais flexível.",
+      "rating": 4,
+      "showOnSite": true
+    },
+    {
+      "author": "Pedro Costa",
+      "date": "2024-06-05",
+      "text": "Ótimo",
+      "rating": 5,
+      "showOnSite": true
+    }
+  ]
+}

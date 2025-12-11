@@ -5,6 +5,7 @@ User-agent: *
 Allow: /
 Allow: /assets/images/
 Disallow: /data/
+Disallow: /tools/
 
 # Sitemaps
 Sitemap: https://basiliobolos.com.br/sitemap.xml

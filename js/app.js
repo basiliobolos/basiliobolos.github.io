@@ -53,8 +53,9 @@ document.addEventListener('DOMContentLoaded', function(){
   // If you prefer inline data, you can replace fetch with a constant variable.
   Promise.all([
     fetch('data/campanhas.json').then(r => r.ok ? r.json() : null).catch(()=>null),
-    fetch('data/produtos.json').then(r => r.ok ? r.json() : null).catch(()=>null)
-  ]).then(([campanhaData, produtosData]) => {
+    fetch('data/produtos.json').then(r => r.ok ? r.json() : null).catch(()=>null),
+    fetch('data/avaliacoes.json').then(r => r.ok ? r.json() : null).catch(()=>null)
+  ]).then(([campanhaData, produtosData, avaliacoesData]) => {
 
     // ---------- CAMPANHA ----------
     const heroCtas = document.getElementById('heroCtas');
@@ -95,6 +96,19 @@ document.addEventListener('DOMContentLoaded', function(){
         prodList.appendChild(slide);
       });
       initSwiper('.prodSwiper');
+    }
+
+    // ---------- AVALIAÇÕES ----------
+    if (avaliacoesData && avaliacoesData.enabled) {
+      loadAvaliacoes(avaliacoesData);
+    } else {
+      // Hide section if disabled
+      const avaliacoesSection = document.getElementById('avaliacoes');
+      if (avaliacoesSection) avaliacoesSection.style.display = 'none';
+
+
+      const menuItemAvalicoes = document.getElementById('menu-item-avaliacoes');
+      if (menuItemAvalicoes) menuItemAvalicoes.style.display = 'none';
     }
 
   }).catch(err=>{
@@ -718,4 +732,165 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
+  // ========== AVALIAÇÕES ==========
+  function loadAvaliacoes(data) {
+    if (!data.reviews || data.reviews.length === 0) return;
+    
+    // Use pre-calculated statistics from JSON
+    const { total: totalReviews, average: averageRating } = data.statistics || { 
+      total: data.reviews.length, 
+      average: data.reviews.reduce((sum, r) => sum + r.rating, 0) / data.reviews.length 
+    };
+    
+    // Update average rating
+    const avgRatingEl = document.getElementById('avgRating');
+    const avgStarsEl = document.getElementById('avgStars');
+    const reviewCountEl = document.getElementById('reviewCount');
+    
+    if (avgRatingEl) {
+      avgRatingEl.textContent = averageRating.toFixed(1);
+    }
+    
+    if (avgStarsEl) {
+      avgStarsEl.innerHTML = renderStars(averageRating);
+    }
+    
+    if (reviewCountEl) {
+      reviewCountEl.textContent = `Baseado em ${totalReviews} avaliações do Google`;
+    }
+    
+    // Update button links from JSON
+    const viewAllReviewsBtn = document.getElementById('viewAllReviewsBtn');
+    const writeReviewBtn = document.getElementById('writeReviewBtn');
+    
+    if (viewAllReviewsBtn && data.googleMapsUrl) {
+      viewAllReviewsBtn.href = data.googleMapsUrl;
+    }
+    
+    if (writeReviewBtn && data.writeReviewUrl) {
+      writeReviewBtn.href = data.writeReviewUrl;
+    }
+    
+    // Get display configuration
+    const config = data.displayConfig || {};
+    const minRating = config.minRating || 0;
+    const maxRating = config.maxRating || 5;
+    const displayCount = config.displayCount || 3;
+    
+    // Filter reviews: showOnSite=true AND rating between min/max
+    let filteredReviews = data.reviews.filter(review => 
+      review.showOnSite && 
+      review.rating >= minRating && 
+      review.rating <= maxRating
+    );
+    
+    // Sort by date (most recent first)
+    filteredReviews.sort((a, b) => {
+      const dateA = new Date(a.date || '1970-01-01');
+      const dateB = new Date(b.date || '1970-01-01');
+      return dateB - dateA; // descending order (newest first)
+    });
+    
+    // Limit to displayCount
+    const reviewsToShow = filteredReviews.slice(0, displayCount);
+    
+    // Render reviews
+    const reviewsListEl = document.getElementById('reviewsList');
+    if (!reviewsListEl) return;
+    
+    reviewsToShow.forEach(review => {
+      const col = document.createElement('div');
+      col.className = 'col-md-4';
+      
+      const card = document.createElement('div');
+      card.className = 'review-card';
+      
+      const stars = document.createElement('div');
+      stars.className = 'review-stars';
+      stars.innerHTML = renderStars(review.rating);
+      
+      const text = document.createElement('p');
+      text.className = 'review-text';
+      text.textContent = `"${review.text}"`;
+      
+      const author = document.createElement('p');
+      author.className = 'review-author';
+      
+      // Calculate time delta
+      const timeAgo = review.date ? getTimeAgo(review.date) : '';
+      author.textContent = timeAgo ? `— ${review.author} • ${timeAgo}` : `— ${review.author}`;
+      
+      author.className = 'review-author';
+      author.textContent = `— ${review.author}`;
+      
+      card.appendChild(stars);
+      card.appendChild(text);
+      card.appendChild(author);
+      col.appendChild(card);
+      reviewsListEl.appendChild(col);
+    });
+  }
+  
+  function renderStars(rating) {
+    let starsHTML = '';
+    
+    if (rating >= 5) {
+      // 5 estrelas cheias
+      for (let i = 0; i < 5; i++) {
+        starsHTML += '<i class="fa-solid fa-star"></i>';
+      }
+    } else if (rating > 4 && rating < 5) {
+      // 4 estrelas cheias + 1 meia
+      for (let i = 0; i < 4; i++) {
+        starsHTML += '<i class="fa-solid fa-star"></i>';
+      }
+      starsHTML += '<i class="fa-solid fa-star-half-stroke"></i>';
+    } else {
+      // Menor que 4: estrelas cheias + meia (se tiver decimal) + vazias
+      const fullStars = Math.floor(rating);
+      const hasDecimal = rating % 1 > 0;
+      const halfStar = hasDecimal ? 1 : 0;
+      const emptyStars = 5 - fullStars - halfStar;
+      
+      // Estrelas cheias
+      for (let i = 0; i < fullStars; i++) {
+        starsHTML += '<i class="fa-solid fa-star"></i>';
+      }
+      
+      // Meia estrela se tiver decimal
+      if (hasDecimal) {
+        starsHTML += '<i class="fa-solid fa-star-half-stroke"></i>';
+      }
+      
+      // Estrelas vazias
+      for (let i = 0; i < emptyStars; i++) {
+        starsHTML += '<i class="fa-regular fa-star"></i>';
+      }
+    }
+    
+    return starsHTML;
+  }
+
+  function getTimeAgo(dateString) {
+    const reviewDate = new Date(dateString);
+    const now = new Date();
+    const diffMs = now - reviewDate;
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 0) {
+      return 'hoje';
+    } else if (diffDays === 1) {
+      return '1 dia atrás';
+    } else if (diffDays < 30) {
+      return `${diffDays} dias atrás`;
+    } else if (diffDays < 365) {
+      const months = Math.floor(diffDays / 30);
+      return months === 1 ? '1 mês atrás' : `${months} meses atrás`;
+    } else {
+      const years = Math.floor(diffDays / 365);
+      return years === 1 ? '1 ano atrás' : `${years} anos atrás`;
+    }
+  }
+
 });
+

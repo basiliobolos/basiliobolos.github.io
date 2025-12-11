@@ -1,0 +1,22 @@
+{
+  "name": "basilio-reviews-manager",
+  "version": "1.0.0",
+  "description": "Gerenciador de avaliações do site Basilio Bolos",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "add": "node index.js add",
+    "list": "node index.js list",
+    "edit": "node index.js edit",
+    "delete": "node index.js delete",
+    "stats": "node index.js stats",
+    "config": "node index.js config"
+  },
+  "keywords": ["reviews", "manager", "cli"],
+  "author": "Basilio Bolos",
+  "license": "MIT",
+  "dependencies": {
+    "inquirer": "^9.2.12"
+  }
+}
