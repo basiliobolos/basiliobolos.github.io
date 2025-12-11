@@ -13,16 +13,22 @@
       "valor": "A partir de R$ 170"
     },
     {
-      "titulo": "Kit mini trufas",
-      "imagem": "assets/images/produtos/trufas.webp",
-      "descricao": "Mini trufas artesanais vendidas a partir de 10 unidades. Cremosas, delicadas e perfeitas para adoçar qualquer momento.",
-      "valor": "A partir de R$ 35"
+      "titulo": "Brownie",
+      "imagem": "assets/images/produtos/brownie.webp",
+      "descricao": "Brownie bem chocolatudo, macio por dentro e com casquinha crocante por fora. Vendido na marmitinha a partir de 80g.",
+      "valor": "A partir de R$ 12"
     },
     {
       "titulo": "Bolo no pote",
       "imagem": "assets/images/produtos/bolo-no-pote.webp",
       "descricao": "Nosso clássico! O produto que deu início à nossa história, quando vendíamos de porta em porta. Camadas generosas de bolo e recheio.",
       "valor": "A partir de R$ 15"
+    },
+    {
+      "titulo": "Kit mini trufas",
+      "imagem": "assets/images/produtos/trufas.webp",
+      "descricao": "Mini trufas artesanais vendidas a partir de 10 unidades. Cremosas, delicadas e perfeitas para adoçar qualquer momento.",
+      "valor": "A partir de R$ 35"
     },
     {
       "titulo": "Bento cake",
