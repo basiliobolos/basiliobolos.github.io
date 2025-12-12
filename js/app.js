@@ -78,6 +78,10 @@ document.addEventListener('DOMContentLoaded', function(){
       initSwiper('.campSwiper');
     } else {
       document.getElementById('campanhas').style.display = 'none';
+      const menuItemCampanhas = document.getElementById('menu-item-campanhas');
+      if(menuItemCampanhas) {
+        menuItemCampanhas.style.display = 'none';
+      }
     }
 
     // ---------- PRODUTOS ----------

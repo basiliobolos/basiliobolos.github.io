@@ -640,7 +640,7 @@ section[id]{
 
 /* ========== AVALIAÇÕES ========== */
 .section-avaliacoes{
-  background:linear-gradient(to bottom, var(--areia) 0%, #fff 100%);
+  background:linear-gradient(to bottom, #D9C3AE 0%, var(--areia) 100%);
   position:relative;
 }
 .google-rating-card{
