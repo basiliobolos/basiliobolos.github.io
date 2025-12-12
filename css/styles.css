@@ -199,11 +199,9 @@ section[id]{
 #whatsappBtn:focus-visible,
 #whatsappBtnNav:focus-visible,
 #modalWhats:focus-visible{
-  background:var(--marrom-escuro);
-  border-color:var(--marrom-escuro);
+  background:#000;
+  border-color:#fff;
   color:#fff;
-  transform:translateY(-2px);
-  box-shadow:0 6px 20px rgba(90,62,54,0.3);
 }
 .btn-whatsapp:focus-visible,
 #whatsappBtn:focus-visible,
@@ -392,19 +390,19 @@ section[id]{
   border-color:var(--marrom) !important;
 }
 .hero-cta-primary:hover{
-  background:var(--marrom-escuro) !important;
-  transform:translateY(-3px);
-  box-shadow:0 8px 24px rgba(90,62,54,0.4);
+  background:#000 !important;
+  border-color:#fff !important;
+  color:#fff !important;
 }
 .hero-cta-secondary{
-  background:transparent;
-  color:#fff !important;
-  border-color:rgba(255,255,255,0.5) !important;
+  background:var(--bege);
+  color:var(--marrom) !important;
+  border:2px solid transparent !important;
 }
 .hero-cta-secondary:hover{
-  background:rgba(255,255,255,0.15);
+  background:#000 !important;
   border-color:#fff !important;
-  transform:translateY(-3px);
+  color:#fff !important;
 }
 
 /* Hero Visual */
@@ -582,8 +580,6 @@ section[id]{
 .contact-card:hover{
   background:rgba(255,255,255,0.15);
   border-color:rgba(255,255,255,0.3);
-  transform:translateY(-4px);
-  box-shadow:0 12px 32px rgba(0,0,0,0.25);
   color:#fff;
 }
 .contact-card:hover::before{opacity:1}
@@ -601,7 +597,6 @@ section[id]{
 }
 .contact-card:hover .contact-icon{
   background:rgba(255,255,255,0.25);
-  transform:scale(1.05);
 }
 .contact-card h4{
   font-size:0.95rem;
@@ -624,7 +619,6 @@ section[id]{
 }
 .contact-card:hover .contact-arrow{
   opacity:1;
-  transform:translateY(-50%) translateX(4px);
 }
 
 .contact-address-modern{
@@ -1415,7 +1409,7 @@ section[id]{
   padding: 11px 18px;
   background: var(--marrom-escuro);
   color: #fff;
-  border: none;
+  border: 2px solid var(--marrom-escuro);
   border-radius: 10px;
   font-size: 0.875rem;
   font-weight: 600;
@@ -1427,9 +1421,8 @@ section[id]{
 }
 
 .product-modal-btn:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(61, 39, 34, 0.4);
-  background: #2d1c18;
+  background: #000;
+  border-color: #fff;
   color: #fff;
 }
 
