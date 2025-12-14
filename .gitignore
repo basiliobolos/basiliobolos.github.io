@@ -50,7 +50,7 @@ temp/
 .env
 
 # Documentação interna
-*.internal.md
+*.internal.*
 .env.local
 .env.*.local
 
