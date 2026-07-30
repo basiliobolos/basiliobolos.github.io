@@ -1,0 +1,30 @@
+{
+  "slug": "biscoitos",
+  "titulo": "Biscoitos Decorados",
+  "tituloCompleto": "Biscoitos Decorados em Santo André",
+  "subtitulo": "Biscoitos amanteigados decorados à mão, em formatos e tamanhos variados. Perfeitos para lembrancinhas, presentes e mesas de festa em Santo André e região.",
+  "imagem": "assets/images/campanhas/caixa-biscoitos-natal.webp",
+  "precoDestaque": "A partir de R$ 5",
+  "mensagemWhatsApp": "Olá! Quero encomendar biscoitos decorados. Podem me ajudar?",
+  "opcoes": [
+    { "nome": "Unidade", "descricao": "Biscoito amanteigado decorado à mão. Formatos e tamanhos variados conforme o tema.", "preco": "A partir de R$ 5" },
+    { "nome": "Caixa com 6 unidades", "descricao": "Caixa fechada com 6 biscoitos decorados no tema escolhido. Ideal para presentear.", "preco": "R$ 29" },
+    { "nome": "Caixa com 12 unidades", "descricao": "Caixa fechada com 12 biscoitos — pode combinar decorados à mão e banhados no chocolate.", "preco": "R$ 49" },
+    { "nome": "Pacotinhos para lembrancinha", "descricao": "Biscoitos embalados individualmente para lembrancinhas de festas e eventos. Orçamento por quantidade.", "preco": "Sob consulta" }
+  ],
+  "nota": "Os valores variam conforme tamanho, formato e complexidade da decoração. Temas, personagens e cores são personalizáveis — envie sua referência pelo WhatsApp para orçamento.",
+  "faq": [
+    {
+      "q": "Quanto custa um biscoito decorado em Santo André?",
+      "a": "Na Basilio Bolos, biscoitos decorados saem a partir de R$ 5 a unidade. Caixas fechadas com 6 unidades saem R$ 29 e com 12 unidades R$ 49. O valor final depende do tamanho e da complexidade da decoração."
+    },
+    {
+      "q": "Vocês fazem biscoitos personalizados com tema?",
+      "a": "Sim! Fazemos biscoitos decorados em formatos e tamanhos variados, com o tema, as cores e os personagens da sua festa. Envie uma referência pelo WhatsApp para orçamento."
+    },
+    {
+      "q": "Vocês fazem biscoitos para lembrancinhas?",
+      "a": "Sim, preparamos pacotinhos individuais para lembrancinhas de aniversário, casamento e eventos corporativos. O orçamento é feito por quantidade."
+    }
+  ]
+}

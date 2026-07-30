@@ -1,0 +1,29 @@
+{
+  "slug": "cupcakes",
+  "titulo": "Cupcakes",
+  "tituloCompleto": "Cupcakes Decorados em Santo André",
+  "subtitulo": "Cupcakes de massa fofinha com recheio generoso e decoração personalizada por tema. Por unidade ou em caixa com 2 unidades, prontos para presentear.",
+  "imagem": "assets/images/produtos/cupcake.webp",
+  "precoDestaque": "A partir de R$ 13",
+  "mensagemWhatsApp": "Olá! Quero encomendar cupcakes. Podem me ajudar?",
+  "opcoes": [
+    { "nome": "Unidade", "descricao": "Cupcake recheado com decoração personalizada. Ideal para experimentar ou completar um presente.", "preco": "R$ 13" },
+    { "nome": "Caixa com 2 unidades", "descricao": "Duas unidades em uma linda caixa para presentear. Decoração totalmente personalizada para a ocasião.", "preco": "R$ 24" },
+    { "nome": "Cupcakes temáticos", "descricao": "Decoração com tema, personagens e cores da sua festa. Orçamento conforme a complexidade.", "preco": "Sob consulta" }
+  ],
+  "nota": "Massa fofinha e recheada, com sabor e beleza em cada detalhe. Consulte os sabores disponíveis no momento do pedido.",
+  "faq": [
+    {
+      "q": "Quanto custa um cupcake em Santo André?",
+      "a": "Na Basilio Bolos, o cupcake unitário sai R$ 13 e a caixa com 2 unidades sai R$ 24. Cupcakes com decoração temática são orçados conforme a complexidade."
+    },
+    {
+      "q": "Vocês fazem cupcakes com tema de festa?",
+      "a": "Sim! Personalizamos a decoração com o tema, as cores e os personagens da sua comemoração. Envie sua referência pelo WhatsApp."
+    },
+    {
+      "q": "Os cupcakes são recheados?",
+      "a": "Sim, nossos cupcakes têm massa fofinha e recheio generoso. Consulte os sabores disponíveis pelo WhatsApp."
+    }
+  ]
+}

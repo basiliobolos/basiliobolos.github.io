@@ -2,14 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-     <loc>https://basiliobolos.com.br/</loc>
-    <lastmod>2025-12-09</lastmod>
+    <loc>https://basiliobolos.com.br/</loc>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://basiliobolos.com.br/assets/images/hero/hero-placeholder.jpeg</image:loc>
       <image:title>Basilio Bolos - Confeitaria Artesanal</image:title>
-      <image:caption>Bolos personalizados e doces artesanais em Santo André</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://basiliobolos.com.br/assets/images/brand/logo.jpeg</image:loc>
@@ -17,27 +16,73 @@
     </image:image>
   </url>
   <url>
-     <loc>https://basiliobolos.com.br/#campanhas</loc>
-    <lastmod>2025-12-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-     <loc>https://basiliobolos.com.br/#sobre</loc>
-    <lastmod>2025-12-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-     <loc>https://basiliobolos.com.br/#produtos</loc>
-    <lastmod>2025-12-09</lastmod>
+    <loc>https://basiliobolos.com.br/bolos/</loc>
+    <lastmod>2026-07-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://basiliobolos.com.br/assets/images/produtos/bolo-confeitado.webp</image:loc>
+      <image:title>Bolos Personalizados - Basilio Bolos</image:title>
+    </image:image>
   </url>
   <url>
-     <loc>https://basiliobolos.com.br/#contato</loc>
-    <lastmod>2025-12-09</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://basiliobolos.com.br/doces/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://basiliobolos.com.br/assets/images/produtos/doces-festa.webp</image:loc>
+      <image:title>Doces para Festa - Basilio Bolos</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://basiliobolos.com.br/biscoitos/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://basiliobolos.com.br/assets/images/campanhas/caixa-biscoitos-natal.webp</image:loc>
+      <image:title>Biscoitos Decorados - Basilio Bolos</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://basiliobolos.com.br/cupcakes/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://basiliobolos.com.br/assets/images/produtos/cupcake.webp</image:loc>
+      <image:title>Cupcakes - Basilio Bolos</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://basiliobolos.com.br/brownies/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://basiliobolos.com.br/assets/images/produtos/brownie.webp</image:loc>
+      <image:title>Brownies - Basilio Bolos</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://basiliobolos.com.br/pipoca-gourmet/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://basiliobolos.com.br/assets/images/produtos/pipoca-gourmet.webp</image:loc>
+      <image:title>Pipoca Gourmet - Basilio Bolos</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://basiliobolos.com.br/bolo-de-pote/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://basiliobolos.com.br/assets/images/produtos/bolo-no-pote.webp</image:loc>
+      <image:title>Bolo de Pote - Basilio Bolos</image:title>
+    </image:image>
   </url>
 </urlset>

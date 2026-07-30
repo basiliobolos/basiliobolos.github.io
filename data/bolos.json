@@ -1,0 +1,74 @@
+{
+  "slug": "bolos",
+  "titulo": "Bolos Personalizados",
+  "tituloCompleto": "Bolos Personalizados em Santo André",
+  "subtitulo": "Monte seu bolo: escolha o tamanho, a massa, o recheio e a cobertura. Feitos artesanalmente para aniversários, casamentos e celebrações em Santo André e região do ABC.",
+  "imagem": "assets/images/produtos/bolo-confeitado.webp",
+  "precoDestaque": "A partir de R$ 39",
+  "mensagemWhatsApp": "Olá! Quero encomendar um bolo personalizado. Podem me ajudar a montar?",
+  "tamanhos": [
+    { "id": "bento", "nome": "Bento Cake", "diametro": "10cm", "peso": "~250g", "fatias": "1 a 2", "obs": "Bolo individual, ideal para presentes e comemorações íntimas.", "precoFixo": 39 },
+    { "id": "P", "nome": "P", "diametro": "15cm", "peso": "~1,1kg", "fatias": "10 a 12", "pesoKg": 1.1 },
+    { "id": "M", "nome": "M", "diametro": "20cm", "peso": "~2kg", "fatias": "18 a 22", "pesoKg": 2.0 },
+    { "id": "G", "nome": "G", "diametro": "25cm", "peso": "~3,1kg", "fatias": "28 a 34", "pesoKg": 3.1 },
+    { "id": "GG", "nome": "GG", "diametro": "30cm", "peso": "~4,4kg", "fatias": "40 a 48", "pesoKg": 4.4 }
+  ],
+  "notaTamanhos": "A quantidade de fatias é uma estimativa e depende do tamanho do corte. Recomendamos fatias de 100g por pessoa.",
+  "massas": ["Branca", "Chocolate"],
+  "recheios": [
+    { "nome": "Brisa de Maracujá", "descricao": "Mousse de maracujá", "precoKg": 79 },
+    { "nome": "Brisa Cítrica", "descricao": "Mousse de limão", "precoKg": 79 },
+    { "nome": "Doce Encanto", "descricao": "Mousse de morango (sem fruta)", "precoKg": 79 },
+    { "nome": "Nuvem de Cacau", "descricao": "Mousse de chocolate", "precoKg": 89 },
+    { "nome": "Sensação Rosé", "descricao": "Creme de morango com raspas de chocolate meio amargo (sem fruta)", "precoKg": 88 },
+    { "nome": "Clássico Brigadeiro", "descricao": "Brigadeiro tradicional com cacau 50%", "precoKg": 89 },
+    { "nome": "Brigadeiro Blanc", "descricao": "Brigadeiro cremoso de leite ninho", "precoKg": 89 },
+    { "nome": "Dois Amores", "descricao": "Uma camada de brigadeiro tradicional 50% cacau e uma de brigadeiro de leite ninho", "precoKg": 89 },
+    { "nome": "Chocolate & Morangos", "descricao": "Brigadeiro tradicional 50% cacau com pedaços de morango fresco", "precoKg": 95 },
+    { "nome": "Ninho & Morangos", "descricao": "Brigadeiro de leite ninho com pedaços de morango fresco", "precoKg": 95 },
+    { "nome": "Brigadeiro Tropical", "descricao": "Brigadeiro de maracujá", "precoKg": 92 },
+    { "nome": "Maracujá Trufado", "descricao": "Uma camada de mousse de maracujá e uma de creme trufado meio amargo", "precoKg": 98 },
+    { "nome": "Tropical Trufado", "descricao": "Uma camada de brigadeiro de maracujá e uma de creme trufado meio amargo", "precoKg": 102 },
+    { "nome": "Trufado", "descricao": "Creme trufado com chocolate meio amargo", "precoKg": 110 },
+    { "nome": "Doçura Mineira", "descricao": "Creme de doce de leite", "precoKg": 89 },
+    { "nome": "Doce Abacaxi", "descricao": "Creme de doce de leite com pedaços de abacaxi cozido", "precoKg": 98 },
+    { "nome": "Doce Ameixa", "descricao": "Creme de doce de leite com ameixas", "precoKg": 92 },
+    { "nome": "Doce Coco", "descricao": "Uma camada de creme de doce de leite e uma de brigadeiro de coco", "precoKg": 92 },
+    { "nome": "Nozes Gourmet", "descricao": "Creme de doce de leite com pedaços de nozes", "precoKg": 95 },
+    { "nome": "Prestígio", "descricao": "Creme de coco cremoso", "precoKg": 89 }
+  ],
+  "notaRecheios": "Valores calculados por tamanho com base no preço por kg de cada recheio. Bento cake (10cm, ~250g) a partir de R$ 39.",
+  "coberturas": [
+    { "nome": "Chantilly", "acrescimo": 0, "obs": "Sem acréscimo" },
+    { "nome": "Ganache", "acrescimoPorTamanho": { "bento": 10, "P": 15, "M": 20, "G": 25, "GG": 30 }, "obs": "Acréscimo conforme o tamanho do bolo" }
+  ],
+  "acrescimos": [
+    { "nome": "Pérolas comestíveis", "preco": "R$ 4" },
+    { "nome": "Laços", "preco": "R$ 5", "obs": "verificar modelo" },
+    { "nome": "Brigadeiros (10 unidades)", "preco": "R$ 28" },
+    { "nome": "Frutas", "preco": "Sob consulta" },
+    { "nome": "Flores", "preco": "Sob consulta" },
+    { "nome": "Topos de bolo", "preco": "Sob consulta" },
+    { "nome": "Velas e fitas", "preco": "Sob consulta" }
+  ],
+  "notaAcrescimos": "Velas, fitas, decorações e topos de bolo são orçados à parte e acrescentam no valor final. Envie uma referência da decoração ou informe cor e tema que ajudamos a escolher.",
+  "formatos": ["Redondo", "Retangular (a partir de 2,5kg)", "Coração (a partir de 1,5kg)"],
+  "faq": [
+    {
+      "q": "Com quanta antecedência devo encomendar meu bolo?",
+      "a": "Pedimos no mínimo 3 dias úteis de antecedência. O pedido é confirmado após o pagamento de 30% do valor."
+    },
+    {
+      "q": "Vocês fazem entrega de bolo?",
+      "a": "Não realizamos entregas. A retirada é feita no nosso endereço (Av. Estados Unidos, 439 - Parque das Nações, Santo André/SP), com horário marcado, ou via Uber/99 por conta do cliente."
+    },
+    {
+      "q": "Quais sabores de massa, recheio e cobertura estão disponíveis?",
+      "a": "Massas: branca ou de chocolate. São 20 sabores de recheio, como trufado, brigadeiro, prestígio, leite ninho com morango e mousse de maracujá. A cobertura pode ser de chantilly (sem acréscimo) ou ganache (com acréscimo)."
+    },
+    {
+      "q": "Velas, topos e decorações estão incluídos no valor?",
+      "a": "Não. Velas, fitas, topos de bolo e decorações especiais são orçados à parte. Você pode enviar uma referência de decoração pelo WhatsApp que montamos o orçamento completo."
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "slug": "bolo-de-pote",
+  "titulo": "Bolo de Pote",
+  "tituloCompleto": "Bolo de Pote em Santo André",
+  "subtitulo": "O clássico que deu início à nossa história, quando vendíamos de porta em porta. Camadas generosas de bolo e recheio em potes de 250ml e 500ml.",
+  "imagem": "assets/images/produtos/bolo-no-pote.webp",
+  "precoDestaque": "A partir de R$ 15",
+  "mensagemWhatsApp": "Olá! Quero encomendar bolo de pote. Podem me ajudar?",
+  "sabores": ["Brigadeiro", "Ninho com Morango", "Prestígio", "Mousse de Maracujá", "Trufado"],
+  "opcoes": [
+    { "nome": "Pote 250ml", "descricao": "Camadas de bolo fofinho e recheio cremoso no pote individual de 250ml.", "preco": "R$ 15" },
+    { "nome": "Pote 500ml", "descricao": "Versão generosa de 500ml, para matar a vontade (ou dividir).", "preco": "R$ 25" }
+  ],
+  "nota": "Sabores disponíveis: brigadeiro, ninho com morango, prestígio, mousse de maracujá e trufado. Consulte a disponibilidade do dia pelo WhatsApp.",
+  "faq": [
+    {
+      "q": "Quanto custa bolo de pote em Santo André?",
+      "a": "Na Basilio Bolos, o bolo de pote de 250ml sai R$ 15 e o de 500ml sai R$ 25. Os sabores incluem brigadeiro, ninho com morango, prestígio, mousse de maracujá e trufado."
+    },
+    {
+      "q": "Quais sabores de bolo de pote vocês têm?",
+      "a": "Trabalhamos com brigadeiro, ninho com morango, prestígio, mousse de maracujá e trufado. A disponibilidade do dia pode ser consultada pelo WhatsApp."
+    },
+    {
+      "q": "Vocês fazem bolo de pote para eventos e revenda?",
+      "a": "Sim, produzimos em quantidade para eventos e pontos de revenda. Envie a quantidade desejada pelo WhatsApp para receber o orçamento."
+    }
+  ]
+}

@@ -15,6 +15,37 @@ Para informações completas sobre deploy, SEO, marketing e otimizações, consu
 
 ## 🚀 Quick Start
 
+### ✏️ Editar preços e conteúdo (fluxo principal)
+
+Todo o conteúdo do site (preços, descrições, sabores, FAQs) fica em `data/*.json`.
+Os arquivos HTML são **gerados** — não edite o HTML diretamente.
+
+```bash
+# 1. Edite o JSON do produto (ex.: data/bolos.json)
+# 2. Gere o site novamente
+node tools/gerar.js
+
+# 3. Publique
+git add .
+git commit -m "atualiza preços"
+git push origin main
+```
+
+O GitHub Pages publica em 2-5 minutos. Os preços de bolo são calculados
+automaticamente a partir do `precoKg` de cada recheio e do `pesoKg` de cada
+tamanho (fatia de 100g, valores arredondados para terminar em 9).
+
+### Onde editar cada coisa
+
+| Arquivo | Conteúdo |
+|---|---|
+| `data/site.json` | Telefone, endereço, horário, redes sociais, políticas de pedido |
+| `data/produtos.json` | Cards da página inicial (ordem, textos, preço em destaque) |
+| `data/bolos.json` | Tamanhos, recheios (preço por kg), coberturas, acréscimos, FAQ |
+| `data/doces.json` | Doces por cento e premium, FAQs |
+| `data/biscoitos.json` · `cupcakes` · `brownies` · `pipoca-gourmet` · `bolo-de-pote` | Opções, preços e FAQ de cada página |
+| `data/campanhas.json` | Campanha sazonal (`ativo: true/false`) |
+
 ### Deploy
 ```bash
 git add .
@@ -65,18 +96,22 @@ Bolos personalizados, doces finos, cupcakes, brownies, trufas, festa na caixa, p
 
 ```
 basilio-bolos-website/
-├── assets/icons/       # 22 favicons + PWA
-├── assets/images/      # Fotos otimizadas
-├── data/*.json         # Produtos e campanhas
+├── data/*.json         # ✏️ EDITE AQUI: preços e conteúdo
+├── tools/gerar.js      # Gerador estático (node tools/gerar.js)
+├── index.html          # GERADO - página inicial
+├── bolos/              # GERADO - página de bolos
+├── doces/              # GERADO - página de doces
+├── biscoitos/          # GERADO
+├── cupcakes/           # GERADO
+├── brownies/           # GERADO
+├── pipoca-gourmet/     # GERADO
+├── bolo-de-pote/       # GERADO
+├── assets/             # Imagens e ícones
 ├── css/styles.css
 ├── js/app.js
-├── index.html          # SEO otimizado
-├── manifest.json       # PWA manifest
-├── browserconfig.xml   # Windows tiles
-├── favicon.ico         # Favicon padrão
-├── robots.txt          # SEO
-├── sitemap.xml         # Sitemap
-└── GUIA-COMPLETO.md    # 📖 Leia aqui!
+├── llms.txt            # GERADO - resumo para agentes de IA
+├── sitemap.xml         # GERADO
+└── robots.txt
 ```
 
 ---
@@ -87,4 +122,4 @@ HTML5 · CSS3 · Bootstrap 5 · JavaScript · PWA · Schema.org · Google Analyt
 
 ---
 
-**Última atualização**: Dezembro 2025
+**Última atualização**: Julho 2026

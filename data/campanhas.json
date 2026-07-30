@@ -1,6 +1,6 @@
 {
   "campanha": "Natal 2025",
-  "ativo": true,
+  "ativo": false,
   "cor_fundo": "#801909",
   "cor_secundaria": "#c89a51",
   "cor_texto": "#ffffff",
