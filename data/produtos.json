@@ -3,7 +3,7 @@
     {
       "titulo": "Bolos Redondos",
       "slug": "bolos",
-      "imagem": "assets/images/produtos/bolo-confeitado.webp",
+      "imagem": "assets/images/produtos/bolos-redondos.webp",
       "descricao": "Bolos redondos confeitados do tamanho P ao GG, com 20 sabores de recheio, massa branca ou de chocolate e cobertura de chantilly ou ganache.",
       "precoDestaque": "A partir de R$ 89",
       "url": "bolos/"
@@ -11,7 +11,7 @@
     {
       "titulo": "Bolos Retangulares",
       "slug": "bolos-retangulares",
-      "imagem": "assets/images/produtos/bolo-confeitado.webp",
+      "imagem": "assets/images/produtos/bolos-retangulares.webp",
       "descricao": "Bolos retangulares de 17x25cm (24 a 28 fatias) e 22x30cm (38 a 44 fatias), com 20 sabores de recheio, massa branca ou de chocolate e cobertura de chantilly ou ganache.",
       "precoDestaque": "A partir de R$ 229",
       "url": "bolos-retangulares/"
@@ -43,7 +43,7 @@
     {
       "titulo": "Biscoitos Decorados",
       "slug": "biscoitos",
-      "imagem": "assets/images/campanhas/caixa-biscoitos-natal.webp",
+      "imagem": "assets/images/produtos/biscoitos-decorados.webp",
       "descricao": "Biscoitos amanteigados decorados à mão em formatos e tamanhos variados. Vendidos por unidade ou em caixas fechadas para presentear.",
       "precoDestaque": "A partir de R$ 5",
       "url": "biscoitos/"

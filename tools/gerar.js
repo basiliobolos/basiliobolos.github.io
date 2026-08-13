@@ -140,7 +140,7 @@ const SEO = {
 
 // ---------- Componentes de layout ----------
 function head({ seo, canonical, jsonLd, ogType = 'website', usaSwiper = false }) {
-  const ogImage = `${site.url}/assets/images/hero/hero-placeholder.jpeg`;
+  const ogImage = `${site.url}/assets/images/hero/hero.jpeg`;
   // </script> não é escapado por JSON.stringify; < vira < (válido em JSON, seguro em script)
   const safeLd = (obj) => JSON.stringify(obj, null, 2).replace(/</g, '\\u003c');
   const ldScripts = (jsonLd || []).map((obj) => `  <script type="application/ld+json">\n${safeLd(obj).split('\n').map((l) => '  ' + l).join('\n')}\n  </script>`).join('\n');
@@ -444,7 +444,7 @@ function localBusinessLd() {
     alternateName: 'Basilio Bolos Confeitaria',
     url: `${site.url}/`,
     logo: { '@type': 'ImageObject', url: `${site.url}/assets/images/brand/logo.jpeg` },
-    image: [`${site.url}/assets/images/hero/hero-placeholder.jpeg`],
+    image: [`${site.url}/assets/images/hero/hero.jpeg`],
     description: site.descricao,
     telephone: `+${site.whatsappNumero}`,
     priceRange: '$$',
@@ -594,7 +594,7 @@ function renderHome() {
           </div>
           <div class="col-lg-6 hero-visual-wrapper">
             <div class="hero-visual" aria-hidden="true">
-              <img src="/assets/images/hero/hero-placeholder-circle.png" alt="" loading="eager" fetchpriority="high" width="502" height="497">
+              <img src="/assets/images/hero/hero-circle.png" alt="" loading="eager" fetchpriority="high" width="502" height="497">
             </div>
           </div>
         </div>
@@ -630,7 +630,7 @@ ${campanhaSection}
         <div class="row align-items-center g-5 sobre-grid">
           <div class="col-lg-5 text-center sobre-image">
             <div class="image-frame">
-              <img src="/assets/images/sobre/irmas-placeholder.jpeg" class="img-fluid" alt="Fundadoras da ${esc(site.nome)}, confeitaria artesanal de Santo André" width="1024" height="1024" loading="lazy">
+              <img src="/assets/images/sobre/fundadoras.jpeg" class="img-fluid" alt="Fundadoras da ${esc(site.nome)}, confeitaria artesanal de Santo André" width="1024" height="1024" loading="lazy">
             </div>
           </div>
           <div class="col-lg-7 sobre-text">
@@ -1195,7 +1195,7 @@ function renderSitemap() {
     {
       loc: '/', priority: '1.0', changefreq: 'weekly',
       images: [
-        { loc: '/assets/images/hero/hero-placeholder.jpeg', title: 'Basilio Bolos - Confeitaria Artesanal' },
+        { loc: '/assets/images/hero/hero.jpeg', title: 'Basilio Bolos - Confeitaria Artesanal' },
         { loc: '/assets/images/brand/logo.jpeg', title: 'Logo Basilio Bolos' }
       ]
     },
