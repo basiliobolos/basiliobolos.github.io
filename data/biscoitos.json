@@ -4,7 +4,7 @@
   "tituloCompleto": "Biscoitos Decorados em Santo André",
   "subtitulo": "Biscoitos amanteigados decorados à mão, em formatos e tamanhos variados. Perfeitos para lembrancinhas, presentes e mesas de festa em Santo André e região.",
   "imagem": "assets/images/produtos/biscoitos-decorados.webp",
-  "precoDestaque": "A partir de R$ 5",
+  "precoDestaque": "A partir de R$ 4",
   "mensagemWhatsApp": "Olá! Quero encomendar biscoitos decorados. Podem me ajudar?",
   "opcoes": [
     { "nome": "Unidade", "descricao": "Biscoito amanteigado decorado à mão. Formatos e tamanhos variados conforme o tema.", "preco": "A partir de R$ 4" },
@@ -16,15 +16,15 @@
   "faq": [
     {
       "q": "Quanto custa um biscoito decorado em Santo André?",
-      "a": "Na Basilio Bolos, biscoitos decorados saem a partir de R$ 4 a unidade. Caixas fechadas com 6 unidades saem a partir de R$ 22 e com 12 unidades a partir de R$ 42. O valor final depende do tamanho e da complexidade da decoração."
+      "a": "A unidade custa a partir de R$ 4; a caixa com 6, a partir de R$ 22; e a com 12, R$ 42. O preço final varia conforme o tamanho e a complexidade da decoração."
     },
     {
       "q": "Vocês fazem biscoitos personalizados com tema?",
-      "a": "Sim! Fazemos biscoitos decorados em formatos e tamanhos variados, com o tema, as cores e os personagens da sua festa. Envie uma referência pelo WhatsApp para orçamento."
+      "a": "Sim. Personalizamos formato, tamanho, cores e personagens. Envie uma referência pelo WhatsApp para receber o orçamento."
     },
     {
       "q": "Vocês fazem biscoitos para lembrancinhas?",
-      "a": "Sim, preparamos pacotinhos individuais para lembrancinhas de aniversário, casamento e eventos corporativos. O orçamento é feito por quantidade."
+      "a": "Sim. Fazemos pacotinhos individuais para aniversários, casamentos e eventos corporativos. O valor depende da quantidade."
     }
   ]
 }

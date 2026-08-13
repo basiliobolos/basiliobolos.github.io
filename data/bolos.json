@@ -206,20 +206,16 @@
   ],
   "faq": [
     {
-      "q": "Com quanta antecedência devo encomendar meu bolo?",
-      "a": "Pedimos no mínimo 3 dias úteis de antecedência. O pedido é confirmado após o pagamento de 30% do valor."
-    },
-    {
       "q": "Vocês fazem entrega de bolo?",
-      "a": "Não realizamos entregas. A retirada é feita no nosso endereço (Av. Estados Unidos, 439 - Parque das Nações, Santo André/SP), com horário marcado, ou via Uber/99 por conta do cliente."
+      "a": "Não fazemos entregas. A retirada é feita no nosso endereço, com horário marcado. Se preferir, você pode chamar Uber ou 99 por sua conta."
     },
     {
-      "q": "Quais sabores de massa, recheio e cobertura estão disponíveis?",
-      "a": "Massas: branca ou de chocolate. São 20 sabores de recheio, como trufado, brigadeiro, prestígio, leite ninho com morango e mousse de maracujá. A cobertura pode ser de chantilly (sem acréscimo) ou ganache (com acréscimo)."
+      "q": "Quais massas, recheios e coberturas estão disponíveis?",
+      "a": "Escolha massa branca ou de chocolate, um dos mais de 20 sabores de recheio e cobertura de chantilly (sem acréscimo) ou ganache (com acréscimo). Entre os recheios estão trufado, brigadeiro, prestígio, leite ninho com morango e mousse de maracujá."
     },
     {
       "q": "Velas, topos e decorações estão incluídos no valor?",
-      "a": "Não. Velas, fitas, topos de bolo e decorações especiais são orçados à parte. Você pode enviar uma referência de decoração pelo WhatsApp que montamos o orçamento completo."
+      "a": "Não. Velas, fitas, topos e decorações especiais são cobrados à parte. Envie uma referência pelo WhatsApp para receber o orçamento completo."
     }
   ]
 }

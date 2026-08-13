@@ -59,6 +59,10 @@ const minPorTamanho = {};
 for (const t of bolos.tamanhos.filter((t) => t.pesoKg)) {
   minPorTamanho[t.id] = Math.min(...bolos.recheios.map((r) => round9(r.precoKg * t.pesoKg)));
 }
+const minPorTamanhoRetangular = {};
+for (const t of bolosRetangulares.tamanhos.filter((t) => t.pesoKg)) {
+  minPorTamanhoRetangular[t.id] = Math.min(...bolos.recheios.map((r) => round9(r.precoKg * t.pesoKg * (bolosRetangulares.fatorPreco || 1))));
+}
 const bentoPreco = (bolos.tamanhos.find((t) => t.id === 'bento') || {}).precoFixo || 39;
 
 /** Junta lista em texto humano: "a, b, c e d". */
@@ -66,11 +70,16 @@ const joinHuman = (items) => items.length > 1
   ? items.slice(0, -1).join(', ') + ' e ' + items[items.length - 1]
   : (items[0] || '');
 
-/** Resposta da FAQ de preços de bolo, sempre sincronizada com a tabela calculada. */
-function faqPrecoBolos(comTabela) {
+/** Resposta da FAQ de preços de bolo, sempre sincronizada com as tabelas calculadas. */
+function faqPrecoBolos(comTabela, incluirOutros = true) {
   const partes = bolos.tamanhos.filter((t) => t.pesoKg)
     .map((t) => `de ${t.diametro} (${t.nome}, ${t.fatias} fatias) a partir de ${money(minPorTamanho[t.id])}`);
-  const base = `Na ${site.nome}, o bentô cake (10cm) sai a partir de ${money(bentoPreco)}, com página própria no site. Bolos redondos ${joinHuman(partes)}, conforme o recheio escolhido. Também temos bolos retangulares de 17x25cm (24 a 28 fatias) e 22x30cm (38 a 44 fatias), com página própria no site.`;
+  const detalhesRedondos = `${joinHuman(partes)}, conforme o recheio escolhido.`;
+  const redondos = `Bolos redondos ${detalhesRedondos}`;
+  if (!incluirOutros) return comTabela ? redondos + ' Veja a tabela completa na página de Bolos Redondos.' : redondos;
+  const partesRetangulares = bolosRetangulares.tamanhos.filter((t) => t.pesoKg)
+    .map((t) => `de ${t.diametro} (${t.fatias} fatias) a partir de ${money(minPorTamanhoRetangular[t.id])}`);
+  const base = `Na ${site.nome}, o bentô cake (10cm) sai a partir de ${money(bentoPreco)}; bolos redondos ${detalhesRedondos} Bolos retangulares ${joinHuman(partesRetangulares)}, conforme o recheio escolhido.`;
   return comTabela ? base + ' Veja a tabela completa na página de Bolos Redondos.' : base;
 }
 
@@ -93,27 +102,27 @@ const SEO = {
   },
   bolos: {
     title: 'Bolos Redondos Personalizados em Santo André | Preços por Tamanho e Sabor | Basilio Bolos',
-    description: 'Tabela de preços de bolos redondos em Santo André: bolos de 15cm a 30cm (10 a 48 fatias) a partir de R$ 89. 20 sabores de recheio, massa branca ou de chocolate, cobertura de chantilly ou ganache. Encomende pelo WhatsApp!',
+    description: 'Tabela de preços de bolos redondos em Santo André: bolos de 15cm a 30cm (10 a 48 fatias) a partir de R$ 89. Mais de 20 sabores de recheio, massa branca ou de chocolate, cobertura de chantilly ou ganache. Encomende pelo WhatsApp!',
     keywords: 'bolo personalizado santo andré, preço de bolo santo andré, bolo aniversário santo andré, bolo redondo, bolo 15cm, bolo 20cm, bolo 25cm, bolo 30cm, bolo trufado, bolo leite ninho com morango, bolo mousse de maracujá, quanto custa um bolo'
   },
   'bolos-retangulares': {
     title: 'Bolos Retangulares em Santo André | 17x25 e 22x30 | Basilio Bolos',
-    description: 'Bolos retangulares em Santo André: 17x25cm (24 a 28 fatias) a partir de R$ 229 e 22x30cm (38 a 44 fatias) a partir de R$ 359. 20 sabores de recheio, massa branca ou de chocolate, cobertura de chantilly ou ganache. Encomende pelo WhatsApp!',
+    description: 'Bolos retangulares em Santo André: 17x25cm (24 a 28 fatias) a partir de R$ 229 e 22x30cm (38 a 44 fatias) a partir de R$ 359. Mais de 20 sabores de recheio, massa branca ou de chocolate, cobertura de chantilly ou ganache. Encomende pelo WhatsApp!',
     keywords: 'bolo retangular santo andré, bolo retangular 17x25, bolo retangular 22x30, bolo de festa retangular, preço de bolo retangular, bolo aniversário santo andré, bolo para muitas pessoas'
   },
   'bento-cake': {
     title: 'Bentô Cake em Santo André | A partir de R$ 39 | Basilio Bolos',
-    description: 'Bentô cake em Santo André a partir de R$ 39: o bolinho individual de 10cm, ideal para presentear. 20 sabores de recheio, decoração personalizada. Encomende pelo WhatsApp!',
+    description: 'Bentô cake em Santo André a partir de R$ 39: o bolinho individual de 10cm, ideal para presentear. Mais de 20 sabores de recheio, decoração personalizada. Encomende pelo WhatsApp!',
     keywords: 'bentô cake santo andré, bento cake, bolinho individual, bolo de 10cm, presente bolo, bento cake personalizado abc'
   },
   doces: {
-    title: 'Doces para Festa em Santo André | Cento a partir de R$ 190 | Basilio Bolos',
-    description: 'Cento de doces em Santo André a partir de R$ 190: brigadeiro, beijinho, ninho, churros e mais. Doces premium por unidade a partir de R$ 3,20. Encomendas para festas e eventos no ABC pelo WhatsApp.',
+    title: 'Doces para Festa em Santo André | Cento a partir de R$ 189 | Basilio Bolos',
+    description: 'Cento de doces em Santo André a partir de R$ 189: brigadeiro, beijinho, ninho, churros e mais. Doces premium por unidade a partir de R$ 3,20. Encomendas para festas e eventos no ABC pelo WhatsApp.',
     keywords: 'cento de doces santo andré, doces para festa santo andré, brigadeiro santo andré, doces finos, doces premium, docinhos de festa abc, quanto custa cento de doces'
   },
   biscoitos: {
     title: 'Biscoitos Decorados em Santo André | Unidade e Caixas | Basilio Bolos',
-    description: 'Biscoitos amanteigados decorados à mão em Santo André, a partir de R$ 5 a unidade. Caixas fechadas com 6 ou 12 unidades e pacotinhos para lembrancinhas, com o tema da sua festa.',
+    description: 'Biscoitos amanteigados decorados à mão em Santo André, a partir de R$ 4 a unidade. Caixas fechadas com 6 ou 12 unidades e pacotinhos para lembrancinhas, com o tema da sua festa.',
     keywords: 'biscoitos decorados santo andré, biscoito personalizado, lembrancinhas santo andré, biscoito amanteigado decorado, caixa de biscoitos'
   },
   cupcakes: {
@@ -527,11 +536,10 @@ function productLd(data, url, lowPrice, highPrice, extra = {}) {
 // ---------- Página inicial ----------
 function renderHome() {
   const faqHome = [
-    { q: 'Quais produtos a Basilio Bolos oferece?', a: 'Oferecemos bentô cake, bolos personalizados do P ao GG, doces por cento e doces premium, biscoitos decorados, cupcakes, brownies, pipoca gourmet e bolo de pote. Todos artesanais e personalizáveis, em Santo André/SP.' },
-    { q: 'Quais bairros vocês atendem em Santo André?', a: `Atendemos principalmente os bairros ${site.bairrosAtendidos.join(', ')} em Santo André/SP. Para outros bairros e cidades do ABC, consulte disponibilidade pelo WhatsApp.` },
-    { q: 'Como faço um pedido?', a: `Clique no botão de WhatsApp em qualquer página do site, descreva o produto, quantidade e/ou tamanho. Retornamos com orçamento e disponibilidade no mesmo dia. Atendimento das 8h às 20h, todos os dias.` },
-    { q: 'Vocês fazem bolos e doces personalizados para festas?', a: 'Sim! Criamos bolos personalizados, doces temáticos, biscoitos decorados e kits festa sob medida. Basta enviar a referência e a data pelo WhatsApp para montarmos a proposta.' },
-    { q: 'A Basilio Bolos tem loja física?', a: `Somos uma confeitaria caseira que trabalha sob encomenda, com retirada no local. Estamos na ${site.endereco.rua} - ${site.endereco.bairro}, ${site.endereco.cidade}/${site.endereco.uf}. Agende sua encomenda pelo WhatsApp ${site.telefoneDisplay}.` },
+    { q: 'Quais bairros vocês atendem em Santo André?', a: `Atendemos principalmente ${site.bairrosAtendidos.join(', ')}. A retirada é no Parque das Nações; para outros bairros e cidades do ABC, consulte pelo WhatsApp.` },
+    { q: 'Como faço um pedido?', a: `Chame pelo WhatsApp e informe o produto, a quantidade ou tamanho e a data. Enviamos o orçamento e confirmamos a disponibilidade. Atendimento das 8h às 20h, todos os dias.` },
+    { q: 'Vocês fazem bolos e doces personalizados para festas?', a: 'Sim. Personalizamos bolos, doces, biscoitos e kits para festas. Envie a referência e a data pelo WhatsApp para receber uma proposta.' },
+    { q: 'A Basilio Bolos tem loja física?', a: `Não temos loja aberta ao público. Trabalhamos sob encomenda, com retirada na ${site.endereco.rua} - ${site.endereco.bairro}, ${site.endereco.cidade}/${site.endereco.uf}, em horário marcado.` },
     { q: 'Quanto custa um bolo de aniversário na Basilio Bolos?', a: faqPrecoBolos(true) }
   ];
 
@@ -756,8 +764,8 @@ function renderBolos(data, seoKey) {
 
   // FAQ de preço sempre sincronizada com a tabela calculada
   const faqPreco = ehRetangular
-    ? { q: 'Quanto custa um bolo retangular em Santo André?', a: `Na ${site.nome}, o bolo retangular de 17x25cm (24 a 28 fatias) sai a partir de ${money(Math.min(...bolos.recheios.map((r) => precoTamanho(r, tamanhosCalc[0]))))} e o de 22x30cm (38 a 44 fatias) a partir de ${money(Math.min(...bolos.recheios.map((r) => precoTamanho(r, tamanhosCalc[1]))))}, conforme o recheio escolhido.` }
-    : { q: 'Quanto custa um bolo de aniversário em Santo André?', a: faqPrecoBolos(false) };
+    ? { q: 'Quanto custa um bolo retangular em Santo André?', a: `O bolo retangular de 17x25cm (24 a 28 fatias) custa a partir de ${money(Math.min(...bolos.recheios.map((r) => precoTamanho(r, tamanhosCalc[0]))))}; o de 22x30cm (38 a 44 fatias), a partir de ${money(Math.min(...bolos.recheios.map((r) => precoTamanho(r, tamanhosCalc[1]))))}. O valor varia conforme o recheio escolhido.` }
+    : { q: 'Quanto custa um bolo redondo em Santo André?', a: faqPrecoBolos(false, false) };
   const faqBolos = [
     faqPreco,
     ...bolos.faq.filter((f) => !/quanto custa/i.test(f.q))
@@ -943,9 +951,8 @@ function renderBentoCake() {
   };
 
   const faqBento = [
-    { q: 'Quanto custa um bentô cake em Santo André?', a: `Na ${site.nome}, o bentô cake (10cm) sai de ${money(minBento)} a ${money(maxBento)}, conforme o sabor do recheio, com massa branca ou de chocolate e cobertura de chantilly inclusos. Adicionais de decoração têm valor sob consulta.` },
-    { q: 'Quantas pessoas serve um bentô cake?', a: `O bentô cake tem 10cm de diâmetro e serve de ${bento.fatias} pessoas. É ideal para presentes e comemorações íntimas.` },
-    { q: 'Com quanta antecedência devo encomendar?', a: 'Pedimos no mínimo 3 dias úteis de antecedência. O pedido é confirmado após o pagamento de 30% do valor.' }
+    { q: 'Quanto custa um bentô cake em Santo André?', a: `De ${money(minBento)} a ${money(maxBento)}, conforme o recheio. Massa branca ou de chocolate e cobertura de chantilly estão incluídas; decoração adicional é cobrada à parte.` },
+    { q: 'Quantas pessoas serve um bentô cake?', a: `O bentô cake tem 10cm de diâmetro e serve de ${bento.fatias} pessoas.` }
   ];
 
   const linhasSabores = bolos.recheios.map((r) => `
