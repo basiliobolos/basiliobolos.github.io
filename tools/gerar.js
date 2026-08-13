@@ -112,7 +112,7 @@ const SEO = {
   },
   'bento-cake': {
     title: 'Bentô Cake em Santo André | A partir de R$ 39 | Basilio Bolos',
-    description: 'Bentô cake em Santo André a partir de R$ 39: o bolinho individual de 10cm, ideal para presentear. Mais de 20 sabores de recheio, decoração personalizada. Encomende pelo WhatsApp!',
+    description: 'Bentô cake em Santo André a partir de R$ 39: o bolinho individual de 10cm, ideal para presentear. 10 sabores de recheio, decoração personalizada. Encomende pelo WhatsApp!',
     keywords: 'bentô cake santo andré, bento cake, bolinho individual, bolo de 10cm, presente bolo, bento cake personalizado abc'
   },
   doces: {
@@ -148,7 +148,7 @@ const SEO = {
 };
 
 // ---------- Componentes de layout ----------
-function head({ seo, canonical, jsonLd, ogType = 'website', usaSwiper = false }) {
+function head({ seo, canonical, jsonLd, ogType = 'website', robots = 'index, follow', usaSwiper = false }) {
   const ogImage = `${site.url}/assets/images/hero/hero.jpeg`;
   // </script> não é escapado por JSON.stringify; < vira < (válido em JSON, seguro em script)
   const safeLd = (obj) => JSON.stringify(obj, null, 2).replace(/</g, '\\u003c');
@@ -160,7 +160,7 @@ function head({ seo, canonical, jsonLd, ogType = 'website', usaSwiper = false })
   <title>${esc(seo.title)}</title>
   <meta name="description" content="${esc(seo.description)}" />
   <meta name="keywords" content="${esc(seo.keywords)}" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="${esc(robots)}" />
   <meta name="author" content="${esc(site.nome)}" />
   <meta name="geo.region" content="BR-SP" />
   <meta name="geo.placename" content="Santo André" />
@@ -196,14 +196,6 @@ function head({ seo, canonical, jsonLd, ogType = 'website', usaSwiper = false })
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C07W6E0102"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-C07W6E0102');
-  </script>
-
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />${swiperCss}
@@ -213,9 +205,10 @@ ${ldScripts}
 }
 
 function navbar(active) {
+  const isProductPage = produtos.some((p) => p.slug === active);
   const item = (href, label, slug) => `
           <li class="nav-item">
-            <a class="nav-link${active === slug ? ' active' : ''}" href="${href}"${active === slug ? ' aria-current="page"' : ''}>${label}</a>
+            <a class="nav-link${slug && active === slug ? ' active' : ''}" href="${href}"${slug && active === slug ? ' aria-current="page"' : ''}>${label}</a>
           </li>`;
   const dropdownItems = produtos.map((p) => `
               <li><a class="dropdown-item${active === p.slug ? ' active' : ''}" href="/${esc(p.url)}">${esc(p.titulo)}</a></li>`).join('');
@@ -233,7 +226,7 @@ function navbar(active) {
       <div class="navbar-collapse" id="navbarContent" data-menu-panel>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-1">${item('/#hero', '<i class="fa-solid fa-home" aria-hidden="true"></i> Início', active === 'home' ? 'home' : null)}
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle${active && active !== 'home' ? ' active' : ''}" href="/#produtos" id="produtosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle${isProductPage ? ' active' : ''}" href="/#produtos" id="produtosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa-solid fa-cake-candles" aria-hidden="true"></i> Produtos
             </a>
             <ul class="dropdown-menu" aria-labelledby="produtosDropdown">${dropdownItems}
@@ -254,7 +247,13 @@ function footer() {
   return `
   <footer class="py-4 footer-gradient">
     <div class="container footer-bar d-flex justify-content-between align-items-center">
-      <div class="footer-note">© <span id="anoAtual">2026</span> ${esc(site.nome)} · Confeitaria artesanal em Santo André/SP</div>
+      <div class="footer-note">
+        <span>© <span id="anoAtual">2026</span> ${esc(site.nome)} · Confeitaria artesanal em Santo André/SP</span>
+        <span class="footer-legal-links">
+          <a href="/privacidade/">Privacidade e cookies</a>
+          <button type="button" class="footer-privacy-button" data-privacy-settings>Preferências de cookies</button>
+        </span>
+      </div>
       <div class="d-flex gap-3 social-links">
         <a href="${safeUrl(site.social.instagram)}" class="social-link" aria-label="Instagram" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
         <a href="${safeUrl(site.social.facebook)}" class="social-link" aria-label="Facebook" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i></a>
@@ -278,10 +277,26 @@ const scripts = (usaSwiper = false) => `
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>${usaSwiper ? '\n  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>' : ''}
   <script src="/js/app.js"></script>`;
 
-function layout({ seo, canonical, active, jsonLd, body, usaSwiper = false }) {
+function privacyBanner() {
+  return `
+  <aside class="privacy-banner" data-privacy-banner aria-labelledby="privacy-banner-title" aria-describedby="privacy-banner-description" aria-hidden="true" hidden>
+    <div class="privacy-banner-inner">
+      <div class="privacy-banner-copy">
+        <p id="privacy-banner-title" class="privacy-banner-title">Cookies de métricas</p>
+        <p id="privacy-banner-description">Usamos o Google Analytics 4, somente com sua autorização, para medir visualizações e cliques nos botões de WhatsApp. Não usamos cookies de publicidade nem outros rastreadores. <a href="/privacidade/">Veja os detalhes</a>.</p>
+      </div>
+      <div class="privacy-banner-actions">
+        <button type="button" class="btn privacy-button privacy-button-secondary" data-privacy-reject>Recusar métricas</button>
+        <button type="button" class="btn privacy-button privacy-button-primary" data-privacy-accept>Aceitar métricas</button>
+      </div>
+    </div>
+  </aside>`;
+}
+
+function layout({ seo, canonical, active, jsonLd, body, usaSwiper = false, ogType = active === 'home' ? 'website' : 'product', robots = 'index, follow' }) {
   return `<!doctype html>
 <html lang="pt-BR">
-${head({ seo, canonical, jsonLd, ogType: active === 'home' ? 'website' : 'product', usaSwiper })}
+${head({ seo, canonical, jsonLd, ogType, robots, usaSwiper })}
 <body>
   <a class="skip-link" href="#conteudoPrincipal">Pular para o conteúdo principal</a>
 ${navbar(active)}
@@ -290,6 +305,7 @@ ${body}
   </main>
 ${footer()}
 ${waFloat()}
+${privacyBanner()}
 ${scripts(usaSwiper)}
 </body>
 </html>
@@ -933,12 +949,9 @@ ${relatedSection(data.slug)}`;
 // ---------- Página de Bentô Cake ----------
 function renderBentoCake() {
   const bento = bolos.tamanhos.find((t) => t.id === 'bento');
-  // Preço do bentô por sabor: proporcional ao preço/kg do recheio,
-  // com o sabor mais barato saindo pelo preço base ("a partir de")
-  const minPrecoKg = Math.min(...bolos.recheios.map((r) => r.precoKg));
-  const precoPorSabor = (r) => round9(bento.precoFixo * r.precoKg / minPrecoKg);
-  const minBento = Math.min(...bolos.recheios.map(precoPorSabor));
-  const maxBento = Math.max(...bolos.recheios.map(precoPorSabor));
+  const saboresBento = bolos.recheiosBento;
+  const minBento = Math.min(...saboresBento.map((s) => s.preco));
+  const maxBento = Math.max(...saboresBento.map((s) => s.preco));
 
   const data = {
     slug: 'bento-cake',
@@ -955,14 +968,14 @@ function renderBentoCake() {
     { q: 'Quantas pessoas serve um bentô cake?', a: `O bentô cake tem 10cm de diâmetro e serve de ${bento.fatias} pessoas.` }
   ];
 
-  const linhasSabores = bolos.recheios.map((r) => `
-              <tr>
-                <th scope="row">
-                  <span class="recheio-nome">${esc(r.nome)}</span>
-                  <span class="recheio-desc">${esc(r.descricao)}</span>
-                </th>
-                <td data-label="Valor" class="price-cell">${money(precoPorSabor(r))}</td>
-              </tr>`).join('');
+  const linhasSabores = saboresBento.map((s) => `
+               <tr>
+                 <th scope="row">
+                   <span class="recheio-nome">${esc(s.nome)}</span>
+                   <span class="recheio-desc">${esc(s.descricao)}</span>
+                 </th>
+                 <td data-label="Valor" class="price-cell">${money(s.preco)}</td>
+               </tr>`).join('');
 
   const body = `
 ${pageHero(data, SEO['bento-cake'])}
@@ -1002,7 +1015,7 @@ ${pageHero(data, SEO['bento-cake'])}
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="sabores-bento-title" class="section-badge-title">Sabores e preços</h2>
-          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">Escolha um dos 20 recheios artesanais, com massa branca ou de chocolate e cobertura de chantilly inclusa.</p>
+          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">Escolha uma das ${saboresBento.length} opções artesanais, com massa branca ou de chocolate e cobertura de chantilly inclusa.</p>
         </div>
         <div class="table-responsive">
           <table class="price-table">
@@ -1078,7 +1091,7 @@ ${relatedSection('bento-cake')}`;
 
   const jsonLd = [
     localBusinessLd(),
-    productLd(data, 'bento-cake/', minBento, maxBento, { offerCount: bolos.recheios.length }),
+    productLd(data, 'bento-cake/', minBento, maxBento, { offerCount: saboresBento.length }),
     faqLd(faqBento),
     breadcrumbLd('Bentô Cake', 'bento-cake/')
   ];
@@ -1206,6 +1219,7 @@ function renderSitemap() {
         { loc: '/assets/images/brand/logo.jpeg', title: 'Logo Basilio Bolos' }
       ]
     },
+    { loc: '/privacidade/', priority: '0.3', changefreq: 'yearly', images: [] },
     ...produtos.filter((p) => !p.url.includes('#')).map((p) => ({
       loc: `/${p.url}`, priority: '0.9', changefreq: 'weekly',
       images: [{ loc: `/${p.imagem}`, title: `${p.titulo} - ${site.nome}` }]
@@ -1262,6 +1276,71 @@ function render404() {
   });
 }
 
+// ---------- Política de privacidade e cookies ----------
+function renderPrivacy() {
+  const contactUrl = waHref('Olá! Gostaria de exercer meus direitos previstos na LGPD ou tirar dúvidas sobre privacidade.');
+  const googlePrivacyUrl = 'https://policies.google.com/privacy';
+  const body = `
+    <header class="page-hero">
+      <div class="container text-center">
+        <h1 class="page-hero-title">Privacidade e cookies</h1>
+        <p class="page-hero-subtitle mx-auto">Como usamos o Google Analytics 4 e seus cookies de métricas.</p>
+      </div>
+    </header>
+    <section class="py-5">
+      <article class="container privacy-content">
+        <p class="privacy-lead"><strong>Última atualização:</strong> 13 de agosto de 2026.</p>
+        <p>Esta página descreve exatamente o uso de cookies e métricas no site Basilio Bolos. O único serviço de medição utilizado é o Google Analytics 4, identificado pela propriedade <code>G-C07W6E0102</code>.</p>
+
+        <h2>1. Quem administra o tratamento</h2>
+        <p>O site é operado sob o nome comercial <strong>${esc(site.nome)}</strong>. Dúvidas sobre esta política ou solicitações relacionadas aos seus dados podem ser enviadas pelo WhatsApp <a href="${contactUrl}" target="_blank" rel="noopener">${esc(site.telefoneDisplay)}</a>.</p>
+
+        <h2>2. O que o Google Analytics mede</h2>
+        <p>O Google Analytics é carregado somente depois que você clica em <strong>Aceitar métricas</strong>. Com o consentimento, o site envia:</p>
+        <ul>
+          <li><strong>Visualização de página:</strong> o caminho da página visitada, como <code>/bolos/</code>.</li>
+          <li><strong>Evento <code>whatsapp_click</code>:</strong> o clique em um botão de WhatsApp, um rótulo técnico da posição do link, como <code>nav</code>, <code>hero</code>, <code>contato</code>, <code>cta-band</code> ou <code>float</code>, e o caminho da página onde ocorreu o clique.</li>
+          <li><strong>Dados técnicos do serviço:</strong> o Google pode receber informações técnicas necessárias ao funcionamento do Analytics, como navegador, dispositivo e identificadores dos cookies.</li>
+        </ul>
+        <p>O código do site não envia ao Analytics nome, telefone, endereço, mensagem pré-preenchida do WhatsApp, conteúdo do pedido, CPF, e-mail, User-ID ou dados de pagamento. Também não usamos Google Signals, personalização de anúncios, Meta Pixel, TikTok Pixel, Hotjar, Clarity ou outro serviço de rastreamento.</p>
+
+        <h2>3. Cookies utilizados</h2>
+        <ul>
+          <li><strong><code>_ga</code> e <code>_ga_*</code>:</strong> cookies do Google Analytics, criados somente após o aceite, para distinguir a navegação e medir visualizações e cliques. O código configura validade local de até um ano.</li>
+          <li><strong><code>basilio_privacy_consent</code>:</strong> registro no armazenamento local do navegador, e não um cookie, usado para lembrar se você aceitou ou recusou as métricas.</li>
+        </ul>
+        <p>Não usamos cookies próprios de publicidade, remarketing ou venda de dados. A retenção dos dados dentro da propriedade do Google Analytics é configurada no painel do Google e deve ser revisada pelo administrador da conta.</p>
+
+        <h2>4. Outros recursos do site</h2>
+        <p>O site carrega Google Fonts, Bootstrap pelo jsDelivr e Font Awesome pelo cdnjs apenas para fontes, estilos e componentes visuais. Esses recursos não recebem os eventos de cliques descritos acima e não são usados pelo site como ferramentas de métricas. Os botões de WhatsApp, Google Maps, Instagram, Facebook e TikTok são links; o tratamento feito por esses serviços começa quando você decide acessá-los.</p>
+        <p>O Google Analytics é fornecido pelo Google LLC e pode realizar tratamento internacional conforme a <a href="${googlePrivacyUrl}" target="_blank" rel="noopener noreferrer">Política de privacidade do Google</a>.</p>
+
+        <h2>5. Consentimento e revogação</h2>
+        <p>As métricas são baseadas no seu consentimento. Sem o aceite, o script do Google Analytics não é carregado, nenhum evento é enviado e os cookies de Analytics são removidos quando possível. Você pode mudar sua escolha a qualquer momento em <button type="button" class="link-button" data-privacy-settings>Preferências de cookies</button>, no rodapé de qualquer página.</p>
+        <p>O site é estático e não possui formulário, banco de dados ou sistema próprio para armazenar pedidos. As mensagens enviadas ao WhatsApp não passam pelo Analytics.</p>
+
+        <h2>6. Seus direitos</h2>
+        <p>Você pode solicitar informações sobre este tratamento, confirmar a existência de dados associados a você, pedir correção ou eliminação quando aplicável e revogar o consentimento. Envie a solicitação pelo <a href="${contactUrl}" target="_blank" rel="noopener">canal de WhatsApp</a>. Também é possível peticionar à ANPD nas hipóteses previstas na LGPD.</p>
+
+        <h2>7. Atualizações</h2>
+        <p>Esta política será atualizada se o identificador, a finalidade, os eventos ou os serviços de métricas forem alterados. A data da última atualização aparece no início desta página.</p>
+      </article>
+    </section>`;
+
+  return layout({
+    seo: {
+      title: `Privacidade e cookies | ${site.nome}`,
+      description: `Uso do Google Analytics 4 e cookies de métricas no site ${site.nome}.`,
+      keywords: ''
+    },
+    canonical: '/privacidade/',
+    active: null,
+    jsonLd: [],
+    body,
+    ogType: 'article'
+  });
+}
+
 function renderLlms() {
   const linhas = produtos.map((p) => `- [${p.titulo}](${site.url}/${p.url}): ${p.descricao} ${p.precoDestaque}.`);
   return `# ${site.nome}
@@ -1307,5 +1386,6 @@ for (const data of paginasSimples) {
 writeFile('sitemap.xml', renderSitemap());
 writeFile('llms.txt', renderLlms());
 writeFile('404.html', render404());
+writeFile('privacidade/index.html', renderPrivacy());
 
-console.log('\nSite gerado com sucesso! Páginas: /, ' + produtos.map((p) => '/' + p.url).join(', ') + ', /404.html');
+console.log('\nSite gerado com sucesso! Páginas: /, ' + produtos.map((p) => '/' + p.url).join(', ') + ', /privacidade/, /404.html');

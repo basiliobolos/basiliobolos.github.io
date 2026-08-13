@@ -151,6 +151,58 @@
       "precoKg": 89
     }
   ],
+  "recheiosBento": [
+    {
+      "nome": "Brisa de Maracujá",
+      "descricao": "Mousse de maracujá",
+      "preco": 39
+    },
+    {
+      "nome": "Brisa Cítrica",
+      "descricao": "Mousse de limão",
+      "preco": 39
+    },
+    {
+      "nome": "Doce Encanto",
+      "descricao": "Mousse de morango (sem fruta)",
+      "preco": 39
+    },
+    {
+      "nome": "Nuvem de Cacau",
+      "descricao": "Mousse de chocolate",
+      "preco": 39
+    },
+    {
+      "nome": "Sensação Rosé",
+      "descricao": "Creme de morango com raspas de chocolate meio amargo (sem fruta)",
+      "preco": 39
+    },
+    {
+      "nome": "Clássico Brigadeiro",
+      "descricao": "Brigadeiro tradicional com cacau 50%",
+      "preco": 39
+    },
+    {
+      "nome": "Brigadeiro Blanc",
+      "descricao": "Brigadeiro cremoso de leite ninho",
+      "preco": 39
+    },
+    {
+      "nome": "Brigadeiro Tropical",
+      "descricao": "Brigadeiro de maracujá",
+      "preco": 45
+    },
+    {
+      "nome": "Trufado",
+      "descricao": "Creme trufado com chocolate meio amargo",
+      "preco": 49
+    },
+    {
+      "nome": "Prestígio",
+      "descricao": "Creme de coco cremoso",
+      "preco": 39
+    }
+  ],
   "notaRecheios": "",
   "coberturas": [
     {

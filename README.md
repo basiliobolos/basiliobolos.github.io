@@ -87,7 +87,7 @@ Bolos personalizados, doces finos, cupcakes, brownies, trufas, festa na caixa, p
 - ✅ Schema.org (LocalBusiness + areaServed)
 - ✅ 22 favicons (PWA completo)
 - ✅ Sitemap.xml com imagens
-- ✅ Google Analytics 4
+- ✅ Google Analytics 4 com consentimento explícito
 
 **Meta**: Top 3 "confeitaria santo andré" em 6 meses
 
@@ -110,6 +110,7 @@ basilio-bolos-website/
 ├── assets/             # Imagens e ícones
 ├── css/styles.css
 ├── js/app.js
+├── privacidade/        # GERADO - política de privacidade e cookies
 ├── llms.txt            # GERADO - resumo para agentes de IA
 ├── sitemap.xml         # GERADO
 └── robots.txt
