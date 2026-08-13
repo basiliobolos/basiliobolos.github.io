@@ -33,8 +33,8 @@
   <link rel="icon" type="image/svg+xml" href="/favicon-v2.svg">
   <link rel="manifest" href="/manifest.json" />
   <link rel="shortcut icon" href="/favicon-v2.ico" />
-  <meta name="theme-color" content="#5A3E36" />
-  <meta name="msapplication-TileColor" content="#5A3E36" />
+  <meta name="theme-color" content="#54382F" />
+  <meta name="msapplication-TileColor" content="#54382F" />
   <meta name="msapplication-config" content="/browserconfig.xml" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,7 +50,7 @@
     gtag('config', 'G-C07W6E0102');
   </script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/styles.css">
@@ -246,7 +246,7 @@
 
   <nav id="mainNav" class="navbar navbar-expand-lg navbar-light fixed-top navbar-glass" aria-label="Navegação principal">
     <div class="container">
-      <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/" style="color:#5A3E36;">
+      <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/" style="color:#54382F;">
         <img src="/assets/images/brand/logo.jpeg" alt="Logo Basilio Bolos" class="brand-icon" width="34" height="34" loading="eager">
         <span class="brand-text">Basilio Bolos</span>
       </a>
@@ -264,13 +264,15 @@
               <i class="fa-solid fa-cake-candles" aria-hidden="true"></i> Produtos
             </a>
             <ul class="dropdown-menu" aria-labelledby="produtosDropdown">
-              <li><a class="dropdown-item" href="/bolos/">Bolos Personalizados</a></li>
+              <li><a class="dropdown-item" href="/bolos/">Bolos Redondos</a></li>
+              <li><a class="dropdown-item" href="/bolos-retangulares/">Bolos Retangulares</a></li>
+              <li><a class="dropdown-item" href="/bento-cake/">Bentô Cake</a></li>
               <li><a class="dropdown-item" href="/doces/">Doces para Festa</a></li>
-              <li><a class="dropdown-item" href="/biscoitos/">Biscoitos Decorados</a></li>
               <li><a class="dropdown-item" href="/cupcakes/">Cupcakes</a></li>
+              <li><a class="dropdown-item" href="/biscoitos/">Biscoitos Decorados</a></li>
+              <li><a class="dropdown-item active" href="/bolo-de-pote/">Bolo de Pote</a></li>
               <li><a class="dropdown-item" href="/brownies/">Brownies</a></li>
               <li><a class="dropdown-item" href="/pipoca-gourmet/">Pipoca Gourmet</a></li>
-              <li><a class="dropdown-item active" href="/bolo-de-pote/">Bolo de Pote</a></li>
             </ul>
           </li>
           <li class="nav-item">
@@ -321,7 +323,7 @@
       </div>
     </header>
 
-    <section id="precos" class="py-5 scroll-reveal" aria-labelledby="opcoes-title">
+    <section id="precos" class="py-5" aria-labelledby="opcoes-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="opcoes-title" class="section-badge-title">Opções e preços</h2>
@@ -359,7 +361,7 @@
       </div>
     </section>
 
-    <section class="py-5 section-soft scroll-reveal" aria-labelledby="info-title">
+    <section class="py-5 section-soft" aria-labelledby="info-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="info-title" class="section-badge-title">Informações importantes</h2>
@@ -402,7 +404,7 @@
       </div>
     </section>
 
-    <section class="py-5 scroll-reveal" aria-labelledby="faq-title">
+    <section class="py-5" aria-labelledby="faq-title">
       <div class="container faq-container">
         <div class="section-header text-center mb-4">
           <h2 id="faq-title" class="section-badge-title">Perguntas frequentes</h2>
@@ -425,66 +427,22 @@
       </div>
     </section>
 
-    <section class="cta-band scroll-reveal" aria-label="Faça sua encomenda">
+    <section class="cta-band" aria-label="Faça sua encomenda">
       <div class="container text-center">
         <h2 class="cta-band-title">Pronto para encomendar bolo de pote?</h2>
-        <p class="cta-band-text">Atendemos Santo André e região com retirada no local. Pedidos com 3 dias úteis de antecedência.</p>
+        <p class="cta-band-text">Atendemos Santo André e região com retirada no local.</p>
         <a href="https://wa.me/5511968101912?text=Ol%C3%A1!%20Quero%20encomendar%20bolo%20de%20pote.%20Podem%20me%20ajudar%3F" class="btn btn-lg cta-band-btn" target="_blank" rel="noopener" data-track="cta-band">
           <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Pedir pelo WhatsApp
         </a>
       </div>
     </section>
 
-    <section class="py-5 section-soft scroll-reveal" aria-labelledby="rel-title">
+    <section class="py-5 section-soft" aria-labelledby="rel-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="rel-title" class="section-badge-title">Você também vai gostar</h2>
         </div>
-        <div class="prod-grid">
-          <a class="prod-card" href="/bolos/">
-            <div class="prod-card-image">
-              <img src="/assets/images/produtos/bolo-confeitado.webp" alt="Bolos Personalizados em Santo André - Basilio Bolos" loading="lazy" width="400" height="300">
-            </div>
-            <div class="prod-card-body">
-              <h3>Bolos Personalizados</h3>
-              <p class="prod-card-desc">Bolos confeitados por tamanho (do bentô cake ao GG), com 20 sabores de recheio, massa branca ou de chocolate e cobertura de chantilly ou ganache.</p>
-              <p class="prod-card-price">A partir de R$ 39</p>
-              <span class="prod-card-link">Ver detalhes e preços <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
-            </div>
-          </a>
-          <a class="prod-card" href="/doces/">
-            <div class="prod-card-image">
-              <img src="/assets/images/produtos/doces-festa.webp" alt="Doces para Festa em Santo André - Basilio Bolos" loading="lazy" width="400" height="300">
-            </div>
-            <div class="prod-card-body">
-              <h3>Doces para Festa</h3>
-              <p class="prod-card-desc">Doces artesanais por cento para festas e doces premium por unidade: brigadeiros, cestinhas, taças e flores de açúcar.</p>
-              <p class="prod-card-price">Cento a partir de R$ 190</p>
-              <span class="prod-card-link">Ver detalhes e preços <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
-            </div>
-          </a>
-          <a class="prod-card" href="/biscoitos/">
-            <div class="prod-card-image">
-              <img src="/assets/images/campanhas/caixa-biscoitos-natal.webp" alt="Biscoitos Decorados em Santo André - Basilio Bolos" loading="lazy" width="400" height="300">
-            </div>
-            <div class="prod-card-body">
-              <h3>Biscoitos Decorados</h3>
-              <p class="prod-card-desc">Biscoitos amanteigados decorados à mão em formatos e tamanhos variados. Vendidos por unidade ou em caixas fechadas para presentear.</p>
-              <p class="prod-card-price">A partir de R$ 5</p>
-              <span class="prod-card-link">Ver detalhes e preços <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
-            </div>
-          </a>
-          <a class="prod-card" href="/cupcakes/">
-            <div class="prod-card-image">
-              <img src="/assets/images/produtos/cupcake.webp" alt="Cupcakes em Santo André - Basilio Bolos" loading="lazy" width="400" height="300">
-            </div>
-            <div class="prod-card-body">
-              <h3>Cupcakes</h3>
-              <p class="prod-card-desc">Cupcakes decorados com temas personalizados, massa fofinha e recheio generoso. Por unidade ou em caixa com 2 unidades.</p>
-              <p class="prod-card-price">A partir de R$ 13</p>
-              <span class="prod-card-link">Ver detalhes e preços <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
-            </div>
-          </a>
+        <div id="lista-relacionados-bolo-de-pote" class="prod-grid" data-lista-relacionados>
           <a class="prod-card" href="/brownies/">
             <div class="prod-card-image">
               <img src="/assets/images/produtos/brownie.webp" alt="Brownies em Santo André - Basilio Bolos" loading="lazy" width="400" height="300">
@@ -493,6 +451,17 @@
               <h3>Brownies</h3>
               <p class="prod-card-desc">Brownie bem chocolatudo, macio por dentro e com casquinha crocante por fora. Na marmitinha ou em caixas de bites.</p>
               <p class="prod-card-price">A partir de R$ 12</p>
+              <span class="prod-card-link">Ver detalhes e preços <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+            </div>
+          </a>
+          <a class="prod-card" href="/bento-cake/">
+            <div class="prod-card-image">
+              <img src="/assets/images/produtos/bento-cake.webp" alt="Bentô Cake em Santo André - Basilio Bolos" loading="lazy" width="400" height="300">
+            </div>
+            <div class="prod-card-body">
+              <h3>Bentô Cake</h3>
+              <p class="prod-card-desc">O bolo individual de 10cm, perfeito para presentear ou comemorar em dose certa. Recheio generoso e decoração à sua escolha.</p>
+              <p class="prod-card-price">A partir de R$ 39</p>
               <span class="prod-card-link">Ver detalhes e preços <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
             </div>
           </a>
@@ -507,6 +476,25 @@
               <span class="prod-card-link">Ver detalhes e preços <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
             </div>
           </a>
+          <a class="prod-card produto-extra" data-produto-extra hidden href="/cupcakes/">
+            <div class="prod-card-image">
+              <img src="/assets/images/produtos/cupcake.webp" alt="Cupcakes em Santo André - Basilio Bolos" loading="lazy" width="400" height="300">
+            </div>
+            <div class="prod-card-body">
+              <h3>Cupcakes</h3>
+              <p class="prod-card-desc">Cupcakes decorados com temas personalizados, massa fofinha e recheio generoso. Por unidade ou em caixa com 2 unidades.</p>
+              <p class="prod-card-price">A partir de R$ 13</p>
+              <span class="prod-card-link">Ver detalhes e preços <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+            </div>
+          </a>
+        </div>
+        <div class="text-center mt-4">
+          <button type="button" class="btn btn-lg page-hero-btn-secondary" data-ver-mais-relacionados hidden aria-controls="lista-relacionados-bolo-de-pote" aria-expanded="false">
+            Ver mais sugestões <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="text-center mt-4">
+          <a href="/#produtos" class="btn btn-lg page-hero-btn-secondary">Ver mais produtos <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </div>
       </div>
     </section>

@@ -7,16 +7,16 @@
   "precoDestaque": "A partir de R$ 5",
   "mensagemWhatsApp": "Olá! Quero encomendar biscoitos decorados. Podem me ajudar?",
   "opcoes": [
-    { "nome": "Unidade", "descricao": "Biscoito amanteigado decorado à mão. Formatos e tamanhos variados conforme o tema.", "preco": "A partir de R$ 5" },
-    { "nome": "Caixa com 6 unidades", "descricao": "Caixa fechada com 6 biscoitos decorados no tema escolhido. Ideal para presentear.", "preco": "R$ 29" },
-    { "nome": "Caixa com 12 unidades", "descricao": "Caixa fechada com 12 biscoitos — pode combinar decorados à mão e banhados no chocolate.", "preco": "R$ 49" },
+    { "nome": "Unidade", "descricao": "Biscoito amanteigado decorado à mão. Formatos e tamanhos variados conforme o tema.", "preco": "A partir de R$ 4" },
+    { "nome": "Caixa com 6 unidades", "descricao": "Caixa fechada com 6 biscoitos decorados no tema escolhido. Ideal para presentear.", "preco": "A partir de R$ 22" },
+    { "nome": "Caixa com 12 unidades", "descricao": "Caixa fechada com 12 biscoitos, pode combinar decorados à mão e banhados no chocolate.", "preco": "R$ 42" },
     { "nome": "Pacotinhos para lembrancinha", "descricao": "Biscoitos embalados individualmente para lembrancinhas de festas e eventos. Orçamento por quantidade.", "preco": "Sob consulta" }
   ],
-  "nota": "Os valores variam conforme tamanho, formato e complexidade da decoração. Temas, personagens e cores são personalizáveis — envie sua referência pelo WhatsApp para orçamento.",
+  "nota": "Os valores variam conforme tamanho, formato e complexidade da decoração. Temas, personagens e cores são personalizáveis, envie sua referência pelo WhatsApp para orçamento.",
   "faq": [
     {
       "q": "Quanto custa um biscoito decorado em Santo André?",
-      "a": "Na Basilio Bolos, biscoitos decorados saem a partir de R$ 5 a unidade. Caixas fechadas com 6 unidades saem R$ 29 e com 12 unidades R$ 49. O valor final depende do tamanho e da complexidade da decoração."
+      "a": "Na Basilio Bolos, biscoitos decorados saem a partir de R$ 4 a unidade. Caixas fechadas com 6 unidades saem R$ 22 e com 12 unidades R$ 42. O valor final depende do tamanho e da complexidade da decoração."
     },
     {
       "q": "Vocês fazem biscoitos personalizados com tema?",

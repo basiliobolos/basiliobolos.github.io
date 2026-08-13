@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://basiliobolos.com.br/</loc>
-    <lastmod>2026-07-30</lastmod>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -17,17 +17,37 @@
   </url>
   <url>
     <loc>https://basiliobolos.com.br/bolos/</loc>
-    <lastmod>2026-07-30</lastmod>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://basiliobolos.com.br/assets/images/produtos/bolo-confeitado.webp</image:loc>
-      <image:title>Bolos Personalizados - Basilio Bolos</image:title>
+      <image:title>Bolos Redondos - Basilio Bolos</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://basiliobolos.com.br/bolos-retangulares/</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://basiliobolos.com.br/assets/images/produtos/bolo-confeitado.webp</image:loc>
+      <image:title>Bolos Retangulares - Basilio Bolos</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://basiliobolos.com.br/bento-cake/</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://basiliobolos.com.br/assets/images/produtos/bento-cake.webp</image:loc>
+      <image:title>Bentô Cake - Basilio Bolos</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://basiliobolos.com.br/doces/</loc>
-    <lastmod>2026-07-30</lastmod>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -36,18 +56,8 @@
     </image:image>
   </url>
   <url>
-    <loc>https://basiliobolos.com.br/biscoitos/</loc>
-    <lastmod>2026-07-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://basiliobolos.com.br/assets/images/campanhas/caixa-biscoitos-natal.webp</image:loc>
-      <image:title>Biscoitos Decorados - Basilio Bolos</image:title>
-    </image:image>
-  </url>
-  <url>
     <loc>https://basiliobolos.com.br/cupcakes/</loc>
-    <lastmod>2026-07-30</lastmod>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -56,8 +66,28 @@
     </image:image>
   </url>
   <url>
+    <loc>https://basiliobolos.com.br/biscoitos/</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://basiliobolos.com.br/assets/images/campanhas/caixa-biscoitos-natal.webp</image:loc>
+      <image:title>Biscoitos Decorados - Basilio Bolos</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://basiliobolos.com.br/bolo-de-pote/</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://basiliobolos.com.br/assets/images/produtos/bolo-no-pote.webp</image:loc>
+      <image:title>Bolo de Pote - Basilio Bolos</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://basiliobolos.com.br/brownies/</loc>
-    <lastmod>2026-07-30</lastmod>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -67,22 +97,12 @@
   </url>
   <url>
     <loc>https://basiliobolos.com.br/pipoca-gourmet/</loc>
-    <lastmod>2026-07-30</lastmod>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://basiliobolos.com.br/assets/images/produtos/pipoca-gourmet.webp</image:loc>
       <image:title>Pipoca Gourmet - Basilio Bolos</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://basiliobolos.com.br/bolo-de-pote/</loc>
-    <lastmod>2026-07-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://basiliobolos.com.br/assets/images/produtos/bolo-no-pote.webp</image:loc>
-      <image:title>Bolo de Pote - Basilio Bolos</image:title>
     </image:image>
   </url>
 </urlset>

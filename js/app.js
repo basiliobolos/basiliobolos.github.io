@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   const mainNav = document.getElementById('mainNav');
   const navbarContent = document.getElementById('navbarContent');
+  const whatsappFloat = document.querySelector('.whatsapp-float');
 
   // ---------- Ano atual no rodapé ----------
   const anoEl = document.getElementById('anoAtual');
@@ -60,27 +61,54 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 
-  // ---------- Navbar: efeito ao rolar ----------
-  window.addEventListener('scroll', () => {
-    if(!mainNav) return;
-    if(window.pageYOffset > 100){
-      mainNav.classList.add('scrolled');
-    } else {
-      mainNav.classList.remove('scrolled');
-    }
-  }, {passive: true});
+  // ---------- Expansão responsiva das grades de produtos ----------
+  const configurarExpansaoProdutos = (listaProdutos, verMaisProdutos) => {
+    if(!listaProdutos || !verMaisProdutos) return;
+    let produtosExpandidos = false;
 
-  // ---------- Scroll reveal ----------
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.classList.add('revealed');
-        revealObserver.unobserve(entry.target);
-      }
+    const atualizarProdutosVisiveis = () => {
+      const produtos = [...listaProdutos.querySelectorAll('.prod-card')];
+      const colunas = Math.max(1, getComputedStyle(listaProdutos).gridTemplateColumns.trim().split(/\s+/).length);
+      const limite = produtos.length <= colunas ? produtos.length : Math.floor(produtos.length / colunas) * colunas;
+
+      produtos.forEach((produto, indice) => {
+        produto.hidden = !produtosExpandidos && indice >= limite;
+      });
+      verMaisProdutos.hidden = produtosExpandidos || limite === produtos.length;
+      verMaisProdutos.setAttribute('aria-expanded', String(produtosExpandidos));
+    };
+
+    verMaisProdutos.addEventListener('click', () => {
+      produtosExpandidos = true;
+      atualizarProdutosVisiveis();
     });
-  }, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
+    window.addEventListener('resize', atualizarProdutosVisiveis, {passive: true});
+    atualizarProdutosVisiveis();
+  };
 
-  document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
+  configurarExpansaoProdutos(
+    document.getElementById('lista-produtos'),
+    document.querySelector('[data-ver-mais-produtos]')
+  );
+  document.querySelectorAll('[data-lista-relacionados]').forEach(lista => {
+    configurarExpansaoProdutos(lista, lista.parentElement.querySelector('[data-ver-mais-relacionados]'));
+  });
+
+  // ---------- Navbar e botão flutuante: efeitos ao rolar ----------
+  const atualizarEstadoScroll = () => {
+    if(mainNav){
+      mainNav.classList.toggle('scrolled', window.pageYOffset > 100);
+    }
+
+    if(whatsappFloat){
+      const distanciaDoFim = document.documentElement.scrollHeight - (window.scrollY + window.innerHeight);
+      whatsappFloat.classList.toggle('is-near-bottom', distanciaDoFim <= 120);
+    }
+  };
+
+  window.addEventListener('scroll', atualizarEstadoScroll, {passive: true});
+  window.addEventListener('resize', atualizarEstadoScroll, {passive: true});
+  atualizarEstadoScroll();
 
   // ---------- Swiper (carrossel de campanhas, quando ativo) ----------
   if(document.querySelector('.campSwiper') && typeof Swiper !== 'undefined'){

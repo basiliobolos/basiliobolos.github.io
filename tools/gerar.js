@@ -18,9 +18,13 @@ const ROOT = path.join(__dirname, '..');
 const readJSON = (file) => JSON.parse(fs.readFileSync(path.join(ROOT, 'data', file), 'utf8'));
 
 const site = readJSON('site.json');
-const produtos = readJSON('produtos.json').produtos;
+const produtosData = readJSON('produtos.json');
+const produtos = produtosData.produtos;
+const recomendacoes = produtosData.recomendacoes || {};
+const produtoPorSlug = new Map(produtos.map((p) => [p.slug, p]));
 const campanha = readJSON('campanhas.json');
 const bolos = readJSON('bolos.json');
+const bolosRetangulares = readJSON('bolos-retangulares.json');
 const doces = readJSON('doces.json');
 const paginasSimples = [
   readJSON('biscoitos.json'),
@@ -66,8 +70,8 @@ const joinHuman = (items) => items.length > 1
 function faqPrecoBolos(comTabela) {
   const partes = bolos.tamanhos.filter((t) => t.pesoKg)
     .map((t) => `de ${t.diametro} (${t.nome}, ${t.fatias} fatias) a partir de ${money(minPorTamanho[t.id])}`);
-  const base = `Na ${site.nome}, o bentô cake (10cm, ~250g) sai a partir de ${money(bentoPreco)}. Bolos ${joinHuman(partes)}, conforme o recheio escolhido.`;
-  return comTabela ? base + ' Veja a tabela completa na página de Bolos.' : base;
+  const base = `Na ${site.nome}, o bentô cake (10cm) sai a partir de ${money(bentoPreco)}, com página própria no site. Bolos redondos ${joinHuman(partes)}, conforme o recheio escolhido. Também temos bolos retangulares de 17x25cm (24 a 28 fatias) e 22x30cm (38 a 44 fatias), com página própria no site.`;
+  return comTabela ? base + ' Veja a tabela completa na página de Bolos Redondos.' : base;
 }
 
 const waHref = (msg) => `https://wa.me/${site.whatsappNumero}?text=${encodeURIComponent(msg || site.mensagemPadrao)}`;
@@ -84,13 +88,23 @@ const primeiroNumero = (texto) => {
 const SEO = {
   home: {
     title: 'Basilio Bolos | Confeitaria em Santo André SP - Bolos, Doces e Brownies',
-    description: 'Confeitaria artesanal em Santo André/SP. Bolos personalizados a partir de R$ 39, doces por cento, biscoitos decorados, cupcakes, brownies, pipoca gourmet e bolo de pote. Atendemos Santa Terezinha, Parque das Nações e região do ABC. Encomende pelo WhatsApp!',
+    description: 'Confeitaria artesanal em Santo André/SP. Bentô cake a partir de R$ 39, bolos personalizados a partir de R$ 89, doces por cento, biscoitos decorados, cupcakes, brownies, pipoca gourmet e bolo de pote. Atendemos Santa Terezinha, Parque das Nações e região do ABC. Encomende pelo WhatsApp!',
     keywords: 'confeitaria santo andré, bolo personalizado santo andré, bolo aniversário santo andré, doces para festa santo andré, cento de doces, brownie santo andré, cupcake santo andré, biscoitos decorados, pipoca gourmet, bolo de pote, bentô cake santo andré, confeitaria santa terezinha, confeitaria parque das nações, doces abc'
   },
   bolos: {
-    title: 'Bolos Personalizados em Santo André | Preços por Tamanho e Sabor | Basilio Bolos',
-    description: 'Tabela de preços de bolos em Santo André: bentô cake a partir de R$ 39 e bolos de 15cm a 30cm (10 a 48 fatias). 20 sabores de recheio, massa branca ou de chocolate, cobertura de chantilly ou ganache. Encomende pelo WhatsApp!',
-    keywords: 'bolo personalizado santo andré, preço de bolo santo andré, bolo aniversário santo andré, bentô cake santo andré, bolo 15cm, bolo 20cm, bolo 25cm, bolo 30cm, bolo trufado, bolo leite ninho com morango, bolo mousse de maracujá, quanto custa um bolo'
+    title: 'Bolos Redondos Personalizados em Santo André | Preços por Tamanho e Sabor | Basilio Bolos',
+    description: 'Tabela de preços de bolos redondos em Santo André: bolos de 15cm a 30cm (10 a 48 fatias) a partir de R$ 89. 20 sabores de recheio, massa branca ou de chocolate, cobertura de chantilly ou ganache. Encomende pelo WhatsApp!',
+    keywords: 'bolo personalizado santo andré, preço de bolo santo andré, bolo aniversário santo andré, bolo redondo, bolo 15cm, bolo 20cm, bolo 25cm, bolo 30cm, bolo trufado, bolo leite ninho com morango, bolo mousse de maracujá, quanto custa um bolo'
+  },
+  'bolos-retangulares': {
+    title: 'Bolos Retangulares em Santo André | 17x25 e 22x30 | Basilio Bolos',
+    description: 'Bolos retangulares em Santo André: 17x25cm (24 a 28 fatias) a partir de R$ 229 e 22x30cm (38 a 44 fatias) a partir de R$ 359. 20 sabores de recheio, massa branca ou de chocolate, cobertura de chantilly ou ganache. Encomende pelo WhatsApp!',
+    keywords: 'bolo retangular santo andré, bolo retangular 17x25, bolo retangular 22x30, bolo de festa retangular, preço de bolo retangular, bolo aniversário santo andré, bolo para muitas pessoas'
+  },
+  'bento-cake': {
+    title: 'Bentô Cake em Santo André | A partir de R$ 39 | Basilio Bolos',
+    description: 'Bentô cake em Santo André a partir de R$ 39: o bolinho individual de 10cm, ideal para presentear. 20 sabores de recheio, decoração personalizada. Encomende pelo WhatsApp!',
+    keywords: 'bentô cake santo andré, bento cake, bolinho individual, bolo de 10cm, presente bolo, bento cake personalizado abc'
   },
   doces: {
     title: 'Doces para Festa em Santo André | Cento a partir de R$ 190 | Basilio Bolos',
@@ -164,8 +178,8 @@ function head({ seo, canonical, jsonLd, ogType = 'website', usaSwiper = false })
   <link rel="icon" type="image/svg+xml" href="/favicon-v2.svg">
   <link rel="manifest" href="/manifest.json" />
   <link rel="shortcut icon" href="/favicon-v2.ico" />
-  <meta name="theme-color" content="#5A3E36" />
-  <meta name="msapplication-TileColor" content="#5A3E36" />
+  <meta name="theme-color" content="#54382F" />
+  <meta name="msapplication-TileColor" content="#54382F" />
   <meta name="msapplication-config" content="/browserconfig.xml" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -181,7 +195,7 @@ function head({ seo, canonical, jsonLd, ogType = 'website', usaSwiper = false })
     gtag('config', 'G-C07W6E0102');
   </script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />${swiperCss}
   <link rel="stylesheet" href="/css/styles.css">
@@ -199,7 +213,7 @@ function navbar(active) {
   return `
   <nav id="mainNav" class="navbar navbar-expand-lg navbar-light fixed-top navbar-glass" aria-label="Navegação principal">
     <div class="container">
-      <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/" style="color:#5A3E36;">
+      <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/" style="color:#54382F;">
         <img src="/assets/images/brand/logo.jpeg" alt="Logo ${esc(site.nome)}" class="brand-icon" width="34" height="34" loading="eager">
         <span class="brand-text">${esc(site.nome)}</span>
       </a>
@@ -315,10 +329,10 @@ function pageHero(data, seo) {
 
 function ctaBand(data) {
   return `
-    <section class="cta-band scroll-reveal" aria-label="Faça sua encomenda">
+    <section class="cta-band" aria-label="Faça sua encomenda">
       <div class="container text-center">
         <h2 class="cta-band-title">Pronto para encomendar ${esc(data.titulo.toLowerCase())}?</h2>
-        <p class="cta-band-text">Atendemos Santo André e região com retirada no local. Pedidos com 3 dias úteis de antecedência.</p>
+        <p class="cta-band-text">Atendemos Santo André e região com retirada no local.</p>
         <a href="${waHref(data.mensagemWhatsApp)}" class="btn btn-lg cta-band-btn" target="_blank" rel="noopener" data-track="cta-band">
           ${waIcon} Pedir pelo WhatsApp
         </a>
@@ -335,7 +349,7 @@ function policiesSection() {
     { icon: 'fa-bag-shopping', titulo: 'Retirada', texto: p.retirada }
   ];
   return `
-    <section class="py-5 section-soft scroll-reveal" aria-labelledby="info-title">
+    <section class="py-5 section-soft" aria-labelledby="info-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="info-title" class="section-badge-title">Informações importantes</h2>
@@ -361,7 +375,7 @@ function policiesSection() {
 function faqSection(faq) {
   if (!faq || !faq.length) return '';
   return `
-    <section class="py-5 scroll-reveal" aria-labelledby="faq-title">
+    <section class="py-5" aria-labelledby="faq-title">
       <div class="container faq-container">
         <div class="section-header text-center mb-4">
           <h2 id="faq-title" class="section-badge-title">Perguntas frequentes</h2>
@@ -378,22 +392,37 @@ function faqSection(faq) {
 }
 
 function relatedSection(currentSlug) {
-  const outros = produtos.filter((p) => p.slug !== currentSlug);
+  const outros = (recomendacoes[currentSlug] || [])
+    .map((slug) => produtoPorSlug.get(slug))
+    .filter((p) => p && p.slug !== currentSlug)
+    .slice(0, 4);
+  const listaId = `lista-relacionados-${currentSlug}`;
+  const relacionadosIniciais = outros.slice(0, 3);
+  const relacionadosRestantes = outros.slice(3);
   return `
-    <section class="py-5 section-soft scroll-reveal" aria-labelledby="rel-title">
+    <section class="py-5 section-soft" aria-labelledby="rel-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="rel-title" class="section-badge-title">Você também vai gostar</h2>
         </div>
-        <div class="prod-grid">
-          ${outros.map((p) => prodCard(p)).join('\n          ')}
+        <div id="${esc(listaId)}" class="prod-grid" data-lista-relacionados>
+          ${relacionadosIniciais.map((p) => prodCard(p)).join('\n          ')}
+          ${relacionadosRestantes.map((p) => prodCard(p, { extra: true })).join('\n          ')}
+        </div>${relacionadosRestantes.length ? `
+        <div class="text-center mt-4">
+          <button type="button" class="btn btn-lg page-hero-btn-secondary" data-ver-mais-relacionados hidden aria-controls="${esc(listaId)}" aria-expanded="false">
+            Ver mais sugestões <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
+        </div>` : ''}
+        <div class="text-center mt-4">
+          <a href="/#produtos" class="btn btn-lg page-hero-btn-secondary">Ver mais produtos <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </div>
       </div>
     </section>`;
 }
 
-function prodCard(p) {
-  return `<a class="prod-card" href="/${esc(p.url)}">
+function prodCard(p, { extra = false } = {}) {
+  return `<a class="prod-card${extra ? ' produto-extra' : ''}"${extra ? ' data-produto-extra hidden' : ''} href="/${esc(p.url)}">
             <div class="prod-card-image">
               <img src="/${esc(p.imagem)}" alt="${esc(p.titulo)} em Santo André - ${esc(site.nome)}" loading="lazy" width="400" height="300">
             </div>
@@ -499,7 +528,7 @@ function productLd(data, url, lowPrice, highPrice, extra = {}) {
 // ---------- Página inicial ----------
 function renderHome() {
   const faqHome = [
-    { q: 'Quais produtos a Basilio Bolos oferece?', a: 'Oferecemos bolos personalizados (do bentô cake ao tamanho GG), doces por cento e doces premium, biscoitos decorados, cupcakes, brownies, pipoca gourmet e bolo de pote. Todos artesanais e personalizáveis, em Santo André/SP.' },
+    { q: 'Quais produtos a Basilio Bolos oferece?', a: 'Oferecemos bentô cake, bolos personalizados do P ao GG, doces por cento e doces premium, biscoitos decorados, cupcakes, brownies, pipoca gourmet e bolo de pote. Todos artesanais e personalizáveis, em Santo André/SP.' },
     { q: 'Quais bairros vocês atendem em Santo André?', a: `Atendemos principalmente os bairros ${site.bairrosAtendidos.join(', ')} em Santo André/SP. Para outros bairros e cidades do ABC, consulte disponibilidade pelo WhatsApp.` },
     { q: 'Como faço um pedido?', a: `Clique no botão de WhatsApp em qualquer página do site, descreva o produto, quantidade e/ou tamanho. Retornamos com orçamento e disponibilidade no mesmo dia. Atendimento das 8h às 20h, todos os dias.` },
     { q: 'Vocês fazem bolos e doces personalizados para festas?', a: 'Sim! Criamos bolos personalizados, doces temáticos, biscoitos decorados e kits festa sob medida. Basta enviar a referência e a data pelo WhatsApp para montarmos a proposta.' },
@@ -508,6 +537,8 @@ function renderHome() {
   ];
 
   const campanhaAtiva = campanha && campanha.ativo && Array.isArray(campanha.produtos) && campanha.produtos.length;
+  const produtosIniciais = produtos.slice(0, 8);
+  const produtosRestantes = produtos.slice(8);
 
   const campanhaSection = campanhaAtiva ? `
     <section id="campanhas" class="py-5 section-campaign" style="background:linear-gradient(135deg, ${campanha.cor_fundo}, ${campanha.cor_secundaria});color:${campanha.cor_texto};">
@@ -572,22 +603,28 @@ function renderHome() {
       <div class="hero-decoration"></div>
     </header>
 ${campanhaSection}
-    <section id="produtos" class="py-5 section-soft scroll-reveal">
+    <section id="produtos" class="py-5 section-soft">
       <div class="container">
         <div class="section-header text-center mb-5">
           <h2 class="section-badge-title">Nossos Produtos</h2>
           <p class="mb-4 lead mx-auto" style="max-width:720px;color:#6b4f46;">
-            Bolos personalizados, doces para festa, biscoitos decorados, cupcakes, brownies, pipoca gourmet e bolo de pote —
-            tudo artesanal e feito sob encomenda em <strong>Santo André/SP</strong>. Clique em um produto para ver detalhes e preços.
+            Do bentô cake ao bolo de festa, dos docinhos por cento à pipoca gourmet: tudo artesanal,
+            feito sob encomenda em <strong>Santo André/SP</strong>. Escolha um produto para ver detalhes e preços.
           </p>
         </div>
-        <div class="prod-grid">
-          ${produtos.map((p) => prodCard(p)).join('\n          ')}
-        </div>
+        <div id="lista-produtos" class="prod-grid">
+          ${produtosIniciais.map((p) => prodCard(p)).join('\n          ')}
+          ${produtosRestantes.map((p) => prodCard(p, { extra: true })).join('\n          ')}
+        </div>${produtosRestantes.length ? `
+        <div class="text-center mt-4">
+          <button type="button" class="btn btn-lg page-hero-btn-secondary" data-ver-mais-produtos hidden aria-controls="lista-produtos" aria-expanded="false">
+            Ver mais produtos <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
+        </div>` : ''}
       </div>
     </section>
 
-    <section id="sobre" class="py-5 section-gradient-sand scroll-reveal">
+    <section id="sobre" class="py-5 section-gradient-sand">
       <div class="container sobre-container">
         <div class="section-header text-center mb-5">
           <h2 class="section-badge-title">Nossa História</h2>
@@ -605,7 +642,7 @@ ${campanhaSection}
               personalizáveis, feitos com carinho e atenção aos detalhes.
             </p>
             <p>
-              Nosso prazer é fazer parte dos melhores momentos das pessoas, mesmo que nos bastidores — alegrar e adoçar histórias,
+              Nosso prazer é fazer parte dos melhores momentos das pessoas, mesmo que nos bastidores: alegrar e adoçar histórias,
               uma encomenda por vez.
             </p>
             <div class="sobre-features mt-4">
@@ -637,7 +674,7 @@ ${campanhaSection}
     </section>
 ${faqSection(faqHome)}
 
-    <section id="contato" class="py-5 section-contato scroll-reveal">
+    <section id="contato" class="py-5 section-contato">
       <div class="container">
         <div class="section-header text-center mb-5">
           <h2 class="section-badge-title-dark">Contatos</h2>
@@ -709,20 +746,28 @@ ${faqSection(faqHome)}
   return layout({ seo: SEO.home, canonical: '/', active: 'home', jsonLd, body, usaSwiper: campanhaAtiva });
 }
 
-// ---------- Página de Bolos ----------
-function renderBolos() {
-  const tamanhosCalc = bolos.tamanhos.filter((t) => t.pesoKg);
-  const bento = bolos.tamanhos.find((t) => t.id === 'bento');
+// ---------- Página de Bolos (redondos e retangulares) ----------
+function renderBolos(data, seoKey) {
+  const fator = data.fatorPreco || 1;
+  const tamanhosCalc = data.tamanhos.filter((t) => t.pesoKg);
+  const precoTamanho = (r, t) => round9(r.precoKg * t.pesoKg * fator);
+  const minLocal = Math.min(...tamanhosCalc.map((t) => Math.min(...bolos.recheios.map((r) => precoTamanho(r, t)))));
+  const maxLocal = Math.max(...tamanhosCalc.map((t) => Math.max(...bolos.recheios.map((r) => precoTamanho(r, t)))));
+  const url = `${data.slug}/`;
+  const ehRetangular = data.slug === 'bolos-retangulares';
 
   // FAQ de preço sempre sincronizada com a tabela calculada
+  const faqPreco = ehRetangular
+    ? { q: 'Quanto custa um bolo retangular em Santo André?', a: `Na ${site.nome}, o bolo retangular de 17x25cm (24 a 28 fatias) sai a partir de ${money(Math.min(...bolos.recheios.map((r) => precoTamanho(r, tamanhosCalc[0]))))} e o de 22x30cm (38 a 44 fatias) a partir de ${money(Math.min(...bolos.recheios.map((r) => precoTamanho(r, tamanhosCalc[1]))))}, conforme o recheio escolhido.` }
+    : { q: 'Quanto custa um bolo de aniversário em Santo André?', a: faqPrecoBolos(false) };
   const faqBolos = [
-    { q: 'Quanto custa um bolo de aniversário em Santo André?', a: faqPrecoBolos(false) },
+    faqPreco,
     ...bolos.faq.filter((f) => !/quanto custa/i.test(f.q))
   ];
 
   // Tabela recheio x tamanho (preço calculado pelo kg, fatia de 100g, terminado em 9)
   const linhasRecheios = bolos.recheios.map((r) => {
-    const celulas = tamanhosCalc.map((t) => `<td data-label="${esc(t.nome)}">${money(round9(r.precoKg * t.pesoKg))}</td>`).join('');
+    const celulas = tamanhosCalc.map((t) => `<td data-label="${esc(t.nome)}">${money(precoTamanho(r, t))}</td>`).join('');
     return `
               <tr>
                 <th scope="row">
@@ -733,51 +778,51 @@ function renderBolos() {
               </tr>`;
   }).join('');
 
-  const ganache = bolos.coberturas.find((c) => c.nome === 'Ganache');
-  const ganacheLinhas = Object.entries(ganache.acrescimoPorTamanho)
-    .map(([tam, valor]) => `<tr><th scope="row">${tam === 'bento' ? 'Bento Cake' : `Tamanho ${esc(tam)}`}</th><td>+ ${money(valor)}</td></tr>`).join('\n                ');
+  const coberturas = data.coberturas || bolos.coberturas;
+  const ganache = coberturas.find((c) => c.nome === 'Ganache');
+  const ganacheTiers = Object.entries(ganache.acrescimoPorTamanho)
+    .map(([tam, valor]) => `<span class="tier-badge"><span class="tier-size">${esc(tam)}</span> <span class="tier-price">+ ${money(valor)}</span></span>`).join('\n                  ');
 
-  const maxGG = Math.max(...bolos.recheios.map((r) => round9(r.precoKg * 4.4)));
+  const tamanhosTradicionais = data.tamanhos.filter((t) => t.id !== 'bento');
+  const colunaMedida = ehRetangular ? 'Medidas' : 'Diâmetro';
 
   const body = `
-${pageHero(bolos, SEO.bolos)}
+${pageHero(data, SEO[seoKey])}
 
-    <section id="precos" class="py-5 scroll-reveal" aria-labelledby="tamanhos-title">
+    <section id="precos" class="py-5" aria-labelledby="tamanhos-title">
       <div class="container">
         <div class="section-header text-center mb-4">
-          <h2 id="tamanhos-title" class="section-badge-title">Tamanhos e fatias</h2>
-          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">${esc(bolos.notaTamanhos)}</p>
+          <h2 id="tamanhos-title" class="section-badge-title">${ehRetangular ? 'Bolos retangulares: tamanhos e fatias' : 'Bolos tradicionais: tamanhos e fatias'}</h2>
+          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">${esc(data.notaTamanhos)}</p>
         </div>
         <div class="table-responsive">
           <table class="price-table">
-            <caption class="sr-only">Tamanhos de bolo por diâmetro, peso aproximado e quantidade de fatias</caption>
+            <caption class="sr-only">Tamanhos de bolo por ${ehRetangular ? 'medidas' : 'diâmetro'} e quantidade de fatias</caption>
             <thead>
               <tr>
                 <th scope="col">Tamanho</th>
-                <th scope="col">Diâmetro</th>
-                <th scope="col">Peso aprox.</th>
+                <th scope="col">${colunaMedida}</th>
                 <th scope="col">Fatias</th>
               </tr>
             </thead>
             <tbody>
-              ${bolos.tamanhos.map((t) => `
+              ${tamanhosTradicionais.map((t) => `
               <tr>
                 <th scope="row">${esc(t.nome)}${t.obs ? `<span class="recheio-desc">${esc(t.obs)}</span>` : ''}</th>
-                <td data-label="Diâmetro">${esc(t.diametro)}</td>
-                <td data-label="Peso aprox.">${esc(t.peso)}</td>
+                <td data-label="${colunaMedida}">${esc(t.diametro)}</td>
                 <td data-label="Fatias">${esc(t.fatias)}</td>
               </tr>`).join('')}            </tbody>
           </table>
         </div>
-        <p class="table-note">Bento cake (10cm, ~250g): <strong>a partir de ${money(bento.precoFixo)}</strong>. Formatos disponíveis: ${bolos.formatos.map(esc).join(' · ')}.</p>
+        <p class="table-note">Outros formatos: ${data.formatos.map(esc).join(' · ')}.</p>
       </div>
     </section>
 
-    <section class="py-5 section-soft scroll-reveal" aria-labelledby="recheios-title">
+    <section class="py-5 section-soft" aria-labelledby="recheios-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="recheios-title" class="section-badge-title">Sabores de recheio e preços</h2>
-          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">${esc(bolos.notaRecheios)}</p>
+          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">${esc(data.notaRecheios)}</p>
         </div>
         <div class="table-responsive">
           <table class="price-table price-table-matrix">
@@ -795,39 +840,50 @@ ${pageHero(bolos, SEO.bolos)}
       </div>
     </section>
 
-    <section class="py-5 scroll-reveal" aria-labelledby="massas-title">
+    <section class="py-5" aria-labelledby="massas-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="massas-title" class="section-badge-title">Massas e coberturas</h2>
         </div>
-        <div class="row g-4 justify-content-center">
-          <div class="col-md-6 col-lg-5">
-            <div class="option-card">
-              <h3><i class="fa-solid fa-bread-slice" aria-hidden="true"></i> Massas</h3>
-              <ul class="option-list">
-                ${bolos.massas.map((m) => `<li>${esc(m)}</li>`).join('\n                ')}
-              </ul>
+        <div class="massas-coberturas-grid">
+          <div class="mc-card">
+            <div class="mc-card-icon"><i class="fa-solid fa-bread-slice"></i></div>
+            <h3 class="mc-card-title">Massas</h3>
+            <p class="mc-card-sub">Escolha a massa do seu bolo</p>
+            <div class="massas-pills">
+              ${bolos.massas.map((m) => {
+                const cls = m.toLowerCase() === 'branca' ? 'massa-pill massa-branca' : 'massa-pill massa-chocolate';
+                return `<span class="${cls}">${esc(m)}</span>`;
+              }).join('\n              ')}
             </div>
           </div>
-          <div class="col-md-6 col-lg-5">
-            <div class="option-card">
-              <h3><i class="fa-solid fa-ice-cream" aria-hidden="true"></i> Coberturas</h3>
-              <ul class="option-list">
-                <li><strong>Chantilly</strong> — sem acréscimo</li>
-                <li><strong>Ganache</strong> — com acréscimo por tamanho:</li>
-              </ul>
-              <table class="mini-table">
-                <tbody>
-                ${ganacheLinhas}
-                </tbody>
-              </table>
+          <div class="mc-card">
+            <div class="mc-card-icon"><i class="fa-solid fa-ice-cream"></i></div>
+            <h3 class="mc-card-title">Coberturas</h3>
+            <p class="mc-card-sub">Escolha a cobertura do seu bolo</p>
+            <div class="coberturas-list">
+              <div class="cobertura-row cobertura-row--free">
+                <div class="cobertura-info">
+                  <span class="cobertura-nome">Chantilly</span>
+                  <span class="cobertura-tag cobertura-tag--free">sem acréscimo</span>
+                </div>
+              </div>
+              <div class="cobertura-row cobertura-row--paid">
+                <div class="cobertura-info">
+                  <span class="cobertura-nome">Ganache</span>
+                  <span class="cobertura-tag cobertura-tag--paid">com acréscimo</span>
+                </div>
+                <div class="ganache-tiers">
+                  ${ganacheTiers}
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="py-5 section-soft scroll-reveal" aria-labelledby="acrescimos-title">
+    <section class="py-5 section-soft" aria-labelledby="acrescimos-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="acrescimos-title" class="section-badge-title">Acréscimos e decoração</h2>
@@ -846,17 +902,141 @@ ${pageHero(bolos, SEO.bolos)}
     </section>
 ${policiesSection()}
 ${faqSection(faqBolos)}
-${ctaBand(bolos)}
-${relatedSection('bolos')}`;
+${ctaBand(data)}
+${relatedSection(data.slug)}`;
 
   const jsonLd = [
     localBusinessLd(),
-    productLd(bolos, 'bolos/', bento.precoFixo, maxGG, { offerCount: bolos.recheios.length }),
+    productLd(data, url, minLocal, maxLocal, { offerCount: bolos.recheios.length }),
     faqLd(faqBolos),
-    breadcrumbLd(bolos.titulo, 'bolos/')
+    breadcrumbLd(data.titulo, url)
   ];
 
-  return layout({ seo: SEO.bolos, canonical: '/bolos/', active: 'bolos', jsonLd, body });
+  return layout({ seo: SEO[seoKey], canonical: `/${url}`, active: data.slug, jsonLd, body });
+}
+
+// ---------- Página de Bentô Cake ----------
+function renderBentoCake() {
+  const bento = bolos.tamanhos.find((t) => t.id === 'bento');
+  // Preço do bentô por sabor: proporcional ao preço/kg do recheio,
+  // com o sabor mais barato saindo pelo preço base ("a partir de")
+  const minPrecoKg = Math.min(...bolos.recheios.map((r) => r.precoKg));
+  const precoPorSabor = (r) => round9(bento.precoFixo * r.precoKg / minPrecoKg);
+  const minBento = Math.min(...bolos.recheios.map(precoPorSabor));
+  const maxBento = Math.max(...bolos.recheios.map(precoPorSabor));
+
+  const data = {
+    slug: 'bento-cake',
+    titulo: 'Bentô Cake',
+    tituloCompleto: 'Bentô Cake em Santo André',
+    subtitulo: 'O bolinho individual de 10cm que virou febre: perfeito para presentear, celebrar a dois ou matar a vontade de um bolo só seu. Recheio generoso e decoração personalizada.',
+    imagem: 'assets/images/produtos/bento-cake.webp',
+    precoDestaque: `A partir de ${money(minBento)}`,
+    mensagemWhatsApp: 'Olá! Quero encomendar um bentô cake. Podem me passar as opções?'
+  };
+
+  const faqBento = [
+    { q: 'Quanto custa um bentô cake em Santo André?', a: `Na ${site.nome}, o bentô cake (10cm) sai de ${money(minBento)} a ${money(maxBento)}, conforme o sabor do recheio, com massa branca ou de chocolate e cobertura de chantilly inclusos. Adicionais de decoração têm valor sob consulta.` },
+    { q: 'Quantas pessoas serve um bentô cake?', a: `O bentô cake tem 10cm de diâmetro e serve de ${bento.fatias} pessoas. É ideal para presentes e comemorações íntimas.` },
+    { q: 'Com quanta antecedência devo encomendar?', a: 'Pedimos no mínimo 3 dias úteis de antecedência. O pedido é confirmado após o pagamento de 30% do valor.' }
+  ];
+
+  const linhasSabores = bolos.recheios.map((r) => `
+              <tr>
+                <th scope="row">
+                  <span class="recheio-nome">${esc(r.nome)}</span>
+                  <span class="recheio-desc">${esc(r.descricao)}</span>
+                </th>
+                <td data-label="Valor" class="price-cell">${money(precoPorSabor(r))}</td>
+              </tr>`).join('');
+
+  const body = `
+${pageHero(data, SEO['bento-cake'])}
+
+    <section id="precos" class="py-5" aria-labelledby="como-funciona-title">
+      <div class="container">
+        <div class="section-header text-center mb-4">
+          <h2 id="como-funciona-title" class="section-badge-title">Como é o bentô cake</h2>
+        </div>
+        <div class="row g-4 justify-content-center">
+          <div class="col-md-4">
+            <div class="info-card">
+              <i class="fa-solid fa-ruler-combined" aria-hidden="true"></i>
+              <h3>Tamanho</h3>
+              <p>${esc(bento.diametro)} de diâmetro, servido em uma embalagem própria tipo marmitinha, com colher.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="info-card">
+              <i class="fa-solid fa-utensils" aria-hidden="true"></i>
+              <h3>Porções</h3>
+              <p>Serve de ${esc(bento.fatias)} pessoas. O tamanho certo para presentear sem desperdício.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="info-card">
+              <i class="fa-solid fa-tag" aria-hidden="true"></i>
+              <h3>Preço</h3>
+              <p>De ${money(minBento)} a ${money(maxBento)}, conforme o sabor do recheio. Cobertura de chantilly inclusa.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 section-soft" aria-labelledby="sabores-bento-title">
+      <div class="container">
+        <div class="section-header text-center mb-4">
+          <h2 id="sabores-bento-title" class="section-badge-title">Sabores e preços</h2>
+          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">Escolha um dos 20 recheios artesanais, com massa branca ou de chocolate e cobertura de chantilly inclusa.</p>
+        </div>
+        <div class="table-responsive">
+          <table class="price-table">
+            <caption class="sr-only">Sabores de recheio do bentô cake e respectivos valores</caption>
+            <thead>
+              <tr>
+                <th scope="col">Sabor</th>
+                <th scope="col">Valor</th>
+              </tr>
+            </thead>
+            <tbody>${linhasSabores}
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">Massas disponíveis: ${bolos.massas.map(esc).join(' e ')}. Cobertura sempre em chantilly, sem acréscimo.</p>
+      </div>
+    </section>
+
+    <section class="py-5" aria-labelledby="decor-bento-title">
+      <div class="container">
+        <div class="section-header text-center mb-4">
+          <h2 id="decor-bento-title" class="section-badge-title">Decoração e adicionais</h2>
+          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">O bentô pode ser decorado com frases, desenhos e o tema da sua comemoração. Estes adicionais também estão disponíveis, com valor a consultar:</p>
+        </div>
+        <div class="row g-3 justify-content-center">
+          ${bolos.acrescimos.map((a) => `
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="addon-card">
+              <h3>${esc(a.nome)}</h3>
+              <p>A consultar</p>
+            </div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </section>
+${policiesSection()}
+${faqSection(faqBento)}
+${ctaBand(data)}
+${relatedSection('bento-cake')}`;
+
+  const jsonLd = [
+    localBusinessLd(),
+    productLd(data, 'bento-cake/', minBento, maxBento, { offerCount: bolos.recheios.length }),
+    faqLd(faqBento),
+    breadcrumbLd('Bentô Cake', 'bento-cake/')
+  ];
+
+  return layout({ seo: SEO['bento-cake'], canonical: '/bento-cake/', active: 'bento-cake', jsonLd, body });
 }
 
 // ---------- Página de Doces ----------
@@ -865,56 +1045,41 @@ function renderDoces() {
   const maxCento = Math.max(...doces.centos.map((d) => d.precoCento));
   const minUn = Math.min(...doces.premium.map((d) => d.precoUnidade));
 
+  const menuItem = (d, precoHtml) => `
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/${esc(d.imagem)}" alt="${esc(d.nome)} - ${esc(site.nome)}" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">${esc(d.nome)}</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">${precoHtml}</span>
+              </div>
+              <p class="menu-item-desc">${esc(d.descricao)}</p>
+            </div>
+          </li>`;
+
   const body = `
 ${pageHero(doces, SEO.doces)}
 
-    <section id="precos" class="py-5 scroll-reveal" aria-labelledby="centos-title">
+    <section id="precos" class="py-5" aria-labelledby="centos-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="centos-title" class="section-badge-title">Doces por cento</h2>
           <p class="mx-auto" style="max-width:680px;color:#6b4f46;">Ideais para festas e eventos. ${esc(doces.notaCentos)}</p>
         </div>
-        <div class="table-responsive">
-          <table class="price-table">
-            <caption class="sr-only">Sabores de doces vendidos por cento com preços</caption>
-            <thead>
-              <tr>
-                <th scope="col">Doce</th>
-                <th scope="col">Descrição</th>
-                <th scope="col">Cento (100 un.)</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${doces.centos.map((d) => `
-              <tr>
-                <th scope="row"><span class="recheio-nome">${esc(d.nome)}</span></th>
-                <td data-label="Descrição">${esc(d.descricao)}</td>
-                <td data-label="Cento" class="price-cell">${money(d.precoCento)}</td>
-              </tr>`).join('')}
-            </tbody>
-          </table>
-        </div>
+        <ul class="menu-list">${doces.centos.map((d) => menuItem(d, `${money(d.precoCento)} <small>o cento</small>`)).join('')}
+        </ul>
       </div>
     </section>
 
-    <section class="py-5 section-soft scroll-reveal" aria-labelledby="premium-title">
+    <section class="py-5 section-soft" aria-labelledby="premium-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="premium-title" class="section-badge-title">Doces premium (por unidade)</h2>
           <p class="mx-auto" style="max-width:680px;color:#6b4f46;">${esc(doces.notaPremium)}</p>
         </div>
-        <div class="row g-3">
-          ${doces.premium.map((d) => `
-          <div class="col-md-6 col-lg-4">
-            <div class="option-card option-card-sm">
-              <div class="option-card-head">
-                <h3>${esc(d.nome)}</h3>
-                <span class="option-price">${moneyCents(d.precoUnidade)}</span>
-              </div>
-              <p>${esc(d.descricao)}</p>
-            </div>
-          </div>`).join('')}
-        </div>
+        <ul class="menu-list">${doces.premium.map((d) => menuItem(d, `${moneyCents(d.precoUnidade)} <small>a unidade</small>`)).join('')}
+        </ul>
       </div>
     </section>
 ${policiesSection()}
@@ -946,7 +1111,7 @@ function renderSimples(data) {
   const body = `
 ${pageHero(data, SEO[data.slug])}
 
-    <section id="precos" class="py-5 scroll-reveal" aria-labelledby="opcoes-title">
+    <section id="precos" class="py-5" aria-labelledby="opcoes-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="opcoes-title" class="section-badge-title">Opções e preços</h2>
@@ -992,7 +1157,7 @@ function renderSitemap() {
         { loc: '/assets/images/brand/logo.jpeg', title: 'Logo Basilio Bolos' }
       ]
     },
-    ...produtos.map((p) => ({
+    ...produtos.filter((p) => !p.url.includes('#')).map((p) => ({
       loc: `/${p.url}`, priority: '0.9', changefreq: 'weekly',
       images: [{ loc: `/${p.imagem}`, title: `${p.titulo} - ${site.nome}` }]
     }))
@@ -1083,7 +1248,9 @@ function writeFile(relPath, content) {
 }
 
 writeFile('index.html', renderHome());
-writeFile('bolos/index.html', renderBolos());
+writeFile('bolos/index.html', renderBolos(bolos, 'bolos'));
+writeFile('bolos-retangulares/index.html', renderBolos(bolosRetangulares, 'bolos-retangulares'));
+writeFile('bento-cake/index.html', renderBentoCake());
 writeFile('doces/index.html', renderDoces());
 for (const data of paginasSimples) {
   writeFile(`${data.slug}/index.html`, renderSimples(data));

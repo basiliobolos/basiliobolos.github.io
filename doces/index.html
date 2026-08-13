@@ -33,8 +33,8 @@
   <link rel="icon" type="image/svg+xml" href="/favicon-v2.svg">
   <link rel="manifest" href="/manifest.json" />
   <link rel="shortcut icon" href="/favicon-v2.ico" />
-  <meta name="theme-color" content="#5A3E36" />
-  <meta name="msapplication-TileColor" content="#5A3E36" />
+  <meta name="theme-color" content="#54382F" />
+  <meta name="msapplication-TileColor" content="#54382F" />
   <meta name="msapplication-config" content="/browserconfig.xml" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,7 +50,7 @@
     gtag('config', 'G-C07W6E0102');
   </script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/styles.css">
@@ -198,7 +198,7 @@
         "name": "Quanto custa o cento de doces em Santo André?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Na Basilio Bolos, o cento de doces sai a partir de R$ 190 (brigadeiro clássico e beijinho). Sabores como bicho de pé, casadinho e ninho saem R$ 209 o cento, e os especiais (paçoquinha, ferrero, ninho com Nutella e churros) saem R$ 249 o cento."
+          "text": "Na Basilio Bolos, o cento de doces sai a partir de R$ 189 (brigadeiro clássico e beijinho). Sabores como bicho de pé, casadinho e ninho saem R$ 209 o cento, e os especiais (paçoquinha, ferrero, ninho com Nutella e churros) saem R$ 249 o cento."
         }
       },
       {
@@ -254,7 +254,7 @@
 
   <nav id="mainNav" class="navbar navbar-expand-lg navbar-light fixed-top navbar-glass" aria-label="Navegação principal">
     <div class="container">
-      <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/" style="color:#5A3E36;">
+      <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/" style="color:#54382F;">
         <img src="/assets/images/brand/logo.jpeg" alt="Logo Basilio Bolos" class="brand-icon" width="34" height="34" loading="eager">
         <span class="brand-text">Basilio Bolos</span>
       </a>
@@ -272,13 +272,15 @@
               <i class="fa-solid fa-cake-candles" aria-hidden="true"></i> Produtos
             </a>
             <ul class="dropdown-menu" aria-labelledby="produtosDropdown">
-              <li><a class="dropdown-item" href="/bolos/">Bolos Personalizados</a></li>
+              <li><a class="dropdown-item" href="/bolos/">Bolos Redondos</a></li>
+              <li><a class="dropdown-item" href="/bolos-retangulares/">Bolos Retangulares</a></li>
+              <li><a class="dropdown-item" href="/bento-cake/">Bentô Cake</a></li>
               <li><a class="dropdown-item active" href="/doces/">Doces para Festa</a></li>
-              <li><a class="dropdown-item" href="/biscoitos/">Biscoitos Decorados</a></li>
               <li><a class="dropdown-item" href="/cupcakes/">Cupcakes</a></li>
+              <li><a class="dropdown-item" href="/biscoitos/">Biscoitos Decorados</a></li>
+              <li><a class="dropdown-item" href="/bolo-de-pote/">Bolo de Pote</a></li>
               <li><a class="dropdown-item" href="/brownies/">Brownies</a></li>
               <li><a class="dropdown-item" href="/pipoca-gourmet/">Pipoca Gourmet</a></li>
-              <li><a class="dropdown-item" href="/bolo-de-pote/">Bolo de Pote</a></li>
             </ul>
           </li>
           <li class="nav-item">
@@ -312,7 +314,7 @@
           <div class="col-lg-7">
             <h1 class="page-hero-title">Doces para Festa em Santo André</h1>
             <p class="page-hero-subtitle">Doces artesanais por cento para festas e eventos, e doces premium por unidade para ocasiões especiais. Produzidos em Santo André com ingredientes selecionados.</p>
-            <p class="page-hero-price">Cento a partir de R$ 190</p>
+            <p class="page-hero-price">Cento a partir de R$ 189</p>
             <div class="d-flex flex-wrap gap-3 mt-3">
               <a href="https://wa.me/5511968101912?text=Ol%C3%A1!%20Quero%20encomendar%20doces%20para%20uma%20festa.%20Podem%20me%20passar%20os%20valores%3F" class="btn btn-lg btn-whatsapp" target="_blank" rel="noopener" data-track="hero">
                 <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Encomendar pelo WhatsApp
@@ -329,223 +331,293 @@
       </div>
     </header>
 
-    <section id="precos" class="py-5 scroll-reveal" aria-labelledby="centos-title">
+    <section id="precos" class="py-5" aria-labelledby="centos-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="centos-title" class="section-badge-title">Doces por cento</h2>
-          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">Ideais para festas e eventos. Brigadeiros com peso aproximado de 16g. Cento de doces variado: escolha até 4 sabores para compor sua caixa — envie os sabores desejados para receber o orçamento.</p>
+          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">Ideais para festas e eventos. Brigadeiros com peso aproximado de 16g. Cento de doces variado: escolha até 4 sabores para compor sua caixa, envie os sabores desejados para receber o orçamento.</p>
         </div>
-        <div class="table-responsive">
-          <table class="price-table">
-            <caption class="sr-only">Sabores de doces vendidos por cento com preços</caption>
-            <thead>
-              <tr>
-                <th scope="col">Doce</th>
-                <th scope="col">Descrição</th>
-                <th scope="col">Cento (100 un.)</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-              <tr>
-                <th scope="row"><span class="recheio-nome">Brigadeiro Clássico</span></th>
-                <td data-label="Descrição">Brigadeiro feito com chocolate 50% cacau, envolto em granulado</td>
-                <td data-label="Cento" class="price-cell">R$ 190</td>
-              </tr>
-              <tr>
-                <th scope="row"><span class="recheio-nome">Beijinho</span></th>
-                <td data-label="Descrição">Brigadeiro de coco, envolto em coco ralado</td>
-                <td data-label="Cento" class="price-cell">R$ 190</td>
-              </tr>
-              <tr>
-                <th scope="row"><span class="recheio-nome">Bicho de Pé</span></th>
-                <td data-label="Descrição">Brigadeiro cremoso sabor morango, envolto em açúcar cristal</td>
-                <td data-label="Cento" class="price-cell">R$ 209</td>
-              </tr>
-              <tr>
-                <th scope="row"><span class="recheio-nome">Casadinho</span></th>
-                <td data-label="Descrição">União do brigadeiro tradicional e do brigadeiro branco</td>
-                <td data-label="Cento" class="price-cell">R$ 209</td>
-              </tr>
-              <tr>
-                <th scope="row"><span class="recheio-nome">Ninho</span></th>
-                <td data-label="Descrição">Brigadeiro cremoso de leite ninho, envolto em leite ninho em pó</td>
-                <td data-label="Cento" class="price-cell">R$ 209</td>
-              </tr>
-              <tr>
-                <th scope="row"><span class="recheio-nome">Paçoquinha</span></th>
-                <td data-label="Descrição">Brigadeiro cremoso de paçoquinha, envolto em amendoim triturado</td>
-                <td data-label="Cento" class="price-cell">R$ 249</td>
-              </tr>
-              <tr>
-                <th scope="row"><span class="recheio-nome">Ferrero</span></th>
-                <td data-label="Descrição">Brigadeiro de chocolate 50% cacau envolto em amendoim triturado, recheado com Nutella</td>
-                <td data-label="Cento" class="price-cell">R$ 249</td>
-              </tr>
-              <tr>
-                <th scope="row"><span class="recheio-nome">Ninho com Nutella</span></th>
-                <td data-label="Descrição">Brigadeiro cremoso de leite ninho com uma roseta de Nutella</td>
-                <td data-label="Cento" class="price-cell">R$ 249</td>
-              </tr>
-              <tr>
-                <th scope="row"><span class="recheio-nome">Churros</span></th>
-                <td data-label="Descrição">Brigadeiro cremoso com toque de canela, envolto em açúcar cristal, com roseta de doce de leite</td>
-                <td data-label="Cento" class="price-cell">R$ 249</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <ul class="menu-list">
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/brigadeiro-classico.webp" alt="Brigadeiro Clássico - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Brigadeiro Clássico</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 189 <small>o cento</small></span>
+              </div>
+              <p class="menu-item-desc">Brigadeiro feito com chocolate 50% cacau, envolto em granulado</p>
+            </div>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/beijinho.webp" alt="Beijinho - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Beijinho</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 189 <small>o cento</small></span>
+              </div>
+              <p class="menu-item-desc">Brigadeiro de coco, envolto em coco ralado</p>
+            </div>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/bicho-de-pe.webp" alt="Bicho de Pé - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Bicho de Pé</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 209 <small>o cento</small></span>
+              </div>
+              <p class="menu-item-desc">Brigadeiro cremoso sabor morango, envolto em açúcar cristal</p>
+            </div>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/casadinho.webp" alt="Casadinho - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Casadinho</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 209 <small>o cento</small></span>
+              </div>
+              <p class="menu-item-desc">União do brigadeiro tradicional e do brigadeiro branco</p>
+            </div>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/ninho.webp" alt="Ninho - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Ninho</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 209 <small>o cento</small></span>
+              </div>
+              <p class="menu-item-desc">Brigadeiro cremoso de leite ninho, envolto em leite ninho em pó</p>
+            </div>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/pacoquinha.webp" alt="Paçoquinha - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Paçoquinha</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 249 <small>o cento</small></span>
+              </div>
+              <p class="menu-item-desc">Brigadeiro cremoso de paçoquinha, envolto em amendoim triturado</p>
+            </div>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/ferrero.webp" alt="Ferrero - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Ferrero</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 249 <small>o cento</small></span>
+              </div>
+              <p class="menu-item-desc">Brigadeiro de chocolate 50% cacau envolto em amendoim triturado, recheado com Nutella</p>
+            </div>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/ninho-com-nutella.webp" alt="Ninho com Nutella - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Ninho com Nutella</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 249 <small>o cento</small></span>
+              </div>
+              <p class="menu-item-desc">Brigadeiro cremoso de leite ninho com uma roseta de Nutella</p>
+            </div>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/churros.webp" alt="Churros - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Churros</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 249 <small>o cento</small></span>
+              </div>
+              <p class="menu-item-desc">Brigadeiro cremoso com toque de canela, envolto em açúcar cristal, com roseta de doce de leite</p>
+            </div>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <section class="py-5 section-soft scroll-reveal" aria-labelledby="premium-title">
+    <section class="py-5 section-soft" aria-labelledby="premium-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="premium-title" class="section-badge-title">Doces premium (por unidade)</h2>
           <p class="mx-auto" style="max-width:680px;color:#6b4f46;">Doces premium com peso aproximado de 22g. Quantidade mínima de 20 unidades por sabor.</p>
         </div>
-        <div class="row g-3">
-          
-          <div class="col-md-6 col-lg-4">
-            <div class="option-card option-card-sm">
-              <div class="option-card-head">
-                <h3>Brigadeiro Clássico Premium</h3>
-                <span class="option-price">R$ 3,20</span>
+        <ul class="menu-list">
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/brigadeiro-classico-premium.webp" alt="Brigadeiro Clássico Premium - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Brigadeiro Clássico Premium</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 3,20 <small>a unidade</small></span>
               </div>
-              <p>Chocolate 50% cacau envolto em granulê de chocolate nobre</p>
+              <p class="menu-item-desc">Chocolate 50% cacau envolto em granulê de chocolate nobre</p>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="option-card option-card-sm">
-              <div class="option-card-head">
-                <h3>Brigadeiro Ninho e Nutella</h3>
-                <span class="option-price">R$ 3,40</span>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/brigadeiro-ninho-e-nutella.webp" alt="Brigadeiro Ninho e Nutella - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Brigadeiro Ninho e Nutella</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 3,40 <small>a unidade</small></span>
               </div>
-              <p>Brigadeiro de leite ninho com delicada roseta de Nutella</p>
+              <p class="menu-item-desc">Brigadeiro de leite ninho com delicada roseta de Nutella</p>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="option-card option-card-sm">
-              <div class="option-card-head">
-                <h3>Brigadeiro Rafaello</h3>
-                <span class="option-price">R$ 3,80</span>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/brigadeiro-rafaello.webp" alt="Brigadeiro Rafaello - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Brigadeiro Rafaello</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 3,80 <small>a unidade</small></span>
               </div>
-              <p>Brigadeiro de coco com roseta de ganache de coco e amêndoa tostada</p>
+              <p class="menu-item-desc">Brigadeiro de coco com roseta de ganache de coco e amêndoa tostada</p>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="option-card option-card-sm">
-              <div class="option-card-head">
-                <h3>Brigadeiro de Churros</h3>
-                <span class="option-price">R$ 3,80</span>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/brigadeiro-de-churros.webp" alt="Brigadeiro de Churros - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Brigadeiro de Churros</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 3,80 <small>a unidade</small></span>
               </div>
-              <p>Brigadeiro branco envolto em açúcar cristal e canela, com roseta de doce de leite</p>
+              <p class="menu-item-desc">Brigadeiro branco envolto em açúcar cristal e canela, com roseta de doce de leite</p>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="option-card option-card-sm">
-              <div class="option-card-head">
-                <h3>Flor de Cerejeira</h3>
-                <span class="option-price">R$ 3,75</span>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/flor-de-cerejeira.webp" alt="Flor de Cerejeira - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Flor de Cerejeira</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 3,75 <small>a unidade</small></span>
               </div>
-              <p>Bombom de chocolate branco recheado com mousse e geleia de morango</p>
+              <p class="menu-item-desc">Bombom de chocolate branco recheado com mousse e geleia de morango</p>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="option-card option-card-sm">
-              <div class="option-card-head">
-                <h3>Brigadeiro Flor de Amendoim</h3>
-                <span class="option-price">R$ 4,15</span>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/brigadeiro-flor-de-amendoim.webp" alt="Brigadeiro Flor de Amendoim - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Brigadeiro Flor de Amendoim</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 4,15 <small>a unidade</small></span>
               </div>
-              <p>Brigadeiro de paçoca envolto com amendoim crocante e flor de açúcar</p>
+              <p class="menu-item-desc">Brigadeiro de paçoca envolto com amendoim crocante e flor de açúcar</p>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="option-card option-card-sm">
-              <div class="option-card-head">
-                <h3>Brigadeiro Ferrero</h3>
-                <span class="option-price">R$ 3,90</span>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/brigadeiro-ferrero.webp" alt="Brigadeiro Ferrero - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Brigadeiro Ferrero</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 3,90 <small>a unidade</small></span>
               </div>
-              <p>Brigadeiro 50% cacau envolto em amendoim com roseta de Nutella</p>
+              <p class="menu-item-desc">Brigadeiro 50% cacau envolto em amendoim com roseta de Nutella</p>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="option-card option-card-sm">
-              <div class="option-card-head">
-                <h3>Cestinha de Maracujá</h3>
-                <span class="option-price">R$ 3,95</span>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/cestinha-de-maracuja.webp" alt="Cestinha de Maracujá - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Cestinha de Maracujá</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 3,95 <small>a unidade</small></span>
               </div>
-              <p>Base de chocolate com mousse e calda de maracujá</p>
+              <p class="menu-item-desc">Base de chocolate com mousse e calda de maracujá</p>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="option-card option-card-sm">
-              <div class="option-card-head">
-                <h3>Taça de Uva</h3>
-                <span class="option-price">R$ 4,50</span>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/taca-de-uva.webp" alt="Taça de Uva - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Taça de Uva</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 4,50 <small>a unidade</small></span>
               </div>
-              <p>Copinho de chocolate branco com creme de ninho e uva verde</p>
+              <p class="menu-item-desc">Copinho de chocolate branco com creme de ninho e uva verde</p>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="option-card option-card-sm">
-              <div class="option-card-head">
-                <h3>Cestinha de Limão</h3>
-                <span class="option-price">R$ 3,50</span>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/cestinha-de-limao.webp" alt="Cestinha de Limão - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Cestinha de Limão</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 3,50 <small>a unidade</small></span>
               </div>
-              <p>Casca crocante de chocolate branco com mousse leve de limão e raspas frescas</p>
+              <p class="menu-item-desc">Casca crocante de chocolate branco com mousse leve de limão e raspas frescas</p>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="option-card option-card-sm">
-              <div class="option-card-head">
-                <h3>Taça Floresta Negra</h3>
-                <span class="option-price">R$ 5,30</span>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/taca-floresta-negra.webp" alt="Taça Floresta Negra - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Taça Floresta Negra</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 5,30 <small>a unidade</small></span>
               </div>
-              <p>Copo de chocolate com recheio trufado de cereja e fruta no topo</p>
+              <p class="menu-item-desc">Copo de chocolate com recheio trufado de cereja e fruta no topo</p>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="option-card option-card-sm">
-              <div class="option-card-head">
-                <h3>Flor de Ninho</h3>
-                <span class="option-price">R$ 3,50</span>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/flor-de-ninho.webp" alt="Flor de Ninho - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Flor de Ninho</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 3,50 <small>a unidade</small></span>
               </div>
-              <p>Brigadeiro tradicional de leite ninho moldado em delicado formato de flor</p>
+              <p class="menu-item-desc">Brigadeiro tradicional de leite ninho moldado em delicado formato de flor</p>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="option-card option-card-sm">
-              <div class="option-card-head">
-                <h3>Torta de Limão</h3>
-                <span class="option-price">R$ 5,50</span>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/torta-de-limao.webp" alt="Torta de Limão - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Torta de Limão</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 5,50 <small>a unidade</small></span>
               </div>
-              <p>Copinho recheado com base de biscoito, mousse de limão, chantilly e raspas</p>
+              <p class="menu-item-desc">Copinho recheado com base de biscoito, mousse de limão, chantilly e raspas</p>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="option-card option-card-sm">
-              <div class="option-card-head">
-                <h3>Brownie com Nozes</h3>
-                <span class="option-price">R$ 5,50</span>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/brownie-com-nozes.webp" alt="Brownie com Nozes - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Brownie com Nozes</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 5,50 <small>a unidade</small></span>
               </div>
-              <p>Brownie macio com cobertura de doce de leite e uma noz em cima</p>
+              <p class="menu-item-desc">Brownie macio com cobertura de doce de leite e uma noz em cima</p>
             </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="option-card option-card-sm">
-              <div class="option-card-head">
-                <h3>Surpresa de Uva</h3>
-                <span class="option-price">R$ 3,90</span>
+          </li>
+          <li class="menu-item menu-item-com-img">
+            <img class="menu-item-img" src="/assets/images/doces/surpresa-de-uva.webp" alt="Surpresa de Uva - Basilio Bolos" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-body">
+              <div class="menu-item-head">
+                <h3 class="menu-item-name">Surpresa de Uva</h3>
+                <span class="menu-item-dots" aria-hidden="true"></span>
+                <span class="menu-item-price">R$ 3,90 <small>a unidade</small></span>
               </div>
-              <p>Uva envolta no brigadeiro de leite ninho</p>
+              <p class="menu-item-desc">Uva envolta no brigadeiro de leite ninho</p>
             </div>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <section class="py-5 section-soft scroll-reveal" aria-labelledby="info-title">
+    <section class="py-5 section-soft" aria-labelledby="info-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="info-title" class="section-badge-title">Informações importantes</h2>
@@ -588,7 +660,7 @@
       </div>
     </section>
 
-    <section class="py-5 scroll-reveal" aria-labelledby="faq-title">
+    <section class="py-5" aria-labelledby="faq-title">
       <div class="container faq-container">
         <div class="section-header text-center mb-4">
           <h2 id="faq-title" class="section-badge-title">Perguntas frequentes</h2>
@@ -597,7 +669,7 @@
           
           <details class="faq-item">
             <summary>Quanto custa o cento de doces em Santo André?</summary>
-            <p>Na Basilio Bolos, o cento de doces sai a partir de R$ 190 (brigadeiro clássico e beijinho). Sabores como bicho de pé, casadinho e ninho saem R$ 209 o cento, e os especiais (paçoquinha, ferrero, ninho com Nutella e churros) saem R$ 249 o cento.</p>
+            <p>Na Basilio Bolos, o cento de doces sai a partir de R$ 189 (brigadeiro clássico e beijinho). Sabores como bicho de pé, casadinho e ninho saem R$ 209 o cento, e os especiais (paçoquinha, ferrero, ninho com Nutella e churros) saem R$ 249 o cento.</p>
           </details>
           <details class="faq-item">
             <summary>Posso montar um cento de doces variado?</summary>
@@ -615,33 +687,22 @@
       </div>
     </section>
 
-    <section class="cta-band scroll-reveal" aria-label="Faça sua encomenda">
+    <section class="cta-band" aria-label="Faça sua encomenda">
       <div class="container text-center">
         <h2 class="cta-band-title">Pronto para encomendar doces para festa?</h2>
-        <p class="cta-band-text">Atendemos Santo André e região com retirada no local. Pedidos com 3 dias úteis de antecedência.</p>
+        <p class="cta-band-text">Atendemos Santo André e região com retirada no local.</p>
         <a href="https://wa.me/5511968101912?text=Ol%C3%A1!%20Quero%20encomendar%20doces%20para%20uma%20festa.%20Podem%20me%20passar%20os%20valores%3F" class="btn btn-lg cta-band-btn" target="_blank" rel="noopener" data-track="cta-band">
           <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Pedir pelo WhatsApp
         </a>
       </div>
     </section>
 
-    <section class="py-5 section-soft scroll-reveal" aria-labelledby="rel-title">
+    <section class="py-5 section-soft" aria-labelledby="rel-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="rel-title" class="section-badge-title">Você também vai gostar</h2>
         </div>
-        <div class="prod-grid">
-          <a class="prod-card" href="/bolos/">
-            <div class="prod-card-image">
-              <img src="/assets/images/produtos/bolo-confeitado.webp" alt="Bolos Personalizados em Santo André - Basilio Bolos" loading="lazy" width="400" height="300">
-            </div>
-            <div class="prod-card-body">
-              <h3>Bolos Personalizados</h3>
-              <p class="prod-card-desc">Bolos confeitados por tamanho (do bentô cake ao GG), com 20 sabores de recheio, massa branca ou de chocolate e cobertura de chantilly ou ganache.</p>
-              <p class="prod-card-price">A partir de R$ 39</p>
-              <span class="prod-card-link">Ver detalhes e preços <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
-            </div>
-          </a>
+        <div id="lista-relacionados-doces" class="prod-grid" data-lista-relacionados>
           <a class="prod-card" href="/biscoitos/">
             <div class="prod-card-image">
               <img src="/assets/images/campanhas/caixa-biscoitos-natal.webp" alt="Biscoitos Decorados em Santo André - Basilio Bolos" loading="lazy" width="400" height="300">
@@ -664,7 +725,18 @@
               <span class="prod-card-link">Ver detalhes e preços <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
             </div>
           </a>
-          <a class="prod-card" href="/brownies/">
+          <a class="prod-card" href="/bolos/">
+            <div class="prod-card-image">
+              <img src="/assets/images/produtos/bolo-confeitado.webp" alt="Bolos Redondos em Santo André - Basilio Bolos" loading="lazy" width="400" height="300">
+            </div>
+            <div class="prod-card-body">
+              <h3>Bolos Redondos</h3>
+              <p class="prod-card-desc">Bolos redondos confeitados do tamanho P ao GG, com 20 sabores de recheio, massa branca ou de chocolate e cobertura de chantilly ou ganache.</p>
+              <p class="prod-card-price">A partir de R$ 89</p>
+              <span class="prod-card-link">Ver detalhes e preços <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+            </div>
+          </a>
+          <a class="prod-card produto-extra" data-produto-extra hidden href="/brownies/">
             <div class="prod-card-image">
               <img src="/assets/images/produtos/brownie.webp" alt="Brownies em Santo André - Basilio Bolos" loading="lazy" width="400" height="300">
             </div>
@@ -675,28 +747,14 @@
               <span class="prod-card-link">Ver detalhes e preços <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
             </div>
           </a>
-          <a class="prod-card" href="/pipoca-gourmet/">
-            <div class="prod-card-image">
-              <img src="/assets/images/produtos/pipoca-gourmet.webp" alt="Pipoca Gourmet em Santo André - Basilio Bolos" loading="lazy" width="400" height="300">
-            </div>
-            <div class="prod-card-body">
-              <h3>Pipoca Gourmet</h3>
-              <p class="prod-card-desc">Pipoca fresca e crocante coberta de chocolate ou leite ninho. Em pacotes de 100g a 500g, também em versões temáticas.</p>
-              <p class="prod-card-price">A partir de R$ 15</p>
-              <span class="prod-card-link">Ver detalhes e preços <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
-            </div>
-          </a>
-          <a class="prod-card" href="/bolo-de-pote/">
-            <div class="prod-card-image">
-              <img src="/assets/images/produtos/bolo-no-pote.webp" alt="Bolo de Pote em Santo André - Basilio Bolos" loading="lazy" width="400" height="300">
-            </div>
-            <div class="prod-card-body">
-              <h3>Bolo de Pote</h3>
-              <p class="prod-card-desc">Nosso clássico! O produto que deu início à nossa história. Camadas generosas de bolo e recheio em potes de 250ml e 500ml.</p>
-              <p class="prod-card-price">A partir de R$ 15</p>
-              <span class="prod-card-link">Ver detalhes e preços <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
-            </div>
-          </a>
+        </div>
+        <div class="text-center mt-4">
+          <button type="button" class="btn btn-lg page-hero-btn-secondary" data-ver-mais-relacionados hidden aria-controls="lista-relacionados-doces" aria-expanded="false">
+            Ver mais sugestões <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="text-center mt-4">
+          <a href="/#produtos" class="btn btn-lg page-hero-btn-secondary">Ver mais produtos <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </div>
       </div>
     </section>

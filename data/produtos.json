@@ -1,20 +1,44 @@
 {
   "produtos": [
     {
-      "titulo": "Bolos Personalizados",
+      "titulo": "Bolos Redondos",
       "slug": "bolos",
       "imagem": "assets/images/produtos/bolo-confeitado.webp",
-      "descricao": "Bolos confeitados por tamanho (do bentô cake ao GG), com 20 sabores de recheio, massa branca ou de chocolate e cobertura de chantilly ou ganache.",
-      "precoDestaque": "A partir de R$ 39",
+      "descricao": "Bolos redondos confeitados do tamanho P ao GG, com 20 sabores de recheio, massa branca ou de chocolate e cobertura de chantilly ou ganache.",
+      "precoDestaque": "A partir de R$ 89",
       "url": "bolos/"
+    },
+    {
+      "titulo": "Bolos Retangulares",
+      "slug": "bolos-retangulares",
+      "imagem": "assets/images/produtos/bolo-confeitado.webp",
+      "descricao": "Bolos retangulares de 17x25cm (24 a 28 fatias) e 22x30cm (38 a 44 fatias), com 20 sabores de recheio, massa branca ou de chocolate e cobertura de chantilly ou ganache.",
+      "precoDestaque": "A partir de R$ 229",
+      "url": "bolos-retangulares/"
+    },
+    {
+      "titulo": "Bentô Cake",
+      "slug": "bento-cake",
+      "imagem": "assets/images/produtos/bento-cake.webp",
+      "descricao": "O bolo individual de 10cm, perfeito para presentear ou comemorar em dose certa. Recheio generoso e decoração à sua escolha.",
+      "precoDestaque": "A partir de R$ 39",
+      "url": "bento-cake/"
     },
     {
       "titulo": "Doces para Festa",
       "slug": "doces",
       "imagem": "assets/images/produtos/doces-festa.webp",
       "descricao": "Doces artesanais por cento para festas e doces premium por unidade: brigadeiros, cestinhas, taças e flores de açúcar.",
-      "precoDestaque": "Cento a partir de R$ 190",
+      "precoDestaque": "Cento a partir de R$ 189",
       "url": "doces/"
+    },
+    {
+      "titulo": "Cupcakes",
+      "slug": "cupcakes",
+      "imagem": "assets/images/produtos/cupcake.webp",
+      "descricao": "Cupcakes decorados com temas personalizados, massa fofinha e recheio generoso. Por unidade ou em caixa com 2 unidades.",
+      "precoDestaque": "A partir de R$ 13",
+      "url": "cupcakes/"
     },
     {
       "titulo": "Biscoitos Decorados",
@@ -25,12 +49,12 @@
       "url": "biscoitos/"
     },
     {
-      "titulo": "Cupcakes",
-      "slug": "cupcakes",
-      "imagem": "assets/images/produtos/cupcake.webp",
-      "descricao": "Cupcakes decorados com temas personalizados, massa fofinha e recheio generoso. Por unidade ou em caixa com 2 unidades.",
-      "precoDestaque": "A partir de R$ 13",
-      "url": "cupcakes/"
+      "titulo": "Bolo de Pote",
+      "slug": "bolo-de-pote",
+      "imagem": "assets/images/produtos/bolo-no-pote.webp",
+      "descricao": "Nosso clássico! O produto que deu início à nossa história. Camadas generosas de bolo e recheio em potes de 250ml e 500ml.",
+      "precoDestaque": "A partir de R$ 15",
+      "url": "bolo-de-pote/"
     },
     {
       "titulo": "Brownies",
@@ -47,14 +71,17 @@
       "descricao": "Pipoca fresca e crocante coberta de chocolate ou leite ninho. Em pacotes de 100g a 500g, também em versões temáticas.",
       "precoDestaque": "A partir de R$ 15",
       "url": "pipoca-gourmet/"
-    },
-    {
-      "titulo": "Bolo de Pote",
-      "slug": "bolo-de-pote",
-      "imagem": "assets/images/produtos/bolo-no-pote.webp",
-      "descricao": "Nosso clássico! O produto que deu início à nossa história. Camadas generosas de bolo e recheio em potes de 250ml e 500ml.",
-      "precoDestaque": "A partir de R$ 15",
-      "url": "bolo-de-pote/"
     }
-  ]
+  ],
+  "recomendacoes": {
+    "bento-cake": ["bolos", "bolos-retangulares", "cupcakes", "doces"],
+    "bolos": ["bolos-retangulares", "bento-cake", "cupcakes", "doces"],
+    "bolos-retangulares": ["bolos", "bento-cake", "cupcakes", "doces"],
+    "doces": ["biscoitos", "cupcakes", "bolos", "brownies"],
+    "biscoitos": ["doces", "cupcakes", "bento-cake", "pipoca-gourmet"],
+    "cupcakes": ["bento-cake", "doces", "biscoitos", "brownies"],
+    "brownies": ["bolo-de-pote", "bento-cake", "cupcakes", "pipoca-gourmet"],
+    "pipoca-gourmet": ["bolo-de-pote", "brownies", "bento-cake", "cupcakes"],
+    "bolo-de-pote": ["brownies", "bento-cake", "pipoca-gourmet", "cupcakes"]
+  }
 }
