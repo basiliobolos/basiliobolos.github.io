@@ -302,7 +302,7 @@ function breadcrumb(items) {
 
 function pageHero(data, seo) {
   return `
-    <header class="page-hero">
+    <header class="page-hero page-hero--with-image" style="--hero-image:url('/${esc(data.imagem)}')">
       <div class="container">
         ${breadcrumb([{ nome: 'Início', url: '/' }, { nome: data.titulo }])}
         <div class="row align-items-center g-4">
@@ -311,10 +311,9 @@ function pageHero(data, seo) {
             <p class="page-hero-subtitle">${esc(data.subtitulo)}</p>
             <p class="page-hero-price">${esc(data.precoDestaque)}</p>
             <div class="d-flex flex-wrap gap-3 mt-3">
-              <a href="${waHref(data.mensagemWhatsApp)}" class="btn btn-lg btn-whatsapp" target="_blank" rel="noopener" data-track="hero">
+              <a href="${waHref(data.mensagemWhatsApp)}" class="btn btn-lg btn-whatsapp page-hero-btn-secondary" target="_blank" rel="noopener" data-track="hero">
                 ${waIcon} Encomendar pelo WhatsApp
               </a>
-              <a href="#precos" class="btn btn-lg page-hero-btn-secondary">Ver preços</a>
             </div>
           </div>
           <div class="col-lg-5 text-center">
@@ -423,7 +422,7 @@ function relatedSection(currentSlug) {
 
 function prodCard(p, { extra = false } = {}) {
   return `<a class="prod-card${extra ? ' produto-extra' : ''}"${extra ? ' data-produto-extra hidden' : ''} href="/${esc(p.url)}">
-            <div class="prod-card-image">
+            <div class="prod-card-image" style="--media-image:url(/${esc(p.imagem)})">
               <img src="/${esc(p.imagem)}" alt="${esc(p.titulo)} em Santo André - ${esc(site.nome)}" loading="lazy" width="400" height="300">
             </div>
             <div class="prod-card-body">
@@ -558,8 +557,8 @@ function renderHome() {
                   <article class="flip-card">
                     <div class="flip-inner">
                       <div class="flip-front">
-                        <div class="card-image-wrapper">
-                          <img src="/${prod.imagem}" alt="${esc(prod.titulo)}" loading="lazy" width="400" height="240">
+                        <div class="card-image-wrapper" style="--media-image:url(/${esc(prod.imagem)})">
+                          <img src="/${esc(prod.imagem)}" alt="${esc(prod.titulo)}" loading="lazy" width="400" height="240">
                         </div>
                         <div class="card-content">
                           <h3 class="h5">${esc(prod.titulo)}</h3>
@@ -1047,7 +1046,9 @@ function renderDoces() {
 
   const menuItem = (d, precoHtml) => `
           <li class="menu-item menu-item-com-img">
-            <img class="menu-item-img" src="/${esc(d.imagem)}" alt="${esc(d.nome)} - ${esc(site.nome)}" loading="lazy" width="72" height="72" onerror="this.style.display='none'">
+            <div class="menu-item-media" style="--media-image:url(/${esc(d.imagem)})">
+              <img class="menu-item-img" src="/${esc(d.imagem)}" alt="${esc(d.nome)} - ${esc(site.nome)}" loading="lazy" width="72" height="72" onerror="this.closest('.menu-item-media').style.display='none'">
+            </div>
             <div class="menu-item-body">
               <div class="menu-item-head">
                 <h3 class="menu-item-name">${esc(d.nome)}</h3>
