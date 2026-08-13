@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   const mainNav = document.getElementById('mainNav');
   const navbarContent = document.getElementById('navbarContent');
+  const menuToggle = mainNav?.querySelector('[data-menu-toggle]');
   const whatsappFloat = document.querySelector('.whatsapp-float');
 
   // ---------- Ano atual no rodapé ----------
@@ -31,15 +32,48 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 
-  // ---------- Menu mobile: fecha ao clicar em um link ----------
-  let collapseController = null;
-  if(navbarContent && typeof bootstrap !== 'undefined' && bootstrap.Collapse){
-    collapseController = new bootstrap.Collapse(navbarContent, {toggle:false});
-    navbarContent.querySelectorAll('.nav-link:not(.dropdown-toggle), .dropdown-item, .btn').forEach(link => {
-      link.addEventListener('click', () => {
-        if(navbarContent.classList.contains('show')) collapseController.hide();
-      });
+  // ---------- Menu mobile: painel lateral sem animação de altura ----------
+  if(mainNav && navbarContent && menuToggle){
+    const mobileMenuQuery = window.matchMedia('(max-width: 991.98px)');
+
+    const setMenuOpen = (open) => {
+      const isOpen = mobileMenuQuery.matches && open;
+      navbarContent.classList.toggle('is-open', isOpen);
+      navbarContent.setAttribute('aria-hidden', String(!isOpen && mobileMenuQuery.matches));
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+      document.documentElement.classList.toggle('menu-open', isOpen);
+      document.body.classList.toggle('menu-open', isOpen);
+
+      if('inert' in navbarContent) navbarContent.inert = !isOpen && mobileMenuQuery.matches;
+    };
+
+    const syncMenuWithViewport = () => {
+      setMenuOpen(navbarContent.classList.contains('is-open'));
+    };
+
+    menuToggle.addEventListener('click', () => {
+      setMenuOpen(!navbarContent.classList.contains('is-open'));
     });
+
+    navbarContent.querySelectorAll('.nav-link:not(.dropdown-toggle), .dropdown-item, .btn').forEach(link => {
+      link.addEventListener('click', () => setMenuOpen(false));
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if(event.key === 'Escape' && navbarContent.classList.contains('is-open')){
+        setMenuOpen(false);
+        menuToggle.focus();
+      }
+    });
+
+    if(typeof mobileMenuQuery.addEventListener === 'function'){
+      mobileMenuQuery.addEventListener('change', syncMenuWithViewport);
+    } else if(typeof mobileMenuQuery.addListener === 'function'){
+      mobileMenuQuery.addListener(syncMenuWithViewport);
+    }
+
+    syncMenuWithViewport();
   }
 
   // ---------- Scroll suave para âncoras da própria página ----------

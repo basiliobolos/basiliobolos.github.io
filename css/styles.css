@@ -88,17 +88,83 @@ section[id]{
 .navbar-nav .nav-link:hover i{opacity:1}
 
 @media(max-width:991.98px){
-  .navbar-collapse{
-    background:rgba(255,255,255,0.98);
-    margin-top:1rem;
-    padding:1.5rem;
-    border-radius:16px;
-    box-shadow:var(--shadow-md);
+  html.menu-open,
+  body.menu-open{overflow:hidden}
+  .navbar-brand,
+  .navbar-toggler{
+    position:relative;
+    z-index:2;
   }
-  .navbar-nav{gap:0.5rem}
+  .navbar-toggler{transition:none}
+  .navbar-collapse{
+    position:fixed;
+    inset:0;
+    z-index:1;
+    display:block !important;
+    flex-basis:auto;
+    flex-grow:0;
+    width:100vw;
+    height:100vh;
+    height:100dvh;
+    min-height:100vh;
+    min-height:100dvh;
+    max-height:100vh;
+    max-height:100dvh;
+    margin:0;
+    padding:calc(5.5rem + env(safe-area-inset-top)) 1.25rem calc(1.5rem + env(safe-area-inset-bottom));
+    overflow-x:hidden;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-gutter:stable;
+    background:var(--creme);
+    border-radius:0;
+    box-shadow:none;
+    transform:translate3d(100%,0,0);
+    visibility:hidden;
+    pointer-events:none;
+    transition:transform 0.28s cubic-bezier(0.22,1,0.36,1), visibility 0s linear 0.28s;
+    will-change:transform;
+    contain:layout paint;
+  }
+  .navbar-collapse.is-open{
+    transform:translate3d(0,0,0);
+    visibility:visible;
+    pointer-events:auto;
+    transition:transform 0.28s cubic-bezier(0.22,1,0.36,1), visibility 0s linear 0s;
+  }
+  .navbar-nav{
+    align-items:stretch !important;
+    gap:0.5rem;
+  }
+  .navbar-nav .nav-item,
+  .navbar-nav .nav-link,
+  .navbar-nav .btn-whatsapp{
+    width:100%;
+  }
   .navbar-nav .nav-link{
     padding:0.75rem 1rem;
     justify-content:flex-start;
+    min-height:3rem;
+    font-size:1.05rem;
+  }
+  .navbar-nav .dropdown-menu{
+    margin:0.25rem 0 0.5rem;
+    padding:0.25rem 0 0.25rem 1rem;
+    background:rgba(247,239,228,0.72);
+    border:0;
+    box-shadow:none;
+  }
+  .navbar-nav .dropdown-item{
+    padding:0.7rem 1rem;
+    border-radius:8px;
+    color:var(--marrom);
+  }
+  .navbar-nav .btn-whatsapp{
+    display:flex;
+    justify-content:center;
+    margin-top:0.75rem;
+    padding:0.75rem 1rem;
   }
 }
 

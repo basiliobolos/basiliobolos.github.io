@@ -217,11 +217,11 @@ function navbar(active) {
         <img src="/assets/images/brand/logo.jpeg" alt="Logo ${esc(site.nome)}" class="brand-icon" width="34" height="34" loading="eager">
         <span class="brand-text">${esc(site.nome)}</span>
       </a>
-      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+      <button class="navbar-toggler border-0" type="button" data-menu-toggle
               aria-controls="navbarContent" aria-expanded="false" aria-label="Abrir menu">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarContent">
+      <div class="navbar-collapse" id="navbarContent" data-menu-panel>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-1">${item('/#hero', '<i class="fa-solid fa-home" aria-hidden="true"></i> Início', active === 'home' ? 'home' : null)}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle${active && active !== 'home' ? ' active' : ''}" href="/#produtos" id="produtosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
