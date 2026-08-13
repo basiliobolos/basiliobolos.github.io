@@ -1,7 +1,7 @@
 {
   "slug": "bolos",
   "titulo": "Bolos Redondos",
-  "tituloCompleto": "Bolos Redondos Personalizados em Santo André",
+  "tituloCompleto": "Bolos Personalizados em Santo André",
   "subtitulo": "Monte seu bolo redondo: escolha o tamanho, a massa, o recheio e a cobertura. Feitos artesanalmente para aniversários, casamentos e celebrações em Santo André e região do ABC.",
   "imagem": "assets/images/produtos/bolo-confeitado.webp",
   "precoDestaque": "A partir de R$ 89",
@@ -151,7 +151,7 @@
       "precoKg": 89
     }
   ],
-  "notaRecheios": "Valores calculados por tamanho com base no preço por kg de cada recheio. Bento cake (10cm) a partir de R$ 39. Para bolos retangulares (17x25 e 22x30), veja a página de Bolos Retangulares.",
+  "notaRecheios": "",
   "coberturas": [
     {
       "nome": "Chantilly",
@@ -202,8 +202,7 @@
   ],
   "notaAcrescimos": "Velas, fitas, decorações e topos de bolo são orçados à parte e acrescentam no valor final. Envie uma referência da decoração ou informe cor e tema que ajudamos a escolher.",
   "formatos": [
-    "Retangular: veja a página de Bolos Retangulares (17x25 e 22x30)",
-    "Coração (a partir de 1,5kg)"
+    "Coração (equivalente ao tamanho M)"
   ],
   "faq": [
     {

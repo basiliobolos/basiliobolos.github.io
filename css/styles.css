@@ -1748,7 +1748,7 @@ html{scroll-behavior:smooth}
   background:var(--champagne);
 }
 .price-table tbody tr:hover{
-  background:var(--bege);
+  background:#E8D5C0;
 }
 .price-table tbody tr:last-child th,
 .price-table tbody tr:last-child td{
@@ -1830,6 +1830,99 @@ html{scroll-behavior:smooth}
     border-radius:10px;
     margin:0.25rem 0.25rem 0.25rem 1rem;
     padding:0.35rem 0.75rem !important;
+  }
+
+  /* Tabela de tamanhos: destaque do tamanho à esquerda */
+  .price-table-sizes tbody tr{
+    display:grid;
+    grid-template-columns:5rem minmax(0,1fr);
+    column-gap:1rem;
+    align-items:center;
+    padding:0.75rem 1rem;
+  }
+  .price-table-sizes tbody th{
+    display:flex;
+    grid-row:1 / span 2;
+    align-items:center;
+    justify-content:center;
+    align-self:stretch;
+    width:auto;
+    padding:0.25rem 0.75rem 0.25rem 0;
+    border-right:1px solid rgba(84,56,47,0.15);
+    color:var(--marrom);
+    font-size:2rem;
+    font-weight:800;
+    line-height:1;
+  }
+  .price-table-sizes tbody th .recheio-desc{
+    font-size:0.65rem;
+    line-height:1.2;
+    text-align:center;
+  }
+  .price-table-sizes tbody td,
+  .price-table-sizes tbody td[data-label]{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    align-items:baseline;
+    width:auto;
+    padding:0.35rem 0;
+    text-align:right;
+    font-weight:700;
+    color:var(--marrom);
+  }
+  .price-table-sizes tbody td::before{
+    content:attr(data-label);
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:#7a5a50;
+    text-align:left;
+  }
+  .price-table-sizes tbody td:first-of-type{
+    border-bottom:1px dashed rgba(84,56,47,0.15);
+  }
+
+  /* Tabela de valores: sabor a esquerda e precos empilhados */
+  .price-table-matrix tbody tr{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(7rem,7.5rem);
+    grid-auto-rows:max-content;
+    column-gap:0.75rem;
+    align-items:start;
+    align-content:start;
+    padding:0.75rem 1rem;
+  }
+  .price-table-matrix tbody th{
+    grid-column:1;
+    grid-row:1 / span var(--price-count,4);
+    width:auto;
+    min-width:0;
+    padding:0.25rem 0.75rem 0.25rem 0;
+    overflow-wrap:anywhere;
+  }
+  .price-table-matrix tbody td,
+  .price-table-matrix tbody td[data-label]{
+    grid-column:2;
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:0.75rem;
+    width:auto;
+    margin:0.2rem 0 !important;
+    padding:0.4rem 0.65rem !important;
+    background:var(--bege);
+    border:1px solid rgba(84,56,47,0.12);
+    border-radius:10px;
+    text-align:right;
+  }
+  .price-table-matrix tbody td::before{
+    content:attr(data-label);
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.06em;
+    color:#7a5a50;
+    text-align:left;
   }
 }
 

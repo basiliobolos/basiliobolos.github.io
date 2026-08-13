@@ -607,8 +607,7 @@ ${campanhaSection}
         <div class="section-header text-center mb-5">
           <h2 class="section-badge-title">Nossos Produtos</h2>
           <p class="mb-4 lead mx-auto" style="max-width:720px;color:#6b4f46;">
-            Do bentô cake ao bolo de festa, dos docinhos por cento à pipoca gourmet: tudo artesanal,
-            feito sob encomenda em <strong>Santo André/SP</strong>. Escolha um produto para ver detalhes e preços.
+            Bolos, doces e muito mais! Tudo artesanal, feito sob encomenda em <strong>Santo André/SP</strong>. Escolha um produto para ver detalhes e preços.
           </p>
         </div>
         <div id="lista-produtos" class="prod-grid">
@@ -780,10 +779,19 @@ function renderBolos(data, seoKey) {
   const coberturas = data.coberturas || bolos.coberturas;
   const ganache = coberturas.find((c) => c.nome === 'Ganache');
   const ganacheTiers = Object.entries(ganache.acrescimoPorTamanho)
-    .map(([tam, valor]) => `<span class="tier-badge"><span class="tier-size">${esc(tam)}</span> <span class="tier-price">+ ${money(valor)}</span></span>`).join('\n                  ');
+    .map(([tam, valor]) => {
+      const tamanho = data.tamanhos.find((t) => t.id === tam);
+      return `<span class="tier-badge"><span class="tier-size">${esc(tamanho ? tamanho.nome : tam)}</span> <span class="tier-price">+ ${money(valor)}</span></span>`;
+    }).join('\n                  ');
 
   const tamanhosTradicionais = data.tamanhos.filter((t) => t.id !== 'bento');
   const colunaMedida = ehRetangular ? 'Medidas' : 'Diâmetro';
+  const notaFormatos = data.formatos && data.formatos.length
+    ? `<p class="table-note">Outros formatos: ${data.formatos.map(esc).join(' · ')}.</p>`
+    : '';
+  const notaRecheios = data.notaRecheios
+    ? `<p class="mx-auto" style="max-width:680px;color:#6b4f46;">${esc(data.notaRecheios)}</p>`
+    : '';
 
   const body = `
 ${pageHero(data, SEO[seoKey])}
@@ -795,7 +803,7 @@ ${pageHero(data, SEO[seoKey])}
           <p class="mx-auto" style="max-width:680px;color:#6b4f46;">${esc(data.notaTamanhos)}</p>
         </div>
         <div class="table-responsive">
-          <table class="price-table">
+          <table class="price-table price-table-sizes">
             <caption class="sr-only">Tamanhos de bolo por ${ehRetangular ? 'medidas' : 'diâmetro'} e quantidade de fatias</caption>
             <thead>
               <tr>
@@ -813,7 +821,7 @@ ${pageHero(data, SEO[seoKey])}
               </tr>`).join('')}            </tbody>
           </table>
         </div>
-        <p class="table-note">Outros formatos: ${data.formatos.map(esc).join(' · ')}.</p>
+        ${notaFormatos}
       </div>
     </section>
 
@@ -821,10 +829,10 @@ ${pageHero(data, SEO[seoKey])}
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="recheios-title" class="section-badge-title">Sabores de recheio e preços</h2>
-          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">${esc(data.notaRecheios)}</p>
+          ${notaRecheios}
         </div>
         <div class="table-responsive">
-          <table class="price-table price-table-matrix">
+          <table class="price-table price-table-matrix" style="--price-count:${tamanhosCalc.length};">
             <caption class="sr-only">Preço de cada sabor de recheio por tamanho de bolo</caption>
             <thead>
               <tr>
@@ -1002,7 +1010,40 @@ ${pageHero(data, SEO['bento-cake'])}
             </tbody>
           </table>
         </div>
-        <p class="table-note">Massas disponíveis: ${bolos.massas.map(esc).join(' e ')}. Cobertura sempre em chantilly, sem acréscimo.</p>
+      </div>
+    </section>
+
+    <section class="py-5" aria-labelledby="massas-bento-title">
+      <div class="container">
+        <div class="section-header text-center mb-4">
+          <h2 id="massas-bento-title" class="section-badge-title">Massas e coberturas</h2>
+        </div>
+        <div class="massas-coberturas-grid">
+          <div class="mc-card">
+            <div class="mc-card-icon"><i class="fa-solid fa-bread-slice"></i></div>
+            <h3 class="mc-card-title">Massas</h3>
+            <p class="mc-card-sub">Escolha a massa do seu bolo</p>
+            <div class="massas-pills">
+              ${bolos.massas.map((m) => {
+                const cls = m.toLowerCase() === 'branca' ? 'massa-pill massa-branca' : 'massa-pill massa-chocolate';
+                return `<span class="${cls}">${esc(m)}</span>`;
+              }).join('\n              ')}
+            </div>
+          </div>
+          <div class="mc-card">
+            <div class="mc-card-icon"><i class="fa-solid fa-ice-cream"></i></div>
+            <h3 class="mc-card-title">Cobertura</h3>
+            <p class="mc-card-sub">Inclusa no seu bentô cake</p>
+            <div class="coberturas-list">
+              <div class="cobertura-row cobertura-row--free">
+                <div class="cobertura-info">
+                  <span class="cobertura-nome">Chantilly</span>
+                  <span class="cobertura-tag cobertura-tag--free">sem acréscimo</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 

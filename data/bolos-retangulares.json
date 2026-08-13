@@ -1,8 +1,8 @@
 {
   "slug": "bolos-retangulares",
   "titulo": "Bolos Retangulares",
-  "tituloCompleto": "Bolos Retangulares Personalizados em Santo André",
-  "subtitulo": "Bolos retangulares de 17x25cm e 22x30cm, ideais para festas maiores: escolha a massa, o recheio e a cobertura. Feitos artesanalmente em Santo André e região do ABC.",
+  "tituloCompleto": "Bolos Personalizados em Santo André",
+  "subtitulo": "Bolos retangulares ideais para festas maiores: escolha a massa, o recheio e a cobertura. Feitos artesanalmente em Santo André e região do ABC.",
   "imagem": "assets/images/produtos/bolo-confeitado.webp",
   "precoDestaque": "A partir de R$ 229",
   "mensagemWhatsApp": "Olá! Quero encomendar um bolo retangular. Podem me ajudar a montar?",
@@ -10,21 +10,21 @@
   "tamanhos": [
     {
       "id": "17x25",
-      "nome": "17x25",
+      "nome": "G",
       "diametro": "17x25cm",
       "fatias": "24 a 28",
       "pesoKg": 2.6
     },
     {
       "id": "22x30",
-      "nome": "22x30",
+      "nome": "GG",
       "diametro": "22x30cm",
       "fatias": "38 a 44",
       "pesoKg": 4.1
     }
   ],
-  "notaTamanhos": "A quantidade de fatias é uma estimativa e depende do tamanho do corte. Recomendamos fatias de 100g por pessoa. Os tamanhos retangulares equivalem, em rendimento, aproximadamente aos bolos redondos G (25cm) e GG (30cm).",
-  "notaRecheios": "Valores calculados por tamanho com base no preço por kg de cada recheio, com pequeno acréscimo em relação aos bolos redondos pelo formato. Para bolos redondos de 15cm a 30cm, veja a página de Bolos Redondos.",
+  "notaTamanhos": "A quantidade de fatias é uma estimativa e depende do tamanho do corte. Recomendamos fatias de 100g por pessoa.",
+  "notaRecheios": "",
   "coberturas": [
     {
       "nome": "Chantilly",
@@ -40,8 +40,5 @@
       "obs": "Acréscimo conforme o tamanho do bolo"
     }
   ],
-  "formatos": [
-    "Redondo: veja a página de Bolos Redondos (15cm a 30cm)",
-    "Coração (a partir de 1,5kg)"
-  ]
+  "formatos": []
 }
