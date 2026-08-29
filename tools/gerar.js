@@ -57,11 +57,17 @@ const round9 = (v) => Math.max(9, Math.round((v + 1) / 10) * 10 - 1);
 /** Menor preço de bolo por tamanho, calculado de precoKg x pesoKg. */
 const minPorTamanho = {};
 for (const t of bolos.tamanhos.filter((t) => t.pesoKg)) {
-  minPorTamanho[t.id] = Math.min(...bolos.recheios.map((r) => round9(r.precoKg * t.pesoKg)));
+  minPorTamanho[t.id] = Math.min(...bolos.recheios.map((r) => {
+    const faixaP = round9(r.precoKg * bolos.tamanhos.find((tamanho) => tamanho.id === 'P').pesoKg);
+    return bolos.precosPorFaixaP?.[faixaP]?.[t.id] || round9(r.precoKg * t.pesoKg);
+  }));
 }
 const minPorTamanhoRetangular = {};
 for (const t of bolosRetangulares.tamanhos.filter((t) => t.pesoKg)) {
-  minPorTamanhoRetangular[t.id] = Math.min(...bolos.recheios.map((r) => round9(r.precoKg * t.pesoKg * (bolosRetangulares.fatorPreco || 1))));
+  minPorTamanhoRetangular[t.id] = Math.min(...bolos.recheios.map((r) => {
+    const faixaP = round9(r.precoKg * bolos.tamanhos.find((tamanho) => tamanho.id === 'P').pesoKg);
+    return bolosRetangulares.precosPorFaixaP?.[faixaP]?.[t.nome] || round9(r.precoKg * t.pesoKg * (bolosRetangulares.fatorPreco || 1));
+  }));
 }
 const bentoPreco = (bolos.tamanhos.find((t) => t.id === 'bento') || {}).precoFixo || 39;
 
@@ -107,7 +113,7 @@ const SEO = {
   },
   'bolos-retangulares': {
     title: 'Bolos Retangulares em Santo André | 17x25 e 22x30 | Basilio Bolos',
-    description: 'Bolos retangulares em Santo André: 17x25cm (24 a 28 fatias) a partir de R$ 229 e 22x30cm (38 a 44 fatias) a partir de R$ 359. Mais de 20 sabores de recheio, massa branca ou de chocolate, cobertura de chantilly ou ganache. Encomende pelo WhatsApp!',
+    description: 'Bolos retangulares em Santo André: 17x25cm (24 a 28 fatias) a partir de R$ 209 e 22x30cm (38 a 44 fatias) a partir de R$ 329. Mais de 20 sabores de recheio, massa branca ou de chocolate, cobertura de chantilly ou ganache. Encomende pelo WhatsApp!',
     keywords: 'bolo retangular santo andré, bolo retangular 17x25, bolo retangular 22x30, bolo de festa retangular, preço de bolo retangular, bolo aniversário santo andré, bolo para muitas pessoas'
   },
   'bento-cake': {
@@ -772,7 +778,11 @@ ${faqSection(faqHome)}
 function renderBolos(data, seoKey) {
   const fator = data.fatorPreco || 1;
   const tamanhosCalc = data.tamanhos.filter((t) => t.pesoKg);
-  const precoTamanho = (r, t) => round9(r.precoKg * t.pesoKg * fator);
+  const precoTamanho = (r, t) => {
+    const referenciaP = bolos.tamanhos.find((tamanho) => tamanho.id === 'P');
+    const faixaP = round9(r.precoKg * (referenciaP?.pesoKg || 1));
+    return data.precosPorFaixaP?.[faixaP]?.[t.nome] || round9(r.precoKg * t.pesoKg * fator);
+  };
   const minLocal = Math.min(...tamanhosCalc.map((t) => Math.min(...bolos.recheios.map((r) => precoTamanho(r, t)))));
   const maxLocal = Math.max(...tamanhosCalc.map((t) => Math.max(...bolos.recheios.map((r) => precoTamanho(r, t)))));
   const url = `${data.slug}/`;

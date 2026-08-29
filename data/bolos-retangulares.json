@@ -4,9 +4,15 @@
   "tituloCompleto": "Bolos Personalizados em Santo André",
   "subtitulo": "Bolos retangulares ideais para festas maiores: escolha a massa, o recheio e a cobertura. Feitos artesanalmente em Santo André e região do ABC.",
   "imagem": "assets/images/produtos/bolos-retangulares.webp",
-  "precoDestaque": "A partir de R$ 229",
+  "precoDestaque": "A partir de R$ 209",
   "mensagemWhatsApp": "Olá! Quero encomendar um bolo retangular. Podem me ajudar a montar?",
   "fatorPreco": 1.1,
+  "precosPorFaixaP": {
+    "89": { "G": 209, "GG": 329 },
+    "99": { "G": 229, "GG": 359 },
+    "109": { "G": 249, "GG": 389 },
+    "119": { "G": 279, "GG": 429 }
+  },
   "tamanhos": [
     {
       "id": "17x25",

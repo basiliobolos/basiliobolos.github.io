@@ -6,6 +6,12 @@
   "imagem": "assets/images/produtos/bolos-redondos.webp",
   "precoDestaque": "A partir de R$ 89",
   "mensagemWhatsApp": "Olá! Quero encomendar um bolo personalizado. Podem me ajudar a montar?",
+  "precosPorFaixaP": {
+    "89": { "P": 89, "M": 159, "G": 239, "GG": 329 },
+    "99": { "P": 99, "M": 169, "G": 259, "GG": 359 },
+    "109": { "P": 109, "M": 189, "G": 289, "GG": 409 },
+    "119": { "P": 119, "M": 209, "G": 319, "GG": 449 }
+  },
   "tamanhos": [
     {
       "id": "bento",
