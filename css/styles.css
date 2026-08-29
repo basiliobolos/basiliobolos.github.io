@@ -737,6 +737,10 @@ section[id]{
 .privacy-button-primary{background:var(--branco);color:var(--marrom);border:1px solid var(--branco);}
 .privacy-button-primary:hover{background:var(--bege);color:var(--marrom-escuro);}
 
+@media(min-width:769px){
+  .privacy-banner{left:auto;width:min(calc(100% - 2rem),680px);}
+}
+
 /* ---------- Página de privacidade ---------- */
 .privacy-content{max-width:900px;}
 .privacy-content h2{color:var(--marrom);font-size:clamp(1.35rem,2.5vw,1.8rem);margin:2.25rem 0 0.75rem;}

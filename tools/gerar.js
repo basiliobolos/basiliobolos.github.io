@@ -282,12 +282,12 @@ function privacyBanner() {
   <aside class="privacy-banner" data-privacy-banner aria-labelledby="privacy-banner-title" aria-describedby="privacy-banner-description" aria-hidden="true" hidden>
     <div class="privacy-banner-inner">
       <div class="privacy-banner-copy">
-        <p id="privacy-banner-title" class="privacy-banner-title">Cookies de métricas</p>
-        <p id="privacy-banner-description">Usamos o Google Analytics 4, somente com sua autorização, para medir visualizações e cliques nos botões de WhatsApp. Não usamos cookies de publicidade nem outros rastreadores. <a href="/privacidade/">Veja os detalhes</a>.</p>
+        <p id="privacy-banner-title" class="privacy-banner-title">Cookies</p>
+        <p id="privacy-banner-description">Usamos cookies. <a href="/privacidade/">Saiba mais</a>.</p>
       </div>
       <div class="privacy-banner-actions">
-        <button type="button" class="btn privacy-button privacy-button-secondary" data-privacy-reject>Recusar métricas</button>
-        <button type="button" class="btn privacy-button privacy-button-primary" data-privacy-accept>Aceitar métricas</button>
+        <button type="button" class="btn privacy-button privacy-button-secondary" data-privacy-reject>Recusar cookies</button>
+        <button type="button" class="btn privacy-button privacy-button-primary" data-privacy-accept>Aceitar cookies</button>
       </div>
     </div>
   </aside>`;
@@ -1296,7 +1296,7 @@ function renderPrivacy() {
         <p>O site é operado sob o nome comercial <strong>${esc(site.nome)}</strong>. Dúvidas sobre esta política ou solicitações relacionadas aos seus dados podem ser enviadas pelo WhatsApp <a href="${contactUrl}" target="_blank" rel="noopener">${esc(site.telefoneDisplay)}</a>.</p>
 
         <h2>2. O que o Google Analytics mede</h2>
-        <p>O Google Analytics é carregado somente depois que você clica em <strong>Aceitar métricas</strong>. Com o consentimento, o site envia:</p>
+        <p>O Google Analytics é carregado somente depois que você clica em <strong>Aceitar cookies</strong>. Com o consentimento, o site envia:</p>
         <ul>
           <li><strong>Visualização de página:</strong> o caminho da página visitada, como <code>/bolos/</code>.</li>
           <li><strong>Evento <code>whatsapp_click</code>:</strong> o clique em um botão de WhatsApp, um rótulo técnico da posição do link, como <code>nav</code>, <code>hero</code>, <code>contato</code>, <code>cta-band</code> ou <code>float</code>, e o caminho da página onde ocorreu o clique.</li>
