@@ -1,1 +1,0 @@
-# Pendências encontradas pela Evelin:
