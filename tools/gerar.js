@@ -966,7 +966,10 @@ function renderBolos(initialFormat = 'redondo') {
 
     return `<section id="painel-formato-${esc(formato.id)}" class="bolo-formato-panel" role="tabpanel" aria-labelledby="botao-formato-${esc(formato.id)}" data-formato-panel="${esc(formato.id)}">
           <div class="bolo-formato-panel-head">
-            <h3 class="bolo-formato-panel-title">Bolo ${esc(formato.titulo.toLowerCase())}</h3>
+            <h3 class="bolo-formato-panel-title">
+              <span class="bolo-formato-panel-icon bolo-formato-panel-icon--${esc(formato.id)}" aria-hidden="true"><i class="fa-solid ${esc(formato.icone)}"></i></span>
+              <span>Bolo ${esc(formato.titulo.toLowerCase())}</span>
+            </h3>
           </div>
 
           <div class="bolo-panel-section">
