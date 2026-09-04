@@ -1,5 +1,11 @@
 :root{
   --branco: #FFF;
+  --surface-light: #f8eee3;
+  --surface-dark: #dcc1a9;
+  --surface-desserts: #fff8f0;
+  --surface-card: #fffdf9;
+  --text-primary: #38221b;
+  --text-secondary: #5f4a44;
   --bege: #F7EFE4;
   --creme: #FFFBF5;
   --areia: #EFDFCD;
@@ -1648,6 +1654,9 @@ html{scroll-behavior:smooth}
 }
 @media(max-width:768px){
   .menu-list{columns:1}
+  .menu-item-dots{display:none}
+  .menu-item-name{min-width:0}
+  .menu-item-price{margin-left:auto}
 }
 
 /* ---------- Breadcrumb ---------- */
@@ -2951,4 +2960,122 @@ html{scroll-behavior:smooth}
 @media(max-width:576px){
   .footer-note{justify-content:center;flex-direction:column;text-align:center;}
   .footer-legal-links{justify-content:center;}
+}
+
+/* ---------- Superfícies semânticas do guia de UX ---------- */
+.section-surface-light,
+.section-surface-dark,
+.section-surface-desserts{
+  color:var(--text-primary);
+}
+.navbar-brand{color:var(--marrom) !important;}
+.section-surface-light{background:var(--surface-light);}
+.section-surface-dark{background:var(--surface-dark);}
+.section-surface-desserts{background:var(--surface-desserts);}
+.section-surface-light .section-header p,
+.section-surface-dark .section-header p,
+.section-surface-desserts .section-header p,
+.section-surface-light .section-support,
+.section-surface-dark .section-support,
+.section-surface-desserts .section-support{
+  color:var(--text-secondary);
+}
+.section-support{
+  max-width:680px;
+}
+.section-surface-light .section-badge-title,
+.section-surface-dark .section-badge-title,
+.section-surface-desserts .section-badge-title{
+  color:var(--marrom);
+}
+.table-responsive{
+  width:100%;
+  max-width:100%;
+  overflow-x:auto;
+  overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+}
+.section-surface-light .price-table,
+.section-surface-dark .price-table,
+.section-surface-desserts .price-table,
+.section-surface-light .prod-card,
+.section-surface-dark .prod-card,
+.section-surface-desserts .prod-card,
+.section-surface-light .info-card,
+.section-surface-dark .info-card,
+.section-surface-desserts .info-card,
+.section-surface-light .option-card,
+.section-surface-dark .option-card,
+.section-surface-desserts .option-card,
+.section-surface-light .addon-card,
+.section-surface-dark .addon-card,
+.section-surface-desserts .addon-card,
+.section-surface-light .mc-card,
+.section-surface-dark .mc-card,
+.section-surface-desserts .mc-card,
+.section-surface-light .faq-item,
+.section-surface-dark .faq-item,
+.section-surface-desserts .faq-item{
+  background:var(--surface-card);
+}
+
+/* Hero, CTA e rodapé são exceções estruturais permitidas pelo guia. */
+.page-hero,
+.cta-band,
+.footer-gradient,
+.section-cta-contact{
+  background:var(--marrom);
+}
+.section-cta-contact{
+  color:var(--branco);
+  position:relative;
+  overflow:hidden;
+}
+.section-cta-contact .section-support{
+  color:rgba(255,255,255,0.9);
+}
+.section-cta-contact .contact-address-title{
+  color:var(--branco);
+  margin-bottom:1.5rem;
+  font-size:1.3rem;
+  font-weight:700;
+}
+.section-cta-contact .contact-address-text{
+  color:rgba(255,255,255,0.95);
+  font-size:1rem;
+  margin:0 0 1.5rem;
+}
+.section-cta-contact .contact-address-hours{
+  color:rgba(255,255,255,0.85);
+  margin:0;
+  font-size:0.9rem;
+}
+.not-found-page{
+  background:var(--surface-light);
+}
+
+/* Estados de opção usam a mesma família neutra, sem depender de verde ou rosa. */
+.bolo-formato-shape--coracao,
+.bolo-formato-panel-icon--coracao{
+  background:var(--surface-dark);
+  color:var(--marrom);
+}
+.cobertura-row--free,
+.cobertura-row--paid{
+  background:var(--surface-light);
+  border-color:rgba(84,56,47,0.2);
+}
+.cobertura-tag--free,
+.cobertura-tag--paid{
+  background:var(--surface-dark);
+  color:var(--marrom);
+}
+.section-soft{background:var(--surface-light);}
+
+@media(max-width:576px){
+  .privacy-banner-actions{gap:0.5rem;}
+  .privacy-banner-actions .privacy-button{
+    min-width:0;
+    padding-inline:0.5rem;
+  }
 }

@@ -174,6 +174,9 @@ const waHref = (msg) => `https://wa.me/${site.whatsappNumero}?text=${encodeURICo
 
 const waIcon = '<i class="fa-brands fa-whatsapp" aria-hidden="true"></i>';
 
+/** Superfícies de conteúdo: alternância neutra definida pelo guia de UX. */
+const surface = (tone) => tone === 'dark' ? 'section-surface-dark' : 'section-surface-light';
+
 /** Extrai o primeiro número de um texto de preço ("A partir de R$ 5" -> 5). */
 const primeiroNumero = (texto) => {
   const m = String(texto).replace(/\./g, '').replace(',', '.').match(/(\d+(\.\d+)?)/);
@@ -293,11 +296,11 @@ function navbar(active) {
             <a class="nav-link${slug && active === slug ? ' active' : ''}" href="${href}"${slug && active === slug ? ' aria-current="page"' : ''}>${label}</a>
           </li>`;
   const dropdownItems = produtos.map((p) => `
-              <li><a class="dropdown-item${active === p.slug ? ' active' : ''}" href="/${esc(p.url)}">${esc(p.titulo)}</a></li>`).join('');
+              <li><a class="dropdown-item${active === p.slug ? ' active' : ''}" href="/${esc(p.url)}"${active === p.slug ? ' aria-current="page"' : ''}>${esc(p.titulo)}</a></li>`).join('');
   return `
   <nav id="mainNav" class="navbar navbar-expand-lg navbar-light fixed-top navbar-glass" aria-label="Navegação principal">
     <div class="container">
-      <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/" style="color:#54382F;">
+      <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/">
         <img src="/assets/images/brand/logo.jpeg" alt="Logo ${esc(site.nome)}" class="brand-icon" width="34" height="34" loading="eager">
         <span class="brand-text">${esc(site.nome)}</span>
       </a>
@@ -460,16 +463,16 @@ function ctaBand(data) {
     </section>`;
 }
 
-function topoBoloSection({ compact = false } = {}) {
+function topoBoloSection({ compact = false, tone = 'dark' } = {}) {
   if (!topoBolo) return '';
-  const sectionClass = compact ? ' section-topo' : '';
+  const sectionClass = ' section-topo';
   const titulo = compact ? 'Topo personalizado' : 'Topo de bolo personalizado';
   const status = compact ? 'À parte' : 'Cobrado à parte';
   const nota = compact
     ? `${topoBolo.preco} · conforme modelo e tema.`
     : `${topoBolo.preco}, conforme o modelo e o tema.`;
   return `
-    <section class="py-5${sectionClass}" aria-labelledby="topo-bolo-title">
+    <section class="py-5 ${surface(tone)}${sectionClass}" aria-labelledby="topo-bolo-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="topo-bolo-title" class="section-badge-title">Topo de bolo</h2>
@@ -486,7 +489,7 @@ function topoBoloSection({ compact = false } = {}) {
     </section>`;
 }
 
-function policiesSection({ contrast = false } = {}) {
+function policiesSection({ tone = 'dark' } = {}) {
   const p = site.politicas;
   const items = [
     { icon: 'fa-calendar-check', titulo: 'Antecedência', texto: p.antecedencia },
@@ -495,7 +498,7 @@ function policiesSection({ contrast = false } = {}) {
     { icon: 'fa-bag-shopping', titulo: 'Retirada', texto: p.retirada }
   ];
   return `
-    <section class="py-5 ${contrast ? 'section-policies' : 'section-soft'}" aria-labelledby="info-title">
+    <section class="py-5 ${surface(tone)} section-policies" aria-labelledby="info-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="info-title" class="section-badge-title">Informações importantes</h2>
@@ -518,10 +521,10 @@ function policiesSection({ contrast = false } = {}) {
     </section>`;
 }
 
-function faqSection(faq, { contrast = false } = {}) {
+function faqSection(faq, { tone = 'light' } = {}) {
   if (!faq || !faq.length) return '';
   return `
-    <section class="py-5${contrast ? ' section-faq' : ''}" aria-labelledby="faq-title">
+    <section class="py-5 ${surface(tone)} section-faq" aria-labelledby="faq-title">
       <div class="container faq-container">
         <div class="section-header text-center mb-4">
           <h2 id="faq-title" class="section-badge-title">Perguntas frequentes</h2>
@@ -537,7 +540,7 @@ function faqSection(faq, { contrast = false } = {}) {
     </section>`;
 }
 
-function relatedSection(currentSlug, { contrast = false } = {}) {
+function relatedSection(currentSlug, { tone = 'dark' } = {}) {
   const outros = (recomendacoes[currentSlug] || [])
     .map((slug) => produtoPorSlug.get(slug))
     .filter((p) => p && p.slug !== currentSlug)
@@ -546,7 +549,7 @@ function relatedSection(currentSlug, { contrast = false } = {}) {
   const relacionadosIniciais = outros.slice(0, 3);
   const relacionadosRestantes = outros.slice(3);
   return `
-    <section class="py-5 ${contrast ? 'section-related' : 'section-soft'}" aria-labelledby="rel-title">
+    <section class="py-5 ${surface(tone)} section-related" aria-labelledby="rel-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="rel-title" class="section-badge-title">Você também vai gostar</h2>
@@ -686,12 +689,12 @@ function renderHome() {
   const produtosRestantes = produtos.slice(8);
 
   const campanhaSection = campanhaAtiva ? `
-    <section id="campanhas" class="py-5 section-campaign" style="background:linear-gradient(135deg, ${campanha.cor_fundo}, ${campanha.cor_secundaria});color:${campanha.cor_texto};">
+    <section id="campanhas" class="py-5 ${surface('light')} section-campaign" aria-labelledby="campanha-title">
       <div class="container">
         <div class="section-header">
-          <p class="section-eyebrow" style="color:${campanha.cor_texto};">Campanha em destaque</p>
-          <h2 class="mb-3" style="color:${campanha.cor_texto};">${esc(campanha.campanha)}</h2>
-          <p class="mb-4" style="color:${campanha.cor_texto};">${esc(campanha.descricao)}</p>
+          <p class="section-eyebrow">Campanha em destaque</p>
+          <h2 id="campanha-title" class="mb-3">${esc(campanha.campanha)}</h2>
+          <p class="mb-4 section-support">${esc(campanha.descricao)}</p>
         </div>
         <div class="carousel-container">
           <div class="swiper-button-prev"></div>
@@ -748,12 +751,12 @@ function renderHome() {
       <div class="hero-decoration"></div>
     </header>
 ${campanhaSection}
-    <section id="produtos" class="py-5 section-soft">
+    <section id="produtos" class="py-5 ${surface(campanhaAtiva ? 'dark' : 'light')}">
       <div class="container">
         <div class="section-header text-center mb-5">
           <h2 class="section-badge-title">Nossos Produtos</h2>
-          <p class="mb-4 lead mx-auto" style="max-width:720px;color:#6b4f46;">
-            Bolos, doces e muito mais! Tudo artesanal, feito sob encomenda em <strong>Santo André/SP</strong>. Escolha um produto para ver detalhes e preços.
+          <p class="mb-4 lead mx-auto section-support">
+            Escolha um produto para consultar opções, preços e condições de encomenda.
           </p>
         </div>
         <div id="lista-produtos" class="prod-grid">
@@ -768,7 +771,7 @@ ${produtosRestantes.length ? `          ${produtosRestantes.map((p) => prodCard(
       </div>
     </section>
 
-    <section id="sobre" class="py-5 section-gradient-sand">
+    <section id="sobre" class="py-5 ${surface(campanhaAtiva ? 'light' : 'dark')}">
       <div class="container sobre-container">
         <div class="section-header text-center mb-5">
           <h2 class="section-badge-title">Nossa História</h2>
@@ -781,13 +784,7 @@ ${produtosRestantes.length ? `          ${produtosRestantes.map((p) => prodCard(
           </div>
           <div class="col-lg-7 sobre-text">
             <p class="lead">
-              A <strong>${esc(site.nome)}</strong> nasceu há <strong>10 anos</strong>, quando começamos a vender bolo no pote de porta em porta em Santo André.
-              Com paixão, estudo e dedicação, hoje oferecemos uma confeitaria artesanal especializada, com produtos altamente
-              personalizáveis, feitos com carinho e atenção aos detalhes.
-            </p>
-            <p>
-              Nosso prazer é fazer parte dos melhores momentos das pessoas, mesmo que nos bastidores: alegrar e adoçar histórias,
-              uma encomenda por vez.
+              A <strong>${esc(site.nome)}</strong> começou com bolos de pote vendidos de porta em porta em Santo André e hoje trabalha sob encomenda, com receitas artesanais e personalização para cada comemoração.
             </p>
             <div class="sobre-features mt-4">
               <div class="feature-item">
@@ -816,14 +813,14 @@ ${produtosRestantes.length ? `          ${produtosRestantes.map((p) => prodCard(
         </div>
       </div>
     </section>
-${faqSection(faqHome)}
+${faqSection(faqHome, { tone: campanhaAtiva ? 'dark' : 'light' })}
 
-    <section id="contato" class="py-5 section-contato">
+    <section id="contato" class="py-5 section-cta-contact" aria-labelledby="contato-title">
       <div class="container">
         <div class="section-header text-center mb-5">
-          <h2 class="section-badge-title-dark">Contatos</h2>
-          <p class="lead text-center mx-auto" style="max-width:650px;color:rgba(255,255,255,0.9);">
-            Estamos prontos para criar algo especial para você
+          <h2 id="contato-title" class="section-badge-title-dark">Fale com a gente</h2>
+          <p class="lead text-center mx-auto section-support">
+            Escolha um canal para tirar dúvidas ou fazer sua encomenda.
           </p>
         </div>
 
@@ -856,15 +853,15 @@ ${faqSection(faqHome)}
 
         <div class="text-center">
           <address class="contact-address-modern" aria-label="Endereço físico">
-            <h3 class="h5" style="color:#fff;margin-bottom:1.5rem;font-size:1.3rem;font-weight:bold;">
-              <i class="fa-solid fa-map-marker-alt" aria-hidden="true"></i> Nosso Endereço
-            </h3>
-            <p style="color:rgba(255,255,255,0.95);font-size:1rem;margin:0 0 1.5rem 0;">
-              ${esc(site.endereco.rua)} <span class="d-none d-md-inline">·</span><br class="d-md-none"> ${esc(site.endereco.bairro)}<br>
-              ${esc(site.endereco.cidade)}/${esc(site.endereco.uf)} · CEP ${esc(site.endereco.cep)}
-            </p>
-            <p style="color:rgba(255,255,255,0.85);margin:0;font-size:0.9rem;">
-              <i class="fa-regular fa-clock" aria-hidden="true"></i> ${esc(site.horario)}
+             <h3 class="h5 contact-address-title">
+               <i class="fa-solid fa-map-marker-alt" aria-hidden="true"></i> Nosso Endereço
+             </h3>
+             <p class="contact-address-text">
+               ${esc(site.endereco.rua)} <span class="d-none d-md-inline">·</span><br class="d-md-none"> ${esc(site.endereco.bairro)}<br>
+               ${esc(site.endereco.cidade)}/${esc(site.endereco.uf)} · CEP ${esc(site.endereco.cep)}
+             </p>
+             <p class="contact-address-hours">
+               <i class="fa-regular fa-clock" aria-hidden="true"></i> ${esc(site.horario)}
             </p>
           </address>
         </div>
@@ -964,7 +961,7 @@ function renderBolos(initialFormat = 'redondo') {
             </div>
           </div>`;
 
-    return `<section id="painel-formato-${esc(formato.id)}" class="bolo-formato-panel" role="tabpanel" aria-labelledby="botao-formato-${esc(formato.id)}" data-formato-panel="${esc(formato.id)}">
+    return `<div id="painel-formato-${esc(formato.id)}" class="bolo-formato-panel" role="tabpanel" aria-labelledby="botao-formato-${esc(formato.id)}" data-formato-panel="${esc(formato.id)}">
           <div class="bolo-formato-panel-head">
             <h3 class="bolo-formato-panel-title">
               <span class="bolo-formato-panel-icon bolo-formato-panel-icon--${esc(formato.id)}" aria-hidden="true"><i class="fa-solid ${esc(formato.icone)}"></i></span>
@@ -1000,7 +997,7 @@ function renderBolos(initialFormat = 'redondo') {
             </div>
           </div>
           ${coberturaSection}
-        </section>`;
+         </div>`;
   };
 
   const formatoInicialNome = formatosBolo.find((formato) => formato.id === formatoInicial)?.titulo || formatosBolo[0].titulo;
@@ -1027,7 +1024,7 @@ function renderBolos(initialFormat = 'redondo') {
   const body = `
 ${pageHero(boloUnificado, SEO.bolos)}
 
-    <section id="formatos" class="py-5 section-format-selector" aria-labelledby="formatos-title" data-bolo-format-selector data-initial-format="${esc(formatoInicial)}">
+    <section id="formatos" class="py-5 ${surface('light')} section-format-selector" aria-labelledby="formatos-title" data-bolo-format-selector data-initial-format="${esc(formatoInicial)}">
       <div class="container">
         <div class="section-header text-center mb-3">
           <h2 id="formatos-title" class="section-badge-title">Escolha o formato</h2>
@@ -1043,7 +1040,7 @@ ${pageHero(boloUnificado, SEO.bolos)}
       </div>
     </section>
 
-    <section id="precos" class="py-5 section-bolo-prices" aria-labelledby="precos-title">
+    <section id="precos" class="py-5 ${surface('dark')} section-bolo-prices" aria-labelledby="precos-title">
       <div class="container">
         <div class="section-header text-center mb-3">
           <h2 id="precos-title" class="section-badge-title">Tamanhos e preços</h2>
@@ -1055,7 +1052,7 @@ ${pageHero(boloUnificado, SEO.bolos)}
       </div>
     </section>
 
-    <section class="py-5 section-massas" aria-labelledby="massas-title">
+    <section class="py-5 ${surface('light')} section-massas" aria-labelledby="massas-title">
       <div class="container">
         <div class="section-header text-center mb-3">
           <h2 id="massas-title" class="section-badge-title">Escolha a massa</h2>
@@ -1073,13 +1070,13 @@ ${pageHero(boloUnificado, SEO.bolos)}
       </div>
     </section>
 
-${topoBoloSection({ compact: true })}
+${topoBoloSection({ compact: true, tone: 'dark' })}
 
-    <section class="py-5 section-addons" aria-labelledby="acrescimos-title">
+    <section class="py-5 ${surface('light')} section-addons" aria-labelledby="acrescimos-title">
       <div class="container">
         <div class="section-header text-center mb-3">
           <h2 id="acrescimos-title" class="section-badge-title">Acréscimos e decoração</h2>
-          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">${esc(bolos.notaAcrescimos)}</p>
+          <p class="mx-auto section-support">${esc(bolos.notaAcrescimos)}</p>
         </div>
         <div class="row g-3 justify-content-center">
           ${outrosAcrescimos.map((a) => `
@@ -1093,10 +1090,10 @@ ${a.obs ? `              <p class="addon-card-observation">${esc(a.obs)}</p>` : 
         </div>
       </div>
     </section>
-${policiesSection({ contrast: true })}
-${faqSection(faqBolos, { contrast: true })}
+${policiesSection({ tone: 'dark' })}
+${faqSection(faqBolos, { tone: 'light' })}
 ${ctaBand(boloUnificado)}
-${relatedSection('bolos', { contrast: true })}`;
+${relatedSection('bolos', { tone: 'dark' })}`;
 
   const jsonLd = [
     localBusinessLd(),
@@ -1145,42 +1142,35 @@ function renderBentoCake() {
   const body = `
 ${pageHero(data, SEO['bento-cake'])}
 
-    <section id="precos" class="py-5" aria-labelledby="como-funciona-title">
+    <section id="precos" class="py-5 ${surface('light')}" aria-labelledby="como-funciona-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="como-funciona-title" class="section-badge-title">Como é o bentô cake</h2>
         </div>
         <div class="row g-4 justify-content-center">
-          <div class="col-md-4">
+          <div class="col-md-5">
             <div class="info-card">
               <i class="fa-solid fa-ruler-combined" aria-hidden="true"></i>
               <h3>Tamanho</h3>
               <p>${esc(bento.diametro)} de diâmetro, servido em uma embalagem própria tipo marmitinha, com colher.</p>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-5">
             <div class="info-card">
               <i class="fa-solid fa-utensils" aria-hidden="true"></i>
               <h3>Porções</h3>
               <p>Serve de ${esc(bento.fatias)} pessoas. O tamanho certo para presentear sem desperdício.</p>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="info-card">
-              <i class="fa-solid fa-tag" aria-hidden="true"></i>
-              <h3>Preço</h3>
-              <p>De ${money(minBento)} a ${money(maxBento)}, conforme o sabor do recheio. Cobertura de chantilly inclusa.</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
 
-    <section class="py-5 section-soft" aria-labelledby="sabores-bento-title">
+    <section class="py-5 ${surface('dark')}" aria-labelledby="sabores-bento-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="sabores-bento-title" class="section-badge-title">Sabores e preços</h2>
-          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">Escolha uma das ${saboresBento.length} opções artesanais, com massa branca ou de chocolate e cobertura de chantilly inclusa.</p>
+          <p class="mx-auto section-support">Escolha uma das ${saboresBento.length} opções de recheio.</p>
         </div>
         <div class="table-responsive">
           <table class="price-table">
@@ -1198,7 +1188,7 @@ ${pageHero(data, SEO['bento-cake'])}
       </div>
     </section>
 
-    <section class="py-5" aria-labelledby="massas-bento-title">
+    <section class="py-5 ${surface('light')}" aria-labelledby="massas-bento-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="massas-bento-title" class="section-badge-title">Massas e coberturas</h2>
@@ -1232,13 +1222,13 @@ ${pageHero(data, SEO['bento-cake'])}
       </div>
     </section>
 
-${topoBoloSection()}
+${topoBoloSection({ tone: 'dark' })}
 
-    <section class="py-5" aria-labelledby="decor-bento-title">
+    <section class="py-5 ${surface('light')}" aria-labelledby="decor-bento-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="decor-bento-title" class="section-badge-title">Decoração e adicionais</h2>
-          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">O bentô pode ser decorado com frases, desenhos e o tema da sua comemoração. Estes adicionais também estão disponíveis, com valor a consultar:</p>
+          <p class="mx-auto section-support">Escolha frases, desenhos e tema; adicionais ficam sob consulta.</p>
         </div>
         <div class="row g-3 justify-content-center">
           ${outrosAcrescimos.map((a) => `
@@ -1251,10 +1241,10 @@ ${topoBoloSection()}
         </div>
       </div>
     </section>
-${policiesSection()}
-${faqSection(faqBento)}
+${policiesSection({ tone: 'dark' })}
+${faqSection(faqBento, { tone: 'light' })}
 ${ctaBand(data)}
-${relatedSection('bento-cake')}`;
+${relatedSection('bento-cake', { tone: 'dark' })}`;
 
   const jsonLd = [
     localBusinessLd(),
@@ -1290,31 +1280,31 @@ function renderDoces() {
   const body = `
 ${pageHero(doces, SEO.doces)}
 
-    <section id="precos" class="py-5" aria-labelledby="centos-title">
+    <section id="precos" class="py-5 section-surface-desserts" aria-labelledby="centos-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="centos-title" class="section-badge-title">Doces por cento</h2>
-          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">Ideais para festas e eventos. ${esc(doces.notaCentos)}</p>
+          <p class="mx-auto section-support">${esc(doces.notaCentos)}</p>
         </div>
         <ul class="menu-list">${doces.centos.map((d) => menuItem(d, `${money(d.precoCento)} <small>o cento</small>`)).join('')}
         </ul>
       </div>
     </section>
 
-    <section class="py-5 section-soft" aria-labelledby="premium-title">
+    <section class="py-5 section-surface-desserts" aria-labelledby="premium-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="premium-title" class="section-badge-title">Doces premium (por unidade)</h2>
-          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">${esc(doces.notaPremium)}</p>
+          <p class="mx-auto section-support">${esc(doces.notaPremium)}</p>
         </div>
         <ul class="menu-list">${doces.premium.map((d) => menuItem(d, `${moneyCents(d.precoUnidade)} <small>a unidade</small>`)).join('')}
         </ul>
       </div>
     </section>
-${policiesSection()}
-${faqSection(doces.faq)}
+${policiesSection({ tone: 'dark' })}
+${faqSection(doces.faq, { tone: 'light' })}
 ${ctaBand(doces)}
-${relatedSection('doces')}`;
+${relatedSection('doces', { tone: 'dark' })}`;
 
   const jsonLd = [
     localBusinessLd(),
@@ -1340,7 +1330,7 @@ function renderSimples(data) {
   const body = `
 ${pageHero(data, SEO[data.slug])}
 
-    <section id="precos" class="py-5" aria-labelledby="opcoes-title">
+    <section id="precos" class="py-5 ${surface('light')}" aria-labelledby="opcoes-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="opcoes-title" class="section-badge-title">Opções e preços</h2>
@@ -1361,10 +1351,10 @@ ${pageHero(data, SEO[data.slug])}
         <p class="table-note text-center mt-4">${esc(data.nota)}</p>
       </div>
     </section>
-${policiesSection()}
-${faqSection(data.faq)}
+${policiesSection({ tone: 'dark' })}
+${faqSection(data.faq, { tone: 'light' })}
 ${ctaBand(data)}
-${relatedSection(data.slug)}`;
+${relatedSection(data.slug, { tone: 'dark' })}`;
 
   const jsonLd = [
     localBusinessLd(),
@@ -1413,7 +1403,7 @@ ${urls.map((u) => `  <url>
 // ---------- Página 404 ----------
 function render404() {
   const body = `
-    <section class="not-found-page" aria-labelledby="not-found-title">
+    <section class="not-found-page section-surface-light" aria-labelledby="not-found-title">
       <div class="container text-center">
         <span class="not-found-code" aria-hidden="true">404</span>
         <h1 id="not-found-title" class="not-found-title">Esta página não existe</h1>
@@ -1448,7 +1438,7 @@ function renderPrivacy() {
         <p class="page-hero-subtitle mx-auto">Como usamos o Google Analytics 4 e seus cookies de métricas.</p>
       </div>
     </header>
-    <section class="py-5">
+    <section class="py-5 ${surface('light')}">
       <article class="container privacy-content">
         <p class="privacy-lead"><strong>Última atualização:</strong> 13 de agosto de 2026.</p>
         <p>Esta página descreve exatamente o uso de cookies e métricas no site Basilio Bolos. O único serviço de medição utilizado é o Google Analytics 4, identificado pela propriedade <code>G-C07W6E0102</code>.</p>
