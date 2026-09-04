@@ -89,6 +89,61 @@ for (const t of bolosRetangulares.tamanhos.filter(temPrecoPorTamanho)) {
 }
 const bentoPreco = (bolos.tamanhos.find((t) => t.id === 'bento') || {}).precoFixo || 39;
 
+const formatosBolo = [
+  {
+    id: 'redondo',
+    titulo: 'Redondo',
+    descricao: 'Do P ao GG, o formato clássico para aniversários e celebrações.',
+    fatiasResumo: '10 a 48 fatias',
+    icone: 'fa-circle',
+    data: bolos,
+    tamanhos: bolos.tamanhos.filter((t) => t.pesoKg),
+    minimos: minPorTamanho,
+    notaTamanhos: bolos.notaTamanhos,
+    colunaMedida: 'Diâmetro'
+  },
+  {
+    id: 'retangular',
+    titulo: 'Retangular',
+    descricao: 'Mais área para dividir, decorar e servir em festas maiores.',
+    fatiasResumo: '24 a 44 fatias',
+    icone: 'fa-square',
+    data: bolosRetangulares,
+    tamanhos: bolosRetangulares.tamanhos.filter((t) => t.id !== 'coracao'),
+    minimos: minPorTamanhoRetangular,
+    notaTamanhos: 'A quantidade de fatias é uma estimativa e depende do tamanho do corte. O bolo de 17x25cm rende de 24 a 28 fatias e o de 22x30cm rende de 38 a 44 fatias. Recomendamos fatias de 100g por pessoa.',
+    colunaMedida: 'Medidas'
+  },
+  {
+    id: 'coracao',
+    titulo: 'Coração',
+    descricao: 'Um formato especial para presentes, datas comemorativas e celebrações afetivas.',
+    fatiasResumo: '10 a 14 fatias',
+    icone: 'fa-heart',
+    data: bolosRetangulares,
+    tamanhos: bolosRetangulares.tamanhos.filter((t) => t.id === 'coracao'),
+    minimos: minPorTamanhoRetangular,
+    notaTamanhos: bolosRetangulares.notaTamanhos,
+    colunaMedida: 'Medidas'
+  }
+];
+
+const precoMinimoFormato = (formato) => Math.min(...formato.tamanhos.map((t) => formato.minimos[t.id]));
+const precoMaximoFormato = (formato) => Math.max(...formato.tamanhos.map((t) => {
+  return Math.max(...bolos.recheios.map((r) => precoTamanhoCalculado(formato.data, r, t)));
+}));
+const minBolosPersonalizados = Math.min(...formatosBolo.map(precoMinimoFormato));
+const maxBolosPersonalizados = Math.max(...formatosBolo.map(precoMaximoFormato));
+const boloUnificado = {
+  slug: 'bolos',
+  titulo: 'Bolos personalizados',
+  tituloCompleto: 'Bolos personalizados para cada comemoração',
+  subtitulo: 'Escolha o formato, o tamanho, o recheio e a cobertura. Tudo feito sob encomenda em Santo André, com opções para encontros íntimos e festas maiores.',
+  imagem: bolos.imagem,
+  precoDestaque: `A partir de ${money(minBolosPersonalizados)}`,
+  mensagemWhatsApp: 'Olá! Quero encomendar um bolo personalizado. Podem me ajudar a escolher o formato e montar?'
+};
+
 const descricaoPrecoTamanho = (t, preco) => {
   const formato = t.id === 'coracao' ? 'em formato de coração' : `de ${t.diametro}`;
   const detalhes = t.id === 'coracao' ? `${t.fatias} fatias` : `${t.nome}, ${t.fatias} fatias`;
@@ -105,16 +160,13 @@ const joinHuman = (items) => items.length > 1
   : (items[0] || '');
 
 /** Resposta da FAQ de preços de bolo, sempre sincronizada com as tabelas calculadas. */
-function faqPrecoBolos(comTabela, incluirOutros = true) {
-  const partes = bolos.tamanhos.filter((t) => t.pesoKg)
-    .map((t) => `de ${t.diametro} (${t.nome}, ${t.fatias} fatias) a partir de ${money(minPorTamanho[t.id])}`);
-  const detalhesRedondos = `${joinHuman(partes)}, conforme o recheio escolhido.`;
-  const redondos = `Bolos redondos ${detalhesRedondos}`;
-  if (!incluirOutros) return comTabela ? redondos + ' Veja a tabela completa na página de Bolos Redondos.' : redondos;
-  const partesOutrosFormatos = bolosRetangulares.tamanhos.filter(temPrecoPorTamanho)
-    .map((t) => descricaoPrecoTamanho(t, minPorTamanhoRetangular[t.id]));
-  const base = `Na ${site.nome}, o bentô cake (10cm) sai a partir de ${money(bentoPreco)}; bolos redondos ${detalhesRedondos} Outros formatos: ${joinHuman(partesOutrosFormatos)}, conforme o recheio escolhido.`;
-  return comTabela ? base + ' Veja as tabelas completas nas páginas de Bolos Redondos e Outros Formatos.' : base;
+function faqPrecoBolos(comTabela) {
+  const partesPorFormato = formatosBolo.map((formato) => {
+    const partes = formato.tamanhos.map((t) => descricaoPrecoTamanho(t, formato.minimos[t.id]));
+    return `${formato.titulo}: ${joinHuman(partes)}`;
+  });
+  const base = `Na ${site.nome}, o bentô cake (10cm) sai a partir de ${money(bentoPreco)}; ${joinHuman(partesPorFormato)}, conforme o recheio escolhido.`;
+  return comTabela ? base + ' Veja todos os formatos e preços na página de Bolos personalizados.' : base;
 }
 
 const waHref = (msg) => `https://wa.me/${site.whatsappNumero}?text=${encodeURIComponent(msg || site.mensagemPadrao)}`;
@@ -135,14 +187,9 @@ const SEO = {
     keywords: 'confeitaria santo andré, bolo personalizado santo andré, bolo aniversário santo andré, doces para festa santo andré, cento de doces, brownie santo andré, cupcake santo andré, biscoitos decorados, pipoca gourmet, bolo de pote, bentô cake santo andré, confeitaria santa terezinha, confeitaria parque das nações, doces abc'
   },
   bolos: {
-    title: 'Bolos Redondos Personalizados em Santo André | Preços por Tamanho e Sabor | Basilio Bolos',
-    description: 'Tabela de preços de bolos redondos em Santo André: bolos de 15cm a 30cm (10 a 48 fatias) a partir de R$ 89. Mais de 20 sabores de recheio, massa branca ou de chocolate, cobertura de chantilly ou ganache. Encomende pelo WhatsApp!',
-    keywords: 'bolo personalizado santo andré, preço de bolo santo andré, bolo aniversário santo andré, bolo redondo, bolo 15cm, bolo 20cm, bolo 25cm, bolo 30cm, bolo trufado, bolo leite ninho com morango, bolo mousse de maracujá, quanto custa um bolo'
-  },
-  'bolos-retangulares': {
-    title: 'Outros Formatos de Bolo em Santo André | Coração e Retangulares | Basilio Bolos',
-    description: 'Bolos em outros formatos em Santo André: coração (10 a 14 fatias) a partir de R$ 159, 17x25cm a partir de R$ 209 e 22x30cm a partir de R$ 329. Mais de 20 sabores de recheio, massa branca ou de chocolate, cobertura de chantilly ou ganache. Encomende pelo WhatsApp!',
-    keywords: 'bolo em formato de coração santo andré, bolo coração, bolo retangular santo andré, bolo retangular 17x25, bolo retangular 22x30, bolo de festa retangular, preço de bolo, bolo aniversário santo andré'
+    title: 'Bolos Personalizados em Santo André | Redondos, Coração e Retangulares | Basilio Bolos',
+    description: 'Bolos personalizados em Santo André: redondos de 15cm a 30cm, coração e retangulares de 17x25cm ou 22x30cm. Mais de 20 sabores de recheio, duas massas e coberturas de chantilly ou ganache. Encomende pelo WhatsApp!',
+    keywords: 'bolo personalizado santo andré, preço de bolo santo andré, bolo aniversário santo andré, bolo redondo, bolo coração, bolo retangular, bolo 15cm, bolo 20cm, bolo 25cm, bolo 30cm, bolo trufado, leite ninho com morango, mousse de maracujá, quanto custa um bolo'
   },
   'bento-cake': {
     title: 'Bentô Cake em Santo André | A partir de R$ 39 | Basilio Bolos',
@@ -360,6 +407,9 @@ function breadcrumb(items) {
 }
 
 function pageHero(data, seo) {
+  const boloOrderAttrs = data.slug === 'bolos'
+    ? ` data-bolo-order data-bolo-order-base="${esc(data.mensagemWhatsApp)}"`
+    : '';
   return `
     <header class="page-hero page-hero--with-image" style="--hero-image:url('/${esc(data.imagem)}')">
       <div class="container">
@@ -370,7 +420,7 @@ function pageHero(data, seo) {
             <p class="page-hero-subtitle">${esc(data.subtitulo)}</p>
             <p class="page-hero-price">${esc(data.precoDestaque)}</p>
             <div class="d-flex flex-wrap gap-3 mt-3">
-              <a href="${waHref(data.mensagemWhatsApp)}" class="btn btn-lg btn-whatsapp page-hero-btn-secondary" target="_blank" rel="noopener" data-track="hero">
+              <a href="${waHref(data.mensagemWhatsApp)}" class="btn btn-lg btn-whatsapp page-hero-btn-secondary" target="_blank" rel="noopener" data-track="hero"${boloOrderAttrs}>
                 ${waIcon} Encomendar pelo WhatsApp
               </a>
             </div>
@@ -386,12 +436,15 @@ function pageHero(data, seo) {
 }
 
 function ctaBand(data) {
+  const boloOrderAttrs = data.slug === 'bolos'
+    ? ` data-bolo-order data-bolo-order-base="${esc(data.mensagemWhatsApp)}"`
+    : '';
   return `
     <section class="cta-band" aria-label="Faça sua encomenda">
       <div class="container text-center">
         <h2 class="cta-band-title">Pronto para encomendar ${esc(data.titulo.toLowerCase())}?</h2>
         <p class="cta-band-text">Atendemos Santo André e região com retirada no local.</p>
-        <a href="${waHref(data.mensagemWhatsApp)}" class="btn btn-lg cta-band-btn" target="_blank" rel="noopener" data-track="cta-band">
+        <a href="${waHref(data.mensagemWhatsApp)}" class="btn btn-lg cta-band-btn" target="_blank" rel="noopener" data-track="cta-band"${boloOrderAttrs}>
           ${waIcon} Pedir pelo WhatsApp
         </a>
       </div>
@@ -690,7 +743,7 @@ ${campanhaSection}
         </div>
         <div id="lista-produtos" class="prod-grid">
           ${produtosIniciais.map((p) => prodCard(p)).join('\n          ')}
-          ${produtosRestantes.map((p) => prodCard(p, { extra: true })).join('\n          ')}
+${produtosRestantes.length ? `          ${produtosRestantes.map((p) => prodCard(p, { extra: true })).join('\n          ')}` : ''}
         </div>${produtosRestantes.length ? `
         <div class="text-center mt-4">
           <button type="button" class="btn btn-lg page-hero-btn-secondary" data-ver-mais-produtos hidden aria-controls="lista-produtos" aria-expanded="false">
@@ -822,31 +875,15 @@ ${faqSection(faqHome)}
   return layout({ seo: SEO.home, canonical: '/', active: 'home', jsonLd, body, usaSwiper: campanhaAtiva });
 }
 
-// ---------- Página de Bolos (redondos e retangulares) ----------
-function renderBolos(data, seoKey) {
-  const tamanhosCalc = data.tamanhos.filter(temPrecoPorTamanho);
-  const minLocal = Math.min(...tamanhosCalc.map((t) => Math.min(...bolos.recheios.map((r) => precoTamanhoCalculado(data, r, t)))));
-  const maxLocal = Math.max(...tamanhosCalc.map((t) => Math.max(...bolos.recheios.map((r) => precoTamanhoCalculado(data, r, t)))));
-  const url = `${data.slug}/`;
-  const ehOutrosFormatos = data.slug === 'bolos-retangulares';
-  const partesPrecoLocal = tamanhosCalc.map((t) => descricaoPrecoTamanho(
-    t,
-    Math.min(...bolos.recheios.map((r) => precoTamanhoCalculado(data, r, t)))
-  ));
+// ---------- Página unificada de Bolos ----------
+function renderBolos(initialFormat = 'redondo') {
+  const formatoInicial = formatosBolo.some((formato) => formato.id === initialFormat) ? initialFormat : 'redondo';
+  const url = 'bolos/';
 
-  // FAQ de preço sempre sincronizada com a tabela calculada
-  const faqPreco = ehOutrosFormatos
-    ? { q: 'Quanto custa um bolo em outros formatos em Santo André?', a: `Os bolos em outros formatos estão disponíveis ${joinHuman(partesPrecoLocal)}, conforme o recheio escolhido.` }
-    : { q: 'Quanto custa um bolo redondo em Santo André?', a: faqPrecoBolos(false, false) };
-  const faqBolos = [
-    faqPreco,
-    ...bolos.faq.filter((f) => !/quanto custa/i.test(f.q))
-  ];
-
-  // Tabela recheio x tamanho (preço calculado pelo kg, fatia de 100g, terminado em 9)
-  const linhasRecheios = bolos.recheios.map((r) => {
-    const celulas = tamanhosCalc.map((t) => `<td data-label="${esc(t.nome)}"${t.id === 'coracao' ? ' aria-label="Coração"' : ''}>${money(precoTamanhoCalculado(data, r, t))}</td>`).join('');
-    return `
+  const renderFormatoPanel = (formato) => {
+    const linhasRecheios = bolos.recheios.map((r) => {
+      const celulas = formato.tamanhos.map((t) => `<td data-label="${esc(t.id === 'coracao' ? 'Coração' : t.nome)}">${money(precoTamanhoCalculado(formato.data, r, t))}</td>`).join('');
+      return `
               <tr>
                 <th scope="row">
                   <span class="recheio-nome">${esc(r.nome)}</span>
@@ -854,100 +891,45 @@ function renderBolos(data, seoKey) {
                 </th>
                 ${celulas}
               </tr>`;
-  }).join('');
+    }).join('');
 
-  const coberturas = data.coberturas || bolos.coberturas;
-  const ganache = coberturas.find((c) => c.nome === 'Ganache');
-  const ganacheTiers = Object.entries(ganache.acrescimoPorTamanho)
-    .map(([tam, valor]) => {
-      const tamanho = data.tamanhos.find((t) => t.id === tam);
-      return `<span class="tier-badge"><span class="tier-size">${esc(tamanho ? tamanho.nome : tam)}</span> <span class="tier-price">+ ${money(valor)}</span></span>`;
-    }).join('\n                  ');
+    const tabelaTamanhos = `            <div class="table-responsive">
+              <table class="price-table price-table-sizes">
+                <caption class="sr-only">Tamanhos de bolo por ${esc(formato.colunaMedida.toLowerCase())} e quantidade de fatias</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Tamanho</th>
+                    <th scope="col">${esc(formato.colunaMedida)}</th>
+                    <th scope="col">Fatias</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${formato.tamanhos.map((t) => `                  <tr>
+                    <th scope="row">${nomeTamanhoHtml(t)}${t.obs ? `<span class="recheio-desc">${esc(t.obs)}</span>` : ''}</th>
+                    <td data-label="${esc(formato.colunaMedida)}">${esc(t.diametro)}</td>
+                    <td data-label="Fatias">${esc(t.fatias)}</td>
+                  </tr>`).join('\n')}
+                </tbody>
+              </table>
+            </div>`;
 
-  const tamanhosTradicionais = data.tamanhos.filter((t) => t.id !== 'bento');
-  const colunaMedida = ehOutrosFormatos ? 'Medidas' : 'Diâmetro';
-  const notaFormatos = data.formatos && data.formatos.length
-    ? `<p class="table-note">Outros formatos: ${data.formatos.map(esc).join(' · ')}.</p>`
-    : '';
-  const notaRecheios = data.notaRecheios
-    ? `<p class="mx-auto" style="max-width:680px;color:#6b4f46;">${esc(data.notaRecheios)}</p>`
-    : '';
+    const coberturas = formato.data.coberturas || bolos.coberturas;
+    const ganache = coberturas.find((c) => c.nome === 'Ganache');
+    const ganacheTiers = Object.entries(ganache?.acrescimoPorTamanho || {})
+      .filter(([tam]) => formato.tamanhos.some((t) => t.id === tam))
+      .map(([tam, valor]) => {
+        const tamanho = formato.tamanhos.find((t) => t.id === tam);
+        const nomeTamanho = formato.id === 'redondo'
+          ? tamanho.nome
+          : tamanho.id === 'coracao' ? 'Coração' : tamanho.diametro;
+        return `<span class="tier-badge"><span class="tier-size">${esc(nomeTamanho)}</span><span class="tier-price">+ ${money(valor)}</span></span>`;
+      }).join('\n                    ');
 
-  const body = `
-${pageHero(data, SEO[seoKey])}
-
-    <section id="precos" class="py-5" aria-labelledby="tamanhos-title">
-      <div class="container">
-        <div class="section-header text-center mb-4">
-          <h2 id="tamanhos-title" class="section-badge-title">${ehOutrosFormatos ? 'Outros formatos: tamanhos e fatias' : 'Bolos tradicionais: tamanhos e fatias'}</h2>
-          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">${esc(data.notaTamanhos)}</p>
-        </div>
-        <div class="table-responsive">
-          <table class="price-table price-table-sizes">
-            <caption class="sr-only">Tamanhos de bolo por ${ehOutrosFormatos ? 'medidas' : 'diâmetro'} e quantidade de fatias</caption>
-            <thead>
-              <tr>
-                <th scope="col">Tamanho</th>
-                <th scope="col">${colunaMedida}</th>
-                <th scope="col">Fatias</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${tamanhosTradicionais.map((t) => `
-              <tr>
-                <th scope="row">${nomeTamanhoHtml(t)}${t.obs ? `<span class="recheio-desc">${esc(t.obs)}</span>` : ''}</th>
-                <td data-label="${colunaMedida}">${esc(t.diametro)}</td>
-                <td data-label="Fatias">${esc(t.fatias)}</td>
-              </tr>`).join('')}            </tbody>
-          </table>
-        </div>
-${notaFormatos ? `\n        ${notaFormatos}` : ''}
-      </div>
-    </section>
-
-    <section class="py-5 section-soft" aria-labelledby="recheios-title">
-      <div class="container">
-        <div class="section-header text-center mb-4">
-          <h2 id="recheios-title" class="section-badge-title">Sabores de recheio e preços</h2>
-          ${notaRecheios}
-        </div>
-        <div class="table-responsive">
-          <table class="price-table price-table-matrix" style="--price-count:${tamanhosCalc.length};">
-            <caption class="sr-only">Preço de cada sabor de recheio por tamanho de bolo</caption>
-            <thead>
-              <tr>
-                <th scope="col">Recheio</th>
-                ${tamanhosCalc.map((t) => `<th scope="col">${nomeTamanhoHtml(t)} <span class="th-sub">${esc(t.diametro)}</span></th>`).join('\n                ')}
-              </tr>
-            </thead>
-            <tbody>${linhasRecheios}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-5" aria-labelledby="massas-title">
-      <div class="container">
-        <div class="section-header text-center mb-4">
-          <h2 id="massas-title" class="section-badge-title">Massas e coberturas</h2>
-        </div>
-        <div class="massas-coberturas-grid">
-          <div class="mc-card">
-            <div class="mc-card-icon"><i class="fa-solid fa-bread-slice"></i></div>
-            <h3 class="mc-card-title">Massas</h3>
-            <p class="mc-card-sub">Escolha a massa do seu bolo</p>
-            <div class="massas-pills">
-              ${bolos.massas.map((m) => {
-                const cls = m.toLowerCase() === 'branca' ? 'massa-pill massa-branca' : 'massa-pill massa-chocolate';
-                return `<span class="${cls}">${esc(m)}</span>`;
-              }).join('\n              ')}
+    const coberturaSection = `          <div class="bolo-panel-section bolo-panel-section--coverage">
+            <div class="bolo-panel-section-heading">
+              <h4>Coberturas</h4>
+              <p>Escolha entre chantilly, sem acréscimo, ou ganache, com acréscimo conforme o tamanho.</p>
             </div>
-          </div>
-          <div class="mc-card">
-            <div class="mc-card-icon"><i class="fa-solid fa-ice-cream"></i></div>
-            <h3 class="mc-card-title">Coberturas</h3>
-            <p class="mc-card-sub">Escolha a cobertura do seu bolo</p>
             <div class="coberturas-list">
               <div class="cobertura-row cobertura-row--free">
                 <div class="cobertura-info">
@@ -964,6 +946,126 @@ ${notaFormatos ? `\n        ${notaFormatos}` : ''}
                   ${ganacheTiers}
                 </div>
               </div>
+            </div>
+          </div>`;
+
+    return `<section id="painel-formato-${esc(formato.id)}" class="bolo-formato-panel" role="tabpanel" aria-labelledby="botao-formato-${esc(formato.id)}" data-formato-panel="${esc(formato.id)}">
+          <div class="bolo-formato-panel-head">
+            <div>
+              <p class="bolo-formato-kicker">Detalhes do formato</p>
+              <h3 class="bolo-formato-panel-title">Bolo ${esc(formato.titulo.toLowerCase())}</h3>
+              <p class="bolo-formato-panel-text">${esc(formato.descricao)}</p>
+            </div>
+            <div class="bolo-formato-panel-price">
+              <span>A partir de</span>
+              <strong>${money(precoMinimoFormato(formato))}</strong>
+            </div>
+          </div>
+
+          <div class="bolo-panel-section">
+            <div class="bolo-panel-section-heading">
+              <h4>Tamanhos e fatias</h4>
+              <p>${esc(formato.notaTamanhos)}</p>
+            </div>
+            ${tabelaTamanhos}
+          </div>
+
+          <div class="bolo-panel-section bolo-panel-section--prices">
+            <div class="bolo-panel-section-heading">
+              <h4>Sabores de recheio e preços</h4>
+              <p>Escolha o sabor e veja o valor conforme o tamanho do bolo.</p>
+            </div>
+            <div class="table-responsive">
+              <table class="price-table price-table-matrix" style="--price-count:${formato.tamanhos.length};">
+                <caption class="sr-only">Preço de cada sabor de recheio para bolo ${esc(formato.titulo.toLowerCase())}</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Recheio</th>
+                    ${formato.tamanhos.map((t) => `<th scope="col">${nomeTamanhoHtml(t)} <span class="th-sub">${esc(t.diametro)}</span></th>`).join('\n                    ')}
+                  </tr>
+                </thead>
+                <tbody>${linhasRecheios}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          ${coberturaSection}
+        </section>`;
+  };
+
+  const formatoInicialNome = formatosBolo.find((formato) => formato.id === formatoInicial)?.titulo || formatosBolo[0].titulo;
+  const formatCards = formatosBolo.map((formato) => {
+    const selecionado = formato.id === formatoInicial;
+    const preco = money(precoMinimoFormato(formato));
+    const label = `${formato.titulo}, ${formato.fatiasResumo}, a partir de ${preco}`;
+    return `          <button id="botao-formato-${esc(formato.id)}" class="bolo-formato-card${selecionado ? ' is-selected' : ''}" type="button" role="tab" aria-controls="painel-formato-${esc(formato.id)}" aria-selected="${selecionado}" tabindex="${selecionado ? '0' : '-1'}" data-bolo-format="${esc(formato.id)}" aria-label="${esc(label)}">
+             <span class="bolo-formato-shape bolo-formato-shape--${esc(formato.id)}" aria-hidden="true"><i class="fa-solid ${esc(formato.icone)}"></i></span>
+             <span class="bolo-formato-card-copy">
+               <strong>${esc(formato.titulo)}</strong>
+               <span>${esc(formato.fatiasResumo)}</span>
+             </span>
+             <span class="bolo-formato-card-price"><span class="bolo-formato-card-price-prefix">A partir de </span>${preco}</span>
+           </button>`;
+  }).join('\n');
+
+  const faqBolos = [
+    { q: 'Quanto custa um bolo personalizado em Santo André?', a: faqPrecoBolos(false) },
+    { q: 'Quais formatos de bolo estão disponíveis?', a: 'Você pode escolher entre bolo redondo, retangular ou em formato de coração. Todos têm as mesmas opções de massa, recheio e personalização; variam o tamanho, o rendimento e o preço.' },
+    ...bolos.faq.filter((f) => !/quanto custa/i.test(f.q))
+  ];
+
+  const body = `
+${pageHero(boloUnificado, SEO.bolos)}
+
+    <section id="formatos" class="py-5 section-format-selector" aria-labelledby="formatos-title" data-bolo-format-selector data-initial-format="${esc(formatoInicial)}">
+      <div class="container">
+        <div class="section-header text-center mb-4">
+          <p class="section-eyebrow">Monte do seu jeito</p>
+          <h2 id="formatos-title" class="section-badge-title">Como você imagina o seu bolo?</h2>
+          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">Escolha o formato primeiro. Depois, compare tamanhos, quantidade de fatias e preços sem sair da mesma página.</p>
+        </div>
+        <div class="bolo-formato-tabs" role="tablist" aria-label="Escolha o formato do bolo">
+          ${formatCards}
+        </div>
+        <aside class="bolo-formato-selection-note" data-bolo-format-status role="status" aria-live="polite">
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          <span><strong>Você está vendo:</strong> <span data-bolo-format-status-name>${esc(formatoInicialNome)}</span>. Toque em outro formato para comparar tamanhos e preços.</span>
+        </aside>
+        <aside class="bolo-formato-help" aria-label="Ajuda para escolher o tamanho">
+          <i class="fa-solid fa-users" aria-hidden="true"></i>
+          <span><strong>Não sabe qual tamanho escolher?</strong> Use a quantidade de fatias como referência. O rendimento depende do tamanho do corte.</span>
+        </aside>
+      </div>
+    </section>
+
+    <section id="precos" class="py-5 section-soft" aria-labelledby="precos-title">
+      <div class="container">
+        <div class="section-header text-center mb-4">
+          <h2 id="precos-title" class="section-badge-title">Tamanhos, fatias e preços</h2>
+          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">A tabela acompanha o formato escolhido. Os valores variam conforme o recheio escolhido.</p>
+        </div>
+        <div class="bolo-formato-panels">
+          ${formatosBolo.map(renderFormatoPanel).join('\n')}
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5" aria-labelledby="massas-title">
+      <div class="container">
+        <div class="section-header text-center mb-4">
+          <h2 id="massas-title" class="section-badge-title">Massas</h2>
+          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">O formato e a cobertura mudam conforme a sua escolha, mas você sempre pode escolher a massa do bolo.</p>
+        </div>
+        <div class="massas-coberturas-grid massas-only-grid">
+          <div class="mc-card">
+            <div class="mc-card-icon"><i class="fa-solid fa-bread-slice"></i></div>
+            <h3 class="mc-card-title">Massas</h3>
+            <p class="mc-card-sub">Escolha a massa do seu bolo</p>
+            <div class="massas-pills">
+              ${bolos.massas.map((m) => {
+                const cls = m.toLowerCase() === 'branca' ? 'massa-pill massa-branca' : 'massa-pill massa-chocolate';
+                return `<span class="${cls}">${esc(m)}</span>`;
+              }).join('\n              ')}
             </div>
           </div>
         </div>
@@ -991,17 +1093,20 @@ ${topoBoloSection()}
     </section>
 ${policiesSection()}
 ${faqSection(faqBolos)}
-${ctaBand(data)}
-${relatedSection(data.slug)}`;
+${ctaBand(boloUnificado)}
+${relatedSection('bolos')}`;
 
   const jsonLd = [
     localBusinessLd(),
-    productLd(data, url, minLocal, maxLocal, { offerCount: bolos.recheios.length }),
+    productLd(boloUnificado, url, minBolosPersonalizados, maxBolosPersonalizados, {
+      offerCount: bolos.recheios.length * formatosBolo.length,
+      props: { category: 'Bolos personalizados' }
+    }),
     faqLd(faqBolos),
-    breadcrumbLd(data.titulo, url)
+    breadcrumbLd(boloUnificado.titulo, url)
   ];
 
-  return layout({ seo: SEO[seoKey], canonical: `/${url}`, active: data.slug, jsonLd, body });
+  return layout({ seo: SEO.bolos, canonical: `/${url}`, active: 'bolos', jsonLd, body });
 }
 
 // ---------- Página de Bentô Cake ----------
@@ -1430,8 +1535,8 @@ function writeFile(relPath, content) {
 }
 
 writeFile('index.html', renderHome());
-writeFile('bolos/index.html', renderBolos(bolos, 'bolos'));
-writeFile('bolos-retangulares/index.html', renderBolos(bolosRetangulares, 'bolos-retangulares'));
+writeFile('bolos/index.html', renderBolos('redondo'));
+writeFile('bolos-retangulares/index.html', renderBolos('retangular'));
 writeFile('bento-cake/index.html', renderBentoCake());
 writeFile('doces/index.html', renderDoces());
 for (const data of paginasSimples) {

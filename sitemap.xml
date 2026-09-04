@@ -28,17 +28,7 @@
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://basiliobolos.com.br/assets/images/produtos/bolos-redondos.webp</image:loc>
-      <image:title>Bolos Redondos - Basilio Bolos</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://basiliobolos.com.br/bolos-retangulares/</loc>
-    <lastmod>2026-09-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://basiliobolos.com.br/assets/images/produtos/bolos-retangulares.webp</image:loc>
-      <image:title>Outros Formatos - Basilio Bolos</image:title>
+      <image:title>Bolos personalizados - Basilio Bolos</image:title>
     </image:image>
   </url>
   <url>

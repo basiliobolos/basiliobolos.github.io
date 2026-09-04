@@ -1,20 +1,12 @@
 {
   "produtos": [
     {
-      "titulo": "Bolos Redondos",
+      "titulo": "Bolos personalizados",
       "slug": "bolos",
       "imagem": "assets/images/produtos/bolos-redondos.webp",
-      "descricao": "Bolos redondos confeitados do tamanho P ao GG, com mais de 20 sabores de recheio, massa branca ou de chocolate e cobertura de chantilly ou ganache.",
+      "descricao": "Bolos redondos, em formato de coração e retangulares, com mais de 20 sabores de recheio, duas opções de massa e cobertura de chantilly ou ganache.",
       "precoDestaque": "A partir de R$ 89",
       "url": "bolos/"
-    },
-    {
-      "titulo": "Outros Formatos",
-      "slug": "bolos-retangulares",
-      "imagem": "assets/images/produtos/bolos-retangulares.webp",
-      "descricao": "Bolos em outros formatos, incluindo coração e retangulares, com mais de 20 sabores de recheio, massa branca ou de chocolate e cobertura de chantilly ou ganache.",
-      "precoDestaque": "A partir de R$ 159",
-      "url": "bolos-retangulares/"
     },
     {
       "titulo": "Bentô Cake",
@@ -74,9 +66,8 @@
     }
   ],
   "recomendacoes": {
-    "bento-cake": ["bolos", "bolos-retangulares", "cupcakes", "doces"],
-    "bolos": ["bolos-retangulares", "bento-cake", "cupcakes", "doces"],
-    "bolos-retangulares": ["bolos", "bento-cake", "cupcakes", "doces"],
+    "bento-cake": ["bolos", "cupcakes", "doces", "biscoitos"],
+    "bolos": ["bento-cake", "cupcakes", "doces", "biscoitos"],
     "doces": ["biscoitos", "cupcakes", "bolos", "brownies"],
     "biscoitos": ["doces", "cupcakes", "bento-cake", "pipoca-gourmet"],
     "cupcakes": ["bento-cake", "doces", "biscoitos", "brownies"],

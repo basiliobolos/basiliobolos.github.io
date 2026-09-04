@@ -220,6 +220,86 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 
+  // ---------- Seletor unificado de formatos de bolo ----------
+  const configurarFormatosBolo = () => {
+    const selector = document.querySelector('[data-bolo-format-selector]');
+    if(!selector) return;
+
+    const buttons = [...selector.querySelectorAll('[data-bolo-format]')];
+    const panels = [...document.querySelectorAll('[data-formato-panel]')];
+    if(!buttons.length || !panels.length) return;
+
+    const formatIds = buttons.map(button => button.dataset.boloFormat);
+    const formatLabel = (id) => {
+      const button = buttons.find(item => item.dataset.boloFormat === id);
+      return button?.querySelector('.bolo-formato-card-copy strong')?.textContent?.trim() || id;
+    };
+
+    const atualizarLinksPedido = (id) => {
+      const label = formatLabel(id);
+      document.querySelectorAll('[data-bolo-order]').forEach(link => {
+        const baseMessage = link.dataset.boloOrderBase;
+        const baseHref = link.getAttribute('href')?.split('?')[0];
+        if(!baseMessage || !baseHref) return;
+        const message = `${baseMessage} Formato escolhido: ${label}.`;
+        link.setAttribute('href', `${baseHref}?text=${encodeURIComponent(message)}`);
+      });
+    };
+
+    const ativarFormato = (id, { atualizarUrl = true } = {}) => {
+      const formato = formatIds.includes(id) ? id : formatIds[0];
+
+      buttons.forEach(button => {
+        const selecionado = button.dataset.boloFormat === formato;
+        button.classList.toggle('is-selected', selecionado);
+        button.setAttribute('aria-selected', String(selecionado));
+        button.tabIndex = selecionado ? 0 : -1;
+      });
+
+      panels.forEach(panel => {
+        const selecionado = panel.dataset.formatoPanel === formato;
+        panel.hidden = !selecionado;
+        panel.setAttribute('aria-hidden', String(!selecionado));
+      });
+
+      const statusName = selector.querySelector('[data-bolo-format-status-name]');
+      if(statusName) statusName.textContent = formatLabel(formato);
+
+      atualizarLinksPedido(formato);
+      if(atualizarUrl && window.history?.replaceState && window.location.hash !== `#${formato}`){
+        window.history.replaceState(null, '', `#${formato}`);
+      }
+    };
+
+    const hashFormat = window.location.hash.slice(1);
+    const initialFormat = formatIds.includes(hashFormat) ? hashFormat : selector.dataset.initialFormat;
+    ativarFormato(initialFormat, { atualizarUrl: false });
+
+    buttons.forEach((button, index) => {
+      button.addEventListener('click', () => ativarFormato(button.dataset.boloFormat));
+      button.addEventListener('keydown', event => {
+        const key = event.key;
+        if(!['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp', 'Home', 'End'].includes(key)) return;
+
+        event.preventDefault();
+        let nextIndex = index;
+        if(key === 'ArrowRight' || key === 'ArrowDown') nextIndex = (index + 1) % buttons.length;
+        if(key === 'ArrowLeft' || key === 'ArrowUp') nextIndex = (index - 1 + buttons.length) % buttons.length;
+        if(key === 'Home') nextIndex = 0;
+        if(key === 'End') nextIndex = buttons.length - 1;
+        buttons[nextIndex].focus();
+        ativarFormato(buttons[nextIndex].dataset.boloFormat);
+      });
+    });
+
+    window.addEventListener('hashchange', () => {
+      const nextFormat = window.location.hash.slice(1);
+      if(formatIds.includes(nextFormat)) ativarFormato(nextFormat, { atualizarUrl: false });
+    });
+  };
+
+  configurarFormatosBolo();
+
   // ---------- Expansão responsiva das grades de produtos ----------
   const configurarExpansaoProdutos = (listaProdutos, verMaisProdutos) => {
     if(!listaProdutos || !verMaisProdutos) return;

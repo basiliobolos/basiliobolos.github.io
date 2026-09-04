@@ -1,11 +1,11 @@
 {
   "slug": "bolos",
-  "titulo": "Bolos Redondos",
-  "tituloCompleto": "Bolos Personalizados em Santo André",
-  "subtitulo": "Monte seu bolo redondo: escolha o tamanho, a massa, o recheio e a cobertura. Feitos artesanalmente para aniversários, casamentos e celebrações em Santo André e região do ABC.",
+  "titulo": "Bolos personalizados",
+  "tituloCompleto": "Bolos personalizados para cada comemoração",
+  "subtitulo": "Escolha o formato, o tamanho, o recheio e a cobertura. Tudo feito sob encomenda em Santo André, com opções para encontros íntimos e festas maiores.",
   "imagem": "assets/images/produtos/bolos-redondos.webp",
   "precoDestaque": "A partir de R$ 89",
-  "mensagemWhatsApp": "Olá! Quero encomendar um bolo personalizado. Podem me ajudar a montar?",
+  "mensagemWhatsApp": "Olá! Quero encomendar um bolo personalizado. Podem me ajudar a escolher o formato e montar?",
   "precosPorFaixaP": {
     "89": { "P": 89, "M": 159, "G": 239, "GG": 329 },
     "99": { "P": 99, "M": 169, "G": 259, "GG": 359 },

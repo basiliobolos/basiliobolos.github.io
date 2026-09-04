@@ -41,8 +41,8 @@ tamanho (fatia de 100g, valores arredondados para terminar em 9).
 |---|---|
 | `data/site.json` | Telefone, endereço, horário, redes sociais, políticas de pedido |
 | `data/produtos.json` | Cards da página inicial (ordem, textos, preço em destaque) e regras editáveis de recomendações |
-| `data/bolos.json` | Bolos redondos: tamanhos, recheios (preço por kg), coberturas, acréscimos, FAQ |
-| `data/bolos-retangulares.json` | Outros formatos (coração, 17x25 e 22x30): tamanhos, rendimento e preços |
+| `data/bolos.json` | Base dos bolos personalizados: tamanhos redondos, recheios (preço por kg), coberturas, acréscimos e FAQ |
+| `data/bolos-retangulares.json` | Dados de coração e formatos retangulares usados na página unificada `/bolos/`; a URL antiga é mantida como alias |
 | `data/doces.json` | Doces por cento e premium, FAQs |
 | `data/biscoitos.json` · `cupcakes` · `brownies` · `pipoca-gourmet` · `bolo-de-pote` | Opções, preços e FAQ de cada página |
 | `data/campanhas.json` | Campanha sazonal (`ativo: true/false`) |
