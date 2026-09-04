@@ -2,7 +2,7 @@
   "slug": "bolos",
   "titulo": "Bolos personalizados",
   "tituloCompleto": "Bolos personalizados para cada comemoração",
-  "subtitulo": "Escolha o formato, o tamanho, o recheio e a cobertura. Tudo feito sob encomenda em Santo André, com opções para encontros íntimos e festas maiores.",
+  "subtitulo": "Bolos sob encomenda em Santo André. Escolha formato, tamanho, recheio e cobertura.",
   "imagem": "assets/images/produtos/bolos-redondos.webp",
   "precoDestaque": "A partir de R$ 89",
   "mensagemWhatsApp": "Olá! Quero encomendar um bolo personalizado. Podem me ajudar a escolher o formato e montar?",
@@ -50,7 +50,7 @@
       "pesoKg": 4.4
     }
   ],
-  "notaTamanhos": "A quantidade de fatias é uma estimativa e depende do tamanho do corte. Recomendamos fatias de 100g por pessoa.",
+  "notaTamanhos": "Estimativa de fatias; o rendimento varia conforme o corte. Referência: 100g por pessoa.",
   "massas": [
     "Branca",
     "Chocolate"
@@ -78,7 +78,7 @@
     },
     {
       "nome": "Sensação Rosé",
-      "descricao": "Creme de morango com raspas de chocolate meio amargo (sem fruta)",
+      "descricao": "Creme de morango + raspas de chocolate meio amargo (sem fruta)",
       "precoKg": 88
     },
     {
@@ -93,17 +93,17 @@
     },
     {
       "nome": "Dois Amores",
-      "descricao": "Uma camada de brigadeiro tradicional 50% cacau e uma de brigadeiro de leite ninho",
+      "descricao": "Brigadeiro 50% cacau + brigadeiro de leite ninho",
       "precoKg": 89
     },
     {
       "nome": "Chocolate & Morangos",
-      "descricao": "Brigadeiro tradicional 50% cacau com pedaços de morango fresco",
+      "descricao": "Brigadeiro 50% cacau + morango fresco",
       "precoKg": 95
     },
     {
       "nome": "Ninho & Morangos",
-      "descricao": "Brigadeiro de leite ninho com pedaços de morango fresco",
+      "descricao": "Brigadeiro de leite ninho + morango fresco",
       "precoKg": 95
     },
     {
@@ -113,12 +113,12 @@
     },
     {
       "nome": "Maracujá Trufado",
-      "descricao": "Uma camada de mousse de maracujá e uma de creme trufado meio amargo",
+      "descricao": "Mousse de maracujá + creme trufado meio amargo",
       "precoKg": 98
     },
     {
       "nome": "Tropical Trufado",
-      "descricao": "Uma camada de brigadeiro de maracujá e uma de creme trufado meio amargo",
+      "descricao": "Brigadeiro de maracujá + creme trufado meio amargo",
       "precoKg": 102
     },
     {
@@ -133,7 +133,7 @@
     },
     {
       "nome": "Doce Abacaxi",
-      "descricao": "Creme de doce de leite com pedaços de abacaxi cozido",
+      "descricao": "Doce de leite + abacaxi cozido",
       "precoKg": 98
     },
     {
@@ -143,7 +143,7 @@
     },
     {
       "nome": "Doce Coco",
-      "descricao": "Uma camada de creme de doce de leite e uma de brigadeiro de coco",
+      "descricao": "Doce de leite + brigadeiro de coco",
       "precoKg": 92
     },
     {
@@ -258,19 +258,19 @@
       "preco": "Sob consulta"
     }
   ],
-  "notaAcrescimos": "Velas, fitas, decorações e topos de bolo são orçados à parte e acrescentam no valor final. Envie uma referência da decoração ou informe cor e tema que ajudamos a escolher.",
+  "notaAcrescimos": "Decoração, velas e fitas são cobradas à parte. Envie uma referência pelo WhatsApp.",
   "faq": [
     {
       "q": "Vocês fazem entrega de bolo?",
-      "a": "Não fazemos entregas. A retirada é feita no nosso endereço, com horário marcado. Se preferir, você pode chamar Uber ou 99 por sua conta."
+      "a": "Não fazemos entregas. Retire no endereço com horário marcado ou envie Uber/99 por sua conta."
     },
     {
       "q": "Quais massas, recheios e coberturas estão disponíveis?",
-      "a": "Escolha massa branca ou de chocolate, um dos mais de 20 sabores de recheio e cobertura de chantilly (sem acréscimo) ou ganache (com acréscimo). Entre os recheios estão trufado, brigadeiro, prestígio, leite ninho com morango e mousse de maracujá."
+      "a": "Massa branca ou de chocolate, 20 recheios e cobertura de chantilly sem acréscimo ou ganache com acréscimo."
     },
     {
       "q": "Velas, topos e decorações estão incluídos no valor?",
-      "a": "Não. Velas, fitas, topos e decorações especiais são cobrados à parte. Envie uma referência pelo WhatsApp para receber o orçamento completo."
+      "a": "Não. Velas, fitas, topos e decorações são cobrados à parte. Envie a referência pelo WhatsApp."
     }
   ]
 }

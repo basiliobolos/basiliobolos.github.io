@@ -105,19 +105,19 @@ const formatosBolo = [
   {
     id: 'retangular',
     titulo: 'Retangular',
-    descricao: 'Mais área para dividir, decorar e servir em festas maiores.',
+    descricao: '17x25cm ou 22x30cm.',
     fatiasResumo: '24 a 44 fatias',
     icone: 'fa-square',
     data: bolosRetangulares,
     tamanhos: bolosRetangulares.tamanhos.filter((t) => t.id !== 'coracao'),
     minimos: minPorTamanhoRetangular,
-    notaTamanhos: 'A quantidade de fatias é uma estimativa e depende do tamanho do corte. O bolo de 17x25cm rende de 24 a 28 fatias e o de 22x30cm rende de 38 a 44 fatias. Recomendamos fatias de 100g por pessoa.',
+    notaTamanhos: bolosRetangulares.notaTamanhos,
     colunaMedida: 'Medidas'
   },
   {
     id: 'coracao',
     titulo: 'Coração',
-    descricao: 'Um formato especial para presentes, datas comemorativas e celebrações afetivas.',
+    descricao: 'Formato especial para celebrar.',
     fatiasResumo: '10 a 14 fatias',
     icone: 'fa-heart',
     data: bolosRetangulares,
@@ -137,8 +137,9 @@ const maxBolosPersonalizados = Math.max(...formatosBolo.map(precoMaximoFormato))
 const boloUnificado = {
   slug: 'bolos',
   titulo: 'Bolos personalizados',
+  tituloVisivel: 'Bolos personalizados',
   tituloCompleto: 'Bolos personalizados para cada comemoração',
-  subtitulo: 'Escolha o formato, o tamanho, o recheio e a cobertura. Tudo feito sob encomenda em Santo André, com opções para encontros íntimos e festas maiores.',
+  subtitulo: 'Formato, tamanho, recheio e cobertura do seu jeito. Retirada em Santo André.',
   imagem: bolos.imagem,
   precoDestaque: `A partir de ${money(minBolosPersonalizados)}`,
   mensagemWhatsApp: 'Olá! Quero encomendar um bolo personalizado. Podem me ajudar a escolher o formato e montar?'
@@ -407,6 +408,8 @@ function breadcrumb(items) {
 }
 
 function pageHero(data, seo) {
+  const tituloHero = data.tituloVisivel || data.tituloCompleto;
+  const heroCtaLabel = data.slug === 'bolos' ? 'Pedir pelo WhatsApp' : 'Encomendar pelo WhatsApp';
   const boloOrderAttrs = data.slug === 'bolos'
     ? ` data-bolo-order data-bolo-order-base="${esc(data.mensagemWhatsApp)}"`
     : '';
@@ -416,18 +419,18 @@ function pageHero(data, seo) {
         ${breadcrumb([{ nome: 'Início', url: '/' }, { nome: data.titulo }])}
         <div class="row align-items-center g-4">
           <div class="col-lg-7">
-            <h1 class="page-hero-title">${esc(data.tituloCompleto)}</h1>
+            <h1 class="page-hero-title">${esc(tituloHero)}</h1>
             <p class="page-hero-subtitle">${esc(data.subtitulo)}</p>
             <p class="page-hero-price">${esc(data.precoDestaque)}</p>
             <div class="d-flex flex-wrap gap-3 mt-3">
               <a href="${waHref(data.mensagemWhatsApp)}" class="btn btn-lg btn-whatsapp page-hero-btn-secondary" target="_blank" rel="noopener" data-track="hero"${boloOrderAttrs}>
-                ${waIcon} Encomendar pelo WhatsApp
+                ${waIcon} ${heroCtaLabel}
               </a>
             </div>
           </div>
           <div class="col-lg-5 text-center">
             <div class="page-hero-image">
-              <img src="/${esc(data.imagem)}" alt="${esc(data.tituloCompleto)} - ${esc(site.nome)}" loading="eager" fetchpriority="high" width="600" height="600">
+              <img src="/${esc(data.imagem)}" alt="${esc(tituloHero)} - ${esc(site.nome)}" loading="eager" fetchpriority="high" width="600" height="600">
             </div>
           </div>
         </div>
@@ -436,14 +439,20 @@ function pageHero(data, seo) {
 }
 
 function ctaBand(data) {
+  const ctaTitle = data.slug === 'bolos'
+    ? 'Peça seu bolo'
+    : `Pronto para encomendar ${data.titulo.toLowerCase()}?`;
+  const ctaText = data.slug === 'bolos'
+    ? 'Retirada em Santo André.'
+    : 'Atendemos Santo André e região com retirada no local.';
   const boloOrderAttrs = data.slug === 'bolos'
     ? ` data-bolo-order data-bolo-order-base="${esc(data.mensagemWhatsApp)}"`
     : '';
   return `
     <section class="cta-band" aria-label="Faça sua encomenda">
       <div class="container text-center">
-        <h2 class="cta-band-title">Pronto para encomendar ${esc(data.titulo.toLowerCase())}?</h2>
-        <p class="cta-band-text">Atendemos Santo André e região com retirada no local.</p>
+        <h2 class="cta-band-title">${esc(ctaTitle)}</h2>
+        <p class="cta-band-text">${esc(ctaText)}</p>
         <a href="${waHref(data.mensagemWhatsApp)}" class="btn btn-lg cta-band-btn" target="_blank" rel="noopener" data-track="cta-band"${boloOrderAttrs}>
           ${waIcon} Pedir pelo WhatsApp
         </a>
@@ -451,10 +460,16 @@ function ctaBand(data) {
     </section>`;
 }
 
-function topoBoloSection() {
+function topoBoloSection({ compact = false } = {}) {
   if (!topoBolo) return '';
+  const sectionClass = compact ? ' section-topo' : '';
+  const titulo = compact ? 'Topo personalizado' : 'Topo de bolo personalizado';
+  const status = compact ? 'À parte' : 'Cobrado à parte';
+  const nota = compact
+    ? `${topoBolo.preco} · conforme modelo e tema.`
+    : `${topoBolo.preco}, conforme o modelo e o tema.`;
   return `
-    <section class="py-5" aria-labelledby="topo-bolo-title">
+    <section class="py-5${sectionClass}" aria-labelledby="topo-bolo-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="topo-bolo-title" class="section-badge-title">Topo de bolo</h2>
@@ -462,16 +477,16 @@ function topoBoloSection() {
         <div class="topo-bolo-destaque" role="note" aria-label="Topo de bolo cobrado à parte">
           <div class="topo-bolo-destaque-icon"><i class="fa-solid fa-cake-candles" aria-hidden="true"></i></div>
           <div class="topo-bolo-destaque-content">
-            <h3>Topo de bolo personalizado</h3>
-            <p class="topo-bolo-destaque-status">Cobrado à parte</p>
-            <p class="topo-bolo-destaque-note">${esc(topoBolo.preco)}, conforme o modelo e o tema.</p>
+            <h3>${titulo}</h3>
+            <p class="topo-bolo-destaque-status">${status}</p>
+            <p class="topo-bolo-destaque-note">${esc(nota)}</p>
           </div>
         </div>
       </div>
     </section>`;
 }
 
-function policiesSection() {
+function policiesSection({ contrast = false } = {}) {
   const p = site.politicas;
   const items = [
     { icon: 'fa-calendar-check', titulo: 'Antecedência', texto: p.antecedencia },
@@ -480,7 +495,7 @@ function policiesSection() {
     { icon: 'fa-bag-shopping', titulo: 'Retirada', texto: p.retirada }
   ];
   return `
-    <section class="py-5 section-soft" aria-labelledby="info-title">
+    <section class="py-5 ${contrast ? 'section-policies' : 'section-soft'}" aria-labelledby="info-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="info-title" class="section-badge-title">Informações importantes</h2>
@@ -503,10 +518,10 @@ function policiesSection() {
     </section>`;
 }
 
-function faqSection(faq) {
+function faqSection(faq, { contrast = false } = {}) {
   if (!faq || !faq.length) return '';
   return `
-    <section class="py-5" aria-labelledby="faq-title">
+    <section class="py-5${contrast ? ' section-faq' : ''}" aria-labelledby="faq-title">
       <div class="container faq-container">
         <div class="section-header text-center mb-4">
           <h2 id="faq-title" class="section-badge-title">Perguntas frequentes</h2>
@@ -522,7 +537,7 @@ function faqSection(faq) {
     </section>`;
 }
 
-function relatedSection(currentSlug) {
+function relatedSection(currentSlug, { contrast = false } = {}) {
   const outros = (recomendacoes[currentSlug] || [])
     .map((slug) => produtoPorSlug.get(slug))
     .filter((p) => p && p.slug !== currentSlug)
@@ -531,7 +546,7 @@ function relatedSection(currentSlug) {
   const relacionadosIniciais = outros.slice(0, 3);
   const relacionadosRestantes = outros.slice(3);
   return `
-    <section class="py-5 section-soft" aria-labelledby="rel-title">
+    <section class="py-5 ${contrast ? 'section-related' : 'section-soft'}" aria-labelledby="rel-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="rel-title" class="section-badge-title">Você também vai gostar</h2>
@@ -928,7 +943,7 @@ function renderBolos(initialFormat = 'redondo') {
     const coberturaSection = `          <div class="bolo-panel-section bolo-panel-section--coverage">
             <div class="bolo-panel-section-heading">
               <h4>Coberturas</h4>
-              <p>Escolha entre chantilly, sem acréscimo, ou ganache, com acréscimo conforme o tamanho.</p>
+              <p>Chantilly sem acréscimo; ganache com acréscimo.</p>
             </div>
             <div class="coberturas-list">
               <div class="cobertura-row cobertura-row--free">
@@ -952,9 +967,7 @@ function renderBolos(initialFormat = 'redondo') {
     return `<section id="painel-formato-${esc(formato.id)}" class="bolo-formato-panel" role="tabpanel" aria-labelledby="botao-formato-${esc(formato.id)}" data-formato-panel="${esc(formato.id)}">
           <div class="bolo-formato-panel-head">
             <div>
-              <p class="bolo-formato-kicker">Detalhes do formato</p>
               <h3 class="bolo-formato-panel-title">Bolo ${esc(formato.titulo.toLowerCase())}</h3>
-              <p class="bolo-formato-panel-text">${esc(formato.descricao)}</p>
             </div>
             <div class="bolo-formato-panel-price">
               <span>A partir de</span>
@@ -972,8 +985,8 @@ function renderBolos(initialFormat = 'redondo') {
 
           <div class="bolo-panel-section bolo-panel-section--prices">
             <div class="bolo-panel-section-heading">
-              <h4>Sabores de recheio e preços</h4>
-              <p>Escolha o sabor e veja o valor conforme o tamanho do bolo.</p>
+              <h4>Sabores e preços</h4>
+              <p>O valor varia conforme o tamanho e o recheio.</p>
             </div>
             <div class="table-responsive">
               <table class="price-table price-table-matrix" style="--price-count:${formato.tamanhos.length};">
@@ -1010,7 +1023,7 @@ function renderBolos(initialFormat = 'redondo') {
 
   const faqBolos = [
     { q: 'Quanto custa um bolo personalizado em Santo André?', a: faqPrecoBolos(false) },
-    { q: 'Quais formatos de bolo estão disponíveis?', a: 'Você pode escolher entre bolo redondo, retangular ou em formato de coração. Todos têm as mesmas opções de massa, recheio e personalização; variam o tamanho, o rendimento e o preço.' },
+    { q: 'Quais formatos de bolo estão disponíveis?', a: 'Redondo, retangular ou coração. O tamanho, rendimento e preço variam conforme o formato.' },
     ...bolos.faq.filter((f) => !/quanto custa/i.test(f.q))
   ];
 
@@ -1019,30 +1032,25 @@ ${pageHero(boloUnificado, SEO.bolos)}
 
     <section id="formatos" class="py-5 section-format-selector" aria-labelledby="formatos-title" data-bolo-format-selector data-initial-format="${esc(formatoInicial)}">
       <div class="container">
-        <div class="section-header text-center mb-4">
-          <p class="section-eyebrow">Monte do seu jeito</p>
-          <h2 id="formatos-title" class="section-badge-title">Como você imagina o seu bolo?</h2>
-          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">Escolha o formato primeiro. Depois, compare tamanhos, quantidade de fatias e preços sem sair da mesma página.</p>
+        <div class="section-header text-center mb-3">
+          <h2 id="formatos-title" class="section-badge-title">Escolha o formato</h2>
+          <p class="mx-auto">Compare rendimento e preço.</p>
         </div>
         <div class="bolo-formato-tabs" role="tablist" aria-label="Escolha o formato do bolo">
           ${formatCards}
         </div>
         <aside class="bolo-formato-selection-note" data-bolo-format-status role="status" aria-live="polite">
-          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-          <span><strong>Você está vendo:</strong> <span data-bolo-format-status-name>${esc(formatoInicialNome)}</span>. Toque em outro formato para comparar tamanhos e preços.</span>
-        </aside>
-        <aside class="bolo-formato-help" aria-label="Ajuda para escolher o tamanho">
-          <i class="fa-solid fa-users" aria-hidden="true"></i>
-          <span><strong>Não sabe qual tamanho escolher?</strong> Use a quantidade de fatias como referência. O rendimento depende do tamanho do corte.</span>
+           <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+           <span><strong>Formato:</strong> <span data-bolo-format-status-name>${esc(formatoInicialNome)}</span></span>
         </aside>
       </div>
     </section>
 
-    <section id="precos" class="py-5 section-soft" aria-labelledby="precos-title">
+    <section id="precos" class="py-5 section-bolo-prices" aria-labelledby="precos-title">
       <div class="container">
-        <div class="section-header text-center mb-4">
-          <h2 id="precos-title" class="section-badge-title">Tamanhos, fatias e preços</h2>
-          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">A tabela acompanha o formato escolhido. Os valores variam conforme o recheio escolhido.</p>
+        <div class="section-header text-center mb-3">
+          <h2 id="precos-title" class="section-badge-title">Tamanhos e preços</h2>
+          <p class="mx-auto">O preço varia conforme o recheio.</p>
         </div>
         <div class="bolo-formato-panels">
           ${formatosBolo.map(renderFormatoPanel).join('\n')}
@@ -1050,17 +1058,13 @@ ${pageHero(boloUnificado, SEO.bolos)}
       </div>
     </section>
 
-    <section class="py-5" aria-labelledby="massas-title">
+    <section class="py-5 section-massas" aria-labelledby="massas-title">
       <div class="container">
-        <div class="section-header text-center mb-4">
-          <h2 id="massas-title" class="section-badge-title">Massas</h2>
-          <p class="mx-auto" style="max-width:680px;color:#6b4f46;">O formato e a cobertura mudam conforme a sua escolha, mas você sempre pode escolher a massa do bolo.</p>
+        <div class="section-header text-center mb-3">
+          <h2 id="massas-title" class="section-badge-title">Escolha a massa</h2>
         </div>
         <div class="massas-coberturas-grid massas-only-grid">
-          <div class="mc-card">
-            <div class="mc-card-icon"><i class="fa-solid fa-bread-slice"></i></div>
-            <h3 class="mc-card-title">Massas</h3>
-            <p class="mc-card-sub">Escolha a massa do seu bolo</p>
+          <div class="mc-card mc-card--compact">
             <div class="massas-pills">
               ${bolos.massas.map((m) => {
                 const cls = m.toLowerCase() === 'branca' ? 'massa-pill massa-branca' : 'massa-pill massa-chocolate';
@@ -1072,11 +1076,11 @@ ${pageHero(boloUnificado, SEO.bolos)}
       </div>
     </section>
 
-${topoBoloSection()}
+${topoBoloSection({ compact: true })}
 
-    <section class="py-5 section-soft" aria-labelledby="acrescimos-title">
+    <section class="py-5 section-addons" aria-labelledby="acrescimos-title">
       <div class="container">
-        <div class="section-header text-center mb-4">
+        <div class="section-header text-center mb-3">
           <h2 id="acrescimos-title" class="section-badge-title">Acréscimos e decoração</h2>
           <p class="mx-auto" style="max-width:680px;color:#6b4f46;">${esc(bolos.notaAcrescimos)}</p>
         </div>
@@ -1091,10 +1095,10 @@ ${topoBoloSection()}
         </div>
       </div>
     </section>
-${policiesSection()}
-${faqSection(faqBolos)}
+${policiesSection({ contrast: true })}
+${faqSection(faqBolos, { contrast: true })}
 ${ctaBand(boloUnificado)}
-${relatedSection('bolos')}`;
+${relatedSection('bolos', { contrast: true })}`;
 
   const jsonLd = [
     localBusinessLd(),

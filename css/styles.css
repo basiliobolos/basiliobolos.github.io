@@ -1886,9 +1886,30 @@ html{scroll-behavior:smooth}
 
 /* ---------- Seletor unificado de formatos de bolo ---------- */
 .section-format-selector{
-  background:
-    radial-gradient(circle at 8% 20%, rgba(248,227,215,0.72), transparent 32%),
-    linear-gradient(135deg, var(--creme), var(--champagne));
+  background:#f8eee3;
+  border-top:1px solid rgba(192,127,78,0.18);
+  border-bottom:1px solid rgba(192,127,78,0.22);
+}
+.section-bolo-prices{
+  background:#dcc1a9;
+}
+.section-massas{
+  background:#f8eee3;
+}
+.section-topo{
+  background:#dcc1a9;
+}
+.section-addons{
+  background:#f8eee3;
+}
+.section-policies{
+  background:#dcc1a9;
+}
+.section-faq{
+  background:#f8eee3;
+}
+.section-related{
+  background:#dcc1a9;
 }
 .bolo-formato-tabs{
   display:grid;
@@ -2445,6 +2466,9 @@ html{scroll-behavior:smooth}
   box-shadow:0 4px 16px rgba(0,0,0,0.08);
   text-align:center;
   transition:var(--transition-smooth);
+}
+.mc-card--compact{
+  padding:1.25rem 1.5rem;
 }
 .mc-card:hover{
   box-shadow:0 8px 24px rgba(0,0,0,0.12);
