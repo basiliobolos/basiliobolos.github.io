@@ -1,15 +1,16 @@
 {
   "slug": "cupcakes",
   "titulo": "Cupcakes",
+  "tituloVisivel": "Cupcakes Decorados",
   "tituloCompleto": "Cupcakes Decorados em Santo André",
-  "subtitulo": "Cupcakes de massa fofinha com recheio generoso e decoração personalizada por tema. Por unidade ou em caixa com 2 unidades, prontos para presentear.",
+  "subtitulo": "Cupcakes recheados com decoração personalizada, por unidade ou em caixa com 2.",
   "imagem": "assets/images/produtos/cupcake.webp",
   "precoDestaque": "A partir de R$ 13",
   "mensagemWhatsApp": "Olá! Quero encomendar cupcakes. Podem me ajudar?",
   "opcoes": [
-    { "nome": "Unidade", "descricao": "Cupcake recheado com decoração personalizada. Ideal para experimentar ou completar um presente.", "preco": "R$ 13" },
-    { "nome": "Caixa com 2 unidades", "descricao": "Duas unidades em uma linda caixa para presentear. Decoração totalmente personalizada para a ocasião.", "preco": "R$ 24" },
-    { "nome": "Cupcakes temáticos", "descricao": "Decoração com tema, personagens e cores da sua festa. Orçamento conforme a complexidade.", "preco": "Sob consulta" }
+    { "nome": "Unidade", "descricao": "Cupcake recheado com decoração personalizada.", "preco": "R$ 13" },
+    { "nome": "Caixa com 2 unidades", "descricao": "2 cupcakes em caixa, com decoração personalizada.", "preco": "R$ 24" },
+    { "nome": "Cupcakes temáticos", "descricao": "Tema, personagens e cores da festa; orçamento conforme a complexidade.", "preco": "Sob consulta" }
   ],
   "nota": "Massa fofinha e recheada, com sabor e beleza em cada detalhe. Consulte os sabores disponíveis no momento do pedido.",
   "faq": [

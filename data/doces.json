@@ -1,8 +1,9 @@
 {
   "slug": "doces",
   "titulo": "Doces para Festa",
+  "tituloVisivel": "Doces para Festa",
   "tituloCompleto": "Doces para Festa em Santo André",
-  "subtitulo": "Doces artesanais por cento para festas e eventos, e doces premium por unidade para ocasiões especiais. Produzidos em Santo André com ingredientes selecionados.",
+  "subtitulo": "Doces artesanais por cento ou premium por unidade para festas e ocasiões especiais.",
   "imagem": "assets/images/produtos/doces-festa.webp",
   "precoDestaque": "Cento a partir de R$ 189",
   "mensagemWhatsApp": "Olá! Quero encomendar doces para uma festa. Podem me passar os valores?",
@@ -62,7 +63,7 @@
       "imagem": "assets/images/doces/churros.webp"
     }
   ],
-  "notaCentos": "Brigadeiros com peso aproximado de 16g. Cento de doces variado: escolha até 4 sabores para compor sua caixa, envie os sabores desejados para receber o orçamento.",
+  "notaCentos": "Aproximadamente 16g cada. Monte o cento com até 4 sabores e envie sua escolha para orçamento.",
   "premium": [
     {
       "nome": "Brigadeiro Clássico Premium",
@@ -155,7 +156,7 @@
       "imagem": "assets/images/doces/surpresa-de-uva.webp"
     }
   ],
-  "notaPremium": "Doces premium com peso aproximado de 22g. Quantidade mínima de 20 unidades por sabor.",
+  "notaPremium": "Aproximadamente 22g cada. Mínimo de 20 unidades por sabor.",
   "faq": [
     {
       "q": "Quanto custa o cento de doces em Santo André?",

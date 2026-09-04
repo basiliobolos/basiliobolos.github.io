@@ -13,6 +13,7 @@
       "slug": "bento-cake",
       "imagem": "assets/images/produtos/bento-cake.webp",
       "descricao": "O bolo individual de 10cm, perfeito para presentear ou comemorar em dose certa. Recheio generoso e decoração à sua escolha.",
+      "descricaoCurta": "Bolo individual de 10cm, com recheio e decoração personalizados.",
       "precoDestaque": "A partir de R$ 39",
       "url": "bento-cake/"
     },
@@ -21,6 +22,7 @@
       "slug": "doces",
       "imagem": "assets/images/produtos/doces-festa.webp",
       "descricao": "Doces artesanais por cento para festas e doces premium por unidade: brigadeiros, cestinhas, taças e flores de açúcar.",
+      "descricaoCurta": "Doces artesanais por cento ou premium por unidade: brigadeiros, cestinhas, taças e flores.",
       "precoDestaque": "Cento a partir de R$ 189",
       "url": "doces/"
     },
@@ -29,6 +31,7 @@
       "slug": "cupcakes",
       "imagem": "assets/images/produtos/cupcake.webp",
       "descricao": "Cupcakes decorados com temas personalizados, massa fofinha e recheio generoso. Por unidade ou em caixa com 2 unidades.",
+      "descricaoCurta": "Cupcakes recheados e personalizados, por unidade ou em caixa com 2.",
       "precoDestaque": "A partir de R$ 13",
       "url": "cupcakes/"
     },
@@ -37,6 +40,7 @@
       "slug": "biscoitos",
       "imagem": "assets/images/produtos/biscoitos-decorados.webp",
       "descricao": "Biscoitos amanteigados decorados à mão em formatos e tamanhos variados. Vendidos por unidade ou em caixas fechadas para presentear.",
+      "descricaoCurta": "Biscoitos amanteigados decorados à mão, por unidade ou em caixas.",
       "precoDestaque": "A partir de R$ 5",
       "url": "biscoitos/"
     },
@@ -45,6 +49,7 @@
       "slug": "bolo-de-pote",
       "imagem": "assets/images/produtos/bolo-no-pote.webp",
       "descricao": "Nosso clássico! O produto que deu início à nossa história. Camadas generosas de bolo e recheio em potes de 250ml e 500ml.",
+      "descricaoCurta": "Camadas de bolo e recheio em potes de 250ml e 500ml.",
       "precoDestaque": "A partir de R$ 15",
       "url": "bolo-de-pote/"
     },
@@ -53,6 +58,7 @@
       "slug": "brownies",
       "imagem": "assets/images/produtos/brownie.webp",
       "descricao": "Brownie bem chocolatudo, macio por dentro e com casquinha crocante por fora. Na marmitinha ou em caixas de bites.",
+      "descricaoCurta": "Brownie macio, com casquinha crocante, em marmitinha ou bites.",
       "precoDestaque": "A partir de R$ 12",
       "url": "brownies/"
     },
@@ -61,6 +67,7 @@
       "slug": "pipoca-gourmet",
       "imagem": "assets/images/produtos/pipoca-gourmet.webp",
       "descricao": "Pipoca fresca e crocante coberta de chocolate ou leite ninho. Em pacotes de 100g a 500g, também em versões temáticas.",
+      "descricaoCurta": "Pipoca crocante de chocolate ou leite ninho, em pacotes de 100g a 500g.",
       "precoDestaque": "A partir de R$ 15",
       "url": "pipoca-gourmet/"
     }

@@ -1,16 +1,17 @@
 {
   "slug": "brownies",
   "titulo": "Brownies",
+  "tituloVisivel": "Brownies",
   "tituloCompleto": "Brownies Artesanais em Santo André",
-  "subtitulo": "Brownie bem chocolatudo, macio por dentro e com casquinha crocante por fora. Na marmitinha ou em caixas de bites para presentear.",
+  "subtitulo": "Brownies chocolatudos, macios e com casquinha crocante, em marmitinhas ou bites.",
   "imagem": "assets/images/produtos/brownie.webp",
   "precoDestaque": "A partir de R$ 12",
   "mensagemWhatsApp": "Olá! Quero encomendar brownies. Podem me ajudar?",
   "opcoes": [
-    { "nome": "Marmitinha tradicional", "descricao": "Brownie na marmitinha a partir de 80g, macio e com casquinha crocante.", "preco": "R$ 12" },
-    { "nome": "Marmitinha com nozes", "descricao": "Brownie com pedaços de nozes, na marmitinha a partir de 80g.", "preco": "R$ 14" },
-    { "nome": "Marmitinha recheada", "descricao": "Brownie recheado com Nutella ou doce de leite, na marmitinha a partir de 80g.", "preco": "R$ 16" },
-    { "nome": "Caixa de bites (aprox. 215g)", "descricao": "Caixa com bites de brownie bem chocolatudo. Perfeita para presentear.", "preco": "R$ 48" }
+    { "nome": "Marmitinha tradicional", "descricao": "A partir de 80g, com casquinha crocante.", "preco": "R$ 12" },
+    { "nome": "Marmitinha com nozes", "descricao": "A partir de 80g, com pedaços de nozes.", "preco": "R$ 14" },
+    { "nome": "Marmitinha recheada", "descricao": "A partir de 80g, recheado com Nutella ou doce de leite.", "preco": "R$ 16" },
+    { "nome": "Caixa de bites (aprox. 215g)", "descricao": "Bites de brownie em caixa.", "preco": "R$ 48" }
   ],
   "nota": "Consulte sabores e disponibilidade pelo WhatsApp. Brownies também podem compor caixas de presente com outros produtos.",
   "faq": [

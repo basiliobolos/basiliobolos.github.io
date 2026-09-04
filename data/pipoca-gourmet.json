@@ -1,17 +1,18 @@
 {
   "slug": "pipoca-gourmet",
   "titulo": "Pipoca Gourmet",
+  "tituloVisivel": "Pipoca Gourmet",
   "tituloCompleto": "Pipoca Gourmet em Santo André",
-  "subtitulo": "Pipoca fresca e crocante coberta de chocolate ou leite ninho. Em pacotes de 100g a 500g e em versões temáticas para presentes.",
+  "subtitulo": "Pipoca crocante de chocolate ou leite ninho, em pacotes de 100g a 500g.",
   "imagem": "assets/images/produtos/pipoca-gourmet.webp",
   "precoDestaque": "A partir de R$ 15",
   "mensagemWhatsApp": "Olá! Quero encomendar pipoca gourmet. Podem me ajudar?",
   "sabores": ["Chocolate", "Leite Ninho"],
   "opcoes": [
-    { "nome": "Pacote 100g", "descricao": "Pacote com 100g de pipoca gourmet fresca e crocante no sabor escolhido.", "preco": "R$ 15" },
-    { "nome": "Pacote 250g", "descricao": "Pacote com 250g, ideal para dividir (ou não!).", "preco": "R$ 29" },
-    { "nome": "Pacote 500g", "descricao": "Pacote família com 500g de pipoca gourmet.", "preco": "R$ 49" },
-    { "nome": "Versões temáticas", "descricao": "Embalagens temáticas para datas comemorativas e lembrancinhas. Orçamento por quantidade.", "preco": "Sob consulta" }
+    { "nome": "Pacote 100g", "descricao": "Pipoca fresca no sabor escolhido.", "preco": "R$ 15" },
+    { "nome": "Pacote 250g", "descricao": "Pacote com 250g.", "preco": "R$ 29" },
+    { "nome": "Pacote 500g", "descricao": "Pacote com 500g.", "preco": "R$ 49" },
+    { "nome": "Versões temáticas", "descricao": "Embalagens para datas comemorativas e lembrancinhas; orçamento por quantidade.", "preco": "Sob consulta" }
   ],
   "nota": "Sabores disponíveis: chocolate e leite ninho. Consulte edições sazonais (como as natalinas) pelo WhatsApp ou acompanhe nosso Instagram.",
   "faq": [

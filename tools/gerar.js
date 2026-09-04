@@ -548,6 +548,7 @@ function relatedSection(currentSlug, { tone = 'dark' } = {}) {
   const listaId = `lista-relacionados-${currentSlug}`;
   const relacionadosIniciais = outros.slice(0, 3);
   const relacionadosRestantes = outros.slice(3);
+  const compactCards = currentSlug !== 'bolos';
   return `
     <section class="py-5 ${surface(tone)} section-related" aria-labelledby="rel-title">
       <div class="container">
@@ -555,8 +556,8 @@ function relatedSection(currentSlug, { tone = 'dark' } = {}) {
           <h2 id="rel-title" class="section-badge-title">Você também vai gostar</h2>
         </div>
         <div id="${esc(listaId)}" class="prod-grid" data-lista-relacionados>
-          ${relacionadosIniciais.map((p) => prodCard(p)).join('\n          ')}
-          ${relacionadosRestantes.map((p) => prodCard(p, { extra: true })).join('\n          ')}
+          ${relacionadosIniciais.map((p) => prodCard(p, { compact: compactCards })).join('\n          ')}
+          ${relacionadosRestantes.map((p) => prodCard(p, { extra: true, compact: compactCards })).join('\n          ')}
         </div>${relacionadosRestantes.length ? `
         <div class="text-center mt-4">
           <button type="button" class="btn btn-lg page-hero-btn-secondary" data-ver-mais-relacionados hidden aria-controls="${esc(listaId)}" aria-expanded="false">
@@ -570,14 +571,15 @@ function relatedSection(currentSlug, { tone = 'dark' } = {}) {
     </section>`;
 }
 
-function prodCard(p, { extra = false } = {}) {
+function prodCard(p, { extra = false, compact = false } = {}) {
+  const descricao = compact ? (p.descricaoCurta || p.descricao) : p.descricao;
   return `<a class="prod-card${extra ? ' produto-extra' : ''}"${extra ? ' data-produto-extra hidden' : ''} href="/${esc(p.url)}">
             <div class="prod-card-image" style="--media-image:url(/${esc(p.imagem)})">
               <img src="/${esc(p.imagem)}" alt="${esc(p.titulo)} em Santo André - ${esc(site.nome)}" loading="lazy" width="400" height="300">
             </div>
             <div class="prod-card-body">
               <h3>${esc(p.titulo)}</h3>
-              <p class="prod-card-desc">${esc(p.descricao)}</p>
+              <p class="prod-card-desc">${esc(descricao)}</p>
               <p class="prod-card-price">${esc(p.precoDestaque)}</p>
               <span class="prod-card-link">Ver detalhes e preços <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
             </div>
@@ -760,8 +762,8 @@ ${campanhaSection}
           </p>
         </div>
         <div id="lista-produtos" class="prod-grid">
-          ${produtosIniciais.map((p) => prodCard(p)).join('\n          ')}
-${produtosRestantes.length ? `          ${produtosRestantes.map((p) => prodCard(p, { extra: true })).join('\n          ')}` : ''}
+          ${produtosIniciais.map((p) => prodCard(p, { compact: true })).join('\n          ')}
+${produtosRestantes.length ? `          ${produtosRestantes.map((p) => prodCard(p, { extra: true, compact: true })).join('\n          ')}` : ''}
         </div>${produtosRestantes.length ? `
         <div class="text-center mt-4">
           <button type="button" class="btn btn-lg page-hero-btn-secondary" data-ver-mais-produtos hidden aria-controls="lista-produtos" aria-expanded="false">
@@ -1118,8 +1120,9 @@ function renderBentoCake() {
   const data = {
     slug: 'bento-cake',
     titulo: 'Bentô Cake',
+    tituloVisivel: 'Bentô Cake',
     tituloCompleto: 'Bentô Cake em Santo André',
-    subtitulo: 'O bolinho individual de 10cm que virou febre: perfeito para presentear, celebrar a dois ou matar a vontade de um bolo só seu. Recheio generoso e decoração personalizada.',
+    subtitulo: 'Bolo individual de 10cm, com recheio e decoração personalizados.',
     imagem: 'assets/images/produtos/bento-cake.webp',
     precoDestaque: `A partir de ${money(minBento)}`,
     mensagemWhatsApp: 'Olá! Quero encomendar um bentô cake. Podem me passar as opções?'
@@ -1152,14 +1155,14 @@ ${pageHero(data, SEO['bento-cake'])}
             <div class="info-card">
               <i class="fa-solid fa-ruler-combined" aria-hidden="true"></i>
               <h3>Tamanho</h3>
-              <p>${esc(bento.diametro)} de diâmetro, servido em uma embalagem própria tipo marmitinha, com colher.</p>
+              <p>${esc(bento.diametro)} de diâmetro; marmitinha com colher.</p>
             </div>
           </div>
           <div class="col-md-5">
             <div class="info-card">
               <i class="fa-solid fa-utensils" aria-hidden="true"></i>
               <h3>Porções</h3>
-              <p>Serve de ${esc(bento.fatias)} pessoas. O tamanho certo para presentear sem desperdício.</p>
+              <p>Serve de ${esc(bento.fatias)} pessoas.</p>
             </div>
           </div>
         </div>
@@ -1170,7 +1173,7 @@ ${pageHero(data, SEO['bento-cake'])}
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="sabores-bento-title" class="section-badge-title">Sabores e preços</h2>
-          <p class="mx-auto section-support">Escolha uma das ${saboresBento.length} opções de recheio.</p>
+          <p class="mx-auto section-support">Escolha o recheio.</p>
         </div>
         <div class="table-responsive">
           <table class="price-table">
@@ -1197,7 +1200,7 @@ ${pageHero(data, SEO['bento-cake'])}
           <div class="mc-card">
             <div class="mc-card-icon"><i class="fa-solid fa-bread-slice"></i></div>
             <h3 class="mc-card-title">Massas</h3>
-            <p class="mc-card-sub">Escolha a massa do seu bolo</p>
+            <p class="mc-card-sub">Escolha uma opção</p>
             <div class="massas-pills">
               ${bolos.massas.map((m) => {
                 const cls = m.toLowerCase() === 'branca' ? 'massa-pill massa-branca' : 'massa-pill massa-chocolate';
@@ -1208,7 +1211,7 @@ ${pageHero(data, SEO['bento-cake'])}
           <div class="mc-card">
             <div class="mc-card-icon"><i class="fa-solid fa-ice-cream"></i></div>
             <h3 class="mc-card-title">Cobertura</h3>
-            <p class="mc-card-sub">Inclusa no seu bentô cake</p>
+            <p class="mc-card-sub">Incluída no preço</p>
             <div class="coberturas-list">
               <div class="cobertura-row cobertura-row--free">
                 <div class="cobertura-info">
@@ -1228,7 +1231,7 @@ ${topoBoloSection({ tone: 'dark' })}
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="decor-bento-title" class="section-badge-title">Decoração e adicionais</h2>
-          <p class="mx-auto section-support">Escolha frases, desenhos e tema; adicionais ficam sob consulta.</p>
+          <p class="mx-auto section-support">Frases, desenhos e tema; adicionais sob consulta.</p>
         </div>
         <div class="row g-3 justify-content-center">
           ${outrosAcrescimos.map((a) => `
