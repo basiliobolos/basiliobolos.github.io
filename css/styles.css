@@ -412,7 +412,7 @@ section[id]{
   background:
     radial-gradient(900px 500px at 85% 20%, rgba(221,169,126,0.35) 0%, transparent 60%),
     radial-gradient(700px 420px at 8% 90%, rgba(248,227,215,0.9) 0%, transparent 65%),
-    linear-gradient(160deg, var(--creme) 0%, var(--champagne) 45%, var(--areia) 100%);
+    linear-gradient(160deg, #d1ae8e 0%, #dfc0a0 45%, #e7d1b8 100%);
   color:var(--marrom);
   padding-block:clamp(3.5rem, 8vw, 6rem);
   min-height:clamp(550px, 75vh, 700px);
@@ -1368,6 +1368,7 @@ section[id]{
 
 .flip-front .card-image-wrapper::before,
 .prod-card-image::before,
+.bento-kit-card-media::before,
 .menu-item-media::before{
   content:'';
   position:absolute;
@@ -1831,7 +1832,8 @@ html{scroll-behavior:smooth}
   transition:opacity 0.3s ease;
 }
 .prod-card:hover .prod-card-image::after{opacity:1}
-.prod-card-image img{
+.prod-card-image img,
+.bento-kit-card-media img{
   position:relative;
   z-index:1;
   display:block;
@@ -2604,6 +2606,151 @@ html{scroll-behavior:smooth}
   flex-shrink:0;
 }
 
+/* Kits presenteáveis do Bentô Cake */
+.bento-kit-offer{
+  max-width:1080px;
+  margin:2.5rem auto 0;
+  padding-top:2.5rem;
+  border-top:1px solid rgba(84,56,47,0.2);
+}
+.bento-kit-offer-heading{
+  max-width:720px;
+  margin:0 auto;
+  text-align:center;
+}
+.bento-kit-eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:0.45rem;
+  padding:0.4rem 0.85rem;
+  border-radius:50px;
+  background:var(--marrom);
+  color:var(--branco);
+  font-size:0.75rem;
+  font-weight:800;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+}
+.bento-kit-offer-heading h3{
+  margin:0.8rem 0 0.35rem;
+  color:var(--marrom);
+  font-family:var(--display);
+  font-size:clamp(1.5rem,3vw,2rem);
+  line-height:1.15;
+}
+.bento-kit-offer-heading p{
+  margin:0;
+  color:#6b4f46;
+  font-size:0.98rem;
+}
+.bento-kit-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1.5rem;
+  margin:1.75rem auto 0;
+}
+.bento-kit-card{
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  background:linear-gradient(145deg,#fffdf9 0%,#f7efe4 100%);
+  border:1px solid rgba(84,56,47,0.1);
+  border-radius:24px;
+  box-shadow:0 10px 26px rgba(84,56,47,0.13);
+  transition:var(--transition-smooth);
+}
+.bento-kit-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 16px 34px rgba(84,56,47,0.18);
+}
+.bento-kit-card-media{
+  position:relative;
+  width:100%;
+  height:210px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--card-media-bg);
+  isolation:isolate;
+}
+.bento-kit-card-body{
+  display:flex;
+  flex:1;
+  flex-direction:column;
+  gap:0.85rem;
+  padding:1.35rem 1.4rem 1.5rem;
+}
+.bento-kit-card-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:1rem;
+}
+.bento-kit-card-kicker{
+  display:block;
+  margin-bottom:0.25rem;
+  color:var(--accent-dark);
+  font-size:0.72rem;
+  font-weight:800;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+}
+.bento-kit-card-head h4{
+  margin:0;
+  color:var(--marrom);
+  font-family:var(--display);
+  font-size:1.35rem;
+  line-height:1.15;
+}
+.bento-kit-price{
+  flex:0 0 auto;
+  padding:0.45rem 0.7rem;
+  border-radius:12px;
+  background:var(--marrom);
+  color:var(--branco);
+  font-size:1rem;
+  font-weight:800;
+  white-space:nowrap;
+}
+.bento-kit-card-description{
+  margin:0;
+  color:#6b4f46;
+  font-size:0.95rem;
+  line-height:1.5;
+}
+.bento-kit-flavors{
+  margin-top:auto;
+  padding-top:0.9rem;
+  border-top:1px dashed rgba(84,56,47,0.2);
+}
+.bento-kit-flavors-title{
+  display:block;
+  margin-bottom:0.55rem;
+  color:var(--marrom);
+  font-size:0.78rem;
+  font-weight:800;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+}
+.bento-kit-flavors ul{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.4rem;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.bento-kit-flavors li{
+  padding:0.3rem 0.6rem;
+  border:1px solid rgba(84,56,47,0.12);
+  border-radius:50px;
+  background:var(--bege);
+  color:#6b4f46;
+  font-size:0.78rem;
+  line-height:1.2;
+}
+
 /* Coberturas */
 .coberturas-list{
   display:flex;
@@ -2693,6 +2840,10 @@ html{scroll-behavior:smooth}
     grid-template-columns:1fr;
     max-width:400px;
   }
+  .bento-kit-grid{
+    grid-template-columns:1fr;
+    max-width:480px;
+  }
 }
 
 @media(max-width:575.98px){
@@ -2700,6 +2851,10 @@ html{scroll-behavior:smooth}
     flex-direction:column;
     padding:1.25rem;
     text-align:center;
+  }
+  .bento-kit-card-head{
+    flex-direction:column;
+    gap:0.7rem;
   }
 }
 

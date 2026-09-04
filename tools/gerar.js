@@ -1114,6 +1114,7 @@ ${relatedSection('bolos', { tone: 'dark' })}`;
 function renderBentoCake() {
   const bento = bolos.tamanhos.find((t) => t.id === 'bento');
   const saboresBento = bolos.recheiosBento;
+  const kitsBento = bolos.kitsBento;
   const minBento = Math.min(...saboresBento.map((s) => s.preco));
   const maxBento = Math.max(...saboresBento.map((s) => s.preco));
 
@@ -1187,6 +1188,36 @@ ${pageHero(data, SEO['bento-cake'])}
             <tbody>${linhasSabores}
             </tbody>
           </table>
+        </div>
+        <div class="bento-kit-offer" aria-labelledby="kits-bento-title">
+          <div class="bento-kit-offer-heading">
+            <span class="bento-kit-eyebrow"><i class="fa-solid fa-gift" aria-hidden="true"></i> Kit presenteável</span>
+            <h3 id="kits-bento-title">Transforme em um Presente</h3>
+          </div>
+          <div class="bento-kit-grid">
+${kitsBento.opcoes.map((kit) => `
+            <article class="bento-kit-card">
+              <div class="bento-kit-card-media" style="--media-image:url(/${esc(kit.imagem)})">
+                <img src="/${esc(kit.imagem)}" alt="Imagem ilustrativa do kit ${esc(kit.nome.toLowerCase())}" loading="lazy" width="800" height="800">
+              </div>
+              <div class="bento-kit-card-body">
+                <div class="bento-kit-card-head">
+                  <div>
+                    <span class="bento-kit-card-kicker">Kit de doces</span>
+                    <h4>${esc(kit.nome)}</h4>
+                  </div>
+                  <span class="bento-kit-price">${esc(kit.preco)}</span>
+                </div>
+                <p class="bento-kit-card-description">${esc(kit.descricao)}</p>
+                <div class="bento-kit-flavors">
+                  <span class="bento-kit-flavors-title">Doces disponíveis</span>
+                  <ul>
+                    ${kitsBento.sabores.map((sabor) => `<li>${esc(sabor)}</li>`).join('\n                    ')}
+                  </ul>
+                </div>
+              </div>
+            </article>`).join('')}
+          </div>
         </div>
       </div>
     </section>

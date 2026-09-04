@@ -209,6 +209,30 @@
       "preco": 39
     }
   ],
+  "kitsBento": {
+    "sabores": [
+      "Tradicional",
+      "Beijinho",
+      "Leite Ninho",
+      "Leite Ninho com Nutella",
+      "Paçoquinha",
+      "Ferrero"
+    ],
+    "opcoes": [
+      {
+        "nome": "Caixa presenteável com 6 doces",
+        "preco": "Acréscimo de R$ 35",
+        "imagem": "assets/images/produtos/bentocake-06.webp",
+        "descricao": "6 brigadeiros, podendo escolher até 2 sabores."
+      },
+      {
+        "nome": "Super caixa com 16 doces",
+        "preco": "Acréscimo de R$ 59",
+        "imagem": "assets/images/produtos/bentocake-16.webp",
+        "descricao": "16 brigadeiros grandes, podendo escolher até 3 sabores."
+      }
+    ]
+  },
   "notaRecheios": "",
   "coberturas": [
     {
@@ -238,7 +262,7 @@
       "obs": "verificar modelo"
     },
     {
-      "nome": "Brigadeiros (10 unidades)",
+      "nome": "Brigadeiros",
       "preco": "R$ 28"
     },
     {
