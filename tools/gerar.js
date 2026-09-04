@@ -325,7 +325,7 @@ function privacyBanner() {
   </aside>`;
 }
 
-function layout({ seo, canonical, active, jsonLd, body, usaSwiper = false, ogType = active === 'home' ? 'website' : 'product', robots = 'index, follow' }) {
+function layout({ seo, canonical, active, jsonLd, body, usaSwiper = false, ogType = active === 'home' ? 'website' : 'product', robots = 'index, follow', minimal = false }) {
   return `<!doctype html>
 <html lang="pt-BR">
 ${head({ seo, canonical, jsonLd, ogType, robots, usaSwiper })}
@@ -335,9 +335,9 @@ ${navbar(active)}
   <main id="conteudoPrincipal" tabindex="-1">
 ${body}
   </main>
-${footer()}
-${waFloat()}
-${privacyBanner()}
+${minimal ? '' : footer()}
+${minimal ? '' : waFloat()}
+${minimal ? '' : privacyBanner()}
 ${scripts(usaSwiper)}
 </body>
 </html>
@@ -1280,21 +1280,12 @@ ${urls.map((u) => `  <url>
 // ---------- Página 404 ----------
 function render404() {
   const body = `
-    <header class="page-hero">
+    <section class="not-found-page" aria-labelledby="not-found-title">
       <div class="container text-center">
-        <h1 class="page-hero-title">Página não encontrada</h1>
-        <p class="page-hero-subtitle mx-auto">Ops! A página que você procurou não existe ou foi movida. Mas os doces continuam por aqui:</p>
-        <div class="d-flex flex-wrap gap-3 justify-content-center mt-3">
-          <a href="/" class="btn btn-lg page-hero-btn-secondary">Voltar ao início</a>
-          <a href="${waHref()}" class="btn btn-lg btn-whatsapp" target="_blank" rel="noopener">${waIcon} Fazer Pedido</a>
-        </div>
-      </div>
-    </header>
-    <section class="py-5 section-soft">
-      <div class="container">
-        <div class="prod-grid">
-          ${produtos.map((p) => prodCard(p)).join('\n          ')}
-        </div>
+        <span class="not-found-code" aria-hidden="true">404</span>
+        <h1 id="not-found-title" class="not-found-title">Esta página não existe</h1>
+        <p class="not-found-text">O endereço que você tentou acessar não foi encontrado.</p>
+        <a href="/" class="btn btn-lg not-found-button"><i class="fa-solid fa-house" aria-hidden="true"></i> Ir para a página principal</a>
       </div>
     </section>`;
   return layout({
@@ -1306,7 +1297,10 @@ function render404() {
     canonical: '/404.html',
     active: null,
     jsonLd: [],
-    body
+    body,
+    ogType: 'website',
+    robots: 'noindex, nofollow',
+    minimal: true
   });
 }
 

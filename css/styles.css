@@ -753,6 +753,73 @@ section[id]{
 .privacy-content .link-button{background:none;border:0;padding:0;cursor:pointer;font:inherit;}
 .privacy-lead{padding:0.9rem 1.1rem;background:var(--champagne);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;}
 
+/* ---------- Página 404 ---------- */
+.not-found-page{
+  position:relative;
+  isolation:isolate;
+  display:flex;
+  align-items:center;
+  min-height:calc(100vh - 70px);
+  margin-top:70px;
+  overflow:hidden;
+  padding:clamp(4rem, 10vw, 7rem) 1rem;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(221,169,126,0.35) 0, transparent 32%),
+    radial-gradient(circle at 88% 82%, rgba(248,227,215,0.9) 0, transparent 38%),
+    linear-gradient(135deg, var(--creme) 0%, var(--champagne) 52%, var(--areia) 100%);
+  color:var(--marrom);
+}
+.not-found-page::before{
+  content:'';
+  position:absolute;
+  z-index:-1;
+  top:-15rem;
+  right:-8rem;
+  width:clamp(18rem, 42vw, 34rem);
+  aspect-ratio:1;
+  border:1px solid rgba(84,56,47,0.12);
+  border-radius:50%;
+  box-shadow:0 0 0 2rem rgba(255,255,255,0.18), 0 0 0 4rem rgba(255,255,255,0.12);
+}
+.not-found-page > .container{position:relative;z-index:1;}
+.not-found-code{
+  display:block;
+  color:var(--accent);
+  font-family:var(--display);
+  font-size:clamp(7rem, 24vw, 13rem);
+  font-weight:700;
+  letter-spacing:0.04em;
+  line-height:0.8;
+  text-shadow:0 12px 24px rgba(84,56,47,0.12);
+}
+.not-found-title{
+  margin:2rem 0 0.75rem;
+  color:var(--marrom-escuro);
+  font-size:clamp(1.8rem, 4vw, 2.8rem);
+}
+.not-found-text{
+  max-width:34rem;
+  margin:0 auto 1.75rem;
+  color:#6b4f46;
+  font-size:clamp(1rem, 2vw, 1.2rem);
+}
+.not-found-button{
+  background:var(--marrom);
+  border:2px solid var(--marrom);
+  border-radius:50px;
+  box-shadow:0 10px 26px rgba(84,56,47,0.24);
+  color:var(--branco) !important;
+  padding:0.9rem 1.6rem;
+}
+.not-found-button:hover,
+.not-found-button:focus-visible{
+  background:var(--marrom-escuro);
+  border-color:var(--marrom-escuro);
+  color:var(--branco) !important;
+  transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(84,56,47,0.3);
+}
+
 /* sobre nos */
 .section-badge-title{
   display:inline-block;
