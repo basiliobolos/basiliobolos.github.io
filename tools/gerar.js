@@ -26,6 +26,8 @@ const campanha = readJSON('campanhas.json');
 const bolos = readJSON('bolos.json');
 const bolosRetangulares = readJSON('bolos-retangulares.json');
 const doces = readJSON('doces.json');
+const topoBolo = bolos.acrescimos.find((a) => a.nome === 'Topos de bolo');
+const outrosAcrescimos = bolos.acrescimos.filter((a) => a !== topoBolo);
 const paginasSimples = [
   readJSON('biscoitos.json'),
   readJSON('cupcakes.json'),
@@ -392,6 +394,26 @@ function ctaBand(data) {
         <a href="${waHref(data.mensagemWhatsApp)}" class="btn btn-lg cta-band-btn" target="_blank" rel="noopener" data-track="cta-band">
           ${waIcon} Pedir pelo WhatsApp
         </a>
+      </div>
+    </section>`;
+}
+
+function topoBoloSection() {
+  if (!topoBolo) return '';
+  return `
+    <section class="py-5" aria-labelledby="topo-bolo-title">
+      <div class="container">
+        <div class="section-header text-center mb-4">
+          <h2 id="topo-bolo-title" class="section-badge-title">Topo de bolo</h2>
+        </div>
+        <div class="topo-bolo-destaque" role="note" aria-label="Topo de bolo cobrado à parte">
+          <div class="topo-bolo-destaque-icon"><i class="fa-solid fa-cake-candles" aria-hidden="true"></i></div>
+          <div class="topo-bolo-destaque-content">
+            <h3>Topo de bolo personalizado</h3>
+            <p class="topo-bolo-destaque-status">Cobrado à parte</p>
+            <p class="topo-bolo-destaque-note">${esc(topoBolo.preco)}, conforme o modelo e o tema.</p>
+          </div>
+        </div>
       </div>
     </section>`;
 }
@@ -948,6 +970,8 @@ ${notaFormatos ? `\n        ${notaFormatos}` : ''}
       </div>
     </section>
 
+${topoBoloSection()}
+
     <section class="py-5 section-soft" aria-labelledby="acrescimos-title">
       <div class="container">
         <div class="section-header text-center mb-4">
@@ -955,7 +979,7 @@ ${notaFormatos ? `\n        ${notaFormatos}` : ''}
           <p class="mx-auto" style="max-width:680px;color:#6b4f46;">${esc(bolos.notaAcrescimos)}</p>
         </div>
         <div class="row g-3 justify-content-center">
-          ${bolos.acrescimos.map((a) => `
+          ${outrosAcrescimos.map((a) => `
           <div class="col-6 col-md-4 col-lg-3">
             <div class="addon-card">
               <h3>${esc(a.nome)}</h3>
@@ -1101,6 +1125,8 @@ ${pageHero(data, SEO['bento-cake'])}
       </div>
     </section>
 
+${topoBoloSection()}
+
     <section class="py-5" aria-labelledby="decor-bento-title">
       <div class="container">
         <div class="section-header text-center mb-4">
@@ -1108,7 +1134,7 @@ ${pageHero(data, SEO['bento-cake'])}
           <p class="mx-auto" style="max-width:680px;color:#6b4f46;">O bentô pode ser decorado com frases, desenhos e o tema da sua comemoração. Estes adicionais também estão disponíveis, com valor a consultar:</p>
         </div>
         <div class="row g-3 justify-content-center">
-          ${bolos.acrescimos.map((a) => `
+          ${outrosAcrescimos.map((a) => `
           <div class="col-6 col-md-4 col-lg-3">
             <div class="addon-card">
               <h3>${esc(a.nome)}</h3>

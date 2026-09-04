@@ -2150,6 +2150,57 @@ html{scroll-behavior:smooth}
   margin:0 0 1rem;
 }
 
+/* Destaque do topo de bolo */
+.topo-bolo-destaque{
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  max-width:800px;
+  margin:0 auto 1.5rem;
+  padding:1.25rem 1.5rem;
+  background:linear-gradient(135deg, var(--champagne), var(--areia));
+  border:2px solid var(--accent);
+  border-radius:16px;
+  box-shadow:0 4px 16px rgba(0,0,0,0.08);
+  text-align:left;
+}
+.topo-bolo-destaque-icon{
+  width:52px;
+  height:52px;
+  flex:0 0 52px;
+  border-radius:50%;
+  background:var(--marrom);
+  color:var(--branco);
+  font-size:1.3rem;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+.topo-bolo-destaque-content{
+  flex:1;
+}
+.topo-bolo-destaque h3{
+  color:var(--marrom);
+  font-size:1.15rem;
+  font-weight:700;
+  margin:0 0 0.4rem;
+}
+.topo-bolo-destaque-status{
+  display:inline-block;
+  margin:0 0 0.3rem;
+  padding:0.3rem 0.75rem;
+  border-radius:50px;
+  background:var(--marrom);
+  color:var(--branco);
+  font-size:0.85rem;
+  font-weight:800;
+}
+.topo-bolo-destaque-note{
+  color:#6b4f46;
+  font-size:0.9rem;
+  margin:0;
+}
+
 /* Massas pills */
 .massas-pills{
   display:flex;
@@ -2291,6 +2342,14 @@ html{scroll-behavior:smooth}
   .massas-coberturas-grid{
     grid-template-columns:1fr;
     max-width:400px;
+  }
+}
+
+@media(max-width:575.98px){
+  .topo-bolo-destaque{
+    flex-direction:column;
+    padding:1.25rem;
+    text-align:center;
   }
 }
 
