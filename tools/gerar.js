@@ -966,13 +966,7 @@ function renderBolos(initialFormat = 'redondo') {
 
     return `<section id="painel-formato-${esc(formato.id)}" class="bolo-formato-panel" role="tabpanel" aria-labelledby="botao-formato-${esc(formato.id)}" data-formato-panel="${esc(formato.id)}">
           <div class="bolo-formato-panel-head">
-            <div>
-              <h3 class="bolo-formato-panel-title">Bolo ${esc(formato.titulo.toLowerCase())}</h3>
-            </div>
-            <div class="bolo-formato-panel-price">
-              <span>A partir de</span>
-              <strong>${money(precoMinimoFormato(formato))}</strong>
-            </div>
+            <h3 class="bolo-formato-panel-title">Bolo ${esc(formato.titulo.toLowerCase())}</h3>
           </div>
 
           <div class="bolo-panel-section">
@@ -1089,7 +1083,8 @@ ${topoBoloSection({ compact: true })}
           <div class="col-6 col-md-4 col-lg-3">
             <div class="addon-card">
               <h3>${esc(a.nome)}</h3>
-              <p>${esc(a.preco)}${a.obs ? ` <span>(${esc(a.obs)})</span>` : ''}</p>
+${a.obs ? `              <p class="addon-card-observation">${esc(a.obs)}</p>` : ''}
+              <p class="addon-card-price">${esc(a.preco)}</p>
             </div>
           </div>`).join('')}
         </div>
@@ -1247,7 +1242,7 @@ ${topoBoloSection()}
           <div class="col-6 col-md-4 col-lg-3">
             <div class="addon-card">
               <h3>${esc(a.nome)}</h3>
-              <p>A consultar</p>
+              <p class="addon-card-price">A consultar</p>
             </div>
           </div>`).join('')}
         </div>
