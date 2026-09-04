@@ -25,7 +25,7 @@
   "politicas": {
     "antecedencia": "Pedidos com no mínimo 3 dias úteis de antecedência.",
     "confirmacao": "O pedido só é confirmado após o pagamento de 30% do valor.",
-    "pagamento": "Pix, dinheiro, cartão de débito e crédito (por link ou aproximação, com taxa de 4%).",
+    "pagamento": "Pix, dinheiro, cartão de débito e crédito (por link ou aproximação, com taxa de 4,2%).",
     "retirada": "Não realizamos entregas. A retirada é feita no local, com horário marcado, ou via Uber/99 por conta e responsabilidade do cliente."
   }
 }
