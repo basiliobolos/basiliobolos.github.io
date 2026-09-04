@@ -1864,6 +1864,9 @@ html{scroll-behavior:smooth}
   font-size:0.75rem;
   opacity:0.8;
 }
+.heart-size-icon{
+  display:inline-block;
+}
 .price-table td[data-label]{
   text-align:left;
 }
@@ -2027,6 +2030,12 @@ html{scroll-behavior:smooth}
     letter-spacing:0.06em;
     color:#7a5a50;
     text-align:left;
+  }
+  .price-table-matrix tbody td[data-label="Coração"]::before{
+    content:"\f004";
+    font-family:"Font Awesome 6 Free";
+    font-weight:900;
+    font-size:0.85rem;
   }
 }
 

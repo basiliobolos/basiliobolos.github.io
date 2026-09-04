@@ -54,22 +54,48 @@ const moneyCents = (n) => 'R$ ' + Number(n).toFixed(2).replace('.', ',');
 /** Arredonda para o valor terminado em 9 mais próximo (ex.: 244,9 -> 249). */
 const round9 = (v) => Math.max(9, Math.round((v + 1) / 10) * 10 - 1);
 
+const temPrecoPorTamanho = (t) => Boolean(t.pesoKg || t.precoReferencia);
+
+/** Calcula o preço de um tamanho, permitindo que um formato reutilize outro. */
+const precoTamanhoCalculado = (data, r, t) => {
+  const referenciaP = bolos.tamanhos.find((tamanho) => tamanho.id === 'P');
+  const faixaP = round9(r.precoKg * (referenciaP?.pesoKg || 1));
+  const precosDaPagina = data.precosPorFaixaP?.[faixaP];
+  if (precosDaPagina?.[t.nome] != null) return precosDaPagina[t.nome];
+  if (t.precoReferencia) {
+    const precoReferencia = precosDaPagina?.[t.precoReferencia]
+      ?? bolos.precosPorFaixaP?.[faixaP]?.[t.precoReferencia];
+    if (precoReferencia != null) return precoReferencia;
+    const referencia = bolos.tamanhos.find((tamanho) => tamanho.id === t.precoReferencia);
+    return round9(r.precoKg * (referencia?.pesoKg || t.pesoKg || 1));
+  }
+  return round9(r.precoKg * (t.pesoKg || 0) * (data.fatorPreco || 1));
+};
+
 /** Menor preço de bolo por tamanho, calculado de precoKg x pesoKg. */
 const minPorTamanho = {};
 for (const t of bolos.tamanhos.filter((t) => t.pesoKg)) {
   minPorTamanho[t.id] = Math.min(...bolos.recheios.map((r) => {
-    const faixaP = round9(r.precoKg * bolos.tamanhos.find((tamanho) => tamanho.id === 'P').pesoKg);
-    return bolos.precosPorFaixaP?.[faixaP]?.[t.id] || round9(r.precoKg * t.pesoKg);
+    return precoTamanhoCalculado(bolos, r, t);
   }));
 }
 const minPorTamanhoRetangular = {};
-for (const t of bolosRetangulares.tamanhos.filter((t) => t.pesoKg)) {
+for (const t of bolosRetangulares.tamanhos.filter(temPrecoPorTamanho)) {
   minPorTamanhoRetangular[t.id] = Math.min(...bolos.recheios.map((r) => {
-    const faixaP = round9(r.precoKg * bolos.tamanhos.find((tamanho) => tamanho.id === 'P').pesoKg);
-    return bolosRetangulares.precosPorFaixaP?.[faixaP]?.[t.nome] || round9(r.precoKg * t.pesoKg * (bolosRetangulares.fatorPreco || 1));
+    return precoTamanhoCalculado(bolosRetangulares, r, t);
   }));
 }
 const bentoPreco = (bolos.tamanhos.find((t) => t.id === 'bento') || {}).precoFixo || 39;
+
+const descricaoPrecoTamanho = (t, preco) => {
+  const formato = t.id === 'coracao' ? 'em formato de coração' : `de ${t.diametro}`;
+  const detalhes = t.id === 'coracao' ? `${t.fatias} fatias` : `${t.nome}, ${t.fatias} fatias`;
+  return `${formato} (${detalhes}) a partir de ${money(preco)}`;
+};
+
+const nomeTamanhoHtml = (t) => t.id === 'coracao'
+  ? '<span class="heart-size-name"><span class="sr-only">Coração</span><i class="fa-solid fa-heart heart-size-icon" aria-hidden="true"></i></span>'
+  : esc(t.nome);
 
 /** Junta lista em texto humano: "a, b, c e d". */
 const joinHuman = (items) => items.length > 1
@@ -83,10 +109,10 @@ function faqPrecoBolos(comTabela, incluirOutros = true) {
   const detalhesRedondos = `${joinHuman(partes)}, conforme o recheio escolhido.`;
   const redondos = `Bolos redondos ${detalhesRedondos}`;
   if (!incluirOutros) return comTabela ? redondos + ' Veja a tabela completa na página de Bolos Redondos.' : redondos;
-  const partesRetangulares = bolosRetangulares.tamanhos.filter((t) => t.pesoKg)
-    .map((t) => `de ${t.diametro} (${t.fatias} fatias) a partir de ${money(minPorTamanhoRetangular[t.id])}`);
-  const base = `Na ${site.nome}, o bentô cake (10cm) sai a partir de ${money(bentoPreco)}; bolos redondos ${detalhesRedondos} Bolos retangulares ${joinHuman(partesRetangulares)}, conforme o recheio escolhido.`;
-  return comTabela ? base + ' Veja a tabela completa na página de Bolos Redondos.' : base;
+  const partesOutrosFormatos = bolosRetangulares.tamanhos.filter(temPrecoPorTamanho)
+    .map((t) => descricaoPrecoTamanho(t, minPorTamanhoRetangular[t.id]));
+  const base = `Na ${site.nome}, o bentô cake (10cm) sai a partir de ${money(bentoPreco)}; bolos redondos ${detalhesRedondos} Outros formatos: ${joinHuman(partesOutrosFormatos)}, conforme o recheio escolhido.`;
+  return comTabela ? base + ' Veja as tabelas completas nas páginas de Bolos Redondos e Outros Formatos.' : base;
 }
 
 const waHref = (msg) => `https://wa.me/${site.whatsappNumero}?text=${encodeURIComponent(msg || site.mensagemPadrao)}`;
@@ -112,9 +138,9 @@ const SEO = {
     keywords: 'bolo personalizado santo andré, preço de bolo santo andré, bolo aniversário santo andré, bolo redondo, bolo 15cm, bolo 20cm, bolo 25cm, bolo 30cm, bolo trufado, bolo leite ninho com morango, bolo mousse de maracujá, quanto custa um bolo'
   },
   'bolos-retangulares': {
-    title: 'Bolos Retangulares em Santo André | 17x25 e 22x30 | Basilio Bolos',
-    description: 'Bolos retangulares em Santo André: 17x25cm (24 a 28 fatias) a partir de R$ 209 e 22x30cm (38 a 44 fatias) a partir de R$ 329. Mais de 20 sabores de recheio, massa branca ou de chocolate, cobertura de chantilly ou ganache. Encomende pelo WhatsApp!',
-    keywords: 'bolo retangular santo andré, bolo retangular 17x25, bolo retangular 22x30, bolo de festa retangular, preço de bolo retangular, bolo aniversário santo andré, bolo para muitas pessoas'
+    title: 'Outros Formatos de Bolo em Santo André | Coração e Retangulares | Basilio Bolos',
+    description: 'Bolos em outros formatos em Santo André: coração (10 a 14 fatias) a partir de R$ 159, 17x25cm a partir de R$ 209 e 22x30cm a partir de R$ 329. Mais de 20 sabores de recheio, massa branca ou de chocolate, cobertura de chantilly ou ganache. Encomende pelo WhatsApp!',
+    keywords: 'bolo em formato de coração santo andré, bolo coração, bolo retangular santo andré, bolo retangular 17x25, bolo retangular 22x30, bolo de festa retangular, preço de bolo, bolo aniversário santo andré'
   },
   'bento-cake': {
     title: 'Bentô Cake em Santo André | A partir de R$ 39 | Basilio Bolos',
@@ -776,21 +802,19 @@ ${faqSection(faqHome)}
 
 // ---------- Página de Bolos (redondos e retangulares) ----------
 function renderBolos(data, seoKey) {
-  const fator = data.fatorPreco || 1;
-  const tamanhosCalc = data.tamanhos.filter((t) => t.pesoKg);
-  const precoTamanho = (r, t) => {
-    const referenciaP = bolos.tamanhos.find((tamanho) => tamanho.id === 'P');
-    const faixaP = round9(r.precoKg * (referenciaP?.pesoKg || 1));
-    return data.precosPorFaixaP?.[faixaP]?.[t.nome] || round9(r.precoKg * t.pesoKg * fator);
-  };
-  const minLocal = Math.min(...tamanhosCalc.map((t) => Math.min(...bolos.recheios.map((r) => precoTamanho(r, t)))));
-  const maxLocal = Math.max(...tamanhosCalc.map((t) => Math.max(...bolos.recheios.map((r) => precoTamanho(r, t)))));
+  const tamanhosCalc = data.tamanhos.filter(temPrecoPorTamanho);
+  const minLocal = Math.min(...tamanhosCalc.map((t) => Math.min(...bolos.recheios.map((r) => precoTamanhoCalculado(data, r, t)))));
+  const maxLocal = Math.max(...tamanhosCalc.map((t) => Math.max(...bolos.recheios.map((r) => precoTamanhoCalculado(data, r, t)))));
   const url = `${data.slug}/`;
-  const ehRetangular = data.slug === 'bolos-retangulares';
+  const ehOutrosFormatos = data.slug === 'bolos-retangulares';
+  const partesPrecoLocal = tamanhosCalc.map((t) => descricaoPrecoTamanho(
+    t,
+    Math.min(...bolos.recheios.map((r) => precoTamanhoCalculado(data, r, t)))
+  ));
 
   // FAQ de preço sempre sincronizada com a tabela calculada
-  const faqPreco = ehRetangular
-    ? { q: 'Quanto custa um bolo retangular em Santo André?', a: `O bolo retangular de 17x25cm (24 a 28 fatias) custa a partir de ${money(Math.min(...bolos.recheios.map((r) => precoTamanho(r, tamanhosCalc[0]))))}; o de 22x30cm (38 a 44 fatias), a partir de ${money(Math.min(...bolos.recheios.map((r) => precoTamanho(r, tamanhosCalc[1]))))}. O valor varia conforme o recheio escolhido.` }
+  const faqPreco = ehOutrosFormatos
+    ? { q: 'Quanto custa um bolo em outros formatos em Santo André?', a: `Os bolos em outros formatos estão disponíveis ${joinHuman(partesPrecoLocal)}, conforme o recheio escolhido.` }
     : { q: 'Quanto custa um bolo redondo em Santo André?', a: faqPrecoBolos(false, false) };
   const faqBolos = [
     faqPreco,
@@ -799,7 +823,7 @@ function renderBolos(data, seoKey) {
 
   // Tabela recheio x tamanho (preço calculado pelo kg, fatia de 100g, terminado em 9)
   const linhasRecheios = bolos.recheios.map((r) => {
-    const celulas = tamanhosCalc.map((t) => `<td data-label="${esc(t.nome)}">${money(precoTamanho(r, t))}</td>`).join('');
+    const celulas = tamanhosCalc.map((t) => `<td data-label="${esc(t.nome)}"${t.id === 'coracao' ? ' aria-label="Coração"' : ''}>${money(precoTamanhoCalculado(data, r, t))}</td>`).join('');
     return `
               <tr>
                 <th scope="row">
@@ -819,7 +843,7 @@ function renderBolos(data, seoKey) {
     }).join('\n                  ');
 
   const tamanhosTradicionais = data.tamanhos.filter((t) => t.id !== 'bento');
-  const colunaMedida = ehRetangular ? 'Medidas' : 'Diâmetro';
+  const colunaMedida = ehOutrosFormatos ? 'Medidas' : 'Diâmetro';
   const notaFormatos = data.formatos && data.formatos.length
     ? `<p class="table-note">Outros formatos: ${data.formatos.map(esc).join(' · ')}.</p>`
     : '';
@@ -833,12 +857,12 @@ ${pageHero(data, SEO[seoKey])}
     <section id="precos" class="py-5" aria-labelledby="tamanhos-title">
       <div class="container">
         <div class="section-header text-center mb-4">
-          <h2 id="tamanhos-title" class="section-badge-title">${ehRetangular ? 'Bolos retangulares: tamanhos e fatias' : 'Bolos tradicionais: tamanhos e fatias'}</h2>
+          <h2 id="tamanhos-title" class="section-badge-title">${ehOutrosFormatos ? 'Outros formatos: tamanhos e fatias' : 'Bolos tradicionais: tamanhos e fatias'}</h2>
           <p class="mx-auto" style="max-width:680px;color:#6b4f46;">${esc(data.notaTamanhos)}</p>
         </div>
         <div class="table-responsive">
           <table class="price-table price-table-sizes">
-            <caption class="sr-only">Tamanhos de bolo por ${ehRetangular ? 'medidas' : 'diâmetro'} e quantidade de fatias</caption>
+            <caption class="sr-only">Tamanhos de bolo por ${ehOutrosFormatos ? 'medidas' : 'diâmetro'} e quantidade de fatias</caption>
             <thead>
               <tr>
                 <th scope="col">Tamanho</th>
@@ -849,13 +873,13 @@ ${pageHero(data, SEO[seoKey])}
             <tbody>
               ${tamanhosTradicionais.map((t) => `
               <tr>
-                <th scope="row">${esc(t.nome)}${t.obs ? `<span class="recheio-desc">${esc(t.obs)}</span>` : ''}</th>
+                <th scope="row">${nomeTamanhoHtml(t)}${t.obs ? `<span class="recheio-desc">${esc(t.obs)}</span>` : ''}</th>
                 <td data-label="${colunaMedida}">${esc(t.diametro)}</td>
                 <td data-label="Fatias">${esc(t.fatias)}</td>
               </tr>`).join('')}            </tbody>
           </table>
         </div>
-        ${notaFormatos}
+${notaFormatos ? `\n        ${notaFormatos}` : ''}
       </div>
     </section>
 
@@ -871,7 +895,7 @@ ${pageHero(data, SEO[seoKey])}
             <thead>
               <tr>
                 <th scope="col">Recheio</th>
-                ${tamanhosCalc.map((t) => `<th scope="col">${esc(t.nome)} <span class="th-sub">${esc(t.diametro)}</span></th>`).join('\n                ')}
+                ${tamanhosCalc.map((t) => `<th scope="col">${nomeTamanhoHtml(t)} <span class="th-sub">${esc(t.diametro)}</span></th>`).join('\n                ')}
               </tr>
             </thead>
             <tbody>${linhasRecheios}

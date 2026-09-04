@@ -42,7 +42,7 @@ tamanho (fatia de 100g, valores arredondados para terminar em 9).
 | `data/site.json` | Telefone, endereço, horário, redes sociais, políticas de pedido |
 | `data/produtos.json` | Cards da página inicial (ordem, textos, preço em destaque) e regras editáveis de recomendações |
 | `data/bolos.json` | Bolos redondos: tamanhos, recheios (preço por kg), coberturas, acréscimos, FAQ |
-| `data/bolos-retangulares.json` | Bolos retangulares (17x25 e 22x30): tamanhos, pesos e fator de preço sobre os redondos |
+| `data/bolos-retangulares.json` | Outros formatos (coração, 17x25 e 22x30): tamanhos, rendimento e preços |
 | `data/doces.json` | Doces por cento e premium, FAQs |
 | `data/biscoitos.json` · `cupcakes` · `brownies` · `pipoca-gourmet` · `bolo-de-pote` | Opções, preços e FAQ de cada página |
 | `data/campanhas.json` | Campanha sazonal (`ativo: true/false`) |

@@ -1,11 +1,11 @@
 {
   "slug": "bolos-retangulares",
-  "titulo": "Bolos Retangulares",
-  "tituloCompleto": "Bolos Personalizados em Santo André",
-  "subtitulo": "Bolos retangulares ideais para festas maiores: escolha a massa, o recheio e a cobertura. Feitos artesanalmente em Santo André e região do ABC.",
+  "titulo": "Outros Formatos",
+  "tituloCompleto": "Outros Formatos de Bolo em Santo André",
+  "subtitulo": "Bolos em outros formatos, como coração e retangulares, ideais para festas maiores. Escolha a massa, o recheio e a cobertura. Feitos artesanalmente em Santo André e região do ABC.",
   "imagem": "assets/images/produtos/bolos-retangulares.webp",
-  "precoDestaque": "A partir de R$ 209",
-  "mensagemWhatsApp": "Olá! Quero encomendar um bolo retangular. Podem me ajudar a montar?",
+  "precoDestaque": "A partir de R$ 159",
+  "mensagemWhatsApp": "Olá! Quero encomendar um bolo em outro formato. Podem me ajudar a montar?",
   "fatorPreco": 1.1,
   "precosPorFaixaP": {
     "89": { "G": 209, "GG": 329 },
@@ -14,6 +14,13 @@
     "119": { "G": 279, "GG": 429 }
   },
   "tamanhos": [
+    {
+      "id": "coracao",
+      "nome": "Coração",
+      "diametro": "Formato coração",
+      "fatias": "10 a 14",
+      "precoReferencia": "M"
+    },
     {
       "id": "17x25",
       "nome": "G",
@@ -29,7 +36,7 @@
       "pesoKg": 4.1
     }
   ],
-  "notaTamanhos": "A quantidade de fatias é uma estimativa e depende do tamanho do corte. Recomendamos fatias de 100g por pessoa.",
+  "notaTamanhos": "A quantidade de fatias é uma estimativa e depende do tamanho do corte. O bolo em formato de coração rende de 10 a 14 fatias. Recomendamos fatias de 100g por pessoa.",
   "notaRecheios": "",
   "coberturas": [
     {
@@ -40,11 +47,11 @@
     {
       "nome": "Ganache",
       "acrescimoPorTamanho": {
+        "coracao": 20,
         "17x25": 30,
         "22x30": 45
       },
       "obs": "Acréscimo conforme o tamanho do bolo"
     }
-  ],
-  "formatos": []
+  ]
 }
