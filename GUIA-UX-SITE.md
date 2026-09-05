@@ -91,7 +91,7 @@ As seções de conteúdo devem alternar entre dois fundos neutros da mesma famí
 - Estrutura, ordem e conteúdo gerado: `tools/gerar.js`.
 - Cores, espaçamento e comportamento responsivo: `css/styles.css`.
 - Interações de navegação e componentes: `js/app.js`.
-- HTML gerado: não editar diretamente os arquivos `index.html` publicados.
+- HTML gerado: não editar diretamente os arquivos em `dist/`; o gerador cria o artefato público.
 
 ## Checklist
 

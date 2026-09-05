@@ -13,6 +13,47 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
+const DIST = path.join(ROOT, 'dist');
+
+const PUBLIC_DIRECTORIES = ['css', 'js', 'assets'];
+const PUBLIC_FILES = [
+  'manifest.json',
+  'browserconfig.xml',
+  'favicon.ico',
+  'favicon-v2.ico',
+  'favicon-v2.svg',
+  'favicon-v2-96x96.png',
+  'robots.txt',
+  'CNAME'
+];
+
+function prepareDist() {
+  const expectedDist = path.join(ROOT, 'dist');
+  if (DIST !== expectedDist || path.basename(DIST) !== 'dist' || path.dirname(DIST) !== ROOT) {
+    throw new Error(`Caminho de build inseguro: ${DIST}`);
+  }
+
+  fs.rmSync(DIST, { recursive: true, force: true });
+  fs.mkdirSync(DIST, { recursive: true });
+}
+
+function copyPublicDirectory(relPath) {
+  const source = path.join(ROOT, relPath);
+  const destination = path.join(DIST, relPath);
+  if (!fs.existsSync(source)) throw new Error(`Recurso público não encontrado: ${relPath}`);
+  fs.cpSync(source, destination, { recursive: true });
+  console.log('✔', `${relPath}/`);
+}
+
+function copyPublicFile(relPath) {
+  const source = path.join(ROOT, relPath);
+  const destination = path.join(DIST, relPath);
+  if (!fs.existsSync(source)) throw new Error(`Arquivo público não encontrado: ${relPath}`);
+  fs.copyFileSync(source, destination);
+  console.log('✔', relPath);
+}
+
+prepareDist();
 
 // ---------- Carregamento dos dados ----------
 const readJSON = (file) => JSON.parse(fs.readFileSync(path.join(ROOT, 'data', file), 'utf8'));
@@ -1565,11 +1606,14 @@ ${linhas.join('\n')}
 
 // ---------- Escrita dos arquivos ----------
 function writeFile(relPath, content) {
-  const full = path.join(ROOT, relPath);
+  const full = path.join(DIST, relPath);
   fs.mkdirSync(path.dirname(full), { recursive: true });
   fs.writeFileSync(full, content, 'utf8');
   console.log('✔', relPath);
 }
+
+for (const relPath of PUBLIC_DIRECTORIES) copyPublicDirectory(relPath);
+for (const relPath of PUBLIC_FILES) copyPublicFile(relPath);
 
 writeFile('index.html', renderHome());
 writeFile('bolos/index.html', renderBolos('redondo'));

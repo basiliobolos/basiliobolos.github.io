@@ -25,15 +25,20 @@ Os arquivos HTML são **gerados** — não edite o HTML diretamente.
 # 2. Gere o site novamente
 node tools/gerar.js
 
-# 3. Publique
+# 3. Confira o artefato local, se necessário
+# O conteúdo público fica em dist/ e esse diretório não é versionado.
+
+# 4. Publique o código-fonte
 git add .
 git commit -m "atualiza preços"
 git push origin main
 ```
 
-O GitHub Pages publica em 2-5 minutos. Os preços de bolo são calculados
+O workflow `.github/workflows/deploy-pages.yml` gera `dist/` no GitHub Actions e
+publica somente esse diretório no GitHub Pages. Os preços de bolo são calculados
 automaticamente a partir do `precoKg` de cada recheio e do `pesoKg` de cada
-tamanho (fatia de 100g, valores arredondados para terminar em 9).
+tamanho (fatia de 100g, valores arredondados para terminar em 9). Não edite nem
+versione manualmente os arquivos dentro de `dist/`.
 
 ### Onde editar cada coisa
 
@@ -53,6 +58,9 @@ git add .
 git commit -m "sua mensagem aqui"
 git push origin main
 ```
+
+Em `Settings > Pages`, a origem deve ser `GitHub Actions`. Depois do push, acompanhe
+a execução do workflow `Deploy site` na aba `Actions`.
 
 ### Validar SEO
 - Rich Results: https://search.google.com/test/rich-results
@@ -99,22 +107,19 @@ Bolos personalizados, doces finos, cupcakes, brownies, trufas, festa na caixa, p
 basilio-bolos-website/
 ├── data/*.json         # ✏️ EDITE AQUI: preços e conteúdo
 ├── tools/gerar.js      # Gerador estático (node tools/gerar.js)
-├── index.html          # GERADO - página inicial
-├── bolos/              # GERADO - página de bolos
-├── doces/              # GERADO - página de doces
-├── biscoitos/          # GERADO
-├── cupcakes/           # GERADO
-├── brownies/           # GERADO
-├── pipoca-gourmet/     # GERADO
-├── bolo-de-pote/       # GERADO
+├── .github/workflows/  # Deploy do artefato dist no GitHub Pages
+├── dist/               # GERADO localmente e ignorado pelo Git
 ├── assets/             # Imagens e ícones
 ├── css/styles.css
 ├── js/app.js
-├── privacidade/        # GERADO - política de privacidade e cookies
-├── llms.txt            # GERADO - resumo para agentes de IA
-├── sitemap.xml         # GERADO
-└── robots.txt
+├── manifest.json
+├── robots.txt
+└── CNAME
 ```
+
+`dist/` contém as páginas geradas, os recursos públicos, `sitemap.xml`, `llms.txt`,
+`404.html` e o `CNAME` usados no deploy. Os dados, ferramentas e documentos ficam
+somente no repositório privado.
 
 ---
 

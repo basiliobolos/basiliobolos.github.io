@@ -66,17 +66,24 @@ Aumentar a cartela de clientes nos bairros de Santo André, principalmente:
 ### 📤 Como Fazer Deploy
 
 ```bash
-# 1. Adicionar arquivos
+# 1. Validar e gerar o artefato público localmente
+node --check tools/gerar.js
+node tools/gerar.js
+git diff --check
+
+# 2. Versionar somente código-fonte, dados e configuração
 git add .
+git commit -m "atualiza conteúdo do site"
 
-# 2. Commit com mensagem descritiva
-git commit -m "feat: Otimização completa de SEO local"
-
-# 3. Push para produção
+# 3. Enviar para produção
 git push origin main
-
-# 4. Aguardar 2-5 minutos para GitHub Pages processar
 ```
+
+O GitHub Actions executa o workflow `.github/workflows/deploy-pages.yml`, gera
+`dist/` e envia somente esse diretório para o GitHub Pages. `dist/` é ignorado
+pelo Git e não deve ser editado ou versionado manualmente. Acompanhe a execução
+na aba `Actions`; o domínio personalizado deve permanecer configurado em
+`Settings > Pages` com origem `GitHub Actions`.
 
 ### ✅ Validações Pós-Deploy
 
@@ -104,11 +111,12 @@ git push origin main
 **Site não atualiza:**
 - Limpar cache do navegador
 - Testar em aba anônima
-- Aguardar até 10 minutos
+- Verificar se o workflow terminou sem erros na aba `Actions`
+- Aguardar até 10 minutos após o deploy
 
 **Favicons não aparecem:**
 - Limpar cache
-- Verificar caminhos no index.html
+- Verificar os arquivos copiados para `dist/`
 - Força refresh: Ctrl+F5
 
 ---
@@ -713,8 +721,12 @@ GitHub Pages usa **nginx**, não Apache:
 
 **Settings → Pages:**
 - ✅ Enforce HTTPS
-- Branch: `main`
-- Folder: `/ (root)`
+- Source: `GitHub Actions`
+- Custom domain: `basiliobolos.com.br`
+
+O workflow faz checkout do repositório privado, executa `node tools/gerar.js` e
+publica somente `dist/`. O arquivo `CNAME` é copiado para o artefato para manter
+o domínio personalizado.
 
 ### 📊 Monitoramento
 

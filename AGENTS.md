@@ -9,8 +9,8 @@ Este é um site estático da Basilio Bolos, publicado pelo GitHub Pages. O conte
 - Edite preços, descrições, sabores, FAQs e informações de produtos em `data/*.json`.
 - Não edite diretamente os HTMLs gerados.
 - Altere `tools/gerar.js` quando precisar mudar a estrutura, o comportamento ou a lógica de cálculo das páginas.
-- Depois de alterar dados ou o gerador, execute `node tools/gerar.js` na raiz do projeto.
-- Inclua no commit os arquivos estáticos regenerados quando o conteúdo publicado for afetado.
+- Depois de alterar dados ou o gerador, execute `node tools/gerar.js` na raiz do projeto; a saída será criada em `dist/`.
+- Não edite nem versione `dist/`; o GitHub Actions publica esse artefato automaticamente.
 
 ## Arquivos principais
 
@@ -19,6 +19,7 @@ Este é um site estático da Basilio Bolos, publicado pelo GitHub Pages. O conte
 - `data/bolos.json`: bolos redondos, tamanhos, recheios, coberturas e acréscimos.
 - `data/bolos-retangulares.json`: página de outros formatos, incluindo coração e bolos retangulares.
 - `tools/gerar.js`: gerador das páginas, SEO, sitemap e `llms.txt`.
+- `.github/workflows/deploy-pages.yml`: build e deploy de `dist/` no GitHub Pages.
 - `css/styles.css`: estilos globais e responsivos.
 - `js/app.js`: interações do navegador.
 
@@ -32,7 +33,9 @@ node tools/gerar.js
 git diff --check
 ```
 
-Confirme também que os JSONs alterados continuam válidos e que as páginas geradas exibem os preços e textos esperados em desktop e mobile.
+Confirme também que os JSONs alterados continuam válidos, que `dist/` contém somente
+o artefato público esperado e que as páginas geradas exibem os preços e textos
+esperados em desktop e mobile.
 
 ## Convenções
 
