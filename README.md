@@ -9,7 +9,7 @@ Site: https://basiliobolos.com.br/
 
 Para informações completas sobre deploy, SEO, marketing e otimizações, consulte:
 
-👉 **[GUIA-COMPLETO.md](GUIA-COMPLETO.md)** - Guia completo com tudo que você precisa saber
+👉 **[GUIA-COMPLETO.md](docs/GUIA-COMPLETO.md)** - Guia completo com tudo que você precisa saber
 
 ---
 
