@@ -193,12 +193,6 @@ const boloUnificado = {
   mensagemWhatsApp: 'Olá! Quero encomendar um bolo personalizado. Podem me ajudar a escolher o formato e montar?'
 };
 
-const descricaoPrecoTamanho = (t, preco) => {
-  const formato = t.id === 'coracao' ? 'em formato de coração' : `de ${t.diametro}`;
-  const detalhes = t.id === 'coracao' ? `${t.fatias} fatias` : `${t.nome}, ${t.fatias} fatias`;
-  return `${formato} (${detalhes}) a partir de ${money(preco)}`;
-};
-
 const nomeTamanhoHtml = (t) => t.id === 'coracao'
   ? '<span class="heart-size-name"><span class="sr-only">Coração</span><i class="fa-solid fa-heart heart-size-icon" aria-hidden="true"></i></span>'
   : esc(t.nome);
@@ -210,12 +204,20 @@ const joinHuman = (items) => items.length > 1
 
 /** Resposta da FAQ de preços de bolo, sempre sincronizada com as tabelas calculadas. */
 function faqPrecoBolos(comTabela) {
-  const partesPorFormato = formatosBolo.map((formato) => {
-    const partes = formato.tamanhos.map((t) => descricaoPrecoTamanho(t, formato.minimos[t.id]));
-    return `${formato.titulo}: ${joinHuman(partes)}`;
-  });
-  const base = `Na ${site.nome}, o bentô cake (10cm) sai a partir de ${money(bentoPreco)}; ${joinHuman(partesPorFormato)}, conforme o recheio escolhido.`;
+  const iniciaisPorFormato = formatosBolo.map((formato) => `${money(precoMinimoFormato(formato))} no formato ${formato.titulo.toLowerCase()}`);
+  const base = `Na ${site.nome}, o bentô cake de 10cm custa a partir de ${money(bentoPreco)}. Os bolos personalizados custam de ${money(minBolosPersonalizados)} a ${money(maxBolosPersonalizados)}; os preços começam em ${joinHuman(iniciaisPorFormato)}. O valor final varia conforme o tamanho e o recheio; ganache e decoração podem ter acréscimo.`;
   return comTabela ? base + ' Veja todos os formatos e preços na página de Bolos personalizados.' : base;
+}
+
+/** Resposta curta sobre formatos, tamanhos e rendimento dos bolos. */
+function faqFormatosBolos() {
+  const formatos = formatosBolo.map((formato) => {
+    const medidas = formato.tamanhos.map((t) => t.diametro);
+    if (formato.id === 'coracao') return `em formato de coração (${formato.fatiasResumo})`;
+    const nome = formato.id === 'redondo' ? 'redondos' : 'retangulares';
+    return `${nome} de ${joinHuman(medidas)} (${formato.fatiasResumo})`;
+  });
+  return `Estão disponíveis bolos ${joinHuman(formatos)}. O número de fatias é uma estimativa e pode variar conforme o corte.`;
 }
 
 const waHref = (msg) => `https://wa.me/${site.whatsappNumero}?text=${encodeURIComponent(msg || site.mensagemPadrao)}`;
@@ -234,49 +236,40 @@ const primeiroNumero = (texto) => {
 // ---------- SEO por página ----------
 const SEO = {
   home: {
-    title: 'Basilio Bolos | Confeitaria em Santo André SP - Bolos, Doces e Brownies',
-    description: 'Confeitaria artesanal em Santo André/SP. Bentô cake a partir de R$ 39, bolos personalizados a partir de R$ 89, doces por cento, biscoitos decorados, cupcakes, brownies, pipoca gourmet e bolo de pote. Atendemos Santa Terezinha, Parque das Nações e região do ABC. Encomende pelo WhatsApp!',
-    keywords: 'confeitaria santo andré, bolo personalizado santo andré, bolo aniversário santo andré, doces para festa santo andré, cento de doces, brownie santo andré, cupcake santo andré, biscoitos decorados, pipoca gourmet, bolo de pote, bentô cake santo andré, confeitaria santa terezinha, confeitaria parque das nações, doces abc'
+    title: 'Basilio Bolos | Confeitaria em Santo André',
+    description: 'Confeitaria artesanal no Parque das Nações, em Santo André, perto de Santa Terezinha e Vila Curuçá. Bolos e doces sob encomenda. Peça pelo WhatsApp!'
   },
   bolos: {
-    title: 'Bolos Personalizados em Santo André | Redondos, Coração e Retangulares | Basilio Bolos',
-    description: 'Bolos personalizados em Santo André: redondos de 15cm a 30cm, coração e retangulares de 17x25cm ou 22x30cm. Mais de 20 sabores de recheio, duas massas e coberturas de chantilly ou ganache. Encomende pelo WhatsApp!',
-    keywords: 'bolo personalizado santo andré, preço de bolo santo andré, bolo aniversário santo andré, bolo redondo, bolo coração, bolo retangular, bolo 15cm, bolo 20cm, bolo 25cm, bolo 30cm, bolo trufado, leite ninho com morango, mousse de maracujá, quanto custa um bolo'
+    title: 'Bolos Personalizados em Santo André | Basilio Bolos',
+    description: `Bolos personalizados em Santo André: redondos, coração e retangulares, com ${bolos.recheios.length} sabores, ${bolos.massas.length} massas e cobertura de chantilly ou ganache. Peça pelo WhatsApp!`
   },
   'bento-cake': {
-    title: 'Bentô Cake em Santo André | A partir de R$ 39 | Basilio Bolos',
-    description: 'Bentô cake em Santo André a partir de R$ 39: o bolinho individual de 10cm, ideal para presentear. 10 sabores de recheio, decoração personalizada. Encomende pelo WhatsApp!',
-    keywords: 'bentô cake santo andré, bento cake, bolinho individual, bolo de 10cm, presente bolo, bento cake personalizado abc'
+    title: 'Bentô Cake em Santo André | Basilio Bolos',
+    description: `Bentô cake em Santo André a partir de R$ ${bentoPreco}: bolo individual de 10cm, com ${bolos.recheiosBento.length} sabores e decoração personalizada. Peça pelo WhatsApp!`
   },
   doces: {
-    title: 'Doces para Festa em Santo André | Cento a partir de R$ 189 | Basilio Bolos',
-    description: 'Cento de doces em Santo André a partir de R$ 189: brigadeiro, beijinho, ninho, churros e mais. Doces premium por unidade a partir de R$ 3,20. Encomendas para festas e eventos no ABC pelo WhatsApp.',
-    keywords: 'cento de doces santo andré, doces para festa santo andré, brigadeiro santo andré, doces finos, doces premium, docinhos de festa abc, quanto custa cento de doces'
+    title: 'Doces para Festa em Santo André | Basilio Bolos',
+    description: 'Doces para festa em Santo André: cento a partir de R$ 189 e doces premium a partir de R$ 3,20. Escolha os sabores e peça pelo WhatsApp.'
   },
   biscoitos: {
-    title: 'Biscoitos Decorados em Santo André | Unidade e Caixas | Basilio Bolos',
-    description: 'Biscoitos amanteigados decorados à mão em Santo André, a partir de R$ 4 a unidade. Caixas fechadas com 6 ou 12 unidades e pacotinhos para lembrancinhas, com o tema da sua festa.',
-    keywords: 'biscoitos decorados santo andré, biscoito personalizado, lembrancinhas santo andré, biscoito amanteigado decorado, caixa de biscoitos'
+    title: 'Biscoitos Decorados em Santo André | Basilio Bolos',
+    description: 'Biscoitos decorados em Santo André a partir de R$ 4: unidades, caixas e lembrancinhas personalizadas para sua festa.'
   },
   cupcakes: {
-    title: 'Cupcakes Decorados em Santo André | Unidade e Caixa com 2 | Basilio Bolos',
-    description: 'Cupcakes recheados e decorados em Santo André: unidade R$ 13 e caixa com 2 por R$ 24. Decoração personalizada com o tema da sua festa. Encomende pelo WhatsApp!',
-    keywords: 'cupcake santo andré, cupcake decorado, cupcake personalizado, caixa de cupcake presente, cupcake temático abc'
+    title: 'Cupcakes Decorados em Santo André | Basilio Bolos',
+    description: 'Cupcakes recheados e decorados em Santo André: unidade R$ 13 ou caixa com 2 por R$ 24. Personalize o tema e encomende pelo WhatsApp!'
   },
   brownies: {
     title: 'Brownies Artesanais em Santo André | Basilio Bolos',
-    description: 'Brownie bem chocolatudo em Santo André: marmitinha a partir de R$ 12, versões com nozes e recheada, e caixa de bites por R$ 48. Encomende pelo WhatsApp!',
-    keywords: 'brownie santo andré, brownie artesanal, marmitinha de brownie, caixa de brownie presente, bites de brownie'
+    description: 'Brownies artesanais em Santo André: marmitinhas a partir de R$ 12 e caixa de bites por R$ 48. Encomende pelo WhatsApp!'
   },
   'pipoca-gourmet': {
-    title: 'Pipoca Gourmet em Santo André | Chocolate e Leite Ninho | Basilio Bolos',
-    description: 'Pipoca gourmet fresca e crocante em Santo André, a partir de R$ 15 o pacote de 100g. Sabores chocolate e leite ninho, pacotes de até 500g e versões temáticas para presente.',
-    keywords: 'pipoca gourmet santo andré, pipoca de chocolate, pipoca de leite ninho, pipoca para presente, lembrancinha pipoca'
+    title: 'Pipoca Gourmet em Santo André | Basilio Bolos',
+    description: 'Pipoca gourmet em Santo André a partir de R$ 15 (100g), nos sabores chocolate e leite ninho. Pacotes de até 500g e versões para lembrancinhas.'
   },
   'bolo-de-pote': {
-    title: 'Bolo de Pote em Santo André | A partir de R$ 15 | Basilio Bolos',
-    description: 'Bolo de pote em Santo André a partir de R$ 15 (250ml). Sabores brigadeiro, ninho com morango, prestígio, maracujá e trufado. O clássico que começou nossa história. Peça pelo WhatsApp!',
-    keywords: 'bolo de pote santo andré, bolo no pote, sobremesa pote, bolo de pote brigadeiro, bolo de pote ninho com morango'
+    title: 'Bolo de Pote em Santo André | Basilio Bolos',
+    description: 'Bolo de pote em Santo André a partir de R$ 15 (250ml), nos sabores brigadeiro, ninho com morango, prestígio, maracujá e trufado.'
   }
 };
 
@@ -292,7 +285,6 @@ function head({ seo, canonical, jsonLd, ogType = 'website', robots = 'index, fol
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>${esc(seo.title)}</title>
   <meta name="description" content="${esc(seo.description)}" />
-  <meta name="keywords" content="${esc(seo.keywords)}" />
   <meta name="robots" content="${esc(robots)}" />
   <meta name="author" content="${esc(site.nome)}" />
   <meta name="geo.region" content="BR-SP" />
@@ -308,12 +300,14 @@ function head({ seo, canonical, jsonLd, ogType = 'website', robots = 'index, fol
   <meta property="og:site_name" content="${esc(site.nome)}" />
   <meta property="og:image" content="${ogImage}" />
   <meta property="og:image:alt" content="Seleção de bolos e doces artesanais ${esc(site.nome)}" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1002" />
+  <meta property="og:image:height" content="991" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${esc(seo.title)}" />
   <meta name="twitter:description" content="${esc(seo.description)}" />
   <meta name="twitter:image" content="${ogImage}" />
+  <meta name="twitter:image:alt" content="Seleção de bolos e doces artesanais ${esc(site.nome)}" />
   <meta name="twitter:site" content="@basiliobolos" />
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon-v2-96x96.png">
   <link rel="icon" href="/favicon-v2.ico">
@@ -349,7 +343,7 @@ function navbar(active) {
   <nav id="mainNav" class="navbar navbar-expand-lg navbar-light fixed-top navbar-glass" aria-label="Navegação principal">
     <div class="container">
       <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/">
-        <img src="/assets/images/brand/logo.jpeg" alt="Logo ${esc(site.nome)}" class="brand-icon" width="34" height="34" loading="eager">
+        <img src="/assets/images/brand/logo.jpeg" alt="Logo ${esc(site.nome)}" class="brand-icon" width="34" height="34" loading="eager" decoding="async">
         <span class="brand-text">${esc(site.nome)}</span>
       </a>
       <button class="navbar-toggler border-0" type="button" data-menu-toggle
@@ -481,7 +475,7 @@ function pageHero(data, seo) {
           </div>
           <div class="col-lg-5 text-center">
             <div class="page-hero-image">
-              <img src="/${esc(data.imagem)}" alt="${esc(tituloHero)} - ${esc(site.nome)}" loading="eager" fetchpriority="high" width="600" height="600">
+              <img src="/${esc(data.imagem)}" alt="${esc(tituloHero)} em Santo André - ${esc(site.nome)}" loading="eager" fetchpriority="high" decoding="async" width="600" height="600">
             </div>
           </div>
         </div>
@@ -623,7 +617,7 @@ function prodCard(p, { extra = false, compact = false } = {}) {
   const descricao = compact ? (p.descricaoCurta || p.descricao) : p.descricao;
   return `<a class="prod-card${extra ? ' produto-extra' : ''}"${extra ? ' data-produto-extra hidden' : ''} href="/${esc(p.url)}">
             <div class="prod-card-image" style="--media-image:url(/${esc(p.imagem)})">
-              <img src="/${esc(p.imagem)}" alt="${esc(p.titulo)} em Santo André - ${esc(site.nome)}" loading="lazy" width="400" height="300">
+              <img src="/${esc(p.imagem)}" alt="${esc(p.titulo)} em Santo André - ${esc(site.nome)}" loading="lazy" decoding="async" width="400" height="300">
             </div>
             <div class="prod-card-body">
               <h3>${esc(p.titulo)}</h3>
@@ -647,6 +641,12 @@ function localBusinessLd() {
     image: [`${site.url}/assets/images/hero/hero.jpeg`],
     description: site.descricao,
     telephone: `+${site.whatsappNumero}`,
+    contactPoint: [{
+      '@type': 'ContactPoint',
+      telephone: `+${site.whatsappNumero}`,
+      contactType: 'customer service',
+      availableLanguage: ['Portuguese']
+    }],
     priceRange: '$$',
     paymentAccepted: 'Dinheiro, Pix, Cartão de débito e crédito',
     currenciesAccepted: 'BRL',
@@ -671,8 +671,21 @@ function localBusinessLd() {
       closes: site.horarioSchema.closes
     }],
     hasMap: site.endereco.mapsUrl,
-    sameAs: [site.social.instagram, site.social.facebook, site.social.tiktok, site.endereco.mapsUrl],
+    sameAs: [site.social.instagram, site.social.facebook, site.social.tiktok],
     servesCuisine: 'Confeitaria'
+  };
+}
+
+function websiteLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${site.url}/#website`,
+    url: `${site.url}/`,
+    name: site.nome,
+    description: site.descricao,
+    inLanguage: 'pt-BR',
+    publisher: { '@id': `${site.url}/#organization` }
   };
 }
 
@@ -700,23 +713,24 @@ function breadcrumbLd(pageTitle, pageUrl) {
 }
 
 function productLd(data, url, lowPrice, highPrice, extra = {}) {
+  const productUrl = `${site.url}/${url}`;
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
+    '@id': `${productUrl}#product`,
     name: `${data.tituloCompleto} | ${site.nome}`,
     description: data.subtitulo,
+    url: productUrl,
     image: [`${site.url}/${data.imagem}`],
     brand: { '@type': 'Brand', name: site.nome },
     category: 'Confeitaria',
     offers: {
       '@type': 'AggregateOffer',
-      url: `${site.url}/${url}`,
+      url: productUrl,
       priceCurrency: 'BRL',
       lowPrice: lowPrice,
       highPrice: highPrice,
       offerCount: extra.offerCount || 4,
-      availability: 'https://schema.org/MadeToOrder',
-      itemCondition: 'https://schema.org/NewCondition',
       seller: { '@id': `${site.url}/#organization` },
       areaServed: { '@type': 'City', name: 'Santo André' }
     },
@@ -727,10 +741,10 @@ function productLd(data, url, lowPrice, highPrice, extra = {}) {
 // ---------- Página inicial ----------
 function renderHome() {
   const faqHome = [
-    { q: 'Quais bairros vocês atendem em Santo André?', a: `Atendemos principalmente ${site.bairrosAtendidos.join(', ')}. A retirada é no Parque das Nações; para outros bairros e cidades do ABC, consulte pelo WhatsApp.` },
-    { q: 'Como faço um pedido?', a: `Chame pelo WhatsApp e informe o produto, a quantidade ou tamanho e a data. Enviamos o orçamento e confirmamos a disponibilidade. Atendimento das 8h às 20h, todos os dias.` },
-    { q: 'Vocês fazem bolos e doces personalizados para festas?', a: 'Sim. Personalizamos bolos, doces, biscoitos e kits para festas. Envie a referência e a data pelo WhatsApp para receber uma proposta.' },
-    { q: 'A Basilio Bolos tem loja física?', a: `Não temos loja aberta ao público. Trabalhamos sob encomenda, com retirada na ${site.endereco.rua} - ${site.endereco.bairro}, ${site.endereco.cidade}/${site.endereco.uf}, em horário marcado.` },
+    { q: 'Onde fica a Basilio Bolos e quais bairros de Santo André vocês atendem?', a: `A ${site.nome} fica na ${site.endereco.rua} - ${site.endereco.bairro}, ${site.endereco.cidade}/${site.endereco.uf}. Atendemos principalmente ${site.bairrosAtendidos.join(', ')} e toda a região do ABC.` },
+    { q: 'Como encomendar um bolo ou doce em Santo André?', a: `Peça pelo WhatsApp informando o produto, a quantidade ou o tamanho e a data do evento. Trabalhamos sob encomenda com pelo menos 3 dias úteis de antecedência; enviamos o orçamento e confirmamos a disponibilidade.` },
+    { q: 'Vocês fazem bolos, doces e lembrancinhas personalizados para festas?', a: 'Sim. A Basilio Bolos personaliza bolos, doces, biscoitos, cupcakes, pipoca gourmet e kits conforme o tema. Envie a referência, a quantidade e a data pelo WhatsApp para receber uma proposta.' },
+    { q: 'A Basilio Bolos tem loja física ou faz entrega em Santo André?', a: `Não temos loja aberta ao público nem fazemos entregas próprias. A retirada é feita na ${site.endereco.rua} - ${site.endereco.bairro}, ${site.endereco.cidade}/${site.endereco.uf}, com horário marcado; também é possível enviar Uber/99 por conta e responsabilidade do cliente.` },
     { q: 'Quanto custa um bolo de aniversário na Basilio Bolos?', a: faqPrecoBolos(true) }
   ];
 
@@ -757,7 +771,7 @@ function renderHome() {
                     <div class="flip-inner">
                       <div class="flip-front">
                         <div class="card-image-wrapper" style="--media-image:url(/${esc(prod.imagem)})">
-                          <img src="/${esc(prod.imagem)}" alt="${esc(prod.titulo)}" loading="lazy" width="400" height="240">
+                          <img src="/${esc(prod.imagem)}" alt="${esc(prod.titulo)}" loading="lazy" decoding="async" width="400" height="240">
                         </div>
                         <div class="card-content">
                           <h3 class="h5">${esc(prod.titulo)}</h3>
@@ -793,7 +807,7 @@ function renderHome() {
           </div>
           <div class="col-lg-6 hero-visual-wrapper">
             <div class="hero-visual" aria-hidden="true">
-              <img src="/assets/images/hero/hero-circle.png" alt="" loading="eager" fetchpriority="high" width="502" height="497">
+              <img src="/assets/images/hero/hero-circle.png" alt="" loading="eager" fetchpriority="high" decoding="async" width="502" height="497">
             </div>
           </div>
         </div>
@@ -829,12 +843,18 @@ ${produtosRestantes.length ? `          ${produtosRestantes.map((p) => prodCard(
         <div class="row align-items-center g-5 sobre-grid">
           <div class="col-lg-5 text-center sobre-image">
             <div class="image-frame">
-              <img src="/assets/images/sobre/fundadoras.jpeg" class="img-fluid" alt="Fundadoras da ${esc(site.nome)}, confeitaria artesanal de Santo André" width="1024" height="1024" loading="lazy">
+              <img src="/assets/images/sobre/fundadoras.jpeg" class="img-fluid" alt="Fundadoras da ${esc(site.nome)}, confeitaria artesanal de Santo André" width="1024" height="1024" loading="lazy" decoding="async">
             </div>
           </div>
           <div class="col-lg-7 sobre-text">
             <p class="lead">
-              A <strong>${esc(site.nome)}</strong> começou com bolos de pote vendidos de porta em porta em Santo André e hoje trabalha sob encomenda, com receitas artesanais e personalização para cada comemoração.
+              A <strong>${esc(site.nome)}</strong> nasceu há <strong>10 anos</strong>, quando começamos a vender bolo no pote de porta em porta em Santo André.
+              Com paixão, estudo e dedicação, hoje oferecemos uma confeitaria artesanal especializada, com produtos altamente
+              personalizáveis, feitos com carinho e atenção aos detalhes.
+            </p>
+            <p>
+              Nosso prazer é fazer parte dos melhores momentos das pessoas, mesmo que nos bastidores: alegrar e adoçar histórias,
+              uma encomenda por vez.
             </p>
             <div class="sobre-features mt-4">
               <div class="feature-item">
@@ -920,6 +940,7 @@ ${faqSection(faqHome, { tone: campanhaAtiva ? 'dark' : 'light' })}
 
   const jsonLd = [
     localBusinessLd(),
+    websiteLd(),
     faqLd(faqHome),
     {
       '@context': 'https://schema.org',
@@ -1068,7 +1089,7 @@ function renderBolos(initialFormat = 'redondo') {
 
   const faqBolos = [
     { q: 'Quanto custa um bolo personalizado em Santo André?', a: faqPrecoBolos(false) },
-    { q: 'Quais formatos de bolo estão disponíveis?', a: 'Redondo, retangular ou coração. O tamanho, rendimento e preço variam conforme o formato.' },
+    { q: 'Quais formatos e tamanhos de bolo personalizado estão disponíveis?', a: faqFormatosBolos() },
     ...bolos.faq.filter((f) => !/quanto custa/i.test(f.q))
   ];
 
@@ -1183,8 +1204,8 @@ function renderBentoCake() {
   };
 
   const faqBento = [
-    { q: 'Quanto custa um bentô cake em Santo André?', a: `De ${money(minBento)} a ${money(maxBento)}, conforme o recheio. Massa branca ou de chocolate e cobertura de chantilly estão incluídas; decoração adicional é cobrada à parte.` },
-    { q: 'Quantas pessoas serve um bentô cake?', a: `O bentô cake tem 10cm de diâmetro e serve de ${bento.fatias} pessoas.` }
+    { q: 'Quanto custa um bentô cake em Santo André?', a: `O bentô cake de ${bento.diametro} custa de ${money(minBento)} a ${money(maxBento)}, conforme o recheio. Massa branca ou de chocolate e cobertura de chantilly estão incluídas; decoração e adicionais podem ser cobrados à parte.` },
+    { q: 'Quantas pessoas serve um bentô cake e qual é o tamanho?', a: `O bentô cake tem ${bento.diametro} de diâmetro e serve de ${bento.fatias} pessoas. É um bolo individual, indicado para presentes e comemorações pequenas.` }
   ];
 
   const linhasSabores = saboresBento.map((s) => `
@@ -1251,7 +1272,7 @@ ${pageHero(data, SEO['bento-cake'])}
 ${kitsBento.opcoes.map((kit) => `
             <article class="bento-kit-card">
               <div class="bento-kit-card-media" style="--media-image:url(/${esc(kit.imagem)})">
-                <img src="/${esc(kit.imagem)}" alt="Imagem ilustrativa do kit ${esc(kit.nome.toLowerCase())}" loading="lazy" width="800" height="800">
+                <img src="/${esc(kit.imagem)}" alt="Imagem ilustrativa do kit ${esc(kit.nome.toLowerCase())}" loading="lazy" decoding="async" width="800" height="800">
               </div>
               <div class="bento-kit-card-body">
                 <div class="bento-kit-card-head">
@@ -1352,7 +1373,7 @@ function renderDoces() {
   const menuItem = (d, precoHtml) => `
           <li class="menu-item menu-item-com-img">
             <div class="menu-item-media" style="--media-image:url(/${esc(d.imagem)})">
-              <img class="menu-item-img" src="/${esc(d.imagem)}" alt="${esc(d.nome)} - ${esc(site.nome)}" loading="lazy" width="72" height="72" onerror="this.closest('.menu-item-media').style.display='none'">
+              <img class="menu-item-img" src="/${esc(d.imagem)}" alt="${esc(d.nome)} - ${esc(site.nome)}" loading="lazy" decoding="async" width="72" height="72" onerror="this.closest('.menu-item-media').style.display='none'">
             </div>
             <div class="menu-item-body">
               <div class="menu-item-head">
@@ -1501,8 +1522,7 @@ function render404() {
   return layout({
     seo: {
       title: `Página não encontrada | ${site.nome}`,
-      description: 'A página que você procurou não existe. Volte ao início e confira nossos bolos, doces e sobremesas artesanais em Santo André/SP.',
-      keywords: ''
+      description: 'A página que você procurou não existe. Volte ao início e confira nossos bolos, doces e sobremesas artesanais em Santo André/SP.'
     },
     canonical: '/404.html',
     active: null,
@@ -1568,8 +1588,7 @@ function renderPrivacy() {
   return layout({
     seo: {
       title: `Privacidade e cookies | ${site.nome}`,
-      description: `Uso do Google Analytics 4 e cookies de métricas no site ${site.nome}.`,
-      keywords: ''
+      description: `Uso do Google Analytics 4 e cookies de métricas no site ${site.nome}.`
     },
     canonical: '/privacidade/',
     active: null,

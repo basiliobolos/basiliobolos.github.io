@@ -17,16 +17,16 @@
   "nota": "Sabores disponíveis: chocolate e leite ninho. Consulte edições sazonais (como as natalinas) pelo WhatsApp ou acompanhe nosso Instagram.",
   "faq": [
     {
-      "q": "Quanto custa pipoca gourmet em Santo André?",
+      "q": "Quanto custa um pacote de pipoca gourmet em Santo André?",
       "a": "Os pacotes custam R$ 15 (100g), R$ 29 (250g) e R$ 49 (500g). Os sabores são chocolate e leite ninho."
     },
     {
-      "q": "Quais sabores de pipoca gourmet vocês têm?",
-      "a": "Temos chocolate e leite ninho. Também lançamos edições especiais em datas comemorativas."
+      "q": "Quais sabores de pipoca gourmet estão disponíveis?",
+      "a": "Os sabores disponíveis são chocolate e leite ninho. Também lançamos edições especiais em datas comemorativas, conforme a disponibilidade."
     },
     {
       "q": "Vocês fazem pipoca gourmet para lembrancinhas?",
-      "a": "Sim. Fazemos versões temáticas e embalagens para lembrancinhas sob encomenda. O orçamento depende da quantidade."
+      "a": "Sim. Fazemos versões temáticas e embalagens para lembrancinhas sob encomenda. O orçamento depende da quantidade e do tipo de embalagem."
     }
   ]
 }
