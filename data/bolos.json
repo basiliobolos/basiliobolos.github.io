@@ -220,16 +220,16 @@
     ],
     "opcoes": [
       {
-        "nome": "Caixa presenteável com 6 doces",
+        "nome": "Caixa presenteável com 6 docinhos",
         "preco": "Acréscimo de R$ 35",
         "imagem": "assets/images/produtos/bentocake-06.webp",
-        "descricao": "6 brigadeiros, podendo escolher até 2 sabores."
+        "descricao": "6 doces pequenos, podendo escolher até 2 sabores. O bentô e os doces vão em uma caixa charmosa, perfeita para presente."
       },
       {
-        "nome": "Super caixa com 16 doces",
+        "nome": "Super caixa com 16 docinhos",
         "preco": "Acréscimo de R$ 59",
         "imagem": "assets/images/produtos/bentocake-16.webp",
-        "descricao": "16 brigadeiros grandes, podendo escolher até 3 sabores."
+        "descricao": "16 doces grandes, podendo escolher até 3 sabores. O bentô e os doces vão em uma super caixa, ideal para um presente mais elaborado."
       }
     ]
   },

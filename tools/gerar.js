@@ -69,6 +69,7 @@ const bolosRetangulares = readJSON('bolos-retangulares.json');
 const doces = readJSON('doces.json');
 const topoBolo = bolos.acrescimos.find((a) => a.nome === 'Topos de bolo');
 const outrosAcrescimos = bolos.acrescimos.filter((a) => a !== topoBolo);
+const outrosAcrescimosBento = outrosAcrescimos.filter((a) => a.nome !== 'Brigadeiros');
 const paginasSimples = [
   readJSON('biscoitos.json'),
   readJSON('cupcakes.json'),
@@ -1317,7 +1318,7 @@ ${topoBoloSection({ tone: 'dark' })}
           <p class="mx-auto section-support">Frases, desenhos e tema; adicionais sob consulta.</p>
         </div>
         <div class="row g-3 justify-content-center">
-          ${outrosAcrescimos.map((a) => `
+          ${outrosAcrescimosBento.map((a) => `
           <div class="col-6 col-md-4 col-lg-3">
             <div class="addon-card">
               <h3>${esc(a.nome)}</h3>
