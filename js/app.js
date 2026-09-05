@@ -265,6 +265,13 @@ document.addEventListener('DOMContentLoaded', function(){
       const statusName = selector.querySelector('[data-bolo-format-status-name]');
       if(statusName) statusName.textContent = formatLabel(formato);
 
+      const previewImage = selector.querySelector('[data-bolo-format-preview-image]');
+      const selectedButton = buttons.find(button => button.dataset.boloFormat === formato);
+      if(previewImage && selectedButton?.dataset.boloFormatImage){
+        previewImage.src = selectedButton.dataset.boloFormatImage;
+        previewImage.alt = selectedButton.dataset.boloFormatImageAlt || `Imagem ilustrativa de um bolo ${formatLabel(formato).toLowerCase()}`;
+      }
+
       atualizarLinksPedido(formato);
       if(atualizarUrl && window.history?.replaceState && window.location.hash !== `#${formato}`){
         window.history.replaceState(null, '', `#${formato}`);

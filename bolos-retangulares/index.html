@@ -336,7 +336,7 @@
           <p class="mx-auto">Compare rendimento e preço.</p>
         </div>
         <div class="bolo-formato-tabs" role="tablist" aria-label="Escolha o formato do bolo">
-                    <button id="botao-formato-redondo" class="bolo-formato-card" type="button" role="tab" aria-controls="painel-formato-redondo" aria-selected="false" tabindex="-1" data-bolo-format="redondo" aria-label="Redondo, 10 a 48 fatias, a partir de R$ 89">
+                    <button id="botao-formato-redondo" class="bolo-formato-card" type="button" role="tab" aria-controls="painel-formato-redondo" aria-selected="false" tabindex="-1" data-bolo-format="redondo" data-bolo-format-image="/assets/images/formatos/bolo-redondo.svg" data-bolo-format-image-alt="Imagem ilustrativa de um bolo redondo" aria-label="Redondo, 10 a 48 fatias, a partir de R$ 89">
              <span class="bolo-formato-shape bolo-formato-shape--redondo" aria-hidden="true"><i class="fa-solid fa-circle"></i></span>
              <span class="bolo-formato-card-copy">
                <strong>Redondo</strong>
@@ -344,7 +344,7 @@
              </span>
              <span class="bolo-formato-card-price"><span class="bolo-formato-card-price-prefix">A partir de </span>R$ 89</span>
            </button>
-          <button id="botao-formato-retangular" class="bolo-formato-card is-selected" type="button" role="tab" aria-controls="painel-formato-retangular" aria-selected="true" tabindex="0" data-bolo-format="retangular" aria-label="Retangular, 24 a 44 fatias, a partir de R$ 209">
+          <button id="botao-formato-retangular" class="bolo-formato-card is-selected" type="button" role="tab" aria-controls="painel-formato-retangular" aria-selected="true" tabindex="0" data-bolo-format="retangular" data-bolo-format-image="/assets/images/formatos/bolo-retangular.svg" data-bolo-format-image-alt="Imagem ilustrativa de um bolo retangular" aria-label="Retangular, 24 a 44 fatias, a partir de R$ 209">
              <span class="bolo-formato-shape bolo-formato-shape--retangular" aria-hidden="true"><i class="fa-solid fa-square"></i></span>
              <span class="bolo-formato-card-copy">
                <strong>Retangular</strong>
@@ -352,7 +352,7 @@
              </span>
              <span class="bolo-formato-card-price"><span class="bolo-formato-card-price-prefix">A partir de </span>R$ 209</span>
            </button>
-          <button id="botao-formato-coracao" class="bolo-formato-card" type="button" role="tab" aria-controls="painel-formato-coracao" aria-selected="false" tabindex="-1" data-bolo-format="coracao" aria-label="Coração, 10 a 14 fatias, a partir de R$ 159">
+          <button id="botao-formato-coracao" class="bolo-formato-card" type="button" role="tab" aria-controls="painel-formato-coracao" aria-selected="false" tabindex="-1" data-bolo-format="coracao" data-bolo-format-image="/assets/images/formatos/bolo-coracao.svg" data-bolo-format-image-alt="Imagem ilustrativa de um bolo em formato de coração" aria-label="Coração, 10 a 14 fatias, a partir de R$ 159">
              <span class="bolo-formato-shape bolo-formato-shape--coracao" aria-hidden="true"><i class="fa-solid fa-heart"></i></span>
              <span class="bolo-formato-card-copy">
                <strong>Coração</strong>
@@ -361,11 +361,15 @@
              <span class="bolo-formato-card-price"><span class="bolo-formato-card-price-prefix">A partir de </span>R$ 159</span>
            </button>
         </div>
-        <aside class="bolo-formato-selection-note" data-bolo-format-status role="status" aria-live="polite">
-           <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-           <span><strong>Formato:</strong> <span data-bolo-format-status-name>Retangular</span></span>
-        </aside>
-      </div>
+         <aside class="bolo-formato-selection-note" data-bolo-format-status role="status" aria-live="polite">
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            <span><strong>Formato:</strong> <span data-bolo-format-status-name>Retangular</span></span>
+         </aside>
+         <figure class="bolo-formato-preview" data-bolo-format-preview>
+           <img src="/assets/images/formatos/bolo-retangular.svg" alt="Imagem ilustrativa de um bolo retangular" width="1200" height="720" loading="lazy" decoding="async" data-bolo-format-preview-image>
+           <figcaption class="sr-only">Imagem ilustrativa do formato de bolo selecionado.</figcaption>
+         </figure>
+       </div>
     </section>
 
     <section id="precos" class="py-5 section-surface-dark section-bolo-prices" aria-labelledby="precos-title">

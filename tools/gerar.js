@@ -96,6 +96,8 @@ const formatosBolo = [
     descricao: 'Do P ao GG, o formato clássico para aniversários e celebrações.',
     fatiasResumo: '10 a 48 fatias',
     icone: 'fa-circle',
+    imagem: 'assets/images/formatos/bolo-redondo.svg',
+    imagemAlt: 'Imagem ilustrativa de um bolo redondo',
     data: bolos,
     tamanhos: bolos.tamanhos.filter((t) => t.pesoKg),
     minimos: minPorTamanho,
@@ -108,6 +110,8 @@ const formatosBolo = [
     descricao: '17x25cm ou 22x30cm.',
     fatiasResumo: '24 a 44 fatias',
     icone: 'fa-square',
+    imagem: 'assets/images/formatos/bolo-retangular.svg',
+    imagemAlt: 'Imagem ilustrativa de um bolo retangular',
     data: bolosRetangulares,
     tamanhos: bolosRetangulares.tamanhos.filter((t) => t.id !== 'coracao'),
     minimos: minPorTamanhoRetangular,
@@ -120,6 +124,8 @@ const formatosBolo = [
     descricao: 'Formato especial para celebrar.',
     fatiasResumo: '10 a 14 fatias',
     icone: 'fa-heart',
+    imagem: 'assets/images/formatos/bolo-coracao.svg',
+    imagemAlt: 'Imagem ilustrativa de um bolo em formato de coração',
     data: bolosRetangulares,
     tamanhos: bolosRetangulares.tamanhos.filter((t) => t.id === 'coracao'),
     minimos: minPorTamanhoRetangular,
@@ -1002,12 +1008,13 @@ function renderBolos(initialFormat = 'redondo') {
          </div>`;
   };
 
-  const formatoInicialNome = formatosBolo.find((formato) => formato.id === formatoInicial)?.titulo || formatosBolo[0].titulo;
+  const formatoInicialData = formatosBolo.find((formato) => formato.id === formatoInicial) || formatosBolo[0];
+  const formatoInicialNome = formatoInicialData.titulo;
   const formatCards = formatosBolo.map((formato) => {
     const selecionado = formato.id === formatoInicial;
     const preco = money(precoMinimoFormato(formato));
     const label = `${formato.titulo}, ${formato.fatiasResumo}, a partir de ${preco}`;
-    return `          <button id="botao-formato-${esc(formato.id)}" class="bolo-formato-card${selecionado ? ' is-selected' : ''}" type="button" role="tab" aria-controls="painel-formato-${esc(formato.id)}" aria-selected="${selecionado}" tabindex="${selecionado ? '0' : '-1'}" data-bolo-format="${esc(formato.id)}" aria-label="${esc(label)}">
+    return `          <button id="botao-formato-${esc(formato.id)}" class="bolo-formato-card${selecionado ? ' is-selected' : ''}" type="button" role="tab" aria-controls="painel-formato-${esc(formato.id)}" aria-selected="${selecionado}" tabindex="${selecionado ? '0' : '-1'}" data-bolo-format="${esc(formato.id)}" data-bolo-format-image="/${esc(formato.imagem)}" data-bolo-format-image-alt="${esc(formato.imagemAlt)}" aria-label="${esc(label)}">
              <span class="bolo-formato-shape bolo-formato-shape--${esc(formato.id)}" aria-hidden="true"><i class="fa-solid ${esc(formato.icone)}"></i></span>
              <span class="bolo-formato-card-copy">
                <strong>${esc(formato.titulo)}</strong>
@@ -1035,11 +1042,15 @@ ${pageHero(boloUnificado, SEO.bolos)}
         <div class="bolo-formato-tabs" role="tablist" aria-label="Escolha o formato do bolo">
           ${formatCards}
         </div>
-        <aside class="bolo-formato-selection-note" data-bolo-format-status role="status" aria-live="polite">
-           <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-           <span><strong>Formato:</strong> <span data-bolo-format-status-name>${esc(formatoInicialNome)}</span></span>
-        </aside>
-      </div>
+         <aside class="bolo-formato-selection-note" data-bolo-format-status role="status" aria-live="polite">
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            <span><strong>Formato:</strong> <span data-bolo-format-status-name>${esc(formatoInicialNome)}</span></span>
+         </aside>
+         <figure class="bolo-formato-preview" data-bolo-format-preview>
+           <img src="/${esc(formatoInicialData.imagem)}" alt="${esc(formatoInicialData.imagemAlt)}" width="1200" height="720" loading="lazy" decoding="async" data-bolo-format-preview-image>
+           <figcaption class="sr-only">Imagem ilustrativa do formato de bolo selecionado.</figcaption>
+         </figure>
+       </div>
     </section>
 
     <section id="precos" class="py-5 ${surface('dark')} section-bolo-prices" aria-labelledby="precos-title">
