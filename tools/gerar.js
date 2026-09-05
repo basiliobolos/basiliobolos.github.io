@@ -185,9 +185,9 @@ const maxBolosPersonalizados = Math.max(...formatosBolo.map(precoMaximoFormato))
 const boloUnificado = {
   slug: 'bolos',
   titulo: 'Bolos personalizados',
-  tituloVisivel: 'Bolos personalizados',
-  tituloCompleto: 'Bolos personalizados para cada comemoração',
-  subtitulo: 'Formato, tamanho, recheio e cobertura do seu jeito. Retirada em Santo André.',
+  tituloVisivel: 'Bolos de aniversário personalizados',
+  tituloCompleto: 'Bolos de aniversário personalizados para cada comemoração',
+  subtitulo: bolos.subtitulo,
   imagem: bolos.imagem,
   precoDestaque: `A partir de ${money(minBolosPersonalizados)}`,
   mensagemWhatsApp: 'Olá! Quero encomendar um bolo personalizado. Podem me ajudar a escolher o formato e montar?'
@@ -237,11 +237,11 @@ const primeiroNumero = (texto) => {
 const SEO = {
   home: {
     title: 'Basilio Bolos | Confeitaria em Santo André',
-    description: 'Confeitaria artesanal no Parque das Nações, em Santo André, perto de Santa Terezinha e Vila Curuçá. Bolos e doces sob encomenda. Peça pelo WhatsApp!'
+    description: 'Bolos de aniversário e doces sob encomenda no Parque das Nações, em Santo André, perto de Santa Terezinha e Vila Curuçá. Peça pelo WhatsApp!'
   },
   bolos: {
-    title: 'Bolos Personalizados em Santo André | Basilio Bolos',
-    description: `Bolos personalizados em Santo André: redondos, coração e retangulares, com ${bolos.recheios.length} sabores, ${bolos.massas.length} massas e cobertura de chantilly ou ganache. Peça pelo WhatsApp!`
+    title: 'Bolos de Aniversário em Santo André | Basilio Bolos',
+    description: `Bolos de aniversário em Santo André: formatos redondo, coração e retangular, com ${bolos.recheios.length} sabores, ${bolos.massas.length} massas e cobertura de chantilly ou ganache. Peça pelo WhatsApp!`
   },
   'bento-cake': {
     title: 'Bentô Cake em Santo André | Basilio Bolos',
@@ -797,7 +797,7 @@ function renderHome() {
         <div class="row align-items-center g-4">
           <div class="col-lg-6 hero-copy">
             <h1 class="display-4 fw-bold hero-title">${esc(site.nome)}</h1>
-            <p class="hero-subtitle">${esc(site.slogan)} · Confeitaria artesanal em Santo André/SP</p>
+            <p class="hero-subtitle">${esc(site.slogan)} · Bolos de aniversário e confeitaria artesanal em Santo André/SP</p>
             <div class="hero-cta-stack">
               <a href="${waHref()}" class="btn btn-lg hero-cta-primary" target="_blank" rel="noopener" data-track="hero">
                 ${waIcon} Fazer Pedido
