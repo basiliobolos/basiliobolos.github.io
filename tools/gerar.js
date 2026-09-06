@@ -563,73 +563,101 @@ function policiesSection({ tone = 'dark' } = {}) {
      </section>`;
 }
 
-function sliceSuggestionsSection() {
-  const sugestoes = [
-    {
-      nome: 'Redondo P',
-      fatias: '10 a 12 fatias',
-      imagem: 'assets/images/slice-sugestions/redondo-p.svg',
-      alt: 'Sugestão visual de corte para bolo redondo P'
-    },
-    {
-      nome: 'Redondo M',
-      fatias: '18 a 22 fatias',
-      imagem: 'assets/images/slice-sugestions/redondo-m.svg',
-      alt: 'Sugestão visual de corte para bolo redondo M'
-    },
-    {
-      nome: 'Redondo G',
-      fatias: '28 a 34 fatias',
-      imagem: 'assets/images/slice-sugestions/redondo-g.svg',
-      alt: 'Sugestão visual de corte para bolo redondo G'
-    },
-    {
-      nome: 'Redondo GG',
-      fatias: '40 a 48 fatias',
-      imagem: 'assets/images/slice-sugestions/redondo-gg.svg',
-      alt: 'Sugestão visual de corte para bolo redondo GG'
-    },
-    {
-      nome: 'Retangular G',
-      fatias: '24 a 28 fatias',
-      imagem: 'assets/images/slice-sugestions/retangular-g.svg',
-      alt: 'Sugestão visual de corte para bolo retangular G'
-    },
-    {
-      nome: 'Retangular GG',
-      fatias: '38 a 44 fatias',
-      imagem: 'assets/images/slice-sugestions/retangular-gg.svg',
-      alt: 'Sugestão visual de corte para bolo retangular GG'
-    },
-    {
-      nome: 'Coração',
-      fatias: '10 a 14 fatias',
-      imagem: 'assets/images/slice-sugestions/coracao.svg',
-      alt: 'Sugestão visual de corte para bolo em formato de coração'
-    }
-  ];
+const imagensSugestoesCorte = {
+  redondo: {
+    P: 'assets/images/slice-sugestions/redondo-p.svg',
+    M: 'assets/images/slice-sugestions/redondo-m.svg',
+    G: 'assets/images/slice-sugestions/redondo-g.svg',
+    GG: 'assets/images/slice-sugestions/redondo-gg.svg'
+  },
+  retangular: {
+    '17x25': 'assets/images/slice-sugestions/retangular-g.svg',
+    '22x30': 'assets/images/slice-sugestions/retangular-gg.svg'
+  },
+  coracao: {
+    coracao: 'assets/images/slice-sugestions/coracao.svg'
+  }
+};
+
+const extrairMedidasCm = (valor) => String(valor || '')
+  .match(/\d+(?:[.,]\d+)?/g)
+  ?.map((medida) => Number(medida.replace(',', '.'))) || [];
+
+const dimensoesSugestaoCorte = (formato, tamanho) => {
+  const medidas = extrairMedidasCm(tamanho.diametro);
+  if (formato.id === 'redondo') {
+    const diametro = medidas[0] || 1;
+    return { largura: diametro, altura: diametro };
+  }
+
+  if (formato.id === 'retangular') {
+    return {
+      largura: medidas[1] || medidas[0] || 1,
+      altura: medidas[0] || medidas[1] || 1
+    };
+  }
+
+  // O coração usa o tamanho M como referência de preço e de escala visual.
+  const referencia = bolos.tamanhos.find((item) => item.id === tamanho.precoReferencia);
+  const diametroReferencia = extrairMedidasCm(referencia?.diametro)[0] || 20;
+  return { largura: diametroReferencia, altura: diametroReferencia };
+};
+
+function sliceSuggestionsSection(formato) {
+  const imagens = imagensSugestoesCorte[formato.id] || {};
+  const sugestoes = formato.tamanhos.map((tamanho) => {
+    const dimensoes = dimensoesSugestaoCorte(formato, tamanho);
+    return {
+      nome: tamanho.nome,
+      fatias: `${tamanho.fatias} fatias`,
+      imagem: imagens[tamanho.id],
+      alt: formato.id === 'coracao'
+        ? 'Sugestão visual de corte para bolo em formato de coração'
+        : `Sugestão visual de corte para bolo ${formato.titulo.toLowerCase()} ${tamanho.nome}`,
+      ...dimensoes
+    };
+  }).filter((sugestao) => sugestao.imagem);
+
+  if (!sugestoes.length) return '';
+
+  const maiorLargura = Math.max(...sugestoes.map((sugestao) => sugestao.largura));
+  const maiorAltura = Math.max(...sugestoes.map((sugestao) => sugestao.altura));
+  const tituloId = `cortes-${formato.id}-title`;
+  const descricaoId = `cortes-${formato.id}-description`;
 
   return `
-    <section class="py-5 ${surface('light')} section-slice-suggestions" aria-labelledby="cortes-title">
-      <div class="container">
-        <div class="section-header text-center mb-4">
-          <h2 id="cortes-title" class="section-badge-title">Sugestões de corte</h2>
-          <p class="mx-auto section-support">Uma referência visual para aproveitar cada pedaço. O rendimento pode variar conforme o corte.</p>
-        </div>
-        <div class="slice-suggestions-grid">
-          ${sugestoes.map((sugestao) => `
-          <article class="slice-suggestion-card">
-            <div class="slice-suggestion-visual">
-              <img src="/${esc(sugestao.imagem)}" alt="${esc(sugestao.alt)}" width="1000" height="680" loading="lazy" decoding="async">
+          <section class="slice-suggestions-block bolo-panel-section--slices" aria-labelledby="${esc(tituloId)}" aria-describedby="${esc(descricaoId)}">
+            <div class="slice-suggestions-heading">
+              <h4 id="${esc(tituloId)}">Sugestões de corte</h4>
+              <p id="${esc(descricaoId)}">Uma referência visual para aproveitar cada pedaço. O rendimento pode variar conforme o corte.</p>
             </div>
-            <div class="slice-suggestion-copy">
-              <h3>${esc(sugestao.nome)}</h3>
-              <span>${esc(sugestao.fatias)}</span>
+            <div class="slice-suggestions-carousel" data-slice-carousel>
+              <div id="${esc(tituloId)}-list" class="slice-suggestions-grid" data-slice-carousel-track data-slice-count="${sugestoes.length}" role="list" tabindex="0" aria-label="Sugestões de corte para bolo ${esc(formato.titulo.toLowerCase())}">
+                ${sugestoes.map((sugestao) => {
+                  const largura = ((sugestao.largura / maiorLargura) * 100).toFixed(2);
+                  const altura = ((sugestao.altura / maiorAltura) * 100).toFixed(2);
+                  return `
+                <article class="slice-suggestion-card" role="listitem">
+                  <div class="slice-suggestion-visual" style="--slice-figure-width:${largura}%;--slice-figure-height:${altura}%">
+                    <img src="/${esc(sugestao.imagem)}" alt="${esc(sugestao.alt)}" width="1000" height="680" loading="lazy" decoding="async">
+                  </div>
+                  <div class="slice-suggestion-copy">
+                    <h3>${esc(sugestao.nome)}</h3>
+                    <span>${esc(sugestao.fatias)}</span>
+                  </div>
+                </article>`;
+                }).join('')}
+              </div>
+              <div class="slice-suggestions-carousel-controls" data-slice-carousel-controls${sugestoes.length < 2 ? ' hidden' : ''}>
+                <button type="button" class="slice-suggestions-carousel-button" data-slice-carousel-prev aria-controls="${esc(tituloId)}-list" aria-label="Ver sugestão de corte anterior">
+                  <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="slice-suggestions-carousel-button" data-slice-carousel-next aria-controls="${esc(tituloId)}-list" aria-label="Ver próxima sugestão de corte">
+                  <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                </button>
+              </div>
             </div>
-          </article>`).join('')}
-        </div>
-      </div>
-    </section>`;
+          </section>`;
 }
 
 function faqSection(faq, { tone = 'light' } = {}) {
@@ -1101,7 +1129,7 @@ function renderBolos(initialFormat = 'redondo') {
             </div>
           </div>`;
 
-    return `<div id="painel-formato-${esc(formato.id)}" class="bolo-formato-panel" role="tabpanel" aria-labelledby="botao-formato-${esc(formato.id)}" data-formato-panel="${esc(formato.id)}">
+    return `<div id="painel-formato-${esc(formato.id)}" class="bolo-formato-panel" role="tabpanel" aria-labelledby="botao-formato-${esc(formato.id)}" data-formato-panel="${esc(formato.id)}" aria-hidden="${formato.id !== formatoInicial}"${formato.id !== formatoInicial ? ' hidden' : ''}>
           <div class="bolo-formato-panel-head">
             <h3 class="bolo-formato-panel-title">
               <span class="bolo-formato-panel-icon bolo-formato-panel-icon--${esc(formato.id)}" aria-hidden="true"><i class="fa-solid ${esc(formato.icone)}"></i></span>
@@ -1109,15 +1137,17 @@ function renderBolos(initialFormat = 'redondo') {
             </h3>
           </div>
 
-          <div class="bolo-panel-section">
-            <div class="bolo-panel-section-heading">
-              <h4>Tamanhos e fatias</h4>
-              <p>${esc(formato.notaTamanhos)}</p>
-            </div>
-            ${tabelaTamanhos}
-          </div>
+           <div class="bolo-panel-section">
+             <div class="bolo-panel-section-heading">
+               <h4>Tamanhos e fatias</h4>
+               <p>${esc(formato.notaTamanhos)}</p>
+             </div>
+             ${tabelaTamanhos}
+           </div>
 
-          <div class="bolo-panel-section bolo-panel-section--prices">
+           ${sliceSuggestionsSection(formato)}
+
+           <div class="bolo-panel-section bolo-panel-section--prices">
             <div class="bolo-panel-section-heading">
               <h4>Sabores e preços</h4>
               <p>O valor varia conforme o tamanho e o recheio.</p>
@@ -1235,7 +1265,6 @@ ${a.obs ? `              <p class="addon-card-observation">${esc(a.obs)}</p>` : 
         </div>
       </div>
     </section>
-${sliceSuggestionsSection()}
 ${policiesSection({ tone: 'dark' })}
 ${faqSection(faqBolos, { tone: 'light' })}
 ${ctaBand(boloUnificado)}
