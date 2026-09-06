@@ -1147,7 +1147,7 @@ function renderBolos(initialFormat = 'redondo') {
 
            ${sliceSuggestionsSection(formato)}
 
-           <div class="bolo-panel-section bolo-panel-section--prices">
+           <div id="precos-${esc(formato.id)}" class="bolo-panel-section bolo-panel-section--prices" data-bolo-price-format="${esc(formato.id)}">
             <div class="bolo-panel-section-heading">
               <h4>Sabores e preços</h4>
               <p>O valor varia conforme o tamanho e o recheio.</p>
@@ -1319,7 +1319,7 @@ function renderBentoCake() {
   const body = `
 ${pageHero(data, SEO['bento-cake'])}
 
-    <section id="precos" class="py-5 ${surface('light')}" aria-labelledby="como-funciona-title">
+    <section id="detalhes-bento" class="py-5 ${surface('light')}" aria-labelledby="como-funciona-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="como-funciona-title" class="section-badge-title">Como é o bentô cake</h2>
@@ -1343,7 +1343,7 @@ ${pageHero(data, SEO['bento-cake'])}
       </div>
     </section>
 
-    <section class="py-5 ${surface('dark')}" aria-labelledby="sabores-bento-title">
+    <section id="precos" class="py-5 ${surface('dark')}" aria-labelledby="sabores-bento-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="sabores-bento-title" class="section-badge-title">Sabores e preços</h2>
@@ -1498,7 +1498,7 @@ ${pageHero(doces, SEO.doces)}
       </div>
     </section>
 
-    <section class="py-5 section-surface-desserts" aria-labelledby="premium-title">
+    <section id="precos-premium" class="py-5 section-surface-desserts" aria-labelledby="premium-title">
       <div class="container">
         <div class="section-header text-center mb-4">
           <h2 id="premium-title" class="section-badge-title">Doces premium (por unidade)</h2>

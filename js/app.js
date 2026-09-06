@@ -203,6 +203,11 @@ document.addEventListener('DOMContentLoaded', function(){
 
   // ---------- Scroll suave para âncoras da própria página ----------
   const navbarHeight = () => mainNav ? mainNav.getBoundingClientRect().height : 0;
+  const scrollToAnchor = (targetEl, behavior = 'smooth') => {
+    const extraOffset = 12;
+    const targetTop = targetEl.getBoundingClientRect().top + window.scrollY - navbarHeight() - extraOffset;
+    window.scrollTo({top: Math.max(targetTop, 0), behavior});
+  };
 
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', (event) => {
@@ -210,10 +215,22 @@ document.addEventListener('DOMContentLoaded', function(){
       if(!hash || hash === '#') return;
       const targetEl = document.getElementById(hash.substring(1));
       if(!targetEl) return;
+
+      const priceFormat = targetEl.dataset.boloPriceFormat;
+      if(priceFormat){
+        const formatButton = [...document.querySelectorAll('[data-bolo-format]')]
+          .find(button => button.dataset.boloFormat === priceFormat);
+        if(formatButton){
+          event.preventDefault();
+          formatButton.click();
+          if(history.replaceState) history.replaceState(null, '', hash);
+          window.requestAnimationFrame(() => scrollToAnchor(targetEl));
+          return;
+        }
+      }
+
       event.preventDefault();
-      const extraOffset = 12;
-      const targetTop = targetEl.getBoundingClientRect().top + window.scrollY - navbarHeight() - extraOffset;
-      window.scrollTo({top: Math.max(targetTop, 0), behavior: 'smooth'});
+      scrollToAnchor(targetEl);
       if(history.replaceState){
         history.replaceState(null, '', hash);
       }
@@ -230,6 +247,12 @@ document.addEventListener('DOMContentLoaded', function(){
     if(!buttons.length || !panels.length) return;
 
     const formatIds = buttons.map(button => button.dataset.boloFormat);
+    const formatoDaHash = (hash) => {
+      if(formatIds.includes(hash)) return hash;
+      const prefix = 'precos-';
+      const formato = hash.startsWith(prefix) ? hash.slice(prefix.length) : '';
+      return formatIds.includes(formato) ? formato : null;
+    };
     const formatLabel = (id) => {
       const button = buttons.find(item => item.dataset.boloFormat === id);
       return button?.querySelector('.bolo-formato-card-copy strong')?.textContent?.trim() || id;
@@ -280,8 +303,14 @@ document.addEventListener('DOMContentLoaded', function(){
     };
 
     const hashFormat = window.location.hash.slice(1);
-    const initialFormat = formatIds.includes(hashFormat) ? hashFormat : selector.dataset.initialFormat;
+    const initialFormat = formatoDaHash(hashFormat) || selector.dataset.initialFormat;
     ativarFormato(initialFormat, { atualizarUrl: false });
+    if(hashFormat === `precos-${initialFormat}`){
+      window.requestAnimationFrame(() => {
+        const targetEl = document.getElementById(hashFormat);
+        if(targetEl) scrollToAnchor(targetEl, 'auto');
+      });
+    }
 
     buttons.forEach((button, index) => {
       button.addEventListener('click', () => ativarFormato(button.dataset.boloFormat));
@@ -301,8 +330,16 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     window.addEventListener('hashchange', () => {
-      const nextFormat = window.location.hash.slice(1);
-      if(formatIds.includes(nextFormat)) ativarFormato(nextFormat, { atualizarUrl: false });
+      const nextHash = window.location.hash.slice(1);
+      const nextFormat = formatoDaHash(nextHash);
+      if(!nextFormat) return;
+      ativarFormato(nextFormat, { atualizarUrl: false });
+      if(nextHash === `precos-${nextFormat}`){
+        window.requestAnimationFrame(() => {
+          const targetEl = document.getElementById(nextHash);
+          if(targetEl) scrollToAnchor(targetEl);
+        });
+      }
     });
   };
 
