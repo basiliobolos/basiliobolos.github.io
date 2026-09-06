@@ -560,6 +560,75 @@ function policiesSection({ tone = 'dark' } = {}) {
           Retiradas em <strong>${esc(site.endereco.rua)} - ${esc(site.endereco.bairro)}, ${esc(site.endereco.cidade)}/${esc(site.endereco.uf)}</strong>, com horário marcado · ${esc(site.horario)}
         </p>
       </div>
+     </section>`;
+}
+
+function sliceSuggestionsSection() {
+  const sugestoes = [
+    {
+      nome: 'Redondo P',
+      fatias: '10 a 12 fatias',
+      imagem: 'assets/images/slice-sugestions/redondo-p.svg',
+      alt: 'Sugestão visual de corte para bolo redondo P'
+    },
+    {
+      nome: 'Redondo M',
+      fatias: '18 a 22 fatias',
+      imagem: 'assets/images/slice-sugestions/redondo-m.svg',
+      alt: 'Sugestão visual de corte para bolo redondo M'
+    },
+    {
+      nome: 'Redondo G',
+      fatias: '28 a 34 fatias',
+      imagem: 'assets/images/slice-sugestions/redondo-g.svg',
+      alt: 'Sugestão visual de corte para bolo redondo G'
+    },
+    {
+      nome: 'Redondo GG',
+      fatias: '40 a 48 fatias',
+      imagem: 'assets/images/slice-sugestions/redondo-gg.svg',
+      alt: 'Sugestão visual de corte para bolo redondo GG'
+    },
+    {
+      nome: 'Retangular G',
+      fatias: '24 a 28 fatias',
+      imagem: 'assets/images/slice-sugestions/retangular-g.svg',
+      alt: 'Sugestão visual de corte para bolo retangular G'
+    },
+    {
+      nome: 'Retangular GG',
+      fatias: '38 a 44 fatias',
+      imagem: 'assets/images/slice-sugestions/retangular-gg.svg',
+      alt: 'Sugestão visual de corte para bolo retangular GG'
+    },
+    {
+      nome: 'Coração',
+      fatias: '10 a 14 fatias',
+      imagem: 'assets/images/slice-sugestions/coracao.svg',
+      alt: 'Sugestão visual de corte para bolo em formato de coração'
+    }
+  ];
+
+  return `
+    <section class="py-5 ${surface('light')} section-slice-suggestions" aria-labelledby="cortes-title">
+      <div class="container">
+        <div class="section-header text-center mb-4">
+          <h2 id="cortes-title" class="section-badge-title">Sugestões de corte</h2>
+          <p class="mx-auto section-support">Uma referência visual para aproveitar cada pedaço. O rendimento pode variar conforme o corte.</p>
+        </div>
+        <div class="slice-suggestions-grid">
+          ${sugestoes.map((sugestao) => `
+          <article class="slice-suggestion-card">
+            <div class="slice-suggestion-visual">
+              <img src="/${esc(sugestao.imagem)}" alt="${esc(sugestao.alt)}" width="1000" height="680" loading="lazy" decoding="async">
+            </div>
+            <div class="slice-suggestion-copy">
+              <h3>${esc(sugestao.nome)}</h3>
+              <span>${esc(sugestao.fatias)}</span>
+            </div>
+          </article>`).join('')}
+        </div>
+      </div>
     </section>`;
 }
 
@@ -1166,6 +1235,7 @@ ${a.obs ? `              <p class="addon-card-observation">${esc(a.obs)}</p>` : 
         </div>
       </div>
     </section>
+${sliceSuggestionsSection()}
 ${policiesSection({ tone: 'dark' })}
 ${faqSection(faqBolos, { tone: 'light' })}
 ${ctaBand(boloUnificado)}

@@ -1914,6 +1914,11 @@ html{scroll-behavior:smooth}
 .section-addons{
   background:#f8eee3;
 }
+.section-slice-suggestions{
+  background:#f8eee3;
+  border-top:1px solid rgba(192,127,78,0.12);
+  border-bottom:1px solid rgba(192,127,78,0.12);
+}
 .section-policies{
   background:#dcc1a9;
 }
@@ -2859,6 +2864,10 @@ html{scroll-behavior:smooth}
     grid-template-columns:1fr;
     max-width:400px;
   }
+  .slice-suggestions-grid{
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    max-width:640px;
+  }
   .bento-kit-grid{
     grid-template-columns:1fr;
     max-width:480px;
@@ -2866,6 +2875,10 @@ html{scroll-behavior:smooth}
 }
 
 @media(max-width:575.98px){
+  .slice-suggestions-grid{
+    grid-template-columns:1fr;
+    max-width:360px;
+  }
   .topo-bolo-destaque{
     flex-direction:column;
     padding:1.25rem;
@@ -2971,6 +2984,80 @@ html{scroll-behavior:smooth}
   margin:0;
   font-weight:800;
   color:var(--accent-dark);
+}
+
+/* ---------- Sugestoes visuais de corte ---------- */
+.slice-suggestions-grid{
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0, 1fr));
+  gap:1rem;
+  max-width:1120px;
+  margin:0 auto;
+}
+.slice-suggestion-card{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  overflow:hidden;
+  border:1px solid rgba(84,56,47,0.13);
+  border-radius:20px;
+  background:var(--surface-card);
+  box-shadow:0 8px 22px rgba(84,56,47,0.08);
+  transition:transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.slice-suggestion-card:hover{
+  border-color:rgba(192,127,78,0.45);
+  transform:translateY(-4px);
+  box-shadow:0 14px 30px rgba(84,56,47,0.14);
+}
+.slice-suggestion-card:focus-within{
+  outline:3px solid rgba(84,56,47,0.25);
+  outline-offset:3px;
+}
+.slice-suggestion-visual{
+  display:grid;
+  place-items:center;
+  aspect-ratio:1000 / 680;
+  padding:0.35rem;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 16% 18%, rgba(255,255,255,0.84) 0, transparent 28%),
+    radial-gradient(circle at 86% 82%, rgba(151,91,59,0.22) 0, transparent 36%),
+    linear-gradient(145deg, #fff6e9 0%, #efd9bd 48%, #d8ad84 100%);
+}
+.slice-suggestion-visual img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  filter:drop-shadow(0 9px 9px rgba(65,37,27,0.22));
+  transition:transform 0.25s ease, filter 0.25s ease;
+}
+.slice-suggestion-card:hover .slice-suggestion-visual img{
+  transform:scale(1.035);
+  filter:drop-shadow(0 12px 12px rgba(65,37,27,0.3));
+}
+.slice-suggestion-copy{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:0.75rem;
+  padding:0.8rem 1rem 0.95rem;
+  border-top:1px solid rgba(84,56,47,0.09);
+}
+.slice-suggestion-copy h3{
+  margin:0;
+  color:var(--marrom);
+  font-family:var(--display);
+  font-size:1rem;
+  line-height:1.15;
+}
+.slice-suggestion-copy span{
+  flex-shrink:0;
+  color:#7a5a50;
+  font-size:0.78rem;
+  font-weight:700;
+  text-align:right;
 }
 
 /* ---------- Cards de informação (políticas) ---------- */
