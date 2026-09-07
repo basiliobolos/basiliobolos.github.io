@@ -77,7 +77,7 @@ a execução do workflow `Deploy site` na aba `Actions`.
 ## 📍 Informações Básicas
 
 **Endereço**: Av. Estados Unidos, 439 - Parque das Nações - Santo André/SP  
-**Telefone**: (11) 96810-1912  
+**Telefone**: (11) 97845-8498
 **Horário**: Segunda a Domingo, 08:00-20:00
 
 **Área de Atendimento**:

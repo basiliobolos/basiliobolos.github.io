@@ -40,7 +40,7 @@ Aumentar a cartela de clientes nos bairros de Santo André, principalmente:
 ### 📍 Localização
 **Endereço**: Av. Estados Unidos, 439 - Parque das Nações - Santo André/SP  
 **CEP**: 09210-300  
-**Telefone/WhatsApp**: (11) 96810-1912  
+**Telefone/WhatsApp**: (11) 97845-8498
 **Horário**: Segunda a Domingo, 08:00-20:00
 
 ### 🌐 Links
@@ -745,7 +745,7 @@ lighthouse https://basiliobolos.com.br/ --view
 ## 📞 Contato e Suporte
 
 **Basilio Bolos:**
-- WhatsApp: (11) 96810-1912
+- WhatsApp: (11) 97845-8498
 - Instagram: @basiliobolos
 - Facebook: /basiliobolos
 - Site: https://basiliobolos.com.br/
