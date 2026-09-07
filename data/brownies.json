@@ -1,0 +1,27 @@
+{
+  "slug": "brownies",
+  "titulo": "Brownies",
+  "tituloVisivel": "Brownies",
+  "tituloCompleto": "Brownies Artesanais em Santo André",
+  "subtitulo": "Brownies chocolatudos, macios e com casquinha crocante, em marmitinhas ou bites.",
+  "imagem": "assets/images/produtos/brownie.webp",
+  "precoDestaque": "A partir de R$ 12",
+  "mensagemWhatsApp": "Olá! Quero encomendar brownies. Podem me ajudar?",
+  "opcoes": [
+    { "nome": "Marmitinha tradicional", "descricao": "A partir de 80g, com casquinha crocante.", "preco": "R$ 12" },
+    { "nome": "Marmitinha com nozes", "descricao": "A partir de 80g, com pedaços de nozes.", "preco": "R$ 14" },
+    { "nome": "Marmitinha recheada", "descricao": "A partir de 80g, recheado com Nutella ou doce de leite.", "preco": "R$ 16" },
+    { "nome": "Caixa de bites (aprox. 215g)", "descricao": "Bites de brownie em caixa.", "preco": "R$ 48" }
+  ],
+  "nota": "Consulte sabores e disponibilidade pelo WhatsApp. Brownies também podem compor caixas de presente com outros produtos.",
+  "faq": [
+    {
+      "q": "Quanto custa um brownie artesanal em Santo André?",
+      "a": "A marmitinha tradicional (a partir de 80g) custa R$ 12; com nozes, R$ 14; e recheada, R$ 16. A caixa de bites (aprox. 215g) custa R$ 48."
+    },
+    {
+      "q": "Vocês fazem brownie para presente em Santo André?",
+      "a": "Sim. A caixa de bites, com aproximadamente 215g e preço de R$ 48, é uma opção para presente. Também montamos caixas combinadas com outros produtos."
+    }
+  ]
+}

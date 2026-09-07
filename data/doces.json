@@ -1,0 +1,174 @@
+{
+  "slug": "doces",
+  "titulo": "Doces para Festa",
+  "tituloVisivel": "Doces para Festa",
+  "tituloCompleto": "Doces para Festa em Santo André",
+  "subtitulo": "Doces artesanais por cento ou premium por unidade para festas e ocasiões especiais.",
+  "imagem": "assets/images/produtos/doces-festa.webp",
+  "precoDestaque": "Cento a partir de R$ 189",
+  "mensagemWhatsApp": "Olá! Quero encomendar doces para uma festa. Podem me passar os valores?",
+  "centos": [
+    {
+      "nome": "Brigadeiro Clássico",
+      "descricao": "Brigadeiro feito com chocolate 50% cacau, envolto em granulado",
+      "precoCento": 189,
+      "imagem": "assets/images/doces/brigadeiro-classico.webp"
+    },
+    {
+      "nome": "Beijinho",
+      "descricao": "Brigadeiro de coco, envolto em coco ralado",
+      "precoCento": 189,
+      "imagem": "assets/images/doces/beijinho.webp"
+    },
+    {
+      "nome": "Bicho de Pé",
+      "descricao": "Brigadeiro cremoso sabor morango, envolto em açúcar cristal",
+      "precoCento": 209,
+      "imagem": "assets/images/doces/bicho-de-pe.webp"
+    },
+    {
+      "nome": "Casadinho",
+      "descricao": "União do brigadeiro tradicional e do brigadeiro branco",
+      "precoCento": 209,
+      "imagem": "assets/images/doces/casadinho.webp"
+    },
+    {
+      "nome": "Ninho",
+      "descricao": "Brigadeiro cremoso de leite ninho, envolto em leite ninho em pó",
+      "precoCento": 209,
+      "imagem": "assets/images/doces/ninho.webp"
+    },
+    {
+      "nome": "Paçoquinha",
+      "descricao": "Brigadeiro cremoso de paçoquinha, envolto em amendoim triturado",
+      "precoCento": 249,
+      "imagem": "assets/images/doces/pacoquinha.webp"
+    },
+    {
+      "nome": "Ferrero",
+      "descricao": "Brigadeiro de chocolate 50% cacau envolto em amendoim triturado, recheado com Nutella",
+      "precoCento": 249,
+      "imagem": "assets/images/doces/ferrero.webp"
+    },
+    {
+      "nome": "Ninho com Nutella",
+      "descricao": "Brigadeiro cremoso de leite ninho com uma roseta de Nutella",
+      "precoCento": 249,
+      "imagem": "assets/images/doces/ninho-com-nutella.webp"
+    },
+    {
+      "nome": "Churros",
+      "descricao": "Brigadeiro cremoso com toque de canela, envolto em açúcar cristal, com roseta de doce de leite",
+      "precoCento": 249,
+      "imagem": "assets/images/doces/churros.webp"
+    }
+  ],
+  "notaCentos": "Aproximadamente 16g cada. Monte o cento com até 4 sabores e envie sua escolha para orçamento.",
+  "premium": [
+    {
+      "nome": "Brigadeiro Clássico Premium",
+      "descricao": "Chocolate 50% cacau envolto em granulê de chocolate nobre",
+      "precoUnidade": 3.2,
+      "imagem": "assets/images/doces/brigadeiro-classico-premium.webp"
+    },
+    {
+      "nome": "Brigadeiro Ninho e Nutella",
+      "descricao": "Brigadeiro de leite ninho com delicada roseta de Nutella",
+      "precoUnidade": 3.4,
+      "imagem": "assets/images/doces/brigadeiro-ninho-e-nutella.webp"
+    },
+    {
+      "nome": "Brigadeiro Rafaello",
+      "descricao": "Brigadeiro de coco com roseta de ganache de coco e amêndoa tostada",
+      "precoUnidade": 3.8,
+      "imagem": "assets/images/doces/brigadeiro-rafaello.webp"
+    },
+    {
+      "nome": "Brigadeiro de Churros",
+      "descricao": "Brigadeiro branco envolto em açúcar cristal e canela, com roseta de doce de leite",
+      "precoUnidade": 3.8,
+      "imagem": "assets/images/doces/brigadeiro-de-churros.webp"
+    },
+    {
+      "nome": "Flor de Cerejeira",
+      "descricao": "Bombom de chocolate branco recheado com mousse e geleia de morango",
+      "precoUnidade": 3.75,
+      "imagem": "assets/images/doces/flor-de-cerejeira.webp"
+    },
+    {
+      "nome": "Brigadeiro Flor de Amendoim",
+      "descricao": "Brigadeiro de paçoca envolto com amendoim crocante e flor de açúcar",
+      "precoUnidade": 4.15,
+      "imagem": "assets/images/doces/brigadeiro-flor-de-amendoim.webp"
+    },
+    {
+      "nome": "Brigadeiro Ferrero",
+      "descricao": "Brigadeiro 50% cacau envolto em amendoim com roseta de Nutella",
+      "precoUnidade": 3.9,
+      "imagem": "assets/images/doces/brigadeiro-ferrero.webp"
+    },
+    {
+      "nome": "Cestinha de Maracujá",
+      "descricao": "Base de chocolate com mousse e calda de maracujá",
+      "precoUnidade": 3.95,
+      "imagem": "assets/images/doces/cestinha-de-maracuja.webp"
+    },
+    {
+      "nome": "Taça de Uva",
+      "descricao": "Copinho de chocolate branco com creme de ninho e uva verde",
+      "precoUnidade": 4.5,
+      "imagem": "assets/images/doces/taca-de-uva.webp"
+    },
+    {
+      "nome": "Cestinha de Limão",
+      "descricao": "Casca crocante de chocolate branco com mousse leve de limão e raspas frescas",
+      "precoUnidade": 3.5,
+      "imagem": "assets/images/doces/cestinha-de-limao.webp"
+    },
+    {
+      "nome": "Taça Floresta Negra",
+      "descricao": "Copo de chocolate com recheio trufado de cereja e fruta no topo",
+      "precoUnidade": 5.3,
+      "imagem": "assets/images/doces/taca-floresta-negra.webp"
+    },
+    {
+      "nome": "Flor de Ninho",
+      "descricao": "Brigadeiro tradicional de leite ninho moldado em delicado formato de flor",
+      "precoUnidade": 3.5,
+      "imagem": "assets/images/doces/flor-de-ninho.webp"
+    },
+    {
+      "nome": "Torta de Limão",
+      "descricao": "Copinho recheado com base de biscoito, mousse de limão, chantilly e raspas",
+      "precoUnidade": 5.5,
+      "imagem": "assets/images/doces/torta-de-limao.webp"
+    },
+    {
+      "nome": "Brownie com Nozes",
+      "descricao": "Brownie macio com cobertura de doce de leite e uma noz em cima",
+      "precoUnidade": 5.5,
+      "imagem": "assets/images/doces/brownie-com-nozes.webp"
+    },
+    {
+      "nome": "Surpresa de Uva",
+      "descricao": "Uva envolta no brigadeiro de leite ninho",
+      "precoUnidade": 3.9,
+      "imagem": "assets/images/doces/surpresa-de-uva.webp"
+    }
+  ],
+  "notaPremium": "Aproximadamente 22g cada. Mínimo de 20 unidades por sabor.",
+  "faq": [
+    {
+      "q": "Quanto custa o cento de doces para festa em Santo André?",
+      "a": "O cento, com 100 unidades, custa R$ 189 nos sabores clássicos (brigadeiro e beijinho), R$ 209 em sabores como bicho de pé, casadinho e ninho, e R$ 249 nos especiais, como paçoquinha, Ferrero, ninho com Nutella e churros."
+    },
+    {
+      "q": "Posso escolher mais de um sabor no cento de doces?",
+      "a": "Sim. O cento pode ser montado com até 4 sabores; envie suas escolhas pelo WhatsApp para confirmar as opções e a disponibilidade."
+    },
+    {
+      "q": "Qual é o pedido mínimo de doces premium?",
+      "a": "O pedido mínimo é de 20 unidades por sabor. Os doces premium custam a partir de R$ 3,20 por unidade, conforme o sabor escolhido."
+    }
+  ]
+}

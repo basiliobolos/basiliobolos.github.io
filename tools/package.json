@@ -1,0 +1,8 @@
+{
+  "name": "basilio-bolos-tools",
+  "private": true,
+  "description": "Ferramentas do site Basilio Bolos",
+  "scripts": {
+    "gerar": "node gerar.js"
+  }
+}

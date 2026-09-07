@@ -1,0 +1,300 @@
+{
+  "slug": "bolos",
+  "titulo": "Bolos personalizados",
+  "tituloCompleto": "Bolos personalizados para cada comemoração",
+  "subtitulo": "Bolos de aniversário e personalizados sob encomenda em Santo André. Escolha formato, tamanho, recheio e cobertura.",
+  "imagem": "assets/images/produtos/bolos-redondos.webp",
+  "precoDestaque": "A partir de R$ 89",
+  "mensagemWhatsApp": "Olá! Quero encomendar um bolo personalizado. Podem me ajudar a escolher o formato e montar?",
+  "precosPorFaixaP": {
+    "89": { "P": 89, "M": 159, "G": 239, "GG": 329 },
+    "99": { "P": 99, "M": 169, "G": 259, "GG": 359 },
+    "109": { "P": 109, "M": 189, "G": 289, "GG": 409 },
+    "119": { "P": 119, "M": 209, "G": 319, "GG": 449 }
+  },
+  "tamanhos": [
+    {
+      "id": "bento",
+      "nome": "Bento Cake",
+      "diametro": "10cm",
+      "fatias": "1 a 2",
+      "obs": "Bolo individual, ideal para presentes e comemorações íntimas.",
+      "precoFixo": 39
+    },
+    {
+      "id": "P",
+      "nome": "P",
+      "diametro": "15cm",
+      "fatias": "10 a 12",
+      "pesoKg": 1.1
+    },
+    {
+      "id": "M",
+      "nome": "M",
+      "diametro": "20cm",
+      "fatias": "18 a 22",
+      "pesoKg": 2
+    },
+    {
+      "id": "G",
+      "nome": "G",
+      "diametro": "25cm",
+      "fatias": "28 a 34",
+      "pesoKg": 3.1
+    },
+    {
+      "id": "GG",
+      "nome": "GG",
+      "diametro": "30cm",
+      "fatias": "40 a 48",
+      "pesoKg": 4.4
+    }
+  ],
+  "notaTamanhos": "Estimativa de fatias; o rendimento varia conforme o corte.",
+  "massas": [
+    "Branca",
+    "Chocolate"
+  ],
+  "recheios": [
+    {
+      "nome": "Brisa de Maracujá",
+      "descricao": "Mousse de maracujá",
+      "precoKg": 79
+    },
+    {
+      "nome": "Brisa Cítrica",
+      "descricao": "Mousse de limão",
+      "precoKg": 79
+    },
+    {
+      "nome": "Doce Encanto",
+      "descricao": "Mousse de morango (sem fruta)",
+      "precoKg": 79
+    },
+    {
+      "nome": "Nuvem de Cacau",
+      "descricao": "Mousse de chocolate",
+      "precoKg": 89
+    },
+    {
+      "nome": "Sensação Rosé",
+      "descricao": "Creme de morango + raspas de chocolate meio amargo (sem fruta)",
+      "precoKg": 88
+    },
+    {
+      "nome": "Clássico Brigadeiro",
+      "descricao": "Brigadeiro tradicional com cacau 50%",
+      "precoKg": 89
+    },
+    {
+      "nome": "Brigadeiro Blanc",
+      "descricao": "Brigadeiro cremoso de leite ninho",
+      "precoKg": 89
+    },
+    {
+      "nome": "Dois Amores",
+      "descricao": "Brigadeiro 50% cacau + brigadeiro de leite ninho",
+      "precoKg": 89
+    },
+    {
+      "nome": "Chocolate & Morangos",
+      "descricao": "Brigadeiro 50% cacau + morango fresco",
+      "precoKg": 95
+    },
+    {
+      "nome": "Ninho & Morangos",
+      "descricao": "Brigadeiro de leite ninho + morango fresco",
+      "precoKg": 95
+    },
+    {
+      "nome": "Brigadeiro Tropical",
+      "descricao": "Brigadeiro de maracujá",
+      "precoKg": 92
+    },
+    {
+      "nome": "Maracujá Trufado",
+      "descricao": "Mousse de maracujá + creme trufado meio amargo",
+      "precoKg": 98
+    },
+    {
+      "nome": "Tropical Trufado",
+      "descricao": "Brigadeiro de maracujá + creme trufado meio amargo",
+      "precoKg": 102
+    },
+    {
+      "nome": "Trufado",
+      "descricao": "Creme trufado com chocolate meio amargo",
+      "precoKg": 110
+    },
+    {
+      "nome": "Doçura Mineira",
+      "descricao": "Creme de doce de leite",
+      "precoKg": 89
+    },
+    {
+      "nome": "Doce Abacaxi",
+      "descricao": "Doce de leite + abacaxi cozido",
+      "precoKg": 98
+    },
+    {
+      "nome": "Doce Ameixa",
+      "descricao": "Creme de doce de leite com ameixas",
+      "precoKg": 92
+    },
+    {
+      "nome": "Doce Coco",
+      "descricao": "Doce de leite + brigadeiro de coco",
+      "precoKg": 92
+    },
+    {
+      "nome": "Nozes Gourmet",
+      "descricao": "Creme de doce de leite com pedaços de nozes",
+      "precoKg": 95
+    },
+    {
+      "nome": "Prestígio",
+      "descricao": "Creme de coco cremoso",
+      "precoKg": 89
+    }
+  ],
+  "recheiosBento": [
+    {
+      "nome": "Brisa de Maracujá",
+      "descricao": "Mousse de maracujá",
+      "preco": 39
+    },
+    {
+      "nome": "Brisa Cítrica",
+      "descricao": "Mousse de limão",
+      "preco": 39
+    },
+    {
+      "nome": "Doce Encanto",
+      "descricao": "Mousse de morango (sem fruta)",
+      "preco": 39
+    },
+    {
+      "nome": "Nuvem de Cacau",
+      "descricao": "Mousse de chocolate",
+      "preco": 39
+    },
+    {
+      "nome": "Sensação Rosé",
+      "descricao": "Creme de morango com raspas de chocolate meio amargo (sem fruta)",
+      "preco": 39
+    },
+    {
+      "nome": "Clássico Brigadeiro",
+      "descricao": "Brigadeiro tradicional com cacau 50%",
+      "preco": 39
+    },
+    {
+      "nome": "Brigadeiro Blanc",
+      "descricao": "Brigadeiro cremoso de leite ninho",
+      "preco": 39
+    },
+    {
+      "nome": "Brigadeiro Tropical",
+      "descricao": "Brigadeiro de maracujá",
+      "preco": 45
+    },
+    {
+      "nome": "Trufado",
+      "descricao": "Creme trufado com chocolate meio amargo",
+      "preco": 49
+    },
+    {
+      "nome": "Prestígio",
+      "descricao": "Creme de coco cremoso",
+      "preco": 39
+    }
+  ],
+  "kitsBento": {
+    "sabores": [
+      "Tradicional",
+      "Beijinho",
+      "Leite Ninho",
+      "Leite Ninho com Nutella",
+      "Paçoquinha",
+      "Ferrero"
+    ],
+    "opcoes": [
+      {
+        "nome": "Caixa presenteável com 6 docinhos",
+        "preco": "Acréscimo de R$ 35",
+        "imagem": "assets/images/produtos/bentocake-06.webp",
+        "descricao": "6 docinhos, podendo escolher até 2 sabores. O bentô e os doces vão em uma caixa charmosa, perfeita para presente."
+      },
+      {
+        "nome": "Super caixa com 16 docinhos",
+        "preco": "Acréscimo de R$ 59",
+        "imagem": "assets/images/produtos/bentocake-16.webp",
+        "descricao": "16 docinhos, podendo escolher até 3 sabores. O bentô e os doces vão em uma super caixa, ideal para um presente mais elaborado."
+      }
+    ]
+  },
+  "notaRecheios": "",
+  "coberturas": [
+    {
+      "nome": "Chantilly",
+      "acrescimo": 0,
+      "obs": "Sem acréscimo"
+    },
+    {
+      "nome": "Ganache",
+      "acrescimoPorTamanho": {
+        "P": 25,
+        "M": 35,
+        "G": 47,
+        "GG": 60
+      },
+      "obs": "Acréscimo conforme o tamanho do bolo"
+    }
+  ],
+  "acrescimos": [
+    {
+      "nome": "Pérolas comestíveis",
+      "preco": "R$ 4"
+    },
+    {
+      "nome": "Laços",
+      "preco": "R$ 5",
+      "obs": "verificar modelo"
+    },
+    {
+      "nome": "Brigadeiros",
+      "preco": "Sob consulta"
+    },
+    {
+      "nome": "Frutas",
+      "preco": "Sob consulta"
+    },
+    {
+      "nome": "Flores",
+      "preco": "Sob consulta"
+    },
+    {
+      "nome": "Topos de bolo",
+      "preco": "Sob consulta"
+    },
+    {
+      "nome": "Velas e fitas",
+      "preco": "Sob consulta"
+    }
+  ],
+  "notaAcrescimos": "Decoração, velas e fitas são cobradas à parte. Envie uma referência pelo WhatsApp.",
+  "faq": [
+    {
+      "q": "Bolos personalizados têm entrega em Santo André?",
+      "a": "Não. A Basilio Bolos não realiza entregas próprias; a retirada é feita no Parque das Nações, em Santo André, de segunda a sábado, das 8h às 20h, com horário marcado, ou via Uber/99 por conta e responsabilidade do cliente."
+    },
+    {
+      "q": "Quais massas, recheios e coberturas posso escolher no bolo?",
+      "a": "Você pode escolher massa branca ou de chocolate, 20 opções de recheio e cobertura de chantilly sem acréscimo ou ganache com acréscimo conforme o tamanho."
+    },
+    {
+      "q": "A decoração, o topo e as velas estão incluídos no preço do bolo?",
+      "a": "Não. Topos, velas, fitas e outras decorações são cobrados à parte; envie o tema ou uma referência pelo WhatsApp para calcular o adicional."
+    }
+  ]
+}

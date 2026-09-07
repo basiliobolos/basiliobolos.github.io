@@ -49,6 +49,9 @@ temp/
 # Ambiente
 .env
 
+# PDFs de referência (cardápios usados como fonte de dados)
+*.pdf
+
 # Documentação interna
 *.internal.*
 .env.local

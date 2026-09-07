@@ -1,52 +1,75 @@
 {
   "produtos": [
     {
-      "titulo": "Bolo confeitado",
-      "imagem": "assets/images/produtos/bolo-confeitado.webp",
-      "descricao": "Bolos personalizados por kg, preparados com muito carinho para aniversários, eventos e celebrações especiais.",
-      "valor": "A partir de R$ 79/kg"
+      "titulo": "Bolos Personalizados",
+      "slug": "bolos",
+      "imagem": "assets/images/produtos/bolos-redondos.webp",
+      "descricao": "Bolos redondos, em formato de coração e retangulares, com mais de 20 sabores de recheio, duas opções de massa e cobertura de chantilly ou ganache.",
+      "precoDestaque": "A partir de R$ 89",
+      "url": "bolos/"
     },
     {
-      "titulo": "Doces (cento)",
-      "imagem": "assets/images/produtos/doces-festa.webp",
-      "descricao": "Docinhos artesanais variados, perfeitos para festas e eventos.",
-      "valor": "A partir de R$ 170"
-    },
-    {
-      "titulo": "Brownie",
-      "imagem": "assets/images/produtos/brownie.webp",
-      "descricao": "Brownie bem chocolatudo, macio por dentro e com casquinha crocante por fora. Vendido na marmitinha a partir de 80g.",
-      "valor": "A partir de R$ 12"
-    },
-    {
-      "titulo": "Bolo no pote",
-      "imagem": "assets/images/produtos/bolo-no-pote.webp",
-      "descricao": "Nosso clássico! O produto que deu início à nossa história, quando vendíamos de porta em porta. Camadas generosas de bolo e recheio.",
-      "valor": "A partir de R$ 15"
-    },
-    {
-      "titulo": "Kit mini trufas",
-      "imagem": "assets/images/produtos/trufas.webp",
-      "descricao": "Mini trufas artesanais vendidas a partir de 10 unidades. Cremosas, delicadas e perfeitas para adoçar qualquer momento.",
-      "valor": "A partir de R$ 35"
-    },
-    {
-      "titulo": "Bento cake",
+      "titulo": "Bentô Cake",
+      "slug": "bento-cake",
       "imagem": "assets/images/produtos/bento-cake.webp",
-      "descricao": "Bolo individual de 10cm de diâmetro com uma camada de recheio. Ideal para presentes e comemorações íntimas. Charmoso e delicioso.",
-      "valor": "A partir de R$ 30"
+      "descricao": "O bolo individual de 10cm, perfeito para presentear ou comemorar em dose certa. Recheio generoso e decoração à sua escolha.",
+      "descricaoCurta": "Bolo individual de 10cm, com recheio e decoração personalizados.",
+      "precoDestaque": "A partir de R$ 39",
+      "url": "bento-cake/"
     },
     {
-      "titulo": "Cupcake (2 unidades)",
+      "titulo": "Doces para Festa",
+      "slug": "doces",
+      "imagem": "assets/images/produtos/doces-festa.webp",
+      "descricao": "Doces artesanais por cento para festas e doces premium por unidade: brigadeiros, cestinhas, taças e flores de açúcar.",
+      "descricaoCurta": "Doces artesanais por cento ou premium por unidade: brigadeiros, cestinhas, taças e flores.",
+      "precoDestaque": "Cento a partir de R$ 189",
+      "url": "doces/"
+    },
+    {
+      "titulo": "Cupcakes",
+      "slug": "cupcakes",
       "imagem": "assets/images/produtos/cupcake.webp",
-      "descricao": "Duas unidades de cupcake em uma linda caixa para presentear. Decoração totalmente personalizada para sua ocasião. Massa fofinha recheada. Sabor e beleza em cada detalhe.",
-      "valor": "R$ 24"
+      "descricao": "Cupcakes decorados com temas personalizados, massa fofinha e recheio generoso. Por unidade ou em caixas com 2 ou 6 unidades.",
+      "descricaoCurta": "Cupcakes recheados e personalizados, por unidade ou em caixas com 2 ou 6.",
+      "precoDestaque": "A partir de R$ 13",
+      "url": "cupcakes/"
     },
     {
-      "titulo": "Pipoca gourmet",
+      "titulo": "Biscoitos Decorados",
+      "slug": "biscoitos",
+      "imagem": "assets/images/produtos/biscoitos-decorados.webp",
+      "descricao": "Biscoitos amanteigados decorados à mão em formatos e tamanhos variados. Vendidos por unidade ou em caixas fechadas para presentear.",
+      "descricaoCurta": "Biscoitos amanteigados decorados à mão, por unidade ou em caixas.",
+      "precoDestaque": "A partir de R$ 5",
+      "url": "biscoitos/"
+    },
+    {
+      "titulo": "Brownies",
+      "slug": "brownies",
+      "imagem": "assets/images/produtos/brownie.webp",
+      "descricao": "Brownie bem chocolatudo, macio por dentro e com casquinha crocante por fora. Na marmitinha ou em caixas de bites.",
+      "descricaoCurta": "Brownie macio, com casquinha crocante, em marmitinha ou bites.",
+      "precoDestaque": "A partir de R$ 12",
+      "url": "brownies/"
+    },
+    {
+      "titulo": "Pipoca Gourmet",
+      "slug": "pipoca-gourmet",
       "imagem": "assets/images/produtos/pipoca-gourmet.webp",
-      "descricao": "Pipoca gourmet fresca e crocante, vendida a partir de 100g. Sabores: chocolate ou leite ninho.",
-      "valor": "A partir de R$ 15"
+      "descricao": "Pipoca fresca e crocante coberta de chocolate ou leite ninho. Em pacotes de 100g a 500g, também em versões temáticas.",
+      "descricaoCurta": "Pipoca crocante de chocolate ou leite ninho, em pacotes de 100g a 500g.",
+      "precoDestaque": "A partir de R$ 15",
+      "url": "pipoca-gourmet/"
     }
-  ]
+  ],
+  "recomendacoes": {
+    "bento-cake": ["bolos", "cupcakes", "doces", "biscoitos"],
+    "bolos": ["bento-cake", "cupcakes", "doces", "biscoitos"],
+    "doces": ["biscoitos", "cupcakes", "bolos", "brownies"],
+    "biscoitos": ["doces", "cupcakes", "bento-cake", "pipoca-gourmet"],
+    "cupcakes": ["bento-cake", "doces", "biscoitos", "brownies"],
+    "brownies": ["bento-cake", "cupcakes", "pipoca-gourmet", "doces"],
+    "pipoca-gourmet": ["brownies", "bento-cake", "cupcakes", "doces"]
+  }
 }

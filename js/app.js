@@ -1,720 +1,455 @@
 // app.js
-// Basilio Bolos - Page logic
+// Basilio Bolos - interações do site (conteúdo é estático, gerado por tools/gerar.js)
+document.documentElement.classList.add('js');
+
 document.addEventListener('DOMContentLoaded', function(){
 
   const mainNav = document.getElementById('mainNav');
   const navbarContent = document.getElementById('navbarContent');
-  let collapseController = null;
-  let pendingScrollHash = null;
-  let navbarHeight = 0;
+  const menuToggle = mainNav?.querySelector('[data-menu-toggle]');
+  const whatsappFloat = document.querySelector('.whatsapp-float');
 
-  // Capturar a altura da navbar no carregamento (sempre colapsada)
-  const captureNavbarHeight = () => {
-    if(!mainNav) return;
-    navbarHeight = mainNav.getBoundingClientRect().height;
-  };
+  // ---------- Ano atual no rodapé ----------
+  const anoEl = document.getElementById('anoAtual');
+  if(anoEl) anoEl.innerText = new Date().getFullYear();
 
-  // Capturar altura assim que possível
-  captureNavbarHeight();
-  window.addEventListener('load', captureNavbarHeight);
+  // ---------- Privacidade e consentimento ----------
+  const ANALYTICS_ID = 'G-C07W6E0102';
+  const CONSENT_STORAGE_KEY = 'basilio_privacy_consent';
+  const ANALYTICS_SCRIPT_ID = 'google-analytics-script';
+  const consentBanner = document.querySelector('[data-privacy-banner]');
+  let consentValue = null;
+  let consentTrigger = null;
 
-  // insert current year
-  document.getElementById('anoAtual').innerText = new Date().getFullYear();
-
-  // WhatsApp default link (placeholder)
-  const WA_NUMBER = '5511968101912';
-  const DEFAULT_WA_MSG = 'Olá! Vi seus doces e gostaria de receber mais informações. Pode me ajudar?';
-
-  const trackEvent = (eventName, params = {}) => {
-    if(typeof window !== 'undefined' && typeof window.gtag === 'function'){
-      window.gtag('event', eventName, params);
-    } else if(Array.isArray(window?.dataLayer)){
-      window.dataLayer.push({event: eventName, ...params});
+  const readStoredConsent = () => {
+    try{
+      const value = window.localStorage.getItem(CONSENT_STORAGE_KEY);
+      return value === 'accepted' || value === 'rejected' ? value : null;
+    }catch(error){
+      return null;
     }
   };
 
-  // set whatsapp links (supports custom messages via data attribute)
-  document.querySelectorAll('[data-wa-message]').forEach(el => {
-    const customMsg = el.dataset.waMessage || DEFAULT_WA_MSG;
-    const encodedMsg = encodeURIComponent(customMsg);
-    el.href = `https://wa.me/${WA_NUMBER}?text=${encodedMsg}`;
+  const saveConsent = (value) => {
+    consentValue = value;
+    try{
+      window.localStorage.setItem(CONSENT_STORAGE_KEY, value);
+    }catch(error){
+      // A escolha válida para a sessão ainda pode ser respeitada sem storage.
+    }
+  };
 
-    if(el.dataset.waMetricsBound === 'true') return;
-    el.dataset.waMetricsBound = 'true';
-    el.addEventListener('click', () => {
-      trackEvent('whatsapp_click', {
-        location: el.id || el.getAttribute('aria-label') || el.textContent?.trim() || 'cta',
-        message_preview: customMsg.substring(0, 60)
+  const updateGoogleConsent = (granted) => {
+    if(typeof window.gtag !== 'function') return;
+    window.gtag('consent', 'update', {
+      analytics_storage: granted ? 'granted' : 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
+  };
+
+  const clearAnalyticsCookies = () => {
+    const names = document.cookie.split(';')
+      .map(cookie => cookie.trim().split('=')[0])
+      .filter(name => /^_(ga|gid|gat)(_|$)/i.test(name));
+    const domains = ['', window.location.hostname, `.${window.location.hostname}`];
+
+    names.forEach(name => {
+      [...new Set(domains)].forEach(domain => {
+        const domainAttribute = domain ? `; domain=${domain}` : '';
+        document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${domainAttribute}`;
       });
     });
+  };
+
+  const loadAnalytics = () => {
+    if(consentValue !== 'accepted' || document.getElementById(ANALYTICS_SCRIPT_ID)) return;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function(){window.dataLayer.push(arguments);};
+    updateGoogleConsent(true);
+    window.gtag('js', new Date());
+    window.gtag('config', ANALYTICS_ID, {
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+      cookie_expires: 31536000,
+      page_path: window.location.pathname
+    });
+
+    const script = document.createElement('script');
+    script.id = ANALYTICS_SCRIPT_ID;
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ANALYTICS_ID)}`;
+    script.referrerPolicy = 'no-referrer';
+    document.head.appendChild(script);
+  };
+
+  const setBannerVisibility = (visible) => {
+    if(!consentBanner) return;
+    consentBanner.hidden = !visible;
+    consentBanner.setAttribute('aria-hidden', String(!visible));
+  };
+
+  const openConsentSettings = (trigger = null) => {
+    consentTrigger = trigger;
+    setBannerVisibility(true);
+    consentBanner?.querySelector('[data-privacy-reject]')?.focus();
+  };
+
+  const closeConsentSettings = () => {
+    setBannerVisibility(false);
+    if(consentTrigger && typeof consentTrigger.focus === 'function') consentTrigger.focus();
+    consentTrigger = null;
+  };
+
+  const chooseConsent = (value) => {
+    saveConsent(value);
+    if(value === 'accepted'){
+      loadAnalytics();
+    }else{
+      updateGoogleConsent(false);
+      clearAnalyticsCookies();
+    }
+    closeConsentSettings();
+  };
+
+  consentValue = readStoredConsent();
+  document.querySelectorAll('[data-privacy-accept]').forEach(button => {
+    button.addEventListener('click', () => chooseConsent('accepted'));
+  });
+  document.querySelectorAll('[data-privacy-reject]').forEach(button => {
+    button.addEventListener('click', () => chooseConsent('rejected'));
+  });
+  document.querySelectorAll('[data-privacy-settings]').forEach(trigger => {
+    trigger.addEventListener('click', () => openConsentSettings(trigger));
   });
 
-  // Load JSON data (fetch from /data)
-  // If you prefer inline data, you can replace fetch with a constant variable.
-  Promise.all([
-    fetch('data/campanhas.json').then(r => r.ok ? r.json() : null).catch(()=>null),
-    fetch('data/produtos.json').then(r => r.ok ? r.json() : null).catch(()=>null)
-  ]).then(([campanhaData, produtosData]) => {
-
-    // ---------- CAMPANHA ----------
-    const heroCtas = document.getElementById('heroCtas');
-    const activeCampaigns = normalizeCampaignData(campanhaData);
-
-    clearHeroButtons(heroCtas);
-
-    if(activeCampaigns.length){
-      const campList = document.getElementById('campList');
-      activeCampaigns.forEach(camp => {
-        camp.produtos.forEach(prod => {
-          const slide = document.createElement('div');
-          slide.className = 'swiper-slide';
-          slide.appendChild(createFlipCard(prod));
-          campList.appendChild(slide);
-        });
-        insertHeroButton(heroCtas, camp);
-      });
-      applyCampaignTheme(activeCampaigns[0]);
-      initSwiper('.campSwiper');
-    } else {
-      document.getElementById('campanhas').style.display = 'none';
+  if(consentBanner){
+    if(consentValue === 'accepted'){
+      setBannerVisibility(false);
+      loadAnalytics();
+    }else if(consentValue === 'rejected'){
+      clearAnalyticsCookies();
+      setBannerVisibility(false);
+    }else{
+      // Remove cookies left by a previous version before asking again.
+      clearAnalyticsCookies();
+      setBannerVisibility(true);
     }
-
-    // ---------- PRODUTOS ----------
-    const normalizedProducts = Array.isArray(produtosData)
-      ? produtosData
-      : Array.isArray(produtosData?.produtos)
-        ? produtosData.produtos
-        : [];
-
-    if(normalizedProducts.length){
-      const prodList = document.getElementById('prodList');
-      normalizedProducts.forEach(prod => {
-        const slide = document.createElement('div');
-        slide.className = 'swiper-slide';
-        slide.appendChild(createFlipCard(prod));
-        prodList.appendChild(slide);
-      });
-      initSwiper('.prodSwiper');
-    }
-
-  }).catch(err=>{
-    console.error('Erro ao carregar JSON:', err);
-  });
-
-  // close mobile menu after clicking a nav link
-  if(navbarContent && typeof bootstrap !== 'undefined' && bootstrap.Collapse){
-    collapseController = new bootstrap.Collapse(navbarContent, {toggle:false});
-    const closeOnClick = (event) => {
-      const target = event.currentTarget;
-      if(!target) return;
-      const isCollapsed = !navbarContent.classList.contains('show');
-      if(isCollapsed) return;
-      collapseController.hide();
-    };
-    navbarContent.querySelectorAll('.nav-link, .btn').forEach(link => {
-      link.addEventListener('click', closeOnClick);
-    });
-    navbarContent.addEventListener('hidden.bs.collapse', () => {
-      if(!pendingScrollHash) return;
-      performAnchoredScroll(pendingScrollHash);
-      pendingScrollHash = null;
-    });
+  }else if(consentValue === 'accepted'){
+    loadAnalytics();
   }
 
-  // adjust scroll position to account for fixed navbar height
-  const registerAnchorLink = (link) => {
-    if(!link || link.dataset.anchorScrollBound === 'true') return;
-    link.dataset.anchorScrollBound = 'true';
-    const linkLabel = link.dataset.analyticsName || link.getAttribute('aria-label') || link.textContent?.trim() || link.id || 'anchor';
+  // ---------- Analytics ----------
+  const trackEvent = (eventName, params = {}) => {
+    if(consentValue !== 'accepted' || typeof window.gtag !== 'function') return;
+    window.gtag('event', eventName, params);
+  };
+
+  // Rastreio de cliques no WhatsApp (links já vêm prontos no HTML estático)
+  document.querySelectorAll('a[href*="wa.me"]').forEach(el => {
+    el.addEventListener('click', () => {
+      trackEvent('whatsapp_click', {
+        location: el.dataset.track || el.getAttribute('aria-label') || 'cta',
+        page: window.location.pathname
+      });
+    });
+  });
+
+  // ---------- Menu mobile: painel lateral sem animação de altura ----------
+  if(mainNav && navbarContent && menuToggle){
+    const mobileMenuQuery = window.matchMedia('(max-width: 991.98px)');
+
+    const setMenuOpen = (open) => {
+      const isOpen = mobileMenuQuery.matches && open;
+      navbarContent.classList.toggle('is-open', isOpen);
+      navbarContent.setAttribute('aria-hidden', String(!isOpen && mobileMenuQuery.matches));
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+      document.documentElement.classList.toggle('menu-open', isOpen);
+      document.body.classList.toggle('menu-open', isOpen);
+
+      if('inert' in navbarContent) navbarContent.inert = !isOpen && mobileMenuQuery.matches;
+    };
+
+    const syncMenuWithViewport = () => {
+      setMenuOpen(navbarContent.classList.contains('is-open'));
+    };
+
+    menuToggle.addEventListener('click', () => {
+      setMenuOpen(!navbarContent.classList.contains('is-open'));
+    });
+
+    navbarContent.querySelectorAll('.nav-link:not(.dropdown-toggle), .dropdown-item, .btn').forEach(link => {
+      link.addEventListener('click', () => setMenuOpen(false));
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if(event.key === 'Escape' && navbarContent.classList.contains('is-open')){
+        setMenuOpen(false);
+        menuToggle.focus();
+      }
+    });
+
+    if(typeof mobileMenuQuery.addEventListener === 'function'){
+      mobileMenuQuery.addEventListener('change', syncMenuWithViewport);
+    } else if(typeof mobileMenuQuery.addListener === 'function'){
+      mobileMenuQuery.addListener(syncMenuWithViewport);
+    }
+
+    syncMenuWithViewport();
+  }
+
+  // ---------- Scroll suave para âncoras da própria página ----------
+  const navbarHeight = () => mainNav ? mainNav.getBoundingClientRect().height : 0;
+  const scrollToAnchor = (targetEl, behavior = 'smooth') => {
+    const extraOffset = 12;
+    const targetTop = targetEl.getBoundingClientRect().top + window.scrollY - navbarHeight() - extraOffset;
+    window.scrollTo({top: Math.max(targetTop, 0), behavior});
+  };
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', (event) => {
       const hash = link.getAttribute('href');
       if(!hash || hash === '#') return;
-      trackEvent('anchor_click', {
-        target: hash,
-        source: linkLabel
-      });
+      const targetEl = document.getElementById(hash.substring(1));
+      if(!targetEl) return;
+
+      const priceFormat = targetEl.dataset.boloPriceFormat;
+      if(priceFormat){
+        const formatButton = [...document.querySelectorAll('[data-bolo-format]')]
+          .find(button => button.dataset.boloFormat === priceFormat);
+        if(formatButton){
+          event.preventDefault();
+          formatButton.click();
+          if(history.replaceState) history.replaceState(null, '', hash);
+          window.requestAnimationFrame(() => scrollToAnchor(targetEl));
+          return;
+        }
+      }
+
       event.preventDefault();
-      const isMenuOpen = navbarContent && navbarContent.classList.contains('show');
-      if(isMenuOpen && collapseController){
-        pendingScrollHash = hash;
-        collapseController.hide();
-      } else {
-        performAnchoredScroll(hash);
+      scrollToAnchor(targetEl);
+      if(history.replaceState){
+        history.replaceState(null, '', hash);
+      }
+    });
+  });
+
+  // ---------- Seletor unificado de formatos de bolo ----------
+  const configurarFormatosBolo = () => {
+    const selector = document.querySelector('[data-bolo-format-selector]');
+    if(!selector) return;
+
+    const buttons = [...selector.querySelectorAll('[data-bolo-format]')];
+    const panels = [...document.querySelectorAll('[data-formato-panel]')];
+    if(!buttons.length || !panels.length) return;
+
+    const formatIds = buttons.map(button => button.dataset.boloFormat);
+    const formatoDaHash = (hash) => {
+      if(formatIds.includes(hash)) return hash;
+      const prefix = 'precos-';
+      const formato = hash.startsWith(prefix) ? hash.slice(prefix.length) : '';
+      return formatIds.includes(formato) ? formato : null;
+    };
+    const formatLabel = (id) => {
+      const button = buttons.find(item => item.dataset.boloFormat === id);
+      return button?.querySelector('.bolo-formato-card-copy strong')?.textContent?.trim() || id;
+    };
+
+    const atualizarLinksPedido = (id) => {
+      const label = formatLabel(id);
+      document.querySelectorAll('[data-bolo-order]').forEach(link => {
+        const baseMessage = link.dataset.boloOrderBase;
+        const baseHref = link.getAttribute('href')?.split('?')[0];
+        if(!baseMessage || !baseHref) return;
+        const message = `${baseMessage} Formato escolhido: ${label}.`;
+        link.setAttribute('href', `${baseHref}?text=${encodeURIComponent(message)}`);
+      });
+    };
+
+    const reiniciarTransicaoFormato = (element) => {
+      if(!element) return;
+      element.classList.remove('is-format-changing');
+      void element.offsetWidth;
+      element.classList.add('is-format-changing');
+    };
+
+    let formatoAtivo = null;
+    const ativarFormato = (id, { atualizarUrl = true, animar = true } = {}) => {
+      const formato = formatIds.includes(id) ? id : formatIds[0];
+      const formatoMudou = formato !== formatoAtivo;
+
+      buttons.forEach(button => {
+        const selecionado = button.dataset.boloFormat === formato;
+        button.classList.toggle('is-selected', selecionado);
+        button.setAttribute('aria-selected', String(selecionado));
+        button.tabIndex = selecionado ? 0 : -1;
+      });
+
+      panels.forEach(panel => {
+        const selecionado = panel.dataset.formatoPanel === formato;
+        panel.hidden = !selecionado;
+        panel.setAttribute('aria-hidden', String(!selecionado));
+      });
+
+      const statusName = selector.querySelector('[data-bolo-format-status-name]');
+      if(statusName) statusName.textContent = formatLabel(formato);
+
+      const previewImage = selector.querySelector('[data-bolo-format-preview-image]');
+      const preview = selector.querySelector('[data-bolo-format-preview]');
+      const selectionNote = selector.querySelector('[data-bolo-format-status]');
+      const selectedButton = buttons.find(button => button.dataset.boloFormat === formato);
+      if(previewImage && selectedButton?.dataset.boloFormatImage){
+        previewImage.src = selectedButton.dataset.boloFormatImage;
+        previewImage.alt = selectedButton.dataset.boloFormatImageAlt || `Foto de um bolo ${formatLabel(formato).toLowerCase()}`;
+        preview?.style.setProperty('--format-media-image', `url("${selectedButton.dataset.boloFormatImage}")`);
+      }
+
+      if(animar && formatoMudou){
+        reiniciarTransicaoFormato(selectionNote);
+        reiniciarTransicaoFormato(preview);
+      }
+      formatoAtivo = formato;
+
+      atualizarLinksPedido(formato);
+      document.dispatchEvent(new CustomEvent('bolo-format-changed'));
+      if(atualizarUrl && window.history?.replaceState && window.location.hash !== `#${formato}`){
+        window.history.replaceState(null, '', `#${formato}`);
+      }
+    };
+
+    const hashFormat = window.location.hash.slice(1);
+    const initialFormat = formatoDaHash(hashFormat) || selector.dataset.initialFormat;
+    ativarFormato(initialFormat, { atualizarUrl: false, animar: false });
+    if(hashFormat === `precos-${initialFormat}`){
+      window.requestAnimationFrame(() => {
+        const targetEl = document.getElementById(hashFormat);
+        if(targetEl) scrollToAnchor(targetEl, 'auto');
+      });
+    }
+
+    buttons.forEach((button, index) => {
+      button.addEventListener('click', () => ativarFormato(button.dataset.boloFormat));
+      button.addEventListener('keydown', event => {
+        const key = event.key;
+        if(!['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp', 'Home', 'End'].includes(key)) return;
+
+        event.preventDefault();
+        let nextIndex = index;
+        if(key === 'ArrowRight' || key === 'ArrowDown') nextIndex = (index + 1) % buttons.length;
+        if(key === 'ArrowLeft' || key === 'ArrowUp') nextIndex = (index - 1 + buttons.length) % buttons.length;
+        if(key === 'Home') nextIndex = 0;
+        if(key === 'End') nextIndex = buttons.length - 1;
+        buttons[nextIndex].focus();
+        ativarFormato(buttons[nextIndex].dataset.boloFormat);
+      });
+    });
+
+    window.addEventListener('hashchange', () => {
+      const nextHash = window.location.hash.slice(1);
+      const nextFormat = formatoDaHash(nextHash);
+      if(!nextFormat) return;
+      ativarFormato(nextFormat, { atualizarUrl: false });
+      if(nextHash === `precos-${nextFormat}`){
+        window.requestAnimationFrame(() => {
+          const targetEl = document.getElementById(nextHash);
+          if(targetEl) scrollToAnchor(targetEl);
+        });
       }
     });
   };
 
-  document.querySelectorAll('#navbarContent a[href^="#"], .navbar-brand[href^="#"], #hero a[href^="#"], #heroCtas a[href^="#"]').forEach(registerAnchorLink);
+  configurarFormatosBolo();
 
-  function performAnchoredScroll(hash){
-    if(!hash || hash === '#') return;
-    const targetId = hash.startsWith('#') ? hash.substring(1) : hash;
-    if(!targetId) return;
-    const targetEl = document.getElementById(targetId);
-    if(!targetEl) return;
-    // Usar sempre a altura inicial da navbar (colapsada)
-    const extraOffset = 12;
-    const targetTop = targetEl.getBoundingClientRect().top + window.scrollY - navbarHeight - extraOffset;
-    window.scrollTo({
-      top: Math.max(targetTop, 0),
-      behavior: 'smooth'
-    });
-    if(history.replaceState){
-      history.replaceState(null, '', `#${targetId}`);
-    } else {
-      window.location.hash = targetId;
-    }
-  }
+  // ---------- Expansão responsiva das grades de produtos ----------
+  const configurarExpansaoProdutos = (listaProdutos, verMaisProdutos) => {
+    if(!listaProdutos) return;
+    let produtosExpandidos = false;
 
-  function normalizeCampaignData(data){
-    if(!data) return [];
-    if(Array.isArray(data)){
-      return data.filter(item => item && item.ativo && Array.isArray(item.produtos) && item.produtos.length);
-    }
-    if(data.ativo && Array.isArray(data.produtos) && data.produtos.length){
-      return [data];
-    }
-    return [];
-  }
+    const atualizarProdutosVisiveis = () => {
+      const produtos = [...listaProdutos.querySelectorAll('.prod-card')];
+      const colunas = Math.max(1, getComputedStyle(listaProdutos).gridTemplateColumns.trim().split(/\s+/).length);
+      const limite = listaProdutos.classList.contains('prod-grid-home')
+        ? produtos.length
+        : colunas === 1 ? produtos.length : Math.min(produtos.length, colunas);
 
-  function clearHeroButtons(container){
-    if(!container) return;
-    container.querySelectorAll('.cta-campaign').forEach(btn => btn.closest('.hero-cta-dynamic')?.remove());
-  }
-
-  function insertHeroButton(container, campaign){
-    if(!container || !campaign) return;
-
-    const btnWrapper = document.createElement('div');
-    btnWrapper.className = 'hero-cta-dynamic';
-
-  const button = document.createElement('a');
-    button.href = '#campanhas';
-    button.className = 'btn btn-lg cta-campaign';
-    const baseColor = campaign.cor_fundo || '#D8A657';
-    button.style.background = baseColor;
-    button.style.color = campaign.cor_texto || getReadableColor(baseColor);
-    button.innerText = campaign.campanha || 'Campanha especial';
-  button.dataset.analyticsName = `cta_${(campaign.campanha || 'campanha').toLowerCase()}`;
-    registerAnchorLink(button);
-
-    btnWrapper.appendChild(button);
-    container.insertBefore(btnWrapper, container.lastElementChild);
-  }
-
-  let flipIdCounter = 0;
-
-  // helper: create modern card element from product object
-  function createFlipCard(prod){
-    const cardId = `flip-card-${++flipIdCounter}`;
-    const titleId = `${cardId}-title`;
-    const priceId = `${cardId}-price`;
-    const descId = `${cardId}-desc`;
-    const productTitle = prod && prod.titulo ? prod.titulo : 'Produto Basilio';
-    const descText = prod.descricao && prod.descricao.trim().length ? prod.descricao : productTitle;
-
-    const card = document.createElement('article');
-    card.className = 'flip-card';
-    card.setAttribute('tabindex', '0');
-    card.setAttribute('role', 'button');
-    card.setAttribute('aria-labelledby', titleId);
-    card.setAttribute('aria-describedby', `${priceId} ${descId}`);
-    card.dataset.productTitle = productTitle;
-    card.dataset.productDesc = descText;
-    card.dataset.productImage = prod.imagem;
-    card.dataset.productPrice = getPriceLabel(prod.valor).text;
-
-    const priceLabel = getPriceLabel(prod.valor);
-    const priceClass = priceLabel.isCustom ? 'price price-alt' : 'price';
-    const priceAria = priceLabel.isCustom ? '' : ' aria-label="Valor sob consulta"';
-    
-    const badge = prod.badge || (prod.destaque ? 'Destaque' : '');
-    const badgeHTML = badge ? `<span class="card-badge">${escapeHtml(badge)}</span>` : '';
-
-    card.innerHTML = `
-      <div class="flip-inner">
-        <div class="flip-front">
-          <div class="card-image-wrapper">
-            <img src="${prod.imagem}" alt="${escapeHtml(productTitle)}" loading="lazy">
-            ${badgeHTML}
-          </div>
-          <div class="card-content">
-            <h5 id="${titleId}">${escapeHtml(productTitle)}</h5>
-            <p class="card-description" id="${descId}">${escapeHtml(descText)}</p>
-            <p id="${priceId}" class="${priceClass}"${priceAria}>${escapeHtml(priceLabel.text)}</p>
-          </div>
-        </div>
-      </div>
-    `;
-
-    // Click to open modal
-    card.addEventListener('click', () => {
-      openProductModal(productTitle, descText, prod.imagem, priceLabel.text);
-    });
-
-    // Enter/Space to open modal
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openProductModal(productTitle, descText, prod.imagem, priceLabel.text);
+      produtos.forEach((produto, indice) => {
+        produto.hidden = !produtosExpandidos && indice >= limite;
+      });
+      if(verMaisProdutos){
+        verMaisProdutos.hidden = produtosExpandidos || limite === produtos.length;
+        verMaisProdutos.setAttribute('aria-expanded', String(produtosExpandidos));
       }
-    });
-
-    return card;
-  }
-
-  function applyCampaignTheme(data){
-    const campSection = document.getElementById('campanhas');
-    if(!campSection) return;
-    const defaultBg = campSection.dataset.defaultBg || '#fff';
-    const bgColor = data.cor_fundo || defaultBg;
-    const accentColor = data.cor_secundaria || tintColor(bgColor, 0.25);
-    const textColor = data.cor_texto || getReadableColor(bgColor);
-
-    campSection.style.background = `linear-gradient(135deg, ${bgColor}, ${accentColor})`;
-    campSection.style.color = textColor;
-
-    const titleEl = document.getElementById('campTitle');
-    if(titleEl){
-      titleEl.innerText = data.campanha || 'Campanha especial';
-      titleEl.style.color = textColor;
-    }
-
-    const subtitleEl = document.getElementById('campSubtitle');
-    if(subtitleEl){
-      subtitleEl.innerText = 'Campanha exclusiva';
-      subtitleEl.style.color = getReadableColor(bgColor, 0.85);
-    }
-
-    const descEl = document.getElementById('campDescription');
-    if(descEl){
-      descEl.innerText = data.descricao || 'Descubra os itens sazonais com a mesma qualidade artesanal.';
-      descEl.style.color = getReadableColor(bgColor, 0.9);
-    }
-  }
-
-  function getReadableColor(hex, alpha = 1){
-    const rgb = hexToRgb(hex) || {r:255,g:255,b:255};
-    const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
-    const base = luminance > 0.62 ? 'rgba(74,52,47,' : 'rgba(255,255,255,';
-    return `${base}${alpha})`;
-  }
-
-  function tintColor(hex, amount = 0.2){
-    const rgb = hexToRgb(hex);
-    if(!rgb) return hex;
-    const mix = {
-      r: Math.round(rgb.r + (255 - rgb.r) * amount),
-      g: Math.round(rgb.g + (255 - rgb.g) * amount),
-      b: Math.round(rgb.b + (255 - rgb.b) * amount)
     };
-    return rgbToHex(mix);
-  }
 
-  function hexToRgb(hex){
-    if(!hex) return null;
-    const clean = hex.replace('#','');
-    if(clean.length !== 3 && clean.length !== 6) return null;
-    const normalized = clean.length === 3 ? clean.split('').map(ch => ch + ch).join('') : clean;
-    const intVal = parseInt(normalized, 16);
-    return {
-      r: (intVal >> 16) & 255,
-      g: (intVal >> 8) & 255,
-      b: intVal & 255
-    };
-  }
+    if(verMaisProdutos){
+      verMaisProdutos.addEventListener('click', () => {
+        produtosExpandidos = true;
+        atualizarProdutosVisiveis();
+      });
+    }
+    window.addEventListener('resize', atualizarProdutosVisiveis, {passive: true});
+    atualizarProdutosVisiveis();
+  };
 
-  function rgbToHex({r,g,b}){
-    const toHex = (value) => {
-      const clamped = Math.max(0, Math.min(255, value));
-      return clamped.toString(16).padStart(2, '0');
-    };
-    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-  }
+  configurarExpansaoProdutos(
+    document.getElementById('lista-produtos'),
+    document.querySelector('[data-ver-mais-produtos]')
+  );
+  document.querySelectorAll('[data-lista-relacionados]').forEach(lista => {
+    configurarExpansaoProdutos(lista, lista.parentElement.querySelector('[data-ver-mais-relacionados]'));
+  });
 
-  // ========== SWIPER CAROUSEL INITIALIZATION ==========
-  function initSwiper(containerSelector) {
-    if (typeof Swiper === 'undefined') {
-      console.warn('Swiper library not loaded');
-      return null;
+  // ---------- Navbar e botão flutuante: efeitos ao rolar ----------
+  const atualizarEstadoScroll = () => {
+    if(mainNav){
+      mainNav.classList.toggle('scrolled', window.pageYOffset > 100);
     }
 
-    const container = document.querySelector(containerSelector);
-    if (!container) return null;
+    if(whatsappFloat){
+      const distanciaDoFim = document.documentElement.scrollHeight - (window.scrollY + window.innerHeight);
+      whatsappFloat.classList.toggle('is-near-bottom', distanciaDoFim <= 120);
+    }
+  };
 
-    // Buscar os botões e paginação no container pai (.carousel-container)
+  window.addEventListener('scroll', atualizarEstadoScroll, {passive: true});
+  window.addEventListener('resize', atualizarEstadoScroll, {passive: true});
+  atualizarEstadoScroll();
+
+  // ---------- Swiper (carrossel de campanhas, quando ativo) ----------
+  if(document.querySelector('.campSwiper') && typeof Swiper !== 'undefined'){
+    const container = document.querySelector('.campSwiper');
     const carouselContainer = container.closest('.carousel-container');
-    
-    const swiper = new Swiper(containerSelector, {
+    new Swiper('.campSwiper', {
       slidesPerView: 1.2,
       spaceBetween: 20,
       grabCursor: true,
-      loop: false,
       watchOverflow: true,
-      
-      // Pagination (bolinhas) - buscar no container pai
       pagination: {
-        el: carouselContainer ? carouselContainer.querySelector('.swiper-pagination') : `${containerSelector} .swiper-pagination`,
+        el: carouselContainer ? carouselContainer.querySelector('.swiper-pagination') : null,
         clickable: false,
         dynamicBullets: true,
-        dynamicMainBullets: 1,
+        dynamicMainBullets: 1
       },
-      
-      // Navigation (setas) - buscar no container pai
       navigation: {
-        nextEl: carouselContainer ? carouselContainer.querySelector('.swiper-button-next') : `${containerSelector} .swiper-button-next`,
-        prevEl: carouselContainer ? carouselContainer.querySelector('.swiper-button-prev') : `${containerSelector} .swiper-button-prev`,
+        nextEl: carouselContainer ? carouselContainer.querySelector('.swiper-button-next') : null,
+        prevEl: carouselContainer ? carouselContainer.querySelector('.swiper-button-prev') : null
       },
-      
-      // Breakpoints responsivos
       breakpoints: {
-        // Mobile small
-        480: {
-          slidesPerView: 1.5,
-          spaceBetween: 16,
-        },
-        // Mobile
-        640: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-        },
-        // Tablet
-        768: {
-          slidesPerView: 2.5,
-          spaceBetween: 20,
-        },
-        // Desktop small
-        992: {
-          slidesPerView: 3,
-          spaceBetween: 24,
-        },
-        // Desktop
-        1200: {
-          slidesPerView: 3.5,
-          spaceBetween: 24,
-        },
-        // Desktop large
-        1400: {
-          slidesPerView: 4,
-          spaceBetween: 24,
-        }
+        480: {slidesPerView: 1.5, spaceBetween: 16},
+        640: {slidesPerView: 2, spaceBetween: 20},
+        768: {slidesPerView: 2.5, spaceBetween: 20},
+        992: {slidesPerView: 3, spaceBetween: 24},
+        1200: {slidesPerView: 3.5, spaceBetween: 24},
+        1400: {slidesPerView: 4, spaceBetween: 24}
       },
-      
-      // Acessibilidade
       a11y: {
         enabled: true,
         prevSlideMessage: 'Slide anterior',
-        nextSlideMessage: 'Próximo slide',
-        paginationBulletMessage: 'Ir para o slide {{index}}',
-      },
-      
-      // Eventos para analytics
-      on: {
-        slideChange: function() {
-          trackEvent('carousel_navigate', {
-            carousel: containerSelector.replace('.', ''),
-            index: this.activeIndex
-          });
-        }
+        nextSlideMessage: 'Próximo slide'
       }
-    });
-
-    // Remover animação de convite após primeiro clique no botão next
-    const nextButton = carouselContainer ? carouselContainer.querySelector('.swiper-button-next') : container.querySelector('.swiper-button-next');
-    if (nextButton) {
-      const removeInviteAnimation = () => {
-        nextButton.classList.add('clicked');
-        nextButton.removeEventListener('click', removeInviteAnimation);
-      };
-      nextButton.addEventListener('click', removeInviteAnimation);
-    }
-
-    return swiper;
-  }
-
-  // OLD CAROUSEL - Manter por compatibilidade (não usado atualmente)
-  function initCarousel(trackSelector, prevSelector, nextSelector, baseCardWidth = 240){
-    const track = document.querySelector(trackSelector);
-    const viewport = track ? track.closest('.carousel-viewport') : null;
-    const prevBtn = document.querySelector(prevSelector);
-    const nextBtn = document.querySelector(nextSelector);
-
-    if(!track || !viewport || !prevBtn || !nextBtn || !track.children.length){
-      return null;
-    }
-
-    const carouselName = trackSelector.replace('#','') || 'carousel';
-
-    const state = {
-      itemsPerView: 1,
-      viewWidth: viewport.clientWidth,
-      gap: getGap(track),
-      maxIndex: 0,
-      currentIndex: 0,
-      cardWidth: 0,
-      step: 0,
-      maxOffset: 0
-    };
-
-    const updateButtons = () => {
-      prevBtn.disabled = state.currentIndex === 0;
-      nextBtn.disabled = state.currentIndex >= state.maxIndex;
-    };
-
-    const updateLayout = () => {
-      const cards = Array.from(track.children);
-      if(!cards.length) return;
-
-      state.gap = getGap(track);
-      const viewportWidth = viewport.clientWidth;
-      const desired = baseCardWidth;
-      let items = Math.floor((viewportWidth + state.gap) / (desired + state.gap));
-      const minItemsByWidth = viewportWidth >= (desired * 2 + state.gap) ? 2 : 1;
-      items = Math.max(minItemsByWidth, items);
-      items = Math.min(items, cards.length || 1);
-      if(items < 1){
-        items = 1;
-      }
-      const cardWidth = Math.floor((viewportWidth - state.gap * (items - 1)) / items);
-
-      cards.forEach(card => {
-        card.style.flex = `0 0 ${cardWidth}px`;
-        card.style.maxWidth = `${cardWidth}px`;
-      });
-
-      state.itemsPerView = items;
-      state.viewWidth = viewportWidth;
-      state.cardWidth = cardWidth;
-      state.step = cardWidth + state.gap;
-      const totalWidth = cards.length * cardWidth + state.gap * Math.max(0, cards.length - 1);
-      state.maxOffset = Math.max(0, totalWidth - viewportWidth);
-      state.maxIndex = Math.max(0, cards.length - items);
-      if(state.currentIndex > state.maxIndex){
-        state.currentIndex = state.maxIndex;
-      }
-      updatePosition();
-    };
-
-    const updatePosition = () => {
-      const rawOffset = state.currentIndex * (state.step || 0);
-      const offset = Math.min(rawOffset, state.maxOffset || 0);
-      track.style.transform = `translate3d(-${offset}px, 0, 0)`;
-      updateButtons();
-    };
-
-    const handlePrev = () => {
-      if(state.currentIndex === 0) return;
-      state.currentIndex -= 1;
-      updatePosition();
-      trackEvent('carousel_navigate', {
-        carousel: carouselName,
-        direction: 'prev',
-        index: state.currentIndex
-      });
-    };
-
-    const handleNext = () => {
-      if(state.currentIndex >= state.maxIndex) return;
-      state.currentIndex += 1;
-      updatePosition();
-      trackEvent('carousel_navigate', {
-        carousel: carouselName,
-        direction: 'next',
-        index: state.currentIndex
-      });
-    };
-
-    const resizeHandler = debounce(updateLayout, 150);
-
-    prevBtn.addEventListener('click', handlePrev);
-    nextBtn.addEventListener('click', handleNext);
-    window.addEventListener('resize', resizeHandler);
-
-    // Touch/Swipe Support
-    let touchStartX = 0;
-    let touchEndX = 0;
-    let isDragging = false;
-
-    const handleTouchStart = (e) => {
-      touchStartX = e.touches[0].clientX;
-      isDragging = true;
-    };
-
-    const handleTouchMove = (e) => {
-      if (!isDragging) return;
-      touchEndX = e.touches[0].clientX;
-    };
-
-    const handleTouchEnd = () => {
-      if (!isDragging) return;
-      isDragging = false;
-      
-      const swipeThreshold = 50;
-      const diff = touchStartX - touchEndX;
-
-      if (Math.abs(diff) > swipeThreshold) {
-        if (diff > 0) {
-          // Swipe left - next
-          handleNext();
-        } else {
-          // Swipe right - prev
-          handlePrev();
-        }
-      }
-    };
-
-    viewport.addEventListener('touchstart', handleTouchStart, {passive: true});
-    viewport.addEventListener('touchmove', handleTouchMove, {passive: true});
-    viewport.addEventListener('touchend', handleTouchEnd);
-
-    updateLayout();
-
-    return () => {
-      prevBtn.removeEventListener('click', handlePrev);
-      nextBtn.removeEventListener('click', handleNext);
-      window.removeEventListener('resize', resizeHandler);
-      viewport.removeEventListener('touchstart', handleTouchStart);
-      viewport.removeEventListener('touchmove', handleTouchMove);
-      viewport.removeEventListener('touchend', handleTouchEnd);
-    };
-  }
-
-  function getGap(track){
-    const styles = window.getComputedStyle(track);
-    const gapToken = styles.columnGap || styles.gap || '16px';
-    const parsed = parseFloat(gapToken);
-    return Number.isFinite(parsed) ? parsed : 16;
-  }
-
-  function debounce(fn, delay){
-    let timeout;
-    return function(...args){
-      clearTimeout(timeout);
-      timeout = setTimeout(() => fn.apply(this, args), delay);
-    };
-  }
-
-  function getPriceLabel(value){
-    const trimmed = typeof value === 'string' ? value.trim() : '';
-    if(trimmed){
-      return {text: trimmed, isCustom: true};
-    }
-    const numericValue = Number(value);
-    if(Number.isFinite(numericValue) && numericValue > 0){
-      return {text: `R$ ${numericValue.toFixed(2)}`, isCustom: false};
-    }
-    return {text: 'Valor sob consulta', isCustom: false};
-  }
-
-  // simple escape
-  function escapeHtml(str){
-    if(!str) return '';
-    return String(str).replace(/[&<>"']/g, function(m){
-      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];
-    });
-  }
-
-  // ========== PRODUCT MODAL WITH ZOOM ==========
-  function openProductModal(title, description, imageSrc, price) {
-    const modal = document.getElementById('detailModal');
-    if (!modal) return;
-
-    const modalBody = document.getElementById('modalBody');
-    
-    if (modalBody) {
-      const msg = `Olá! Vi o item "${title}" no site e gostaria de encomendar.`;
-      const encodedMsg = encodeURIComponent(msg);
-      const whatsappLink = `https://wa.me/${WA_NUMBER}?text=${encodedMsg}`;
-      
-      modalBody.innerHTML = `
-        <div class="product-modal-image">
-          <img src="${imageSrc}" alt="${escapeHtml(title)}">
-        </div>
-        <div class="product-modal-text">
-          <h3 class="product-modal-title">${escapeHtml(title)}</h3>
-          <p class="product-modal-price">${escapeHtml(price)}</p>
-          <p class="product-modal-description">${escapeHtml(description)}</p>
-          <a href="${whatsappLink}" class="product-modal-btn" target="_blank" rel="noopener">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-            </svg>
-            Encomendar pelo WhatsApp
-          </a>
-        </div>
-      `;
-    }
-
-    const bsModal = new bootstrap.Modal(modal);
-    bsModal.show();
-
-    trackEvent('product_modal_opened', {
-      product_name: title
-    });
-  }
-
-  // ========== SCROLL REVEAL ANIMATIONS ==========
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-      }
-    });
-  }, observerOptions);
-
-  // Observe all scroll-reveal elements
-  document.querySelectorAll('.scroll-reveal').forEach(el => {
-    revealObserver.observe(el);
-  });
-
-  // Mostrar cards dos carrosséis imediatamente (sem scroll reveal)
-  const showCarouselCards = () => {
-    const carouselCards = document.querySelectorAll('#produtos .flip-card, #campanhas .flip-card');
-    carouselCards.forEach(card => {
-      card.classList.add('card-visible');
-    });
-  };
-  
-  // Executar após um pequeno delay para garantir que os cards foram criados
-  setTimeout(showCarouselCards, 100);
-
-  // ========== NAVBAR SCROLL EFFECT ==========
-  let lastScroll = 0;
-  const navbar = document.getElementById('mainNav');
-
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll > 100) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-    
-    lastScroll = currentScroll;
-  });
-
-  // ========== LAZY LOADING FOR IMAGES ==========
-  if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          if (img.dataset.src) {
-            img.src = img.dataset.src;
-            img.removeAttribute('data-src');
-          }
-          imageObserver.unobserve(img);
-        }
-      });
-    });
-
-    document.querySelectorAll('img[data-src]').forEach(img => {
-      imageObserver.observe(img);
     });
   }
 

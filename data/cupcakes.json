@@ -1,0 +1,40 @@
+{
+  "slug": "cupcakes",
+  "titulo": "Cupcakes",
+  "tituloVisivel": "Cupcakes Decorados",
+  "tituloCompleto": "Cupcakes Decorados em Santo André",
+  "subtitulo": "Cupcakes recheados com decoração personalizada, por unidade ou em caixas com 2 e 6 unidades.",
+  "imagem": "assets/images/produtos/cupcake.webp",
+  "precoDestaque": "A partir de R$ 13",
+  "mensagemWhatsApp": "Olá! Quero encomendar cupcakes. Podem me ajudar?",
+  "opcoes": [
+    { "nome": "Unidade", "descricao": "Cupcake recheado com decoração personalizada.", "preco": "R$ 13" },
+    { "nome": "Caixa com 2 unidades", "descricao": "2 cupcakes em caixa, com decoração personalizada.", "preco": "R$ 24" },
+    { "nome": "Caixa com 6 unidades", "descricao": "6 cupcakes em caixa, com decoração personalizada.", "preco": "R$ 66" },
+    { "nome": "Cupcakes temáticos", "descricao": "Tema, personagens e cores da festa; orçamento conforme a complexidade.", "preco": "Sob consulta" }
+  ],
+  "coberturas": [
+    { "nome": "Chantilly", "acrescimo": false },
+    { "nome": "Pasta americana", "acrescimo": true }
+  ],
+  "notaCoberturas": "Chantilly sem acréscimo; pasta americana com acréscimo conforme a complexidade.",
+  "nota": "Massa fofinha e recheada, com sabor e beleza em cada detalhe. Consulte os sabores disponíveis no momento do pedido.",
+  "faq": [
+    {
+      "q": "Quanto custa um cupcake decorado em Santo André?",
+      "a": "O cupcake decorado custa R$ 13 por unidade, R$ 24 na caixa com 2 unidades ou R$ 66 na caixa com 6 unidades. A cobertura de chantilly não tem acréscimo; pasta americana tem acréscimo conforme a complexidade da decoração. Cupcakes temáticos são orçados conforme a complexidade."
+    },
+    {
+      "q": "Vocês fazem cupcakes personalizados para festas?",
+      "a": "Sim. Os cupcakes podem ter decoração personalizada com o tema, as cores e os personagens da festa. Envie uma referência pelo WhatsApp para receber o orçamento."
+    },
+    {
+      "q": "Os cupcakes da Basilio Bolos são recheados?",
+      "a": "Sim. Todos os cupcakes são recheados; os sabores disponíveis podem variar e são confirmados pelo WhatsApp no momento do pedido."
+    },
+    {
+      "q": "Quais coberturas posso escolher nos cupcakes?",
+      "a": "Você pode escolher chantilly, sem acréscimo, ou pasta americana, com acréscimo conforme a complexidade da decoração."
+    }
+  ]
+}

@@ -9,5 +9,5 @@ Disallow: /data/
 # Sitemaps
 Sitemap: https://basiliobolos.com.br/sitemap.xml
 
-# Crawl-delay (opcional - ajustar se necessário)
-# Crawl-delay: 1
+# Resumo do negócio para agentes de IA
+# https://basiliobolos.com.br/llms.txt

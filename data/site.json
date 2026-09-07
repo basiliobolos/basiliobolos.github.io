@@ -1,0 +1,31 @@
+{
+  "nome": "Basilio Bolos",
+  "slogan": "Transformando momentos em doces memórias",
+  "descricao": "Confeitaria artesanal em Santo André/SP especializada em bolos de aniversário e personalizados, doces finos, biscoitos decorados, cupcakes, brownies e pipoca gourmet. Atendemos Parque das Nações, Santa Terezinha, Vila Curuçá e toda a região do ABC.",
+  "url": "https://basiliobolos.com.br",
+  "whatsappNumero": "5511978458498",
+  "telefoneDisplay": "(11) 97845-8498",
+  "endereco": {
+    "rua": "Av. Estados Unidos, 439",
+    "bairro": "Parque das Nações",
+    "cidade": "Santo André",
+    "uf": "SP",
+    "cep": "09210-300",
+    "mapsUrl": "https://maps.app.goo.gl/2Jw8sBdD5A7s3rWm9"
+  },
+  "horario": "Segunda a sábado, das 8h às 20h",
+  "horarioSchema": { "opens": "08:00", "closes": "20:00" },
+  "bairrosAtendidos": ["Santa Terezinha", "Parque das Nações", "Centro", "Jardim", "Vila Curuçá", "Parque Oratório", "Vila Camilópolis"],
+  "social": {
+    "instagram": "https://www.instagram.com/basiliobolos/",
+    "facebook": "https://web.facebook.com/basiliobolos/",
+    "tiktok": "https://www.tiktok.com/@basiliobolos"
+  },
+  "mensagemPadrao": "Olá! Vi o site de vocês e gostaria de fazer uma encomenda. Pode me ajudar?",
+  "politicas": {
+    "antecedencia": "Pedidos com no mínimo 3 dias úteis de antecedência.",
+    "confirmacao": "O pedido só é confirmado após o pagamento de 30% do valor.",
+    "pagamento": "Pix, dinheiro, cartão de débito e crédito (por link ou aproximação, com taxa de 4,2%).",
+    "retirada": "Não realizamos entregas. A retirada é feita no local, com horário marcado, ou via Uber/99 por conta e responsabilidade do cliente."
+  }
+}
