@@ -79,6 +79,45 @@ const paginasSimples = [
   readJSON('pipoca-gourmet.json')
 ];
 
+const imagemSocialPadrao = {
+  ogImage: `${site.url}/assets/images/hero/hero.jpeg`,
+  ogImageAlt: `Seleção de bolos e doces artesanais ${site.nome}`,
+  ogImageType: 'image/jpeg',
+  ogImageWidth: 1002,
+  ogImageHeight: 991
+};
+
+const dimensoesImagensSociais = {
+  bolos: { type: 'image/webp', width: 800, height: 800 },
+  'bento-cake': { type: 'image/webp', width: 720, height: 720 },
+  doces: { type: 'image/webp', width: 800, height: 800 },
+  cupcakes: { type: 'image/webp', width: 1600, height: 1600 },
+  biscoitos: { type: 'image/webp', width: 2048, height: 2048 },
+  brownies: { type: 'image/webp', width: 800, height: 800 },
+  'pipoca-gourmet': { type: 'image/webp', width: 800, height: 800 }
+};
+
+function imagemProduto(slug) {
+  const produto = produtoPorSlug.get(slug);
+  if (!produto?.imagem) throw new Error(`Produto sem imagem configurada: ${slug}`);
+  return produto.imagem;
+}
+
+function metadadosImagemSocial(slug) {
+  const produto = produtoPorSlug.get(slug);
+  if (!produto?.imagem) return imagemSocialPadrao;
+  const dimensoes = dimensoesImagensSociais[slug];
+  return {
+    ogImage: `${site.url}/${produto.imagem}`,
+    ogImageAlt: `${produto.titulo} - ${site.nome}`,
+    ...(dimensoes ? {
+      ogImageType: dimensoes.type,
+      ogImageWidth: dimensoes.width,
+      ogImageHeight: dimensoes.height
+    } : {})
+  };
+}
+
 const hoje = new Date().toISOString().slice(0, 10);
 
 // ---------- Helpers ----------
@@ -189,7 +228,7 @@ const boloUnificado = {
   tituloVisivel: 'Bolos de aniversário personalizados',
   tituloCompleto: 'Bolos de aniversário personalizados para cada comemoração',
   subtitulo: bolos.subtitulo,
-  imagem: bolos.imagem,
+  imagem: imagemProduto('bolos'),
   precoDestaque: `A partir de ${money(minBolosPersonalizados)}`,
   mensagemWhatsApp: 'Olá! Quero encomendar um bolo personalizado. Podem me ajudar a escolher o formato e montar?'
 };
@@ -271,8 +310,17 @@ const SEO = {
 };
 
 // ---------- Componentes de layout ----------
-function head({ seo, canonical, jsonLd, ogType = 'website', robots = 'index, follow', usaSwiper = false }) {
-  const ogImage = `${site.url}/assets/images/hero/hero.jpeg`;
+function head({ seo, canonical, jsonLd, ogType = 'website', robots = 'index, follow', usaSwiper = false, ogImage, ogImageAlt, ogImageType, ogImageWidth, ogImageHeight }) {
+  const socialImage = ogImage
+    ? { ogImage, ogImageAlt, ogImageType, ogImageWidth, ogImageHeight }
+    : imagemSocialPadrao;
+  const socialImageTags = [
+    `  <meta property="og:image" content="${esc(socialImage.ogImage)}" />`,
+    socialImage.ogImageAlt ? `  <meta property="og:image:alt" content="${esc(socialImage.ogImageAlt)}" />` : '',
+    socialImage.ogImageType ? `  <meta property="og:image:type" content="${esc(socialImage.ogImageType)}" />` : '',
+    socialImage.ogImageWidth != null ? `  <meta property="og:image:width" content="${esc(socialImage.ogImageWidth)}" />` : '',
+    socialImage.ogImageHeight != null ? `  <meta property="og:image:height" content="${esc(socialImage.ogImageHeight)}" />` : ''
+  ].filter(Boolean).join('\n');
   // </script> não é escapado por JSON.stringify; < vira < (válido em JSON, seguro em script)
   const safeLd = (obj) => JSON.stringify(obj, null, 2).replace(/</g, '\\u003c');
   const ldScripts = (jsonLd || []).map((obj) => `  <script type="application/ld+json">\n${safeLd(obj).split('\n').map((l) => '  ' + l).join('\n')}\n  </script>`).join('\n');
@@ -295,16 +343,12 @@ function head({ seo, canonical, jsonLd, ogType = 'website', robots = 'index, fol
   <meta property="og:description" content="${esc(seo.description)}" />
   <meta property="og:url" content="${site.url}${canonical}" />
   <meta property="og:site_name" content="${esc(site.nome)}" />
-  <meta property="og:image" content="${ogImage}" />
-  <meta property="og:image:alt" content="Seleção de bolos e doces artesanais ${esc(site.nome)}" />
-  <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:image:width" content="1002" />
-  <meta property="og:image:height" content="991" />
+${socialImageTags}
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${esc(seo.title)}" />
   <meta name="twitter:description" content="${esc(seo.description)}" />
-  <meta name="twitter:image" content="${ogImage}" />
-  <meta name="twitter:image:alt" content="Seleção de bolos e doces artesanais ${esc(site.nome)}" />
+  <meta name="twitter:image" content="${esc(socialImage.ogImage)}" />
+${socialImage.ogImageAlt ? `  <meta name="twitter:image:alt" content="${esc(socialImage.ogImageAlt)}" />` : ''}
   <meta name="twitter:site" content="@basiliobolos" />
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon-v2-96x96.png">
   <link rel="icon" href="/favicon-v2.ico">
@@ -417,10 +461,10 @@ function privacyBanner() {
   </aside>`;
 }
 
-function layout({ seo, canonical, active, jsonLd, body, usaSwiper = false, ogType = active === 'home' ? 'website' : 'product', robots = 'index, follow', minimal = false }) {
+function layout({ seo, canonical, active, jsonLd, body, usaSwiper = false, ogType = active === 'home' ? 'website' : 'product', robots = 'index, follow', minimal = false, ogImage, ogImageAlt, ogImageType, ogImageWidth, ogImageHeight }) {
   return `<!doctype html>
 <html lang="pt-BR">
-${head({ seo, canonical, jsonLd, ogType, robots, usaSwiper })}
+${head({ seo, canonical, jsonLd, ogType, robots, usaSwiper, ogImage, ogImageAlt, ogImageType, ogImageWidth, ogImageHeight })}
 <body>
   <a class="skip-link" href="#conteudoPrincipal">Pular para o conteúdo principal</a>
 ${navbar(active)}
@@ -1156,7 +1200,7 @@ ${relatedSection('bolos', { tone: 'dark' })}`;
     breadcrumbLd(boloUnificado.titulo, url)
   ];
 
-  return layout({ seo: SEO.bolos, canonical: `/${url}`, active: 'bolos', jsonLd, body });
+  return layout({ seo: SEO.bolos, canonical: `/${url}`, active: 'bolos', jsonLd, body, ...metadadosImagemSocial('bolos') });
 }
 
 // ---------- Página de Bentô Cake ----------
@@ -1173,7 +1217,7 @@ function renderBentoCake() {
     tituloVisivel: 'Bentô Cake',
     tituloCompleto: 'Bentô Cake em Santo André',
     subtitulo: 'Bolo individual de 10cm, com recheio e decoração personalizados.',
-    imagem: 'assets/images/produtos/bento-cake.webp',
+    imagem: imagemProduto('bento-cake'),
     precoDestaque: `A partir de ${money(minBento)}`,
     mensagemWhatsApp: 'Olá! Quero encomendar um bentô cake. Podem me passar as opções?'
   };
@@ -1336,7 +1380,7 @@ ${relatedSection('bento-cake', { tone: 'dark' })}`;
     breadcrumbLd('Bentô Cake', 'bento-cake/')
   ];
 
-  return layout({ seo: SEO['bento-cake'], canonical: '/bento-cake/', active: 'bento-cake', jsonLd, body });
+  return layout({ seo: SEO['bento-cake'], canonical: '/bento-cake/', active: 'bento-cake', jsonLd, body, ...metadadosImagemSocial('bento-cake') });
 }
 
 // ---------- Página de Doces ----------
@@ -1396,7 +1440,7 @@ ${relatedSection('doces', { tone: 'dark' })}`;
     breadcrumbLd(doces.titulo, 'doces/')
   ];
 
-  return layout({ seo: SEO.doces, canonical: '/doces/', active: 'doces', jsonLd, body });
+  return layout({ seo: SEO.doces, canonical: '/doces/', active: 'doces', jsonLd, body, ...metadadosImagemSocial('doces') });
 }
 
 // ---------- Páginas simples (biscoitos, cupcakes, brownies, pipoca) ----------
@@ -1470,7 +1514,7 @@ ${relatedSection(data.slug, { tone: 'dark' })}`;
     breadcrumbLd(data.titulo, `${data.slug}/`)
   ];
 
-  return layout({ seo: SEO[data.slug], canonical: `/${data.slug}/`, active: data.slug, jsonLd, body });
+  return layout({ seo: SEO[data.slug], canonical: `/${data.slug}/`, active: data.slug, jsonLd, body, ...metadadosImagemSocial(data.slug) });
 }
 
 // ---------- Sitemap e llms.txt ----------
@@ -1483,7 +1527,6 @@ function renderSitemap() {
         { loc: '/assets/images/brand/logo.jpeg', title: 'Logo Basilio Bolos' }
       ]
     },
-    { loc: '/privacidade/', priority: '0.3', changefreq: 'yearly', images: [] },
     ...produtos.filter((p) => !p.url.includes('#')).map((p) => ({
       loc: `/${p.url}`, priority: '0.9', changefreq: 'weekly',
       images: [{ loc: `/${p.imagem}`, title: `${p.titulo} - ${site.nome}` }]
@@ -1593,7 +1636,8 @@ function renderPrivacy() {
     active: null,
     jsonLd: [],
     body,
-    ogType: 'article'
+    ogType: 'article',
+    robots: 'noindex, follow'
   });
 }
 
@@ -1636,7 +1680,6 @@ for (const relPath of PUBLIC_FILES) copyPublicFile(relPath);
 
 writeFile('index.html', renderHome());
 writeFile('bolos/index.html', renderBolos('redondo'));
-writeFile('bolos-retangulares/index.html', renderBolos('retangular'));
 writeFile('bento-cake/index.html', renderBentoCake());
 writeFile('doces/index.html', renderDoces());
 for (const data of paginasSimples) {
