@@ -1,7 +1,7 @@
 {
   "produtos": [
     {
-      "titulo": "Bolos personalizados",
+      "titulo": "Bolos Personalizados",
       "slug": "bolos",
       "imagem": "assets/images/produtos/bolos-redondos.webp",
       "descricao": "Bolos redondos, em formato de coração e retangulares, com mais de 20 sabores de recheio, duas opções de massa e cobertura de chantilly ou ganache.",
