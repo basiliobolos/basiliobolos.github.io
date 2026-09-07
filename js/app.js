@@ -363,60 +363,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
   configurarFormatosBolo();
 
-  // ---------- Carrossel mobile de sugestões de corte ----------
-  const configurarCarrosseisDeCorte = () => {
-    const atualizarNavegacao = [];
-
-    document.querySelectorAll('[data-slice-carousel]').forEach(carousel => {
-      const track = carousel.querySelector('[data-slice-carousel-track]');
-      const previous = carousel.querySelector('[data-slice-carousel-prev]');
-      const next = carousel.querySelector('[data-slice-carousel-next]');
-      const controls = carousel.querySelector('[data-slice-carousel-controls]');
-      const cards = [...(track?.querySelectorAll('.slice-suggestion-card') || [])];
-      if(!track || !previous || !next || cards.length < 2){
-        if(controls) controls.hidden = true;
-        return;
-      }
-
-      const atualizarBotoes = () => {
-        const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
-        previous.hidden = track.scrollLeft <= 2;
-        next.hidden = track.scrollLeft >= maxScroll - 2;
-      };
-
-      const scrollByCard = (direction) => {
-        const trackStyle = getComputedStyle(track);
-        const gap = parseFloat(trackStyle.columnGap) || parseFloat(trackStyle.gap) || 0;
-        const distance = cards[0].getBoundingClientRect().width + gap;
-        track.scrollBy({left: direction * distance, behavior: 'smooth'});
-      };
-
-      previous?.addEventListener('click', () => scrollByCard(-1));
-      next?.addEventListener('click', () => scrollByCard(1));
-      track.addEventListener('scroll', atualizarBotoes, {passive: true});
-      track.addEventListener('keydown', event => {
-        if(event.key === 'ArrowLeft'){
-          event.preventDefault();
-          scrollByCard(-1);
-        }
-        if(event.key === 'ArrowRight'){
-          event.preventDefault();
-          scrollByCard(1);
-        }
-      });
-      atualizarNavegacao.push(atualizarBotoes);
-      atualizarBotoes();
-    });
-
-    const atualizarTodosOsBotoes = () => atualizarNavegacao.forEach(atualizar => atualizar());
-    document.addEventListener('bolo-format-changed', () => {
-      window.requestAnimationFrame(atualizarTodosOsBotoes);
-    });
-    window.addEventListener('resize', atualizarTodosOsBotoes, {passive: true});
-  };
-
-  configurarCarrosseisDeCorte();
-
   // ---------- Expansão responsiva das grades de produtos ----------
   const configurarExpansaoProdutos = (listaProdutos, verMaisProdutos) => {
     if(!listaProdutos || !verMaisProdutos) return;
