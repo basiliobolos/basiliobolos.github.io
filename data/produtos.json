@@ -30,8 +30,8 @@
       "titulo": "Cupcakes",
       "slug": "cupcakes",
       "imagem": "assets/images/produtos/cupcake.webp",
-      "descricao": "Cupcakes decorados com temas personalizados, massa fofinha e recheio generoso. Por unidade ou em caixa com 2 unidades.",
-      "descricaoCurta": "Cupcakes recheados e personalizados, por unidade ou em caixa com 2.",
+      "descricao": "Cupcakes decorados com temas personalizados, massa fofinha e recheio generoso. Por unidade ou em caixas com 2 ou 6 unidades.",
+      "descricaoCurta": "Cupcakes recheados e personalizados, por unidade ou em caixas com 2 ou 6.",
       "precoDestaque": "A partir de R$ 13",
       "url": "cupcakes/"
     },

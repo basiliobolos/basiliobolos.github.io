@@ -3277,8 +3277,9 @@ html{scroll-behavior:smooth}
 }
 .cobertura-row--free,
 .cobertura-row--paid{
-  background:var(--surface-light);
-  border-color:rgba(84,56,47,0.2);
+  background:var(--surface-card);
+  border-color:rgba(84,56,47,0.28);
+  box-shadow:0 3px 10px rgba(84,56,47,0.06);
 }
 .cobertura-tag--free,
 .cobertura-tag--paid{

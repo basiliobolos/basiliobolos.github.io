@@ -258,7 +258,7 @@ const SEO = {
   },
   cupcakes: {
     title: 'Cupcakes Decorados em Santo André | Basilio Bolos',
-    description: 'Cupcakes recheados e decorados em Santo André: unidade R$ 13 ou caixa com 2 por R$ 24. Personalize o tema e encomende pelo WhatsApp!'
+    description: 'Cupcakes recheados e decorados em Santo André: unidade R$ 13, caixa com 2 por R$ 24 ou caixa com 6 por R$ 66. Chantilly sem acréscimo ou pasta americana conforme a complexidade.'
   },
   brownies: {
     title: 'Brownies Artesanais em Santo André | Basilio Bolos',
@@ -1423,6 +1423,29 @@ function renderSimples(data) {
           ${data.sabores.map((s) => `<span class="flavor-chip">${esc(s)}</span>`).join('\n          ')}
         </div>` : '';
 
+  const coberturasBlock = data.coberturas ? `
+        <div class="section-header text-center mt-5 mb-3">
+          <h3 class="section-badge-title">Coberturas</h3>
+          <p class="mx-auto section-support">${esc(data.notaCoberturas || '')}</p>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="coberturas-list">
+              ${data.coberturas.map((c) => {
+                const paid = Boolean(c.acrescimo);
+                const tone = paid ? 'paid' : 'free';
+                return `
+              <div class="cobertura-row cobertura-row--${tone}">
+                <div class="cobertura-info">
+                  <span class="cobertura-nome">${esc(c.nome)}</span>
+                  <span class="cobertura-tag cobertura-tag--${tone}">${paid ? 'com acréscimo' : 'sem acréscimo'}</span>
+                </div>
+              </div>`;
+              }).join('\n')}
+            </div>
+          </div>
+        </div>` : '';
+
   const body = `
 ${pageHero(data, SEO[data.slug])}
 
@@ -1444,6 +1467,7 @@ ${pageHero(data, SEO[data.slug])}
             </div>
           </div>`).join('')}
         </div>
+        ${coberturasBlock}
         <p class="table-note text-center mt-4">${esc(data.nota)}</p>
       </div>
     </section>
