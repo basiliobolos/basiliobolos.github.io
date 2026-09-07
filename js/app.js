@@ -269,8 +269,17 @@ document.addEventListener('DOMContentLoaded', function(){
       });
     };
 
-    const ativarFormato = (id, { atualizarUrl = true } = {}) => {
+    const reiniciarTransicaoFormato = (element) => {
+      if(!element) return;
+      element.classList.remove('is-format-changing');
+      void element.offsetWidth;
+      element.classList.add('is-format-changing');
+    };
+
+    let formatoAtivo = null;
+    const ativarFormato = (id, { atualizarUrl = true, animar = true } = {}) => {
       const formato = formatIds.includes(id) ? id : formatIds[0];
+      const formatoMudou = formato !== formatoAtivo;
 
       buttons.forEach(button => {
         const selecionado = button.dataset.boloFormat === formato;
@@ -289,11 +298,20 @@ document.addEventListener('DOMContentLoaded', function(){
       if(statusName) statusName.textContent = formatLabel(formato);
 
       const previewImage = selector.querySelector('[data-bolo-format-preview-image]');
+      const preview = selector.querySelector('[data-bolo-format-preview]');
+      const selectionNote = selector.querySelector('[data-bolo-format-status]');
       const selectedButton = buttons.find(button => button.dataset.boloFormat === formato);
       if(previewImage && selectedButton?.dataset.boloFormatImage){
         previewImage.src = selectedButton.dataset.boloFormatImage;
-        previewImage.alt = selectedButton.dataset.boloFormatImageAlt || `Imagem ilustrativa de um bolo ${formatLabel(formato).toLowerCase()}`;
+        previewImage.alt = selectedButton.dataset.boloFormatImageAlt || `Foto de um bolo ${formatLabel(formato).toLowerCase()}`;
+        preview?.style.setProperty('--format-media-image', `url("${selectedButton.dataset.boloFormatImage}")`);
       }
+
+      if(animar && formatoMudou){
+        reiniciarTransicaoFormato(selectionNote);
+        reiniciarTransicaoFormato(preview);
+      }
+      formatoAtivo = formato;
 
       atualizarLinksPedido(formato);
       document.dispatchEvent(new CustomEvent('bolo-format-changed'));
@@ -304,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     const hashFormat = window.location.hash.slice(1);
     const initialFormat = formatoDaHash(hashFormat) || selector.dataset.initialFormat;
-    ativarFormato(initialFormat, { atualizarUrl: false });
+    ativarFormato(initialFormat, { atualizarUrl: false, animar: false });
     if(hashFormat === `precos-${initialFormat}`){
       window.requestAnimationFrame(() => {
         const targetEl = document.getElementById(hashFormat);

@@ -2036,6 +2036,7 @@ html{scroll-behavior:smooth}
   display:flex;
   align-items:center;
   justify-content:center;
+  width:100%;
   gap:0.55rem;
   max-width:720px;
   margin:1rem auto 0;
@@ -2052,19 +2053,45 @@ html{scroll-behavior:smooth}
   font-size:1.1rem;
 }
 .bolo-formato-preview{
-  max-width:700px;
-  margin:1.35rem auto 0;
-  overflow:hidden;
-  border:1px solid rgba(84,56,47,0.12);
-  border-radius:24px;
-  background:var(--branco);
-  box-shadow:0 14px 32px rgba(84,56,47,0.14);
-}
-.bolo-formato-preview img{
-  display:block;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   width:100%;
   height:clamp(180px, 24vw, 300px);
-  object-fit:cover;
+  max-width:720px;
+  margin:1.35rem auto 0;
+  overflow:hidden;
+  border:1px solid rgba(84,56,47,0.07);
+  border-radius:20px;
+  background:var(--card-media-bg);
+  box-shadow:var(--shadow-sm);
+  isolation:isolate;
+}
+.bolo-formato-preview::before{
+  content:'';
+  position:absolute;
+  inset:-1.25rem;
+  z-index:0;
+  background-image:var(--format-media-image, none);
+  background-position:center;
+  background-size:cover;
+  filter:blur(var(--card-media-blur));
+  opacity:var(--card-media-opacity);
+  transform:scale(var(--card-media-scale));
+}
+.bolo-formato-preview img{
+  position:relative;
+  z-index:1;
+  display:block;
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+  object-position:center;
+  -webkit-mask-image:radial-gradient(ellipse at center, var(--preto) var(--card-media-fade-start), rgba(0,0,0,var(--card-media-fade-opacity)) var(--card-media-fade-middle), transparent 100%);
+  mask-image:radial-gradient(ellipse at center, var(--preto) var(--card-media-fade-start), rgba(0,0,0,var(--card-media-fade-opacity)) var(--card-media-fade-middle), transparent 100%);
 }
 .bolo-formato-help{
   display:flex;
@@ -2092,8 +2119,25 @@ html{scroll-behavior:smooth}
   background:var(--branco);
   box-shadow:0 8px 28px rgba(84,56,47,0.1);
 }
+.bolo-formato-panel:not([hidden]){
+  animation:bolo-formato-content-in 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.bolo-formato-selection-note.is-format-changing,
+.bolo-formato-preview.is-format-changing{
+  animation:bolo-formato-content-in 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
 .bolo-formato-panel[hidden]{
   display:none;
+}
+@keyframes bolo-formato-content-in{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 .bolo-formato-panel-head{
   padding-bottom:1.5rem;

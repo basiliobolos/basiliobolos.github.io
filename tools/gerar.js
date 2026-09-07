@@ -138,8 +138,8 @@ const formatosBolo = [
     descricao: 'Do P ao GG, o formato clássico para aniversários e celebrações.',
     fatiasResumo: '10 a 48 fatias',
     icone: 'fa-circle',
-    imagem: 'assets/images/formatos/bolo-redondo.svg',
-    imagemAlt: 'Imagem ilustrativa de um bolo redondo',
+    imagem: 'assets/images/formatos/bolo-redondo.webp',
+    imagemAlt: 'Foto de um bolo redondo decorado com flores azuis',
     data: bolos,
     tamanhos: bolos.tamanhos.filter((t) => t.pesoKg),
     minimos: minPorTamanho,
@@ -152,8 +152,8 @@ const formatosBolo = [
     descricao: '17x25cm ou 22x30cm.',
     fatiasResumo: '24 a 44 fatias',
     icone: 'fa-square',
-    imagem: 'assets/images/formatos/bolo-retangular.svg',
-    imagemAlt: 'Imagem ilustrativa de um bolo retangular',
+    imagem: 'assets/images/formatos/bolo-retangular.webp',
+    imagemAlt: 'Foto de um bolo retangular decorado com chocolate e cerejas douradas',
     data: bolosRetangulares,
     tamanhos: bolosRetangulares.tamanhos.filter((t) => t.id !== 'coracao'),
     minimos: minPorTamanhoRetangular,
@@ -166,8 +166,8 @@ const formatosBolo = [
     descricao: 'Formato especial para celebrar.',
     fatiasResumo: '10 a 14 fatias',
     icone: 'fa-heart',
-    imagem: 'assets/images/formatos/bolo-coracao.svg',
-    imagemAlt: 'Imagem ilustrativa de um bolo em formato de coração',
+    imagem: 'assets/images/formatos/bolo-coracao.webp',
+    imagemAlt: 'Foto de um bolo em formato de coração decorado com cobertura branca',
     data: bolosRetangulares,
     tamanhos: bolosRetangulares.tamanhos.filter((t) => t.id === 'coracao'),
     minimos: minPorTamanhoRetangular,
@@ -454,10 +454,6 @@ function breadcrumb(items) {
 
 function pageHero(data, seo) {
   const tituloHero = data.tituloVisivel || data.tituloCompleto;
-  const heroCtaLabel = data.slug === 'bolos' ? 'Pedir pelo WhatsApp' : 'Encomendar pelo WhatsApp';
-  const boloOrderAttrs = data.slug === 'bolos'
-    ? ` data-bolo-order data-bolo-order-base="${esc(data.mensagemWhatsApp)}"`
-    : '';
   return `
     <header class="page-hero page-hero--with-image" style="--hero-image:url('/${esc(data.imagem)}')">
       <div class="container">
@@ -467,11 +463,6 @@ function pageHero(data, seo) {
             <h1 class="page-hero-title">${esc(tituloHero)}</h1>
             <p class="page-hero-subtitle">${esc(data.subtitulo)}</p>
             <p class="page-hero-price">${esc(data.precoDestaque)}</p>
-            <div class="d-flex flex-wrap gap-3 mt-3">
-              <a href="${waHref(data.mensagemWhatsApp)}" class="btn btn-lg btn-whatsapp page-hero-btn-secondary" target="_blank" rel="noopener" data-track="hero"${boloOrderAttrs}>
-                ${waIcon} ${heroCtaLabel}
-              </a>
-            </div>
           </div>
           <div class="col-lg-5 text-center">
             <div class="page-hero-image">
@@ -1208,9 +1199,9 @@ ${pageHero(boloUnificado, SEO.bolos)}
             <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
             <span><strong>Formato:</strong> <span data-bolo-format-status-name>${esc(formatoInicialNome)}</span></span>
          </aside>
-         <figure class="bolo-formato-preview" data-bolo-format-preview>
-           <img src="/${esc(formatoInicialData.imagem)}" alt="${esc(formatoInicialData.imagemAlt)}" width="1200" height="720" loading="lazy" decoding="async" data-bolo-format-preview-image>
-           <figcaption class="sr-only">Imagem ilustrativa do formato de bolo selecionado.</figcaption>
+          <figure class="bolo-formato-preview" data-bolo-format-preview style="--format-media-image:url('/${esc(formatoInicialData.imagem)}')">
+            <img src="/${esc(formatoInicialData.imagem)}" alt="${esc(formatoInicialData.imagemAlt)}" width="1200" height="720" loading="lazy" decoding="async" data-bolo-format-preview-image>
+            <figcaption class="sr-only">Foto do formato de bolo selecionado.</figcaption>
          </figure>
        </div>
     </section>
