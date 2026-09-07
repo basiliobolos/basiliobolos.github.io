@@ -654,7 +654,7 @@ function localBusinessLd() {
     ],
     openingHoursSpecification: [{
       '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       opens: site.horarioSchema.opens,
       closes: site.horarioSchema.closes
     }],
@@ -732,7 +732,7 @@ function renderHome() {
     { q: 'Onde fica a Basilio Bolos e quais bairros de Santo André vocês atendem?', a: `A ${site.nome} fica na ${site.endereco.rua} - ${site.endereco.bairro}, ${site.endereco.cidade}/${site.endereco.uf}. Atendemos principalmente ${site.bairrosAtendidos.join(', ')} e toda a região do ABC.` },
     { q: 'Como encomendar um bolo ou doce em Santo André?', a: `Peça pelo WhatsApp informando o produto, a quantidade ou o tamanho e a data do evento. Trabalhamos sob encomenda com pelo menos 3 dias úteis de antecedência; enviamos o orçamento e confirmamos a disponibilidade.` },
     { q: 'Vocês fazem bolos, doces e lembrancinhas personalizados para festas?', a: 'Sim. A Basilio Bolos personaliza bolos, doces, biscoitos, cupcakes, pipoca gourmet e kits conforme o tema. Envie a referência, a quantidade e a data pelo WhatsApp para receber uma proposta.' },
-    { q: 'A Basilio Bolos tem loja física ou faz entrega em Santo André?', a: `Não temos loja aberta ao público nem fazemos entregas próprias. A retirada é feita na ${site.endereco.rua} - ${site.endereco.bairro}, ${site.endereco.cidade}/${site.endereco.uf}, com horário marcado; também é possível enviar Uber/99 por conta e responsabilidade do cliente.` },
+    { q: 'A Basilio Bolos tem loja física ou faz entrega em Santo André?', a: `Não temos loja aberta ao público nem fazemos entregas próprias. A retirada é feita na ${site.endereco.rua} - ${site.endereco.bairro}, ${site.endereco.cidade}/${site.endereco.uf}, de ${site.horario.toLowerCase()}, com horário marcado; também é possível enviar Uber/99 por conta e responsabilidade do cliente.` },
     { q: 'Quanto custa um bolo de aniversário na Basilio Bolos?', a: faqPrecoBolos(true) }
   ];
 

@@ -13,7 +13,7 @@
     "cep": "09210-300",
     "mapsUrl": "https://maps.app.goo.gl/2Jw8sBdD5A7s3rWm9"
   },
-  "horario": "Segunda a Domingo, das 8h às 20h",
+  "horario": "Segunda a sábado, das 8h às 20h",
   "horarioSchema": { "opens": "08:00", "closes": "20:00" },
   "bairrosAtendidos": ["Santa Terezinha", "Parque das Nações", "Centro", "Jardim", "Vila Curuçá", "Parque Oratório", "Vila Camilópolis"],
   "social": {
