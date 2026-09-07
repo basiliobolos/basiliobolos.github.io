@@ -243,10 +243,10 @@
     {
       "nome": "Ganache",
       "acrescimoPorTamanho": {
-        "P": 15,
-        "M": 20,
-        "G": 25,
-        "GG": 30
+        "P": 25,
+        "M": 35,
+        "G": 47,
+        "GG": 60
       },
       "obs": "Acréscimo conforme o tamanho do bolo"
     }

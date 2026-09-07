@@ -47,9 +47,9 @@
     {
       "nome": "Ganache",
       "acrescimoPorTamanho": {
-        "coracao": 20,
-        "17x25": 30,
-        "22x30": 45
+        "coracao": 35,
+        "17x25": 47,
+        "22x30": 60
       },
       "obs": "Acréscimo conforme o tamanho do bolo"
     }
