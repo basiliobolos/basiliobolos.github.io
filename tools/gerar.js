@@ -74,8 +74,7 @@ const paginasSimples = [
   readJSON('biscoitos.json'),
   readJSON('cupcakes.json'),
   readJSON('brownies.json'),
-  readJSON('pipoca-gourmet.json'),
-  readJSON('bolo-de-pote.json')
+  readJSON('pipoca-gourmet.json')
 ];
 
 const hoje = new Date().toISOString().slice(0, 10);
@@ -266,10 +265,6 @@ const SEO = {
   'pipoca-gourmet': {
     title: 'Pipoca Gourmet em Santo André | Basilio Bolos',
     description: 'Pipoca gourmet em Santo André a partir de R$ 15 (100g), nos sabores chocolate e leite ninho. Pacotes de até 500g e versões para lembrancinhas.'
-  },
-  'bolo-de-pote': {
-    title: 'Bolo de Pote em Santo André | Basilio Bolos',
-    description: 'Bolo de pote em Santo André a partir de R$ 15 (250ml), nos sabores brigadeiro, ninho com morango, prestígio, maracujá e trufado.'
   }
 };
 
@@ -814,7 +809,7 @@ ${campanhaSection}
             Escolha um produto para consultar opções, preços e condições de encomenda.
           </p>
         </div>
-        <div id="lista-produtos" class="prod-grid">
+        <div id="lista-produtos" class="prod-grid prod-grid-home">
           ${produtosIniciais.map((p) => prodCard(p, { compact: true })).join('\n          ')}
 ${produtosRestantes.length ? `          ${produtosRestantes.map((p) => prodCard(p, { extra: true, compact: true })).join('\n          ')}` : ''}
         </div>${produtosRestantes.length ? `
@@ -839,7 +834,7 @@ ${produtosRestantes.length ? `          ${produtosRestantes.map((p) => prodCard(
           </div>
           <div class="col-lg-7 sobre-text">
             <p class="lead">
-              A <strong>${esc(site.nome)}</strong> nasceu há <strong>10 anos</strong>, quando começamos a vender bolo no pote de porta em porta em Santo André.
+              A <strong>${esc(site.nome)}</strong> nasceu há <strong>10 anos</strong>, em Santo André, com o propósito de transformar momentos em doces memórias.
               Com paixão, estudo e dedicação, hoje oferecemos uma confeitaria artesanal especializada, com produtos altamente
               personalizáveis, feitos com carinho e atenção aos detalhes.
             </p>
@@ -1415,7 +1410,7 @@ ${relatedSection('doces', { tone: 'dark' })}`;
   return layout({ seo: SEO.doces, canonical: '/doces/', active: 'doces', jsonLd, body });
 }
 
-// ---------- Páginas simples (biscoitos, cupcakes, brownies, pipoca, bolo de pote) ----------
+// ---------- Páginas simples (biscoitos, cupcakes, brownies, pipoca) ----------
 function renderSimples(data) {
   const precos = data.opcoes.map((o) => primeiroNumero(o.preco)).filter((n) => n != null);
   const low = primeiroNumero(data.precoDestaque) || Math.min(...precos);

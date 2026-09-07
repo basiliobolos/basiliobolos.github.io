@@ -10,7 +10,6 @@ Links diretos do cardápio da [Basilio Bolos](https://basiliobolos.com.br/), em 
 - [Doces para festa](https://basiliobolos.com.br/doces/)
 - [Cupcakes](https://basiliobolos.com.br/cupcakes/)
 - [Biscoitos decorados](https://basiliobolos.com.br/biscoitos/)
-- [Bolo de pote](https://basiliobolos.com.br/bolo-de-pote/)
 - [Brownies](https://basiliobolos.com.br/brownies/)
 - [Pipoca gourmet](https://basiliobolos.com.br/pipoca-gourmet/)
 
@@ -30,7 +29,6 @@ Links diretos do cardápio da [Basilio Bolos](https://basiliobolos.com.br/), em 
 - [Doces premium por unidade](https://basiliobolos.com.br/doces/#precos-premium)
 - [Cupcakes: opções e preços](https://basiliobolos.com.br/cupcakes/#precos)
 - [Biscoitos decorados: opções e preços](https://basiliobolos.com.br/biscoitos/#precos)
-- [Bolo de pote: opções e preços](https://basiliobolos.com.br/bolo-de-pote/#precos)
 - [Brownies: opções e preços](https://basiliobolos.com.br/brownies/#precos)
 - [Pipoca gourmet: opções e preços](https://basiliobolos.com.br/pipoca-gourmet/#precos)
 

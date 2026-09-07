@@ -45,15 +45,6 @@
       "url": "biscoitos/"
     },
     {
-      "titulo": "Bolo de Pote",
-      "slug": "bolo-de-pote",
-      "imagem": "assets/images/produtos/bolo-no-pote.webp",
-      "descricao": "Nosso clássico! O produto que deu início à nossa história. Camadas generosas de bolo e recheio em potes de 250ml e 500ml.",
-      "descricaoCurta": "Camadas de bolo e recheio em potes de 250ml e 500ml.",
-      "precoDestaque": "A partir de R$ 15",
-      "url": "bolo-de-pote/"
-    },
-    {
       "titulo": "Brownies",
       "slug": "brownies",
       "imagem": "assets/images/produtos/brownie.webp",
@@ -78,8 +69,7 @@
     "doces": ["biscoitos", "cupcakes", "bolos", "brownies"],
     "biscoitos": ["doces", "cupcakes", "bento-cake", "pipoca-gourmet"],
     "cupcakes": ["bento-cake", "doces", "biscoitos", "brownies"],
-    "brownies": ["bolo-de-pote", "bento-cake", "cupcakes", "pipoca-gourmet"],
-    "pipoca-gourmet": ["bolo-de-pote", "brownies", "bento-cake", "cupcakes"],
-    "bolo-de-pote": ["brownies", "bento-cake", "pipoca-gourmet", "cupcakes"]
+    "brownies": ["bento-cake", "cupcakes", "pipoca-gourmet", "doces"],
+    "pipoca-gourmet": ["brownies", "bento-cake", "cupcakes", "doces"]
   }
 }

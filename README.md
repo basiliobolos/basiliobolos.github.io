@@ -49,7 +49,7 @@ versione manualmente os arquivos dentro de `dist/`.
 | `data/bolos.json` | Base dos bolos personalizados: tamanhos redondos, recheios (preço por kg), coberturas, acréscimos e FAQ |
 | `data/bolos-retangulares.json` | Dados de coração e formatos retangulares usados na página unificada `/bolos/`; a URL antiga é mantida como alias |
 | `data/doces.json` | Doces por cento e premium, FAQs |
-| `data/biscoitos.json` · `cupcakes` · `brownies` · `pipoca-gourmet` · `bolo-de-pote` | Opções, preços e FAQ de cada página |
+| `data/biscoitos.json` · `cupcakes` · `brownies` · `pipoca-gourmet` | Opções, preços e FAQ de cada página |
 | `data/campanhas.json` | Campanha sazonal (`ativo: true/false`) |
 
 ### Deploy

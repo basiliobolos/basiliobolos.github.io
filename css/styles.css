@@ -1789,6 +1789,15 @@ html{scroll-behavior:smooth}
   grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
   gap:1.5rem;
 }
+.prod-grid-home{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.prod-grid-home .prod-card{
+  flex:0 1 260px;
+  min-width:0;
+}
 .prod-card{
   display:flex;
   flex-direction:column;
