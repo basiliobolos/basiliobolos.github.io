@@ -2660,30 +2660,10 @@ html{scroll-behavior:smooth}
   color:#8B7355;
   border:2px solid #E8D5C0;
 }
-.massa-branca::before{
-  content:'';
-  display:inline-block;
-  width:14px;
-  height:14px;
-  border-radius:50%;
-  background:#FFF8F0;
-  border:2px solid #D4C4AD;
-  flex-shrink:0;
-}
 .massa-chocolate{
   background:linear-gradient(135deg, #5D3A1A, #3C220E);
   color:#F5E6D3;
   border:2px solid #4A2C10;
-}
-.massa-chocolate::before{
-  content:'';
-  display:inline-block;
-  width:14px;
-  height:14px;
-  border-radius:50%;
-  background:#5D3A1A;
-  border:2px solid #8B6B4A;
-  flex-shrink:0;
 }
 
 /* Kits presenteáveis do Bentô Cake */
