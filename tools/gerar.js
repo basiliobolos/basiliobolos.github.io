@@ -24,6 +24,7 @@ const PUBLIC_FILES = [
   'favicon-v2.svg',
   'favicon-v2-96x96.png',
   'robots.txt',
+  'BingSiteAuth.xml',
   'CNAME'
 ];
 
