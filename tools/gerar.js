@@ -69,7 +69,9 @@ const bolosRetangulares = readJSON('bolos-retangulares.json');
 const doces = readJSON('doces.json');
 const topoBolo = bolos.acrescimos.find((a) => a.nome === 'Topos de bolo');
 const outrosAcrescimos = bolos.acrescimos.filter((a) => a !== topoBolo);
-const outrosAcrescimosBento = outrosAcrescimos.filter((a) => a.nome !== 'Brigadeiros');
+const outrosAcrescimosBento = outrosAcrescimos.filter(
+  (a) => a.nome !== 'Brigadeiros' && a.nome !== 'Frutas'
+);
 const paginasSimples = [
   readJSON('biscoitos.json'),
   readJSON('cupcakes.json'),
