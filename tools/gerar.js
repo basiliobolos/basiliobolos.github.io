@@ -588,12 +588,7 @@ function relatedSection(currentSlug, { tone = 'dark' } = {}) {
         <div id="${esc(listaId)}" class="prod-grid" data-lista-relacionados>
           ${relacionadosIniciais.map((p) => prodCard(p, { compact: compactCards })).join('\n          ')}
           ${relacionadosRestantes.map((p) => prodCard(p, { extra: true, compact: compactCards })).join('\n          ')}
-        </div>${relacionadosRestantes.length ? `
-        <div class="text-center mt-4">
-          <button type="button" class="btn btn-lg page-hero-btn-secondary" data-ver-mais-relacionados hidden aria-controls="${esc(listaId)}" aria-expanded="false">
-            Ver mais sugestões <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-          </button>
-        </div>` : ''}
+        </div>
         <div class="text-center mt-4">
           <a href="/#produtos" class="btn btn-lg page-hero-btn-secondary">Ver mais produtos <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
         </div>
@@ -737,8 +732,6 @@ function renderHome() {
   ];
 
   const campanhaAtiva = campanha && campanha.ativo && Array.isArray(campanha.produtos) && campanha.produtos.length;
-  const produtosIniciais = produtos.slice(0, 8);
-  const produtosRestantes = produtos.slice(8);
 
   const campanhaSection = campanhaAtiva ? `
     <section id="campanhas" class="py-5 ${surface('light')} section-campaign" aria-labelledby="campanha-title">
@@ -812,14 +805,8 @@ ${campanhaSection}
           </p>
         </div>
         <div id="lista-produtos" class="prod-grid prod-grid-home">
-          ${produtosIniciais.map((p) => prodCard(p, { compact: true })).join('\n          ')}
-${produtosRestantes.length ? `          ${produtosRestantes.map((p) => prodCard(p, { extra: true, compact: true })).join('\n          ')}` : ''}
-        </div>${produtosRestantes.length ? `
-        <div class="text-center mt-4">
-          <button type="button" class="btn btn-lg page-hero-btn-secondary" data-ver-mais-produtos hidden aria-controls="lista-produtos" aria-expanded="false">
-            Ver mais produtos <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-          </button>
-        </div>` : ''}
+          ${produtos.map((p) => prodCard(p, { compact: true })).join('\n          ')}
+        </div>
       </div>
     </section>
 

@@ -365,25 +365,31 @@ document.addEventListener('DOMContentLoaded', function(){
 
   // ---------- Expansão responsiva das grades de produtos ----------
   const configurarExpansaoProdutos = (listaProdutos, verMaisProdutos) => {
-    if(!listaProdutos || !verMaisProdutos) return;
+    if(!listaProdutos) return;
     let produtosExpandidos = false;
 
     const atualizarProdutosVisiveis = () => {
       const produtos = [...listaProdutos.querySelectorAll('.prod-card')];
       const colunas = Math.max(1, getComputedStyle(listaProdutos).gridTemplateColumns.trim().split(/\s+/).length);
-      const limite = produtos.length <= colunas ? produtos.length : Math.floor(produtos.length / colunas) * colunas;
+      const limite = listaProdutos.classList.contains('prod-grid-home')
+        ? produtos.length
+        : colunas === 1 ? produtos.length : Math.min(produtos.length, colunas);
 
       produtos.forEach((produto, indice) => {
         produto.hidden = !produtosExpandidos && indice >= limite;
       });
-      verMaisProdutos.hidden = produtosExpandidos || limite === produtos.length;
-      verMaisProdutos.setAttribute('aria-expanded', String(produtosExpandidos));
+      if(verMaisProdutos){
+        verMaisProdutos.hidden = produtosExpandidos || limite === produtos.length;
+        verMaisProdutos.setAttribute('aria-expanded', String(produtosExpandidos));
+      }
     };
 
-    verMaisProdutos.addEventListener('click', () => {
-      produtosExpandidos = true;
-      atualizarProdutosVisiveis();
-    });
+    if(verMaisProdutos){
+      verMaisProdutos.addEventListener('click', () => {
+        produtosExpandidos = true;
+        atualizarProdutosVisiveis();
+      });
+    }
     window.addEventListener('resize', atualizarProdutosVisiveis, {passive: true});
     atualizarProdutosVisiveis();
   };
