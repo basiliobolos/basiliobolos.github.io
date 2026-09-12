@@ -329,6 +329,7 @@ function head({ seo, canonical, jsonLd, ogType = 'website', robots = 'index, fol
   return `<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="facebook-domain-verification" content="je4rmli8qrjcfqhelsv4yz707eji10" />
   <title>${esc(seo.title)}</title>
   <meta name="description" content="${esc(seo.description)}" />
   <meta name="robots" content="${esc(robots)}" />
