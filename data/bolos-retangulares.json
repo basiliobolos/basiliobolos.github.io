@@ -4,14 +4,14 @@
   "tituloCompleto": "Outros Formatos de Bolo em Santo André",
   "subtitulo": "Bolos em outros formatos, como coração e retangulares, ideais para festas maiores. Escolha a massa, o recheio e a cobertura. Feitos artesanalmente em Santo André e região do ABC.",
   "imagem": "assets/images/produtos/bolos-retangulares.webp",
-  "precoDestaque": "A partir de R$ 159",
+  "precoDestaque": "A partir de R$ 160",
   "mensagemWhatsApp": "Olá! Quero encomendar um bolo em outro formato. Podem me ajudar a montar?",
-  "fatorPreco": 1.1,
+  "fatorPreco": 1.05,
   "precosPorFaixaP": {
-    "89": { "G": 209, "GG": 329 },
-    "99": { "G": 229, "GG": 359 },
-    "109": { "G": 249, "GG": 389 },
-    "119": { "G": 279, "GG": 429 }
+    "89": { "G": 224, "GG": 355 },
+    "99": { "G": 249, "GG": 395 },
+    "109": { "G": 274, "GG": 434 },
+    "119": { "G": 299, "GG": 474 }
   },
   "tamanhos": [
     {

@@ -7,10 +7,10 @@
   "precoDestaque": "A partir de R$ 89",
   "mensagemWhatsApp": "Olá! Quero encomendar um bolo personalizado. Podem me ajudar a escolher o formato e montar?",
   "precosPorFaixaP": {
-    "89": { "P": 89, "M": 159, "G": 239, "GG": 329 },
-    "99": { "P": 99, "M": 169, "G": 259, "GG": 359 },
-    "109": { "P": 109, "M": 189, "G": 289, "GG": 409 },
-    "119": { "P": 119, "M": 209, "G": 319, "GG": 449 }
+    "89": { "P": 89, "M": 160, "G": 248, "GG": 354 },
+    "99": { "P": 99, "M": 178, "G": 276, "GG": 394 },
+    "109": { "P": 109, "M": 196, "G": 304, "GG": 434 },
+    "119": { "P": 119, "M": 214, "G": 332, "GG": 474 }
   },
   "tamanhos": [
     {

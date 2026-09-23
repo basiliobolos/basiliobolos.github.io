@@ -114,6 +114,10 @@ artefatos derivados exibem o novo valor sem edição manual de HTML.
   sitemap e resumo para rastreadores a partir dos dados e regras do projeto.
 - **FR-007**: O sistema MUST calcular preços derivados a partir dos campos canônicos dos dados
   e exibir o mesmo resultado em cards, tabelas, FAQs e metadados relacionados.
+- **Regra de precificação dos bolos**: o preço do 15cm é a âncora; os tamanhos maiores derivam
+  da proporção das fatias mínimas, encadeada do menor para o maior, arredondada para baixo
+  (valor exato perde R$ 1). Retangulares acrescentam 5% e o coração acompanha sempre o preço
+  do tamanho M.
 - **FR-008**: O conteúdo sazonal MUST poder ser ativado ou desativado sem remover a estrutura
   permanente do catálogo.
 - **FR-009**: O site MUST manter links internos para a home, páginas de produto, contato e
