@@ -36,12 +36,12 @@
       "url": "cupcakes/"
     },
     {
-      "titulo": "Biscoitos Decorados",
+      "titulo": "Biscoitos Artesanais",
       "slug": "biscoitos",
       "imagem": "assets/images/produtos/biscoitos-decorados.webp",
-      "descricao": "Biscoitos amanteigados decorados à mão em formatos e tamanhos variados. Vendidos por unidade ou em caixas fechadas para presentear.",
-      "descricaoCurta": "Biscoitos amanteigados decorados à mão, por unidade ou em caixas.",
-      "precoDestaque": "A partir de R$ 4",
+      "descricao": "Biscoitos amanteigados carimbados, sem decoração à mão, ou decorados à mão. Pacotinhos ou caixas para lembrancinha com condição especial, sob consulta.",
+      "descricaoCurta": "Biscoitos carimbados ou decorados à mão. Lembrancinhas em pacotinhos ou caixas, sob consulta.",
+      "precoDestaque": "Carimbados a partir de R$ 2,30",
       "url": "biscoitos/"
     },
     {

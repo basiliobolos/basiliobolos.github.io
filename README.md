@@ -37,7 +37,7 @@ artefato no GitHub Pages.
 | `data/bolos.json` | Tamanhos, recheios, coberturas, adicionais e FAQ de bolos |
 | `data/bolos-retangulares.json` | Formatos retangular e coração usados em `/bolos/` |
 | `data/doces.json` | Doces por cento, premium e FAQ |
-| `data/biscoitos.json` | Biscoitos decorados e lembrancinhas |
+| `data/biscoitos.json` | Biscoitos carimbados, decorados à mão e lembrancinhas |
 | `data/cupcakes.json` | Opções e preços de cupcakes |
 | `data/brownies.json` | Opções e preços de brownies |
 | `data/pipoca-gourmet.json` | Sabores, embalagens e preços de pipoca |
