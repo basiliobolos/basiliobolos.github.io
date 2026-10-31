@@ -73,8 +73,9 @@ const outrosAcrescimos = bolos.acrescimos.filter((a) => a !== topoBolo);
 const outrosAcrescimosBento = outrosAcrescimos.filter(
   (a) => a.nome !== 'Brigadeiros' && a.nome !== 'Frutas'
 );
+const biscoitos = readJSON('biscoitos.json');
 const paginasSimples = [
-  readJSON('biscoitos.json'),
+  biscoitos,
   readJSON('cupcakes.json'),
   readJSON('brownies.json'),
   readJSON('pipoca-gourmet.json')
@@ -293,8 +294,8 @@ const SEO = {
     description: 'Doces para festa em Santo André: cento a partir de R$ 189 e doces premium a partir de R$ 3,20. Escolha os sabores e peça pelo WhatsApp.'
   },
   biscoitos: {
-    title: 'Biscoitos Decorados em Santo André | Basilio Bolos',
-    description: 'Biscoitos decorados em Santo André a partir de R$ 4: unidades, caixas e lembrancinhas personalizadas para sua festa.'
+    title: `${biscoitos.tituloCompleto} | ${site.nome}`,
+    description: biscoitos.descricaoSeo
   },
   cupcakes: {
     title: 'Cupcakes Decorados em Santo André | Basilio Bolos',

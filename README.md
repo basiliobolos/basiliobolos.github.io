@@ -37,7 +37,7 @@ artefato no GitHub Pages.
 | `data/bolos.json` | Tamanhos, recheios, coberturas, adicionais e FAQ de bolos |
 | `data/bolos-retangulares.json` | Formatos retangular e coração usados em `/bolos/` |
 | `data/doces.json` | Doces por cento, premium e FAQ |
-| `data/biscoitos.json` | Biscoitos decorados e lembrancinhas |
+| `data/biscoitos.json` | Biscoitos carimbados, decorados à mão e lembrancinhas |
 | `data/cupcakes.json` | Opções e preços de cupcakes |
 | `data/brownies.json` | Opções e preços de brownies |
 | `data/pipoca-gourmet.json` | Sabores, embalagens e preços de pipoca |
@@ -62,7 +62,7 @@ Os dados abaixo devem ser mantidos somente em `data/site.json` e usados como ref
 - Telefone: (11) 97845-8498.
 - Horário: segunda a sábado, das 8h às 20h.
 - Retirada: no local, com horário marcado, ou via Uber/99 por conta do cliente; não há entrega.
-- Produtos: bolos personalizados, doces, biscoitos decorados, cupcakes, brownies e pipoca
+- Produtos: bolos personalizados, doces, biscoitos carimbados e decorados à mão, cupcakes, brownies e pipoca
   gourmet.
 
 ## Validação Externa

@@ -1,31 +1,35 @@
 {
   "slug": "biscoitos",
-  "titulo": "Biscoitos Decorados",
-  "tituloVisivel": "Biscoitos Decorados",
-  "tituloCompleto": "Biscoitos Decorados em Santo André",
-  "subtitulo": "Biscoitos amanteigados decorados à mão para lembrancinhas, presentes e festas.",
+  "titulo": "Biscoitos Artesanais",
+  "tituloVisivel": "Biscoitos Carimbados e Decorados",
+  "tituloCompleto": "Biscoitos Carimbados e Decorados em Santo André",
+  "descricaoSeo": "Biscoitos carimbados em Santo André a partir de R$ 2,30 e decorados à mão a partir de R$ 4,20. Pacotinhos ou caixas para lembrancinha com condição especial, sob consulta.",
+  "subtitulo": "Biscoitos amanteigados carimbados, sem decoração à mão, ou decorados à mão para lembrancinhas, presentes e festas.",
   "imagem": "assets/images/produtos/biscoitos-decorados.webp",
-  "precoDestaque": "A partir de R$ 4",
-  "mensagemWhatsApp": "Olá! Quero encomendar biscoitos decorados. Podem me ajudar?",
+  "precoDestaque": "Carimbados a partir de R$ 2,30",
+  "mensagemWhatsApp": "Olá! Quero encomendar biscoitos carimbados ou decorados. Podem me ajudar?",
   "opcoes": [
-    { "nome": "Unidade", "descricao": "Decorado à mão, em formato e tamanho conforme o tema.", "preco": "A partir de R$ 4" },
-    { "nome": "Caixa com 6 unidades", "descricao": "6 biscoitos decorados no tema escolhido.", "preco": "A partir de R$ 22" },
-    { "nome": "Caixa com 12 unidades", "descricao": "12 biscoitos decorados ou banhados no chocolate.", "preco": "A partir de R$ 42" },
-    { "nome": "Pacotinhos para lembrancinha", "descricao": "Embalados individualmente; orçamento por quantidade.", "preco": "Sob consulta" }
+    { "nome": "Biscoito carimbado — unidade", "descricao": "Biscoito amanteigado carimbado, sem decoração à mão.", "preco": "A partir de R$ 2,30" },
+    { "nome": "Biscoito decorado à mão — unidade", "descricao": "Biscoito amanteigado decorado à mão, em formato e tamanho conforme o tema.", "preco": "A partir de R$ 4,20" },
+    { "nome": "Pacotinhos ou caixas para lembrancinha", "descricao": "Condição especial para lembrancinhas, conforme a quantidade e a embalagem.", "preco": "Sob consulta" }
   ],
-  "nota": "Os valores variam conforme tamanho, formato e complexidade da decoração. Temas, personagens e cores são personalizáveis, envie sua referência pelo WhatsApp para orçamento.",
+  "nota": "Preços por unidade, a partir dos valores indicados. O valor final varia conforme tamanho, formato e complexidade. Pacotinhos ou caixas para lembrancinha têm condição especial, sob consulta. Envie sua referência, a quantidade e a data pelo WhatsApp para orçamento.",
   "faq": [
     {
-      "q": "Quanto custa um biscoito decorado em Santo André?",
-      "a": "O biscoito decorado custa a partir de R$ 4 por unidade; a caixa com 6 custa a partir de R$ 22; e a caixa com 12, a partir de R$ 42. O valor final varia conforme o tamanho, o formato e a complexidade da decoração."
+      "q": "Quanto custam os biscoitos carimbados e decorados em Santo André?",
+      "a": "O biscoito carimbado, sem decoração à mão, custa a partir de R$ 2,30 por unidade. O biscoito decorado à mão custa a partir de R$ 4,20 por unidade. Pacotinhos ou caixas para lembrancinha têm condição especial, sob consulta. O valor final varia conforme tamanho, formato, complexidade, quantidade e embalagem."
+    },
+    {
+      "q": "Qual é a diferença entre biscoito carimbado e decorado à mão?",
+      "a": "O biscoito carimbado recebe o desenho do carimbo, sem decoração à mão. O biscoito decorado à mão tem acabamento artesanal conforme o tema escolhido."
     },
     {
       "q": "Biscoitos decorados podem ser personalizados com o tema da festa?",
       "a": "Sim. Personalizamos formato, tamanho, cores e personagens do tema escolhido. Envie uma referência pelo WhatsApp para receber o orçamento."
     },
     {
-      "q": "Vocês fazem biscoitos decorados para lembrancinhas?",
-      "a": "Sim. Fazemos pacotinhos individuais para aniversários, casamentos e eventos corporativos. O orçamento depende da quantidade, do formato e da embalagem."
+      "q": "Vocês fazem pacotinhos ou caixas de biscoitos para lembrancinhas?",
+      "a": "Sim. Fazemos pacotinhos ou caixas de biscoitos carimbados ou decorados à mão para lembrancinhas de aniversários, casamentos e eventos corporativos, com condição especial sob consulta. Envie a quantidade e a embalagem desejada para receber o orçamento."
     }
   ]
 }
