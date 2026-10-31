@@ -694,12 +694,12 @@ function localBusinessLd() {
       { '@type': 'City', name: 'Santo André' },
       ...site.bairrosAtendidos.map((b) => ({ '@type': 'Neighborhood', name: b, containedIn: 'Santo André, SP' }))
     ],
-    openingHoursSpecification: [{
+    openingHoursSpecification: site.horarioSchema.map((periodo) => ({
       '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      opens: site.horarioSchema.opens,
-      closes: site.horarioSchema.closes
-    }],
+      dayOfWeek: periodo.dayOfWeek,
+      opens: periodo.opens,
+      closes: periodo.closes
+    })),
     hasMap: site.endereco.mapsUrl,
     sameAs: [site.social.instagram, site.social.facebook, site.social.tiktok],
     servesCuisine: 'Confeitaria'
@@ -774,7 +774,7 @@ function renderHome() {
     { q: 'Onde fica a Basilio Bolos e quais bairros de Santo André vocês atendem?', a: `A ${site.nome} fica na ${site.endereco.rua} - ${site.endereco.bairro}, ${site.endereco.cidade}/${site.endereco.uf}. Atendemos principalmente ${site.bairrosAtendidos.join(', ')} e toda a região do ABC.` },
     { q: 'Como encomendar um bolo ou doce em Santo André?', a: `Peça pelo WhatsApp informando o produto, a quantidade ou o tamanho e a data do evento. Trabalhamos sob encomenda com pelo menos 3 dias úteis de antecedência; enviamos o orçamento e confirmamos a disponibilidade.` },
     { q: 'Vocês fazem bolos, doces e lembrancinhas personalizados para festas?', a: 'Sim. A Basilio Bolos personaliza bolos, doces, biscoitos, cupcakes, pipoca gourmet e kits conforme o tema. Envie a referência, a quantidade e a data pelo WhatsApp para receber uma proposta.' },
-    { q: 'A Basilio Bolos tem loja física ou faz entrega em Santo André?', a: `Não temos loja aberta ao público nem fazemos entregas próprias. A retirada é feita na ${site.endereco.rua} - ${site.endereco.bairro}, ${site.endereco.cidade}/${site.endereco.uf}, de ${site.horario.toLowerCase()}, com horário marcado; também é possível enviar Uber/99 por conta e responsabilidade do cliente.` },
+    { q: 'A Basilio Bolos tem loja física ou faz entrega em Santo André?', a: `Não temos loja aberta ao público nem fazemos entregas próprias. A retirada é feita na ${site.endereco.rua} - ${site.endereco.bairro}, ${site.endereco.cidade}/${site.endereco.uf}, com horário marcado. Horários de retirada: ${site.horario.toLowerCase()}. Também é possível enviar Uber/99 por conta e responsabilidade do cliente.` },
     { q: 'Quanto custa um bolo de aniversário na Basilio Bolos?', a: faqPrecoBolos(true) }
   ];
 
@@ -953,7 +953,7 @@ ${faqSection(faqHome, { tone: campanhaAtiva ? 'dark' : 'light' })}
                ${esc(site.endereco.cidade)}/${esc(site.endereco.uf)} · CEP ${esc(site.endereco.cep)}
              </p>
              <p class="contact-address-hours">
-               <i class="fa-regular fa-clock" aria-hidden="true"></i> ${esc(site.horario)}
+               <i class="fa-regular fa-clock" aria-hidden="true"></i> Retiradas: ${esc(site.horario)}
             </p>
           </address>
         </div>
@@ -1652,7 +1652,7 @@ function renderLlms() {
 
 Confeitaria artesanal que trabalha sob encomenda em Santo André/SP (Brasil), há 10 anos.
 Endereço de retirada: ${site.endereco.rua} - ${site.endereco.bairro}, ${site.endereco.cidade}/${site.endereco.uf} - CEP ${site.endereco.cep}.
-Atendimento: ${site.horario}. Pedidos pelo WhatsApp ${site.telefoneDisplay}.
+Retiradas com horário marcado: ${site.horario}. Pedidos pelo WhatsApp ${site.telefoneDisplay}.
 Bairros atendidos: ${site.bairrosAtendidos.join(', ')}.
 Pedidos com no mínimo 3 dias úteis de antecedência; confirmação mediante pagamento de 30% do valor. Não fazemos entregas (retirada no local ou Uber/99 por conta do cliente).
 

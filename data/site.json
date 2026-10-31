@@ -13,8 +13,11 @@
     "cep": "09210-300",
     "mapsUrl": "https://maps.app.goo.gl/2Jw8sBdD5A7s3rWm9"
   },
-  "horario": "Segunda a sábado, das 8h às 20h",
-  "horarioSchema": { "opens": "08:00", "closes": "20:00" },
+  "horario": "Segunda a sexta, das 9h às 19h; sábado, das 9h às 14h; domingo fechado",
+  "horarioSchema": [
+    { "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "19:00" },
+    { "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "14:00" }
+  ],
   "bairrosAtendidos": ["Santa Terezinha", "Parque das Nações", "Centro", "Jardim", "Vila Curuçá", "Parque Oratório", "Vila Camilópolis"],
   "social": {
     "instagram": "https://www.instagram.com/basiliobolos/",
