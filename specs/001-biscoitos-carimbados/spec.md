@@ -12,6 +12,7 @@ caixas para lembrancinha têm condição especial, sob consulta.
 - A home destaca os carimbados a partir de R$ 2,30, sem sugerir esse preço para os decorados.
 - Caixas não mantêm os valores antigos de R$ 22 e R$ 42.
 - FAQ, metadados, dados estruturados e llms.txt refletem os dados novos.
+- A descrição geral da empresa e a FAQ de lembrancinhas incluem os carimbados.
 - As fotografias originais do site permanecem intactas.
 - A página continua legível em 390 e 1440 pixels, sem overflow horizontal.
 - O catálogo WhatsApp usa os mesmos preços e fotos originais do site.

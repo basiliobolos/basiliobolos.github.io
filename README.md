@@ -62,7 +62,7 @@ Os dados abaixo devem ser mantidos somente em `data/site.json` e usados como ref
 - Telefone: (11) 97845-8498.
 - Horário: segunda a sábado, das 8h às 20h.
 - Retirada: no local, com horário marcado, ou via Uber/99 por conta do cliente; não há entrega.
-- Produtos: bolos personalizados, doces, biscoitos decorados, cupcakes, brownies e pipoca
+- Produtos: bolos personalizados, doces, biscoitos carimbados e decorados à mão, cupcakes, brownies e pipoca
   gourmet.
 
 ## Validação Externa
