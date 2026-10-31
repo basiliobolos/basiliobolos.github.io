@@ -60,7 +60,7 @@ Os dados abaixo devem ser mantidos somente em `data/site.json` e usados como ref
 
 - Endereço: Av. Estados Unidos, 439 - Parque das Nações - Santo André/SP.
 - Telefone: (11) 97845-8498.
-- Horário: segunda a sábado, das 8h às 20h.
+- Retiradas: segunda a sexta, das 9h às 19h; sábado, das 9h às 14h; domingo fechado.
 - Retirada: no local, com horário marcado, ou via Uber/99 por conta do cliente; não há entrega.
 - Produtos: bolos personalizados, doces, biscoitos carimbados e decorados à mão, cupcakes, brownies e pipoca
   gourmet.
