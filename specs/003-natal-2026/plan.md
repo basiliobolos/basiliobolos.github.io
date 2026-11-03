@@ -1,6 +1,6 @@
 # Natal 2026 — plano e diário
 Data inicial: 03/11/2026.
-Estado: etapa 1, aguardando escolha dos tipos de produto.
+Estado: seleção concluída; pesquisa pública inicial registrada; coleta direta e oferta final pendentes.
 Branch: `feat/natal-2026-seo`, criada a partir de `b93e18f` (`fix/horarios-retirada`).
 Escopo inicial: planejamento; sem alteração pública, push ou publicação.
 
@@ -25,8 +25,29 @@ Escopo inicial: planejamento; sem alteração pública, push ou publicação.
 | 7 — Validação | Conferir conteúdo, links, celular, SEO e geração | Resultados registrados |
 | 8 — Medição | Definir publicação e acompanhar contatos e pedidos | Linha de base e revisões datadas |
 
+## Seleção confirmada em 03/11/2026
+
+Aprovados para pesquisa e planejamento; sabores, preços e oferta final pendentes.
+
+| Nº original | Tipo aprovado | Formatos aceitos |
+|---|---|---|
+| 1 | Chocotones recheados | Grandes e minis |
+| 2 | Doces de chocotone | Bites e fatias banhadas |
+| 3 | Brownies natalinos | Bites, árvores e guirlandas |
+| 4 | Biscoitos natalinos | Decorados, carimbados e banhados |
+| 6 | Cupcakes natalinos | Unidades e caixas |
+| 7 | Brigadeiros e trufas | Caixas para presente |
+| 8 | Pipoca gourmet | Pacotes e lembrancinhas |
+| 15 | Caixas variadas | Combinações de doces |
+
+Os tipos 5, 9, 10, 11, 12, 13 e 14 não entram neste escopo.
+A aprovação dos tipos não reativa produtos ou preços de 2025.
+Novos sabores e composições precisam respeitar a disposição da confeiteira.
+Pesquisa e evidências: [pesquisa-2026-11-03.md](pesquisa-2026-11-03.md).
+Consultas reproduzíveis: [consultas-trends.md](consultas-trends.md).
+
 ## Lista inicial para escolha
-Todos os itens estão pendentes. Não representam ranking, tendência ou oferta.
+Registro da lista apresentada antes da escolha. Vale a seleção confirmada acima.
 “Base” indica apenas a origem da ideia, nunca disponibilidade em 2026.
 | Nº | Tipo | Exemplos | Base |
 |---|---|---|---|
@@ -46,7 +67,7 @@ Todos os itens estão pendentes. Não representam ranking, tendência ou oferta.
 | 14 | Cheesecakes | Inteiros ou individuais | Nova família a confirmar |
 | 15 | Caixas com vários doces | Combinações dos produtos aceitos | Catálogo + composição a confirmar |
 
-Resposta esperada: números aceitos, recusados ou “depende”, com restrições.
+Resposta recebida: tipos 1, 2, 3, 4, 6, 7, 8 e 15.
 O usuário pode acrescentar produtos não listados. Não presumir novas técnicas.
 Depois da escolha, confirmar limites de personalização, produção por dia e retirada natalina.
 
@@ -93,5 +114,13 @@ Medir contatos pelo WhatsApp e pedidos agregados; clique não equivale a venda.
 - 03/11: quatro documentos anteriores em docs/seo estavam sem versionamento; preservados.
 - 03/11: base local contém ajuste de horários; atualização remota ainda não verificada.
 
+- 03/11: usuário aprovou oito tipos; demais itens ficaram fora do escopo.
+- 03/11: pesquisa pública registrou evidências, hipóteses e limites; sem ranking de busca validado.
+- 03/11: Google Trends retornou 429; métricas e comentários sociais não foram acessíveis.
+- 03/11: Ahrefs e vidIQ sugeridos; não instalados ou conectados.
+- 03/11: pergunta sobre recheios enviada; resposta pendente.
+- 03/11: gravação em lote excedeu o limite de segurança; arquivos salvos separadamente.
+
 ## Próximo passo
-Receber a seleção do usuário. Depois, pesquisar somente famílias viáveis.
+Confirmar sabores e limites comerciais; obter dados faltantes para fechar a oferta.
+A pesquisa pública e suas lacunas estão registradas em pesquisa-2026-11-03.md.
