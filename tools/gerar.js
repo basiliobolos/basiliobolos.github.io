@@ -65,6 +65,7 @@ const produtos = produtosData.produtos;
 const recomendacoes = produtosData.recomendacoes || {};
 const produtoPorSlug = new Map(produtos.map((p) => [p.slug, p]));
 const campanha = readJSON('campanhas.json');
+const natal = readJSON('natal.json');
 const bolos = readJSON('bolos.json');
 const bolosRetangulares = readJSON('bolos-retangulares.json');
 const doces = readJSON('doces.json');
@@ -402,7 +403,7 @@ function navbar(active) {
             </a>
             <ul class="dropdown-menu" aria-labelledby="produtosDropdown">${dropdownItems}
             </ul>
-          </li>${item('/#sobre', '<i class="fa-solid fa-heart" aria-hidden="true"></i> Sobre')}${item('/#contato', '<i class="fa-solid fa-envelope" aria-hidden="true"></i> Contato')}
+          </li>${item('/natal/', '<i class="fa-solid fa-gift" aria-hidden="true"></i> Natal')}${item('/#sobre', '<i class="fa-solid fa-heart" aria-hidden="true"></i> Sobre')}${item('/#contato', '<i class="fa-solid fa-envelope" aria-hidden="true"></i> Contato')}
           <li class="nav-item ms-lg-2">
             <a class="btn btn-sm btn-whatsapp" href="${waHref()}" target="_blank" rel="noopener" data-track="nav">
               ${waIcon} Fazer Pedido
@@ -1521,8 +1522,82 @@ ${relatedSection(data.slug, { tone: 'dark' })}`;
 }
 
 // ---------- Sitemap e llms.txt ----------
+function renderNatal() {
+  const money = value => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+  const icon = name => {
+    const paths = {
+      star: '<path d="m12 2 2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4Z"/>',
+      cookie: '<path d="M21 12a9 9 0 1 1-9-9 5 5 0 0 0 9 9Z"/><path d="M8 8h.01M7 14h.01M13 16h.01M12 11h.01"/>',
+      cake: '<path d="M5 11a4 4 0 0 1 1-7 4 4 0 0 1 7-1 4 4 0 0 1 5 7l-1 10H7L5 11Z"/><path d="M5 11h13M10 15v2m4-2v2"/>',
+      heart: '<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/>',
+      cup: '<path d="M3 7h13v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7Zm13 1h2a3 3 0 0 1 0 6h-2M6 2v2m4-2v2m4-2v2"/>',
+      arrow: '<path d="M4 12h16m-6-6 6 6-6 6"/>',
+      search: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',
+      pin: '<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2"/>',
+      gift: '<path d="M3 9h18v4H3zM5 13v8h14v-8M12 9v12M12 9H8a3 3 0 1 1 3-3l1 3Zm0 0h4a3 3 0 1 0-3-3l-1 3Z"/>',
+      bag: '<path d="M5 7h14l1 14H4L5 7Zm3 0V5a4 4 0 0 1 8 0v2"/>',
+      close: '<path d="m6 6 12 12M6 18 18 6"/>',
+      chat: '<path d="M21 11.5a9 9 0 0 1-9 9 10 10 0 0 1-4-.9L3 21l1.4-4.7A9 9 0 1 1 21 11.5Z"/><path d="M8 10h8m-8 4h5"/>',
+      image: '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1"/><path d="m3 17 5-5 4 4 4-6 5 7"/>'
+    };
+    return `<svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] || paths.star}</svg>`;
+  };
+  const imageUrl = (label, color, size = '800') => `https://placehold.co/${size}/${color}/526055?text=${encodeURIComponent(label)}&font=roboto`;
+  const photo = (label, color, eager = false, image = null) => `<div class="photo-frame"><img src="${esc(image || imageUrl(label, color))}" alt="${esc(image ? label : `Foto em breve: ${label}`)}" width="800" height="800" loading="${eager ? 'eager' : 'lazy'}" decoding="async"${eager ? ' fetchpriority="high"' : ''}>${image ? '' : `<span class="photo-label">${icon('image')} Foto em breve</span>`}</div>`;
+  const whatsapp = text => `https://wa.me/${site.whatsappNumero}?text=${encodeURIComponent(text)}`;
+  const defaultWa = whatsapp('Olá! Quero saber mais sobre a coleção de Natal da Basilio Bolos.');
+  const product = p => {
+    const min = Math.min(...p.variantes.map(v => v.preco));
+    return `<article class="product-card" id="${p.id}" data-product="${p.id}" data-families="${p.familias.join(' ')}" data-price="${min}" data-personalized="${!!p.personalizavel}">
+      <div class="product-media">${photo(p.variantes[0].foto, p.cor, false, p.variantes[0].imagem)}${p.etiqueta ? `<span class="product-badge">${esc(p.etiqueta)}</span>` : ''}</div>
+      <div class="product-content"><p class="product-kind">${esc(p.tipo)}</p><h4>${esc(p.nome)}</h4><p class="product-description">${esc(p.descricao)}</p>
+      ${p.variantes.length > 1 ? `<div class="variant-previews">${p.variantes.map(v => `<div class="variant-preview"><img src="${esc(v.imagem || imageUrl(v.foto, p.cor, '160'))}" alt="${esc(v.imagem ? v.foto : `Foto em breve: ${v.foto}`)}" width="64" height="64" loading="lazy" decoding="async"><span>${esc(v.nome)}</span><strong>${money(v.preco)}</strong></div>`).join('')}</div>` : `<div class="product-price"><strong>${money(min)}</strong><small>${esc(p.variantes[0].nome)}</small></div>`}
+      ${p.taxaArte ? `<p class="fee-note">+ ${money(p.taxaArte)} por arte, cortador e carimbo.</p>` : ''}
+      <details class="product-details"><summary>O que vem no presente</summary><div class="details-body"><p>${esc(p.detalhes)}</p>${p.sabores ? `<p>Recheios sugeridos: ${p.sabores.map(esc).join(', ')}.</p>` : ''}<a class="text-link" href="${esc(whatsapp(`Olá! Tenho interesse em ${p.nome} da coleção de Natal. Podemos combinar as opções e a quantidade?`))}" target="_blank" rel="noopener">Pedir pelo WhatsApp ${icon('arrow')}</a></div></details>
+      <button class="n-button secondary product-open js-only" type="button" data-open-product="${p.id}">Escolher ${icon('plus')}</button></div></article>`;
+  };
+  const data = { produtos: natal.produtos, whatsapp: site.whatsappNumero, publicado: natal.publicado };
+  const faq = [...natal.faq, { pergunta: 'Como funcionam retirada e pagamento?', resposta: `${site.politicas.retirada} ${site.politicas.antecedencia} ${site.politicas.confirmacao} ${site.politicas.pagamento}` }];
+  const jsonLd = [localBusinessLd(), breadcrumbLd('Natal', 'natal/')];
+  if (natal.publicado) jsonLd.push(faqLd(faq.map(f => ({ q: f.pergunta, a: f.resposta }))));
+  return `<!doctype html><html lang="pt-BR"><head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>${esc(natal.seo.title)}</title><meta name="description" content="${esc(natal.seo.description)}">
+    <meta name="robots" content="${natal.publicado ? 'index, follow' : 'noindex, nofollow'}">
+    <link rel="canonical" href="${site.url}/natal/"><meta name="theme-color" content="#173e32">
+    <meta property="og:type" content="website"><meta property="og:locale" content="pt_BR"><meta property="og:title" content="${esc(natal.seo.title)}"><meta property="og:description" content="${esc(natal.seo.description)}"><meta property="og:url" content="${site.url}/natal/"><meta property="og:image" content="${site.url}/assets/images/brand/logo.jpeg"><meta property="og:image:alt" content="Logo Basilio Bolos">
+    <link rel="icon" href="/favicon-v2.svg"><link rel="preconnect" href="https://placehold.co"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400,20,1;9..144,500,20,1&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/natal.css"><script src="/js/natal.js" defer></script>
+    ${jsonLd.map(value => `<script type="application/ld+json">${JSON.stringify(value).replace(/</g, '\\u003c')}</script>`).join('')}
+    <script id="natal-data" type="application/json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>
+    </head><body class="natal">
+    <a href="#catalogo" class="skip-link">Pular para o catálogo</a>
+    ${natal.publicado ? '' : `<div class="preview-note">${esc(natal.preview)}</div>`}
+    <header class="n-header"><div class="n-wrap header-row"><a class="n-brand" href="/" aria-label="Basilio Bolos, página inicial"><span class="brand-mark">${icon('star')}</span><span><span class="brand-name">Basilio Bolos</span><span class="brand-subtitle">Confeitaria artesanal</span></span></a><nav class="header-links" aria-label="Navegação do Natal"><a href="#catalogo">A coleção</a><a href="#empresas" data-company-link>Para empresas</a><a href="#como-pedir">Como pedir</a></nav><a class="n-button secondary header-contact" href="${defaultWa}" target="_blank" rel="noopener">${icon('chat')} Fale com a gente</a></div></header>
+    <main><section class="hero"><div class="n-wrap hero-grid"><div class="hero-copy"><p class="eyebrow">${icon('star')} ${esc(natal.hero.eyebrow)}</p><h1 class="hero-title">${esc(natal.hero.titulo)}<br><em>${esc(natal.hero.destaque)}</em></h1><p class="hero-description">${esc(natal.hero.descricao)}</p><div class="hero-actions"><a class="n-button" href="#catalogo">Encontrar meu presente ${icon('arrow')}</a><a class="text-link" href="#empresas" data-company-link>Presentes para empresas</a></div><p class="hero-note">${icon('pin')} ${esc(natal.hero.nota)}</p></div><div class="hero-art"><div class="hero-main">${photo(natal.hero.foto, 'e3e8dd', true)}</div><div class="hero-small">${photo(natal.hero.fotoMenor, 'eadbd9')}</div><span class="hero-seal">${icon('star')} ${esc(natal.hero.selo)}</span></div></div></section>
+    <div class="promise-strip"><div class="n-wrap"><span>${icon('heart')} Feito sob encomenda</span><span>${icon('gift')} Presentes cheios de afeto</span><span>${icon('pin')} Retirada em Santo André</span></div></div>
+    <section class="catalog-section" id="catalogo" aria-labelledby="catalog-title"><div class="n-wrap"><div class="section-heading"><p class="eyebrow">${esc(natal.catalogo.eyebrow)}</p><h2 id="catalog-title">${esc(natal.catalogo.titulo)}</h2><p>${esc(natal.catalogo.descricao)}</p></div>
+    <div class="catalog-tools js-only"><nav class="category-nav" aria-label="Filtrar por tipo de produto"><button type="button" class="category-button" data-category="todos" aria-pressed="true">${icon('gift')} Ver tudo</button>${natal.categorias.map(c => `<button type="button" class="category-button" data-category="${c.id}" aria-pressed="false">${icon(c.icone)} ${esc(c.nome)}</button>`).join('')}</nav><div class="filter-row"><div class="search-field"><label class="sr-only" for="product-search">Buscar por produto ou presente</label>${icon('search')}<input type="search" id="product-search" placeholder="O que você procura?" autocomplete="off"></div><div class="budget-field"><label for="product-budget">Quero gastar</label><select id="product-budget"><option value="">Qualquer valor</option><option value="20">Até R$ 20</option><option value="40">Até R$ 40</option><option value="60">Até R$ 60</option><option value="100">Até R$ 100</option></select></div><div class="check-field"><input type="checkbox" id="personalized"><label for="personalized">Com foto ou logo</label></div></div><p class="catalog-status" id="catalog-status" role="status" aria-live="polite">${natal.produtos.length} presentes para descobrir</p></div>
+    <p class="no-js-note">Todos os produtos estão abaixo. Abra os detalhes para pedir pelo WhatsApp.</p>
+    <div id="empty-state" class="empty-state" hidden><h3>Nenhum presente por aqui.</h3><p>Tente outro nome ou amplie o valor.</p><button type="button" class="n-button secondary" id="clear-filters">Limpar filtros</button></div>
+    ${natal.categorias.map(c => `<section class="catalog-group" data-group="${c.id}" aria-labelledby="heading-${c.id}"><div class="group-heading"><h3 id="heading-${c.id}">${esc(c.nome)}</h3><p>${esc(c.descricao)}</p></div><div class="product-grid">${natal.produtos.filter(p => p.categoria === c.id).map(product).join('')}</div></section>`).join('')}
+    </div></section>
+    <section class="company-section" id="empresas" data-group="empresas" aria-labelledby="company-title"><div class="n-wrap"><div class="company-intro"><p class="eyebrow">${esc(natal.empresas.eyebrow)}</p><h2 id="company-title">${esc(natal.empresas.titulo)}</h2><p>${esc(natal.empresas.descricao)}</p></div><div class="company-grid">${natal.produtos.filter(p => p.categoria === 'empresas').map(product).join('')}</div></div></section>
+    <section class="steps-section" id="como-pedir"><div class="n-wrap"><div class="section-heading"><p class="eyebrow">Como encomendar</p><h2>${esc(natal.comoPedir.titulo)}</h2></div><div class="steps-grid">${natal.comoPedir.passos.map((p, i) => `<article><span class="step-number">0${i + 1}</span><h3>${esc(p.titulo)}</h3><p>${esc(p.texto)}</p></article>`).join('')}</div><p class="order-policy">${esc(site.politicas.antecedencia)} ${esc(site.politicas.confirmacao)}</p></div></section>
+    <section class="faq-section"><div class="n-wrap faq-grid"><div class="section-heading"><p class="eyebrow">Antes de escolher</p><h2>Vamos tirar<br>suas dúvidas?</h2><a class="text-link" href="${defaultWa}" target="_blank" rel="noopener">Converse com a gente ${icon('arrow')}</a></div><div class="faq-list">${faq.map(f => `<details><summary>${esc(f.pergunta)}</summary><p>${esc(f.resposta)}</p></details>`).join('')}</div></div></section>
+    <section class="visit-section" id="retirada"><div class="n-wrap visit-grid"><div><p class="eyebrow">Do nosso ateliê para você</p><h2>Seu Natal passa<br>por Santo André.</h2><p>${esc(site.politicas.retirada)}</p><a class="n-button" href="${esc(site.endereco.mapsUrl)}" target="_blank" rel="noopener">${icon('pin')} Ver no mapa</a></div><div class="visit-card"><h3>${esc(site.nome)}</h3><p>${esc(site.endereco.rua)}<br>${esc(site.endereco.bairro)} · ${esc(site.endereco.cidade)}/${esc(site.endereco.uf)}</p><h4>Horários de retirada</h4><p>${esc(site.horario)}.</p><p>Datas de Natal: confirme o horário no atendimento.</p><a class="text-link" href="${defaultWa}" target="_blank" rel="noopener">${esc(site.telefoneDisplay)} ${icon('arrow')}</a></div></div></section></main>
+    <footer class="n-footer"><div class="n-wrap footer-row"><a class="n-brand" href="/">${icon('star')} Basilio Bolos</a><span>Feito com carinho em Santo André.</span><div><a href="${esc(site.social.instagram)}" target="_blank" rel="noopener">Instagram</a><a href="/">Catálogo completo</a><a href="/privacidade/">Privacidade</a></div></div></footer>
+    <dialog class="product-dialog" id="product-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><p class="eyebrow">Seu presente de Natal</p><button class="icon-button" type="button" data-close-dialog aria-label="Fechar detalhes">${icon('close')}</button></div><div class="dialog-grid"><div class="dialog-image" id="dialog-image"></div><form id="product-form"><h2 id="dialog-title"></h2><p class="dialog-description" id="dialog-description"></p><div class="field-group"><label for="variant-select">Versão</label><select id="variant-select"></select></div><div class="field-group" id="flavor-field" hidden><label for="flavor-select">Recheio</label><select id="flavor-select"></select></div><div class="field-group quantity-field"><label for="product-quantity">Quantidade</label><input id="product-quantity" type="number" min="1" max="999" step="1" value="1" required inputmode="numeric"></div><p class="dialog-price" id="dialog-price" aria-live="polite"></p><p class="dialog-disclaimer" id="dialog-disclaimer"></p><button class="n-button" type="submit">${icon('bag')} Adicionar à minha lista</button><p class="dialog-disclaimer">O pedido e a data serão confirmados pelo WhatsApp.</p></form></div></dialog>
+    <div class="selection-bar" id="selection-bar" hidden><div class="n-wrap"><div class="selection-summary"><span>Seu Natal está tomando forma</span><strong id="selection-count"></strong></div><button type="button" class="n-button" id="open-selection">${icon('bag')} Ver minha lista ${icon('arrow')}</button></div></div>
+    <dialog class="product-dialog selection-dialog" id="selection-dialog" aria-labelledby="selection-title"><div class="dialog-top"><h2 id="selection-title">Minha lista de Natal</h2><button class="icon-button" type="button" data-close-dialog aria-label="Fechar lista">${icon('close')}</button></div><div class="selection-items" id="selection-items"></div><div class="selection-total"><span>Total estimado</span><strong id="selection-total"></strong></div><p class="dialog-disclaimer">Valores sugeridos nesta prévia. Fotos, sabores, disponibilidade e total serão confirmados no atendimento.</p><div class="selection-actions"><button class="n-button secondary" type="button" data-close-dialog>Continuar escolhendo</button><a class="n-button" id="send-selection" href="${defaultWa}" target="_blank" rel="noopener">${icon('chat')} Enviar pelo WhatsApp</a></div></dialog>
+    <p class="sr-only" id="selection-status" role="status" aria-live="polite"></p>
+    </body></html>`;
+}
+
 function renderSitemap() {
   const urls = [
+    ...(natal.publicado ? [{ loc: '/natal/', priority: '0.9', changefreq: 'weekly' }] : []),
     {
       loc: '/', priority: '1.0', changefreq: 'weekly',
       images: [
@@ -1682,6 +1757,7 @@ for (const relPath of PUBLIC_DIRECTORIES) copyPublicDirectory(relPath);
 for (const relPath of PUBLIC_FILES) copyPublicFile(relPath);
 
 writeFile('index.html', renderHome());
+writeFile('natal/index.html', renderNatal());
 writeFile('bolos/index.html', renderBolos('redondo'));
 writeFile('bento-cake/index.html', renderBentoCake());
 writeFile('doces/index.html', renderDoces());
