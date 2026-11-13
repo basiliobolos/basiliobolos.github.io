@@ -7,7 +7,7 @@
   "catalogo": {"eyebrow":"Escolha pelo que você ama","titulo":"Presentes de Natal","descricao":""},
   "categorias": [
     {"id":"biscoitos","nome":"Biscoitos de Natal","icone":"cookie","descricao":"Do mimo no saquinho à caixa para compartilhar."},
-    {"id":"chocotones","nome":"Chocotones e bites","icone":"cake","descricao":"Recheados, em miniatura ou em pequenos pedaços.","titulo":"Chocotones e bites de panetone"},
+    {"id":"chocotones","nome":"Chocotones e bites","icone":"popcorn","descricao":"Recheados, em miniatura ou em pequenos pedaços.","titulo":"Chocotones e bites de panetone"},
     {"id":"pao-de-mel","nome":"Pão de mel","icone":"heart","descricao":"Um clássico aconchegante, em dois tamanhos ou em dupla."},
     {"id":"canecas","nome":"Canecas com doces","icone":"cup","descricao":"Um presente para saborear. Uma caneca para guardar."}
   ],
