@@ -15,6 +15,7 @@ MVP solicitado para revisão em branch, sem alterar a publicação atual.
 - Ícones gerais oficiais Lucide em SVG local; símbolos de redes sociais preservam as marcas originais.
 - Fotos placehold.co de tamanho fixo, cores por família e indicação de foto futura.
 - Seções do catálogo alternam apenas dois fundos próximos: creme e verde suave. Títulos e ícones mantêm verde pinho; imagens provisórias usam tons discretos da mesma paleta.
+- A primeira e a última faixa do catálogo devem ter fundos diferentes dos blocos vizinhos externos.
 - Cores não substituem nomes ou ícones; contraste e fundo dos placeholders permanecem legíveis se a imagem falhar.
 - Preços e conteúdo propostos editáveis em JSON, claramente identificados como prévia.
 - Contato, retirada, endereço e pagamento vêm dos dados oficiais.

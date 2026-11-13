@@ -174,13 +174,13 @@
 .natal .catalog-section { padding-bottom: 0; }
 .natal .catalog-section > .n-wrap { padding-bottom: 32px; }
 .natal .catalog-group {
-  --section-bg: var(--cream);
+  --section-bg: #e9eee6;
   --section-accent: var(--pine);
   margin: 0; padding-block: 44px 54px; scroll-margin-top: 70px;
   color: var(--ink); background: var(--section-bg);
 }
 .natal .catalog-group[data-group="chocotones"],
-.natal .catalog-group[data-group="canecas"] { --section-bg: #e9eee6; }
+.natal .catalog-group[data-group="canecas"] { --section-bg: var(--cream); }
 .natal .catalog-group .group-heading { align-items: center; gap: 13px; margin-bottom: 26px; }
 .natal .catalog-group .group-heading h3 { color: var(--section-accent); }
 .natal .group-heading > .group-symbol {

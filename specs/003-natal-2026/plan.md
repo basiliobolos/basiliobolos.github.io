@@ -68,6 +68,7 @@
 
 ## Cores por seção
 
-- Faixas de largura total alternam creme e verde suave: biscoitos e pão de mel em creme; chocotones e canecas em verde. Títulos em verde pinho; empresas preservam o fundo pinho.
+- Faixas de largura total alternam creme e verde suave: biscoitos e pão de mel em verde; chocotones e canecas em creme. Títulos em verde pinho; empresas preservam o fundo pinho.
 - Conteúdo interno mantém a largura e a grade atuais; títulos com ícones reforçam as mudanças sem novos textos.
 - Imagens provisórias usam apenas creme e verde discretos em natal.json, também no modal e fallback; fotos reais não recebem filtros de cor.
+- A primeira faixa verde contrasta com a abertura creme; a última creme contrasta com empresas em verde pinho.

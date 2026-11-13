@@ -77,6 +77,20 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     check(!/N26-\d/.test(await page.locator('body').innerText()), 'No numeric product codes visible');
     const bandColors = await page.locator('.catalog-group').evaluateAll(groups => groups.map(group => getComputedStyle(group).backgroundColor));
     check(new Set(bandColors).size === 2 && bandColors[0] === bandColors[2] && bandColors[1] === bandColors[3] && bandColors[0] !== bandColors[1], 'Two alternating section backgrounds');
+    const neighborColors = await page.locator('.catalog-section').evaluate(catalog => {
+      const paintedBackground = element => {
+        for (let node = element; node; node = node.parentElement) {
+          const color = getComputedStyle(node).backgroundColor;
+          if (color !== 'rgba(0, 0, 0, 0)' && color !== 'transparent') return color;
+        }
+      };
+      return {
+        before: paintedBackground(catalog.querySelector('.catalog-group').previousElementSibling),
+        after: paintedBackground(catalog.nextElementSibling)
+      };
+    });
+    check(bandColors[0] !== neighborColors.before, 'First band differs from catalogue opening');
+    check(bandColors.at(-1) !== neighborColors.after, 'Last band differs from following business section');
     check(await page.locator('.catalog-group .group-symbol svg').count() === 4, 'Each section retains a named heading and icon');
     const imageColors = await page.locator('.catalog-group').evaluateAll(groups => groups.map(group => {
       const image = group.querySelector('.product-media img');
