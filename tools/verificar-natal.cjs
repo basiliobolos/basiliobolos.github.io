@@ -58,18 +58,54 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
       const positions = await images.evaluateAll(elements => elements.map(el => ({ x: el.getBoundingClientRect().x, y: el.getBoundingClientRect().y, width: el.getBoundingClientRect().width })));
       check(Math.abs(positions[0].y - positions[1].y) < 2 && positions.every(p => p.width >= 140), `${id}: equal large photos side by side`);
     }
-    await page.locator('#biscoito-saquinho .variant-choose[data-variant-index="1"]').click();
-    check(await page.locator('#variant-select').inputValue() === '1', 'Direct decorated choice');
+    const references = new Set();
+    for (const p of data.produtos) {
+      check(!references.has(p.codigo), `Unique product code: ${p.codigo}`);
+      references.add(p.codigo);
+      for (const v of p.variantes) {
+        check(!references.has(v.codigo), `Unique variant code: ${v.codigo}`);
+        references.add(v.codigo);
+        const link = page.locator(`#${p.id} [data-order-code="${v.codigo}"]`);
+        const href = new URL(await link.getAttribute('href'));
+        const message = href.searchParams.get('text');
+        check(href.origin === 'https://wa.me' && href.pathname === '/5511978458498', `Correct destination: ${v.codigo}`);
+        check(message.includes(p.nome) && message.includes(v.nome) && message.includes(`Código: ${v.codigo}.`), `Exact product and version: ${v.codigo}`);
+        check(await link.isVisible() && (await link.textContent()).includes('WhatsApp'), `Direct visible order button: ${v.codigo}`);
+      }
+      for (const flavor of p.sabores || []) {
+        check(!references.has(flavor.codigo), `Unique flavor code: ${flavor.codigo}`);
+        references.add(flavor.codigo);
+        const href = new URL(await page.locator(`#${p.id} [data-order-code="${flavor.codigo}"]`).getAttribute('href'));
+        check(href.searchParams.get('text').includes(flavor.nome) && href.searchParams.get('text').includes(flavor.codigo), `Exact flavor message: ${flavor.codigo}`);
+      }
+    }
+    await page.context().route('https://wa.me/**', route => route.fulfill({ contentType: 'text/html', body: '<title>WhatsApp link test</title>' }));
+    const expectedHref = await page.locator('#biscoito-saquinho [data-order-code="N26-01-DEC"]').getAttribute('href');
+    const popupPromise = page.waitForEvent('popup');
+    await page.locator('#biscoito-saquinho [data-order-code="N26-01-DEC"]').click();
+    const popup = await popupPromise;
+    await popup.waitForLoadState('domcontentloaded');
+    check(popup.url() === expectedHref, 'Card button opens the exact WhatsApp URL');
+    await popup.close();
+    await page.locator('.product-open[data-open-product="biscoito-saquinho"]').click();
+    await page.locator('#variant-select').selectOption('1');
     check((await page.locator('#dialog-photo img').getAttribute('alt')).includes('decorado'), 'Decorated picture selected');
+    check((await page.locator('#dialog-code').textContent()) === 'N26-01-DEC', 'Decorated reference displayed');
+    check((await page.locator('#dialog-order').getAttribute('href')) === expectedHref, 'Details match direct card message');
     await page.locator('.thumb-option[data-choice="0"]').click();
-    check(await page.locator('#variant-select').inputValue() === '0' && (await page.locator('#dialog-price').textContent()).includes('8,00'), 'Thumbnail updates selected variant and price');
+    check(await page.locator('#variant-select').inputValue() === '0' && (await page.locator('#dialog-price').textContent()).includes('8,00'), 'Thumbnail updates selected variant and unit price');
+    check((await page.locator('#dialog-order').getAttribute('data-order-code')) === 'N26-01-CAR', 'Thumbnail updates WhatsApp code');
     await page.keyboard.press('Escape');
+    check(await page.locator('.product-open[data-open-product="biscoito-saquinho"]').evaluate(el => el === document.activeElement), 'Details return focus');
     await page.locator('.product-open[data-open-product="chocotone-trufado"]').click();
     const originalFlavorPhoto = await page.locator('#dialog-photo img').getAttribute('src');
     await page.locator('#flavor-select').selectOption('Leite em pó');
     check(originalFlavorPhoto !== await page.locator('#dialog-photo img').getAttribute('src'), 'Flavor changes main photo');
+    const flavorMessage = new URL(await page.locator('#dialog-order').getAttribute('href')).searchParams.get('text');
+    check(flavorMessage.includes('Leite em pó') && flavorMessage.includes('N26-09-U-LPO'), 'Selected flavor and code in WhatsApp message');
     await page.locator('.thumb-option[data-choice="Doce de leite"]').click();
     check(await page.locator('#flavor-select').inputValue() === 'Doce de leite', 'Flavor thumbnail updates selection');
+    check((await page.locator('#dialog-order').getAttribute('data-order-code')) === 'N26-09-U-DLE', 'Flavor thumbnail updates order reference');
     await page.keyboard.press('Escape');
     for (const [category, count] of [['biscoitos', 12], ['chocotones', 5], ['pao-de-mel', 2], ['canecas', 4]]) {
       await page.locator(`[data-category="${category}"]`).click();
@@ -84,44 +120,38 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     await page.locator('#product-search').fill('leite em po');
     check(await page.locator('[data-product]:visible').count() === 3, 'Flavor objects remain searchable');
     await page.locator('#product-search').fill('');
-    async function add(id, index, amount, flavor) {
-      await page.locator(`.product-open[data-open-product="${id}"]`).click();
-      await page.locator('#variant-select').selectOption(String(index));
-      if (flavor) await page.locator('#flavor-select').selectOption(flavor);
-      await page.locator('#product-quantity').fill(String(amount));
-      await page.locator('#product-form button[type="submit"]').click();
-      check(!await page.locator('#product-dialog').isVisible(), `Added ${id}`);
+    check(await page.locator('#selection-bar, #selection-dialog, #product-quantity, input[type="number"], #product-form').count() === 0, 'No basket, quantity, or purchase form');
+    check(!/minha lista|adicionar à|total estimado|subtotal/i.test(await page.locator('body').innerText()), 'No basket copy or totals');
+    check(await page.locator('.product-kind, .product-description, .steps-section, .promise-strip').count() === 0, 'No repeated marketing blocks');
+    check(await page.locator('.product-details[open]').count() === 0, 'Long details collapsed initially');
+    await page.locator('.product-open[data-open-product="logo-carimbada"]').click();
+    check((await page.locator('#dialog-price').textContent()).includes('8,00'), 'Business unit price stays separate');
+    check((await page.locator('#dialog-disclaimer').textContent()).includes('35,00'), 'Setup fee stays visible separately');
+    check((await page.locator('#dialog-code').textContent()) === 'N26-18-U', 'Business reference');
+    await page.keyboard.press('Escape');
+    for (const width of [320, 390, 540, 768, 1024, 1280, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `Page fits at ${width}`);
+      for (const id of ['logo-carimbada', 'logo-impressa']) {
+        const card = page.locator(`#${id}`);
+        const fits = await card.evaluate(el => {
+          const card = el.getBoundingClientRect();
+          const targets = [el, ...el.querySelectorAll('h4, .product-content, .product-price, .fee-note, .product-order, .photo-label')];
+          return targets.every(node => {
+            const rect = node.getBoundingClientRect();
+            return node.scrollWidth <= node.clientWidth + 1 && rect.left >= card.left - 1 && rect.right <= card.right + 1 && rect.bottom <= card.bottom + 1;
+          });
+        });
+        check(fits, `${id}: content is not clipped at ${width}`);
+        await card.locator('summary').click();
+        check(await card.locator('.details-body').isVisible(), `${id}: details expand at ${width}`);
+        await card.locator('summary').click();
+      }
     }
-    await add('biscoito-saquinho', 1, 2);
-    await add('logo-carimbada', 0, 10);
-    await add('logo-carimbada', 0, 2);
-    await add('chocotone-trufado', 0, 2, 'Leite em pó');
-    check(await page.evaluate(() => { const a = document.querySelector('.whatsapp-float').getBoundingClientRect(); const b = document.querySelector('#selection-bar').getBoundingClientRect(); return a.bottom < b.top; }), 'WhatsApp does not overlap selection bar');
-    await page.locator('#open-selection').click();
-    check((await page.locator('#selection-total').textContent()).includes('337,00'), 'Total: 28 + 96 + 35 + 178 = 337');
-    const href = new URL(await page.locator('#send-selection').getAttribute('href'));
-    const message = href.searchParams.get('text');
-    check(href.pathname === '/5511978458498', 'Correct WhatsApp destination');
-    check(message.includes('12x Biscoito com logo carimbada') && message.includes('Decorado') && message.includes('Leite em pó'), 'Quantity, variant and flavor in message');
-    check((message.match(/35,00/g) || []).length === 1, 'One setup fee');
-    check(message.includes('valores da prévia'), 'Preview price disclaimer');
-    check(await page.evaluate(() => { const d = document.querySelector('#selection-dialog'); return d.scrollWidth <= d.clientWidth; }), 'List dialog fits mobile');
-    await page.getByRole('button', { name: 'Remover Biscoito com logo carimbada, Por unidade', exact: true }).click();
-    check((await page.locator('#selection-total').textContent()).includes('206,00'), 'Removal recalculates total');
-    await page.keyboard.press('Escape');
-    check(!await page.locator('#selection-dialog').isVisible(), 'Escape closes modal');
-    await page.locator('[data-open-product="mini-chocotone"]').click();
-    await page.locator('#product-quantity').fill('0');
-    await page.locator('#product-form button[type="submit"]').click();
-    check(await page.locator('#product-dialog').isVisible(), 'Zero quantity blocked');
-    await page.keyboard.press('Escape');
-    check(await page.locator('[data-open-product="mini-chocotone"]').evaluate(el => el === document.activeElement), 'Focus restored');
-    await add('mini-chocotone', 0, 999, 'Brigadeiro');
-    await page.locator('[data-open-product="mini-chocotone"]').click();
-    await page.locator('#product-form button[type="submit"]').click();
-    check(await page.locator('#product-dialog').isVisible(), 'Accumulated quantity limit');
-    await page.keyboard.press('Escape');
-    await add('caixa-pao-mel', 0, 1);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.locator('#product-search').fill('N26-01-DEC');
+    check(await page.locator('[data-product]:visible').count() === 1 && await page.locator('#biscoito-saquinho').isVisible(), 'Search by exact reference');
+    await page.locator('#product-search').fill('');
     check(errors.length === 0, `No JS errors: ${errors.join(', ')}`);
     await page.locator('[data-privacy-settings]').click();
     check(await page.locator('[data-privacy-banner]').isVisible(), 'Original cookie preferences open');
@@ -135,7 +165,9 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     check(await fallback.locator('#product-links a').first().isVisible(), 'Navigation available without JS');
     check(await fallback.locator('#biscoito-saquinho .variant-gallery img').count() === 2, 'Both variant photos without JS');
     await fallback.locator('#biscoito-saquinho summary').click();
-    check(await fallback.locator('#biscoito-saquinho .details-body a').isVisible(), 'WhatsApp without JS');
+    check(await fallback.locator('#biscoito-saquinho [data-order-code="N26-01-CAR"]').isVisible() && await fallback.locator('#biscoito-saquinho [data-order-code="N26-01-DEC"]').isVisible(), 'Both direct variant orders without JS');
+    await fallback.locator('#chocotone-trufado summary').click();
+    check(await fallback.locator('#chocotone-trufado [data-order-code="N26-09-U-LPO"]').isVisible(), 'Flavor-specific WhatsApp without JS');
     await noJs.close();
     const original = await browser.newPage({ viewport: { width: 1440, height: 900 } });
     await original.goto(new URL('/', url).href, { waitUntil: 'domcontentloaded' });
@@ -151,6 +183,6 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     await missingImages.close();
     const sitemap = fs.readFileSync(require('node:path').join(__dirname, '../dist/sitemap.xml'), 'utf8');
     check(!sitemap.includes('/natal/'), 'Preview excluded from sitemap');
-    console.log(`${checks} checks passed: catalogue, responsive layout, filters, quantities, pricing, WhatsApp, keyboard, no-JS and image fallback.`);
+    console.log(`${checks} checks passed: catalogue, references, direct WhatsApp, unclipped business cards, responsive layout, keyboard, no-JS and image fallback.`);
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

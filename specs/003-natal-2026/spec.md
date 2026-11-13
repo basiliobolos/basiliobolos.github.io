@@ -19,7 +19,11 @@ MVP solicitado para revisão em branch, sem alterar a publicação atual.
 - Nenhum depoimento, desconto, estoque ou prazo natalino fictício.
 - Sem rolagem horizontal em 390px e 1440px; foco, contraste e controles acessíveis.
 - HTML contém catálogo sem JavaScript; filtros enriquecem a navegação.
-- Seleção de variante, sabor e quantidade gera mensagem correta de WhatsApp.
+- Sem sacola, lista de compras, quantidade, subtotal ou total no site.
+- Cada produto e versão tem código estável nos dados; o botão do item abre o WhatsApp com código e nome.
+- Recheios mantêm fotos próprias e referência única na mensagem; quantidade e fechamento ficam no atendimento.
+- Vitrine enxuta: foto, nome, versão, preço, código e ação; detalhes e políticas ficam recolhidos.
+- Cards para empresas exibem todo o conteúdo sem cortes também em larguras intermediárias.
 - Página de prévia com noindex e sem ofertas estruturadas de preços fictícios.
 
 ## Autorização de escopo

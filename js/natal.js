@@ -5,12 +5,8 @@
   const cards = [...document.querySelectorAll('[data-product]')];
   const search = document.getElementById('product-search');
   const dialog = document.getElementById('product-dialog');
-  const listDialog = document.getElementById('selection-dialog');
-  const form = document.getElementById('product-form');
   const variant = document.getElementById('variant-select');
   const flavor = document.getElementById('flavor-select');
-  const quantity = document.getElementById('product-quantity');
-  const selection = new Map();
   const money = value => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
   const normalize = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   let category = 'todos';
@@ -18,11 +14,11 @@
   let lastTrigger;
 
   function filter() {
-    const terms = normalize(search.value.trim()).split(/\s+/).filter(Boolean);
+    const terms = normalize(search.value.trim()).split(/[^\p{L}\p{N}]+/u).filter(Boolean);
     let count = 0;
     for (const card of cards) {
       const p = products.get(card.dataset.product);
-      const haystack = normalize([p.nome, p.descricao, p.detalhes, p.tipo, ...p.familias, ...p.variantes.map(v => v.nome), ...(p.sabores || []).map(s => s.nome)].join(' '));
+      const haystack = normalize([p.nome, p.descricao, p.detalhes, p.tipo, ...p.familias, p.codigo, ...p.variantes.flatMap(v => [v.nome, v.codigo]), ...(p.sabores || []).flatMap(s => [s.nome, s.codigo])].join(' '));
       const words = haystack.split(/[^\p{L}\p{N}]+/u);
       const match = (category === 'todos' || p.familias.includes(category)) && terms.every(term => words.some(word => word === term || (term.length >= 3 && word.startsWith(term))));
       card.hidden = !match;
@@ -71,9 +67,6 @@
     }
   });
   dropdownLinks.addEventListener('click', () => setDropdown(false));
-  const selectionBar = document.getElementById('selection-bar');
-  const sizeSelection = () => document.body.style.setProperty('--selection-height', `${selectionBar.getBoundingClientRect().height}px`);
-  new ResizeObserver(sizeSelection).observe(selectionBar);
 
   function imageFallback(image) {
     image.addEventListener('error', () => {
@@ -91,11 +84,15 @@
 
   function updateProduct() {
     const option = current.variantes[Number(variant.value)];
-    const amount = Number(quantity.value);
-    const valid = Number.isInteger(amount) && amount >= 1 && amount <= 999;
-    document.getElementById('dialog-price').textContent = valid ? `Subtotal: ${money(option.preco * amount + (current.taxaArte || 0))}` : 'Informe uma quantidade entre 1 e 999.';
-    document.getElementById('dialog-disclaimer').textContent = current.taxaArte ? `${money(current.taxaArte)} de arte, cortador e carimbo incluídos uma vez. Para logos diferentes, solicite novo orçamento.` : 'Valor por unidade/kit conforme a versão escolhida.';
     const selectedFlavor = current.sabores?.find(s => s.nome === flavor.value);
+    const code = selectedFlavor ? selectedFlavor.codigo : option.codigo;
+    document.getElementById('dialog-price').textContent = `${money(option.preco)} · ${option.nome}`;
+    document.getElementById('dialog-code').textContent = code;
+    const order = document.getElementById('dialog-order');
+    order.href = data.pedidos[code];
+    order.dataset.orderCode = code;
+    order.setAttribute('aria-label', `Pedir ${current.nome} — ${selectedFlavor ? selectedFlavor.nome : option.nome} no WhatsApp (${code})`);
+    document.getElementById('dialog-disclaimer').textContent = current.taxaArte ? `+ ${money(current.taxaArte)} por arte, cortador e carimbo.` : '';
     const visual = selectedFlavor || option;
     const imageKey = JSON.stringify([current.id, variant.value, flavor.value]);
     document.querySelectorAll('.thumb-option').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.choice === (selectedFlavor ? flavor.value : variant.value))));
@@ -114,7 +111,6 @@
   }
   function openProduct(id, trigger, chosenIndex = 0) {
     current = products.get(id);
-    quantity.setCustomValidity('');
     lastTrigger = trigger;
     document.getElementById('dialog-title').textContent = current.nome;
     document.getElementById('dialog-description').textContent = current.detalhes;
@@ -141,15 +137,13 @@
       });
       thumbnails.append(button); imageFallback(image);
     });
-    quantity.value = 1;
     updateProduct(); dialog.showModal();
   }
   document.querySelectorAll('[data-open-product]').forEach(button => button.addEventListener('click', () => openProduct(button.dataset.openProduct, button, Number(button.dataset.variantIndex || 0))));
   variant.addEventListener('change', updateProduct);
   flavor.addEventListener('change', updateProduct);
-  quantity.addEventListener('input', updateProduct);
   document.querySelectorAll('[data-close-dialog]').forEach(button => button.addEventListener('click', () => button.closest('dialog').close()));
-  [dialog, listDialog].forEach(modal => {
+  [dialog].forEach(modal => {
     modal.addEventListener('click', event => {
       const rect = modal.getBoundingClientRect();
       if (event.target === modal && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) modal.close();
@@ -157,57 +151,6 @@
   });
   dialog.addEventListener('close', () => lastTrigger?.focus());
 
-  function renderSelection() {
-    const list = document.getElementById('selection-items');
-    list.replaceChildren();
-    const chargedSetup = new Set();
-    let total = 0; let count = 0;
-    const lines = [];
-    for (const [key, item] of selection) {
-      const p = products.get(item.id); const v = p.variantes[item.variant];
-      const setup = chargedSetup.has(p.id) ? 0 : (p.taxaArte || 0);
-      chargedSetup.add(p.id);
-      const subtotal = v.preco * item.quantity + setup;
-      total += subtotal; count += item.quantity;
-      const article = document.createElement('article'); article.className = 'selection-item';
-      const copy = document.createElement('div'); copy.className = 'selection-item-copy';
-      const title = document.createElement('h3'); title.textContent = p.nome;
-      const detail = document.createElement('p'); detail.textContent = `${item.quantity} × ${v.nome}${item.flavor ? ` · ${item.flavor}` : ''}${setup ? ` · ${money(setup)} de arte/cortador/carimbo` : ''}`;
-      const price = document.createElement('strong'); price.textContent = money(subtotal);
-      copy.append(title, detail, price);
-      const remove = document.createElement('button'); remove.type = 'button'; remove.className = 'icon-button'; remove.textContent = '×'; remove.setAttribute('aria-label', `Remover ${p.nome}, ${v.nome}${item.flavor ? ', ' + item.flavor : ''}`);
-      remove.addEventListener('click', () => {
-        const index = [...selection.keys()].indexOf(key);
-        selection.delete(key); renderSelection();
-        if (!selection.size) { listDialog.close(); document.querySelector('[data-category="todos"]').focus(); }
-        else { const controls = list.querySelectorAll('button'); controls[Math.min(index, controls.length - 1)].focus(); }
-      });
-      article.append(copy, remove); list.append(article);
-      lines.push(`${item.quantity}x ${p.nome} — ${v.nome}${item.flavor ? ` (${item.flavor})` : ''}: ${money(subtotal)}${setup ? `, inclui ${money(setup)} por uma arte/cortador/carimbo` : ''}`);
-    }
-    document.getElementById('selection-bar').hidden = selection.size === 0;
-    document.body.classList.toggle('has-selection', selection.size > 0);
-    document.getElementById('selection-count').textContent = `${count} ${count === 1 ? 'item' : 'itens'} · ${money(total)}`;
-    document.getElementById('selection-total').textContent = money(total);
-    const message = `Olá! Gostaria de encomendar estes presentes de Natal:\n\n${lines.join('\n')}\n\nTotal estimado${data.publicado ? '' : ' (valores da prévia)'}: ${money(total)}.\nPodemos confirmar a disponibilidade, os detalhes, o valor final e a data de retirada?`;
-    document.getElementById('send-selection').href = `https://wa.me/${data.whatsapp}?text=${encodeURIComponent(message)}`;
-  }
-  form.addEventListener('submit', event => {
-    event.preventDefault();
-    if (!form.reportValidity()) return;
-    const chosenFlavor = current.sabores ? flavor.value : '';
-    const key = JSON.stringify([current.id, Number(variant.value), chosenFlavor]);
-    const amount = Number(quantity.value);
-    const previous = selection.get(key);
-    if ((previous?.quantity || 0) + amount > 999) {
-      quantity.setCustomValidity('O limite é de 999 unidades por versão.'); quantity.reportValidity(); return;
-    }
-    selection.set(key, { id: current.id, variant: Number(variant.value), flavor: chosenFlavor, quantity: amount + (previous?.quantity || 0) });
-    renderSelection(); dialog.close();
-    document.getElementById('selection-status').textContent = `${current.nome} adicionado à sua lista.`;
-  });
-  quantity.addEventListener('input', () => quantity.setCustomValidity(''));
-  document.getElementById('open-selection').addEventListener('click', () => listDialog.showModal());
   document.body.classList.add('js-ready');
   filter();
 })();
