@@ -136,7 +136,8 @@
 .natal .hero-main .photo-frame { aspect-ratio: 4 / 5; border-radius: 45% 45% 2px 2px; }
 .natal .photo-label {
   position: absolute; bottom: 15px; left: 14px; right: 14px; display: flex;
-  align-items: center; justify-content: center; gap: 6px; color: #586457;
+  align-items: center; justify-content: center; gap: 6px; padding: 6px 8px; border-radius: 4px;
+  color: var(--pine); background: var(--paper);
   font-size: .62rem; font-weight: 700; line-height: 1.35; letter-spacing: .08em;
   text-transform: uppercase; text-align: center; pointer-events: none;
 }
@@ -170,7 +171,30 @@
 .natal .search-field > svg, .natal .search-field > .icon { position: absolute; left: 12px; bottom: 13px; width: 18px; height: 18px; color: var(--muted); pointer-events: none; }
 .natal .search-field input::placeholder { color: #6c776e; opacity: 1; }
 .natal .catalog-status { padding-top: 16px; color: var(--muted); font-size: .72rem; }
-.natal .catalog-group { margin-top: 39px; scroll-margin-top: 90px; }
+.natal .catalog-section { padding-bottom: 0; }
+.natal .catalog-section > .n-wrap { padding-bottom: 32px; }
+.natal .catalog-group {
+  --section-bg: #f1e3c8;
+  --section-accent: #765124;
+  margin: 0; padding-block: 44px 54px; scroll-margin-top: 70px;
+  color: var(--ink); background: var(--section-bg);
+}
+.natal .catalog-group[data-group="chocotones"] { --section-bg: #efd6d4; --section-accent: #713540; }
+.natal .catalog-group[data-group="pao-de-mel"] { --section-bg: #f1d7bd; --section-accent: #75431d; }
+.natal .catalog-group[data-group="canecas"] { --section-bg: #dce7dc; --section-accent: #244f3c; }
+.natal .catalog-group .group-heading { align-items: center; gap: 13px; margin-bottom: 26px; }
+.natal .catalog-group .group-heading h3 { color: var(--section-accent); }
+.natal .group-heading > .group-symbol {
+  width: 46px; height: 46px; flex: 0 0 auto; display: grid; place-items: center;
+  border: 1px solid currentColor; border-radius: 50%;
+  color: var(--section-accent); background: #fffdf8b3;
+}
+.natal .group-symbol .icon { width: 23px; height: 23px; }
+.natal .catalog-group .product-card { box-shadow: 0 5px 18px #25392e08; }
+.natal .category-button[data-category="biscoitos"]:not([aria-pressed="true"]) { color: #765124; background: #f1e3c8; }
+.natal .category-button[data-category="chocotones"]:not([aria-pressed="true"]) { color: #713540; background: #efd6d4; }
+.natal .category-button[data-category="pao-de-mel"]:not([aria-pressed="true"]) { color: #75431d; background: #f1d7bd; }
+.natal .category-button[data-category="canecas"]:not([aria-pressed="true"]) { color: #244f3c; background: #dce7dc; }
 .natal .group-heading { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 13px; margin-bottom: 23px; }
 .natal .group-heading h3 { color: var(--pine); font-size: 1.9rem; line-height: 1.2; letter-spacing: -.025em; }
 .natal .group-heading > span { font-size: .7rem; color: var(--muted); }
@@ -295,6 +319,8 @@
   .natal .hero-art { width: 100%; }
   .natal .hero-seal { top: 20px; width: 85px; height: 85px; font-size: .9rem; }
   .natal :where(.catalog-section, .company-section, .steps-section, .faq-section) { padding-block: 82px; }
+  .natal .catalog-section { padding-bottom: 0; }
+  .natal .catalog-group { padding-block: 64px 72px; }
   .natal .faq-grid { grid-template-columns: .8fr 1.2fr; gap: 65px; }
   .natal .visit-grid { grid-template-columns: 1.15fr 1fr; gap: 70px; }
   .natal .dialog-grid { grid-template-columns: .9fr 1fr; gap: 27px; }

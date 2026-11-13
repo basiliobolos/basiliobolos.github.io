@@ -65,3 +65,9 @@
 - Usar o mesmo nome completo no card e na mensagem do WhatsApp, sem códigos numéricos visíveis.
 - Validar nomes únicos por versão e recheio; preservar fotos, preços, cards separados e pedido direto.
 - Validação: 240 verificações aprovadas, incluindo nomes únicos, mensagens exatas por versão e recheio, ausência de códigos técnicos, pedidos sem JavaScript e sete larguras de tela.
+
+## Cores por seção
+
+- Faixas de largura total: biscoitos em dourado suave, chocotones em rosa, pão de mel em caramelo e canecas em verde sálvia; empresas em verde pinho.
+- Conteúdo interno mantém a largura e a grade atuais; títulos com ícones reforçam as mudanças sem novos textos.
+- Cores das imagens provisórias vêm de natal.json, preservadas também no modal e no fallback; fotos reais não recebem filtros de cor.

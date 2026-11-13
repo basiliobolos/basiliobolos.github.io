@@ -39,6 +39,10 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     for (const width of [320, 390, 768, 1024, 1440]) {
       await page.setViewportSize({ width, height: 900 });
       check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `No horizontal overflow at ${width}`);
+      check(await page.locator('.catalog-group').evaluateAll(groups => groups.every(group => {
+        const rect = group.getBoundingClientRect();
+        return Math.abs(rect.left) < 1 && Math.abs(rect.right - innerWidth) < 1;
+      })), `Color bands fill the viewport at ${width}`);
     }
     await page.setViewportSize({ width: 390, height: 844 });
     await page.locator('[data-menu-toggle]').click();
@@ -71,6 +75,22 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     }
     check(await page.locator('.product-code, #dialog-code').count() === 0, 'No technical codes on cards or details');
     check(!/N26-\d/.test(await page.locator('body').innerText()), 'No numeric product codes visible');
+    const bandColors = await page.locator('.catalog-group').evaluateAll(groups => groups.map(group => getComputedStyle(group).backgroundColor));
+    check(new Set(bandColors).size === 4 && !bandColors.includes('rgba(0, 0, 0, 0)'), 'Four distinct section backgrounds');
+    check(await page.locator('.catalog-group .group-symbol svg').count() === 4, 'Each section retains a named heading and icon');
+    const imageColors = await page.locator('.catalog-group').evaluateAll(groups => groups.map(group => {
+      const image = group.querySelector('.product-media img');
+      return new URL(image.src).pathname.split('/')[2];
+    }));
+    check(new Set(imageColors).size === 4, 'Preview image colors distinguish product families');
+    function luminance(rgb) {
+      return rgb.match(/\d+/g).slice(0, 3).map(Number).map(v => { v /= 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; }).reduce((sum, v, i) => sum + v * [.2126, .7152, .0722][i], 0);
+    }
+    const headingColors = await page.locator('.catalog-group').evaluateAll(groups => groups.map(group => ({ foreground: getComputedStyle(group.querySelector('h3')).color, background: getComputedStyle(group).backgroundColor })));
+    check(headingColors.every(({ foreground, background }) => {
+      const values = [luminance(foreground), luminance(background)].sort((a,b) => b-a);
+      return (values[0] + .05) / (values[1] + .05) >= 4.5;
+    }), 'Section titles have readable contrast on their backgrounds');
     const references = new Set();
     for (const p of data.produtos) {
       for (const v of p.variantes) {
@@ -194,6 +214,7 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     await imagePage.goto(url, { waitUntil: 'domcontentloaded' });
     await imagePage.waitForSelector('.hero-main .photo-fallback');
     check(await imagePage.locator('.hero-main .photo-frame').evaluate(el => el.clientHeight > 100), 'Image error preserves layout and label');
+    check(await imagePage.locator('[data-group="biscoitos"] .photo-frame').first().evaluate(el => getComputedStyle(el).backgroundColor !== 'rgb(230, 232, 221)'), 'Image fallback preserves the family color');
     await missingImages.close();
     const sitemap = fs.readFileSync(require('node:path').join(__dirname, '../dist/sitemap.xml'), 'utf8');
     check(!sitemap.includes('/natal/'), 'Preview excluded from sitemap');

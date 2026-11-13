@@ -101,10 +101,10 @@
     if (container.dataset.imageKey === imageKey) return;
     container.dataset.imageKey = imageKey;
     const image = document.createElement('img');
-    image.src = visual.imagem || `https://placehold.co/800/${visual.cor || current.cor}/526055?text=${encodeURIComponent(visual.foto)}&font=roboto`;
+    image.src = visual.imagem || `https://placehold.co/800/${visual.cor || current.cor}/25392e?text=${encodeURIComponent(visual.foto)}&font=roboto`;
     image.alt = visual.imagem ? visual.foto : `Foto em breve: ${visual.foto}`;
     image.width = 800; image.height = 800;
-    const frame = document.createElement('div'); frame.className = 'photo-frame'; frame.append(image);
+    const frame = document.createElement('div'); frame.className = 'photo-frame'; frame.style.backgroundColor = `#${visual.cor || current.cor}`; frame.append(image);
     const label = document.createElement('span'); label.className = 'photo-label'; label.textContent = 'Foto em breve';
     if (!visual.imagem) frame.append(label);
     container.replaceChildren(frame);
@@ -128,7 +128,7 @@
       button.dataset.choice = current.sabores ? choice.nome : String(index);
       button.setAttribute('aria-label', `Ver e escolher ${choice.nome}`);
       const image = document.createElement('img');
-      image.src = choice.imagem || `https://placehold.co/160/${choice.cor || current.cor}/526055?text=${encodeURIComponent(choice.foto)}&font=roboto`;
+      image.src = choice.imagem || `https://placehold.co/160/${choice.cor || current.cor}/25392e?text=${encodeURIComponent(choice.foto)}&font=roboto`;
       image.alt = ''; image.width = 80; image.height = 80;
       const name = document.createElement('span'); name.textContent = choice.nome;
       button.append(image, name);

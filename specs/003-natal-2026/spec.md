@@ -14,6 +14,8 @@ MVP solicitado para revisão em branch, sem alterar a publicação atual.
 - Menu mobile, links sociais, navegação de produtos e preferências de cookies continuam funcionais.
 - Ícones gerais oficiais Lucide em SVG local; símbolos de redes sociais preservam as marcas originais.
 - Fotos placehold.co de tamanho fixo, cores por família e indicação de foto futura.
+- Famílias do catálogo usam faixas de fundo distintas em toda a largura, com título e ícone; imagens provisórias seguem a paleta da família.
+- Cores não substituem nomes ou ícones; contraste e fundo dos placeholders permanecem legíveis se a imagem falhar.
 - Preços e conteúdo propostos editáveis em JSON, claramente identificados como prévia.
 - Contato, retirada, endereço e pagamento vêm dos dados oficiais.
 - Nenhum depoimento, desconto, estoque ou prazo natalino fictício.
