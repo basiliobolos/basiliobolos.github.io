@@ -68,6 +68,6 @@
 
 ## Cores por seção
 
-- Faixas de largura total: biscoitos em dourado suave, chocotones em rosa, pão de mel em caramelo e canecas em verde sálvia; empresas em verde pinho.
+- Faixas de largura total alternam creme e verde suave: biscoitos e pão de mel em creme; chocotones e canecas em verde. Títulos em verde pinho; empresas preservam o fundo pinho.
 - Conteúdo interno mantém a largura e a grade atuais; títulos com ícones reforçam as mudanças sem novos textos.
-- Cores das imagens provisórias vêm de natal.json, preservadas também no modal e no fallback; fotos reais não recebem filtros de cor.
+- Imagens provisórias usam apenas creme e verde discretos em natal.json, também no modal e fallback; fotos reais não recebem filtros de cor.

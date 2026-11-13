@@ -174,14 +174,13 @@
 .natal .catalog-section { padding-bottom: 0; }
 .natal .catalog-section > .n-wrap { padding-bottom: 32px; }
 .natal .catalog-group {
-  --section-bg: #f1e3c8;
-  --section-accent: #765124;
+  --section-bg: var(--cream);
+  --section-accent: var(--pine);
   margin: 0; padding-block: 44px 54px; scroll-margin-top: 70px;
   color: var(--ink); background: var(--section-bg);
 }
-.natal .catalog-group[data-group="chocotones"] { --section-bg: #efd6d4; --section-accent: #713540; }
-.natal .catalog-group[data-group="pao-de-mel"] { --section-bg: #f1d7bd; --section-accent: #75431d; }
-.natal .catalog-group[data-group="canecas"] { --section-bg: #dce7dc; --section-accent: #244f3c; }
+.natal .catalog-group[data-group="chocotones"],
+.natal .catalog-group[data-group="canecas"] { --section-bg: #e9eee6; }
 .natal .catalog-group .group-heading { align-items: center; gap: 13px; margin-bottom: 26px; }
 .natal .catalog-group .group-heading h3 { color: var(--section-accent); }
 .natal .group-heading > .group-symbol {
@@ -191,10 +190,6 @@
 }
 .natal .group-symbol .icon { width: 23px; height: 23px; }
 .natal .catalog-group .product-card { box-shadow: 0 5px 18px #25392e08; }
-.natal .category-button[data-category="biscoitos"]:not([aria-pressed="true"]) { color: #765124; background: #f1e3c8; }
-.natal .category-button[data-category="chocotones"]:not([aria-pressed="true"]) { color: #713540; background: #efd6d4; }
-.natal .category-button[data-category="pao-de-mel"]:not([aria-pressed="true"]) { color: #75431d; background: #f1d7bd; }
-.natal .category-button[data-category="canecas"]:not([aria-pressed="true"]) { color: #244f3c; background: #dce7dc; }
 .natal .group-heading { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 13px; margin-bottom: 23px; }
 .natal .group-heading h3 { color: var(--pine); font-size: 1.9rem; line-height: 1.2; letter-spacing: -.025em; }
 .natal .group-heading > span { font-size: .7rem; color: var(--muted); }
@@ -236,7 +231,7 @@
 .natal .faq-list details:last-child { border-bottom: 1px solid var(--line); }
 .natal .faq-list summary { position: relative; padding: 20px 30px 20px 0; list-style: none; font-size: .9rem; font-weight: 700; line-height: 1.5; }
 .natal .faq-list details > p, .natal .faq-list .details-body { padding: 0 26px 20px 0; color: var(--muted); font-size: .84rem; line-height: 1.7; }
-.natal .visit-section { padding-block: 50px; background: #e9eddf; }
+.natal .visit-section { padding-block: 50px; background: #e9eee6; }
 .natal .visit-grid { display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; gap: 28px; }
 .natal .visit-grid p:not(.eyebrow) { margin-top: 15px; max-width: 530px; color: #566552; font-size: .85rem; }
 .natal .visit-card { padding: 26px; border: 1px solid #c8d0be; background: #f8f9f0; }

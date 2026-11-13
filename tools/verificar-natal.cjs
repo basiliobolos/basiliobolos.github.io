@@ -76,13 +76,13 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     check(await page.locator('.product-code, #dialog-code').count() === 0, 'No technical codes on cards or details');
     check(!/N26-\d/.test(await page.locator('body').innerText()), 'No numeric product codes visible');
     const bandColors = await page.locator('.catalog-group').evaluateAll(groups => groups.map(group => getComputedStyle(group).backgroundColor));
-    check(new Set(bandColors).size === 4 && !bandColors.includes('rgba(0, 0, 0, 0)'), 'Four distinct section backgrounds');
+    check(new Set(bandColors).size === 2 && bandColors[0] === bandColors[2] && bandColors[1] === bandColors[3] && bandColors[0] !== bandColors[1], 'Two alternating section backgrounds');
     check(await page.locator('.catalog-group .group-symbol svg').count() === 4, 'Each section retains a named heading and icon');
     const imageColors = await page.locator('.catalog-group').evaluateAll(groups => groups.map(group => {
       const image = group.querySelector('.product-media img');
       return new URL(image.src).pathname.split('/')[2];
     }));
-    check(new Set(imageColors).size === 4, 'Preview image colors distinguish product families');
+    check(new Set(imageColors).size === 2 && imageColors[0] === imageColors[2] && imageColors[1] === imageColors[3], 'Preview images follow the same two-tone palette');
     function luminance(rgb) {
       return rgb.match(/\d+/g).slice(0, 3).map(Number).map(v => { v /= 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; }).reduce((sum, v, i) => sum + v * [.2126, .7152, .0722][i], 0);
     }
