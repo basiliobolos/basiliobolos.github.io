@@ -7,8 +7,8 @@ MVP solicitado para revisão em branch, sem alterar a publicação atual.
 ## Critérios
 - Descoberta por tipo: biscoitos, chocotones e bites, pão de mel e canecas com doces.
 - Navegação por tipo e busca por nome/conteúdo; sem filtro de preço nem checkbox de foto/logo.
-- Todos os 22 itens/variantes presentes em 19 cards, incluindo as duas opções para empresas.
-- Saquinho, cartão e pão de mel apresentam fotos grandes lado a lado, com versão e preço próprios.
+- Todos os 22 itens/variantes presentes em 22 cards separados, incluindo as duas opções para empresas.
+- Cada versão de saquinho, cartão e pão de mel tem card próprio, com nome, foto, preço, código e WhatsApp. Busca e detalhes respeitam a versão do card.
 - Fotos independentes para variantes visuais e recheios; seleção atualiza a foto, o preço e a mensagem.
 - Cabeçalho, rodapé e WhatsApp flutuante reutilizam os componentes originais, com cores de Natal.
 - Menu mobile, links sociais, navegação de produtos e preferências de cookies continuam funcionais.

@@ -1556,19 +1556,20 @@ function renderNatal() {
     const code = flavor ? flavor.codigo : v.codigo;
     return `<a class="${className}" href="${esc(pedidos[code])}" target="_blank" rel="noopener" data-order-code="${esc(code)}" aria-label="Pedir ${esc(p.nome)} — ${esc(flavor ? flavor.nome : v.nome)} no WhatsApp (${esc(code)})">${waIcon} Pedir no WhatsApp</a>`;
   };
-  const product = p => {
+  const product = p => p.variantes.map((v, index) => {
     const multiple = p.variantes.length > 1;
-    const v = p.variantes[0];
-    const media = multiple ? `<div class="product-media variant-gallery" aria-label="Compare as versões de ${esc(p.nome)}">${p.variantes.map(option => `<figure class="variant-photo">${photo(option.foto, option.cor || p.cor, false, option.imagem)}<figcaption><span>${esc(option.nome)}</span><strong>${money(option.preco)}</strong><small class="product-code">${esc(option.codigo)}</small>${orderLink(p, option, null, 'variant-order')}</figcaption></figure>`).join('')}</div>` : `<div class="product-media">${photo(v.foto, v.cor || p.cor, false, v.imagem)}</div>`;
-    return `<article class="product-card" id="${p.id}" data-product="${p.id}" data-families="${p.familias.join(' ')}">
-      <h4>${esc(p.nome)}</h4>${media}
+    const cardId = multiple ? `${p.id}-${v.codigo.toLowerCase()}` : p.id;
+    const media = `<div class="product-media">${photo(v.foto, v.cor || p.cor, false, v.imagem)}</div>`;
+    return `<article class="product-card" id="${cardId}" data-product="${p.id}" data-variant-index="${index}" data-families="${p.familias.join(' ')}">
+      <h4>${esc(p.nome)}${multiple ? ` · ${esc(v.nome)}` : ''}</h4>${media}
       <div class="product-content">
-      ${multiple ? '' : `<div class="product-price"><strong>${money(v.preco)}</strong><small>${esc(v.nome)}</small></div><p class="product-code">${esc(v.codigo)}</p>`}
+      <div class="product-price"><strong>${money(v.preco)}</strong><small>${esc(v.nome)}</small></div><p class="product-code">${esc(v.codigo)}</p>
       ${p.taxaArte ? `<p class="fee-note">+ ${money(p.taxaArte)} por arte, cortador e carimbo.</p>` : ''}
-      ${multiple ? '' : orderLink(p, v)}
+      ${orderLink(p, v)}
       <details class="product-details"><summary>Detalhes${p.sabores ? ' e recheios' : ''}</summary><div class="details-body"><p>${esc(p.detalhes)}</p>${p.sabores ? `<ul class="flavor-links">${p.sabores.map(flavor => `<li><a href="${esc(pedidos[flavor.codigo])}" data-order-code="${esc(flavor.codigo)}" target="_blank" rel="noopener">${esc(flavor.nome)} <small>(${esc(flavor.codigo)})</small></a></li>`).join('')}</ul>` : ''}</div></details>
-      <button class="text-link product-open js-only" type="button" data-open-product="${p.id}">${icon('image')} Ver fotos${p.sabores ? ' e recheios' : ' e detalhes'}</button></div></article>`;
-  };
+      <button class="text-link product-open js-only" type="button" data-open-product="${p.id}" data-variant-index="${index}">${icon('image')} Ver fotos${p.sabores ? ' e recheios' : ' e detalhes'}</button></div></article>`;
+  }).join('');
+  const cardCount = natal.produtos.reduce((sum, p) => sum + p.variantes.length, 0);
   const data = { produtos: natal.produtos, pedidos };
   const faq = [...natal.faq, { pergunta: 'Como funcionam retirada e pagamento?', resposta: `${site.politicas.retirada} ${site.politicas.antecedencia} ${site.politicas.confirmacao} ${site.politicas.pagamento}` }];
   const jsonLd = [localBusinessLd(), breadcrumbLd('Natal', 'natal/')];
@@ -1591,7 +1592,7 @@ function renderNatal() {
     ${navbar('natal', { icon, nativeDropdown: true, message: 'Olá! Quero fazer uma encomenda da coleção de Natal.' })}
     <main><section class="hero"><div class="n-wrap hero-grid"><div class="hero-copy"><p class="eyebrow">${icon('star')} ${esc(natal.hero.eyebrow)}</p><h1 class="hero-title">${esc(natal.hero.titulo)}<br><em>${esc(natal.hero.destaque)}</em></h1><p class="hero-description">${esc(natal.hero.descricao)}</p><div class="hero-actions"><a class="n-button" href="#catalogo">Encontrar meu presente ${icon('arrow')}</a><a class="text-link" href="#empresas" data-company-link>Presentes para empresas</a></div><p class="hero-note">${icon('pin')} ${esc(natal.hero.nota)}</p></div><div class="hero-art"><div class="hero-main">${photo(natal.hero.foto, 'e3e8dd', true)}</div><div class="hero-small">${photo(natal.hero.fotoMenor, 'eadbd9')}</div><span class="hero-seal">${icon('star')} ${esc(natal.hero.selo)}</span></div></div></section>
     <section class="catalog-section" id="catalogo" aria-labelledby="catalog-title"><div class="n-wrap"><div class="section-heading"><h2 id="catalog-title">${esc(natal.catalogo.titulo)}</h2></div>
-    <div class="catalog-tools js-only"><nav class="category-nav" aria-label="Filtrar por tipo de produto"><button type="button" class="category-button" data-category="todos" aria-pressed="true">${icon('gift')} Ver tudo</button>${natal.categorias.map(c => `<button type="button" class="category-button" data-category="${c.id}" aria-pressed="false">${icon(c.icone)} ${esc(c.nome)}</button>`).join('')}</nav><div class="filter-row"><div class="search-field"><label class="sr-only" for="product-search">Buscar por produto ou presente</label>${icon('search')}<input type="search" id="product-search" placeholder="O que você procura?" autocomplete="off"></div></div><p class="catalog-status" id="catalog-status" role="status" aria-live="polite">${natal.produtos.length} presentes para descobrir</p></div>
+    <div class="catalog-tools js-only"><nav class="category-nav" aria-label="Filtrar por tipo de produto"><button type="button" class="category-button" data-category="todos" aria-pressed="true">${icon('gift')} Ver tudo</button>${natal.categorias.map(c => `<button type="button" class="category-button" data-category="${c.id}" aria-pressed="false">${icon(c.icone)} ${esc(c.nome)}</button>`).join('')}</nav><div class="filter-row"><div class="search-field"><label class="sr-only" for="product-search">Buscar por produto ou presente</label>${icon('search')}<input type="search" id="product-search" placeholder="O que você procura?" autocomplete="off"></div></div><p class="catalog-status" id="catalog-status" role="status" aria-live="polite">${cardCount} presentes para descobrir</p></div>
     <p class="no-js-note">Todos os produtos estão abaixo. Abra os detalhes para pedir pelo WhatsApp.</p>
     <div id="empty-state" class="empty-state" hidden><h3>Nenhum presente por aqui.</h3><p>Tente outro nome ou veja todos os produtos.</p><button type="button" class="n-button secondary" id="clear-filters">Ver todos os produtos</button></div>
     ${natal.categorias.map(c => `<section class="catalog-group" data-group="${c.id}" aria-labelledby="heading-${c.id}"><div class="group-heading"><h3 id="heading-${c.id}">${esc(c.nome)}</h3></div><div class="product-grid">${natal.produtos.filter(p => p.categoria === c.id).map(product).join('')}</div></section>`).join('')}

@@ -18,7 +18,8 @@
     let count = 0;
     for (const card of cards) {
       const p = products.get(card.dataset.product);
-      const haystack = normalize([p.nome, p.descricao, p.detalhes, p.tipo, ...p.familias, p.codigo, ...p.variantes.flatMap(v => [v.nome, v.codigo]), ...(p.sabores || []).flatMap(s => [s.nome, s.codigo])].join(' '));
+      const v = p.variantes[Number(card.dataset.variantIndex)];
+      const haystack = normalize([p.nome, p.detalhes, ...p.familias, p.codigo, v.nome, v.codigo, ...(p.sabores || []).flatMap(s => [s.nome, s.codigo])].join(' '));
       const words = haystack.split(/[^\p{L}\p{N}]+/u);
       const match = (category === 'todos' || p.familias.includes(category)) && terms.every(term => words.some(word => word === term || (term.length >= 3 && word.startsWith(term))));
       card.hidden = !match;

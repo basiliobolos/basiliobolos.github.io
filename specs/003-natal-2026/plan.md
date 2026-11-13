@@ -16,7 +16,7 @@
 - Carregar app.js para preservar menu, consentimento e comportamento original do WhatsApp.
 - Dropdown nativo leve no Natal; Font Awesome apenas para símbolos de marcas existentes.
 - Remover filtro de orçamento e personalização, incluindo lógica, estilos e testes antigos.
-- Cards de variantes com duas fotos equivalentes e escolha direta; modal com miniaturas e fotos de recheios.
+- Um card por variante, mantendo dados agrupados por produto; modal abre a versão correspondente e preserva fotos de recheios.
 - Dados de foto editáveis por variante e por sabor em natal.json, sem reutilizar uma foto para opções distintas.
 
 ## Validação do MVP
@@ -53,3 +53,9 @@
 - Cards para empresas conferidos sem cortes em 320, 390, 540, 768, 1024, 1280 e 1440px, incluindo expansão dos detalhes.
 - Navegação, privacidade, fotos, busca por código, teclado e pedidos sem JavaScript preservados.
 - Geração e sintaxe aprovadas; validação por DOM e comportamento, sem leitura de capturas.
+
+## Cards separados por versão
+
+- Renderizar 22 cards a partir dos 19 produtos, sem duplicar dados ou alterar códigos.
+- Cada card tem ID próprio e índice de variante, com foto, título e link de pedido correspondentes.
+- Filtrar cada card pela própria variante; manter os recheios agrupados nos respectivos produtos.

@@ -182,17 +182,6 @@
 .natal .product-media > .photo-frame { aspect-ratio: 1; }
 .natal .product-content { min-width: 0; flex: 1; display: flex; flex-direction: column; padding: 22px; }
 .natal .product-card > h4 { min-width: 0; padding: 18px 22px; overflow-wrap: anywhere; color: var(--pine); font-family: var(--serif); font-size: 1.42rem; font-weight: 400; line-height: 1.2; letter-spacing: -.015em; }
-.natal .variant-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 2px; background: var(--line); }
-.natal .variant-photo { min-width: 0; margin: 0; color: var(--pine); background: var(--paper); }
-.natal .variant-photo .photo-frame { aspect-ratio: 1; }
-.natal .variant-photo .photo-label { left: 5px; right: 5px; bottom: 10px; font-size: .53rem; letter-spacing: .035em; }
-.natal .variant-photo .photo-fallback { font-size: 1rem; }
-.natal .variant-photo figcaption { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 14px 9px; text-align: center; }
-.natal .variant-photo figcaption > span { font-size: .82rem; font-weight: 700; }
-.natal .variant-photo figcaption > strong { font-size: 1.04rem; font-weight: 800; }
-.natal .variant-order { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 44px; width: 100%; margin-top: 4px; padding: 8px 5px; border: 1px solid #c5cebf; border-radius: 4px; color: var(--pine); background: var(--paper); font-size: .75rem; font-weight: 700; text-decoration: none; text-align: center; }
-.natal .variant-order:hover { background: var(--pine-light); border-color: var(--pine); }
-.natal .variant-order .icon { width: 16px; height: 16px; }
 .natal .product-code { color: var(--muted); font-size: .68rem; overflow-wrap: anywhere; }
 .natal .product-order { width: 100%; margin-top: 16px; }
 .natal .product-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 5px 8px; margin-top: auto; padding-top: 21px; }
@@ -359,7 +348,7 @@
 @media print {
   .natal .preview-note, .natal .navbar-glass, .natal .catalog-tools,
   .natal .whatsapp-float, .natal .privacy-banner,
-  .natal .variant-order, .natal .product-order, .natal .product-open, .natal dialog { display: none !important; }
+  .natal .product-order, .natal .product-open, .natal dialog { display: none !important; }
   .natal { padding: 0; background: white; color: black; }
   .natal .product-card { break-inside: avoid; }
   .natal .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
