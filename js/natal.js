@@ -4,8 +4,6 @@
   const products = new Map(data.produtos.map(product => [product.id, product]));
   const cards = [...document.querySelectorAll('[data-product]')];
   const search = document.getElementById('product-search');
-  const budget = document.getElementById('product-budget');
-  const personalized = document.getElementById('personalized');
   const dialog = document.getElementById('product-dialog');
   const listDialog = document.getElementById('selection-dialog');
   const form = document.getElementById('product-form');
@@ -21,14 +19,12 @@
 
   function filter() {
     const terms = normalize(search.value.trim()).split(/\s+/).filter(Boolean);
-    const limit = Number(budget.value) || Infinity;
     let count = 0;
     for (const card of cards) {
       const p = products.get(card.dataset.product);
-      const haystack = normalize([p.nome, p.descricao, p.detalhes, p.tipo, ...p.familias, ...p.variantes.map(v => v.nome), ...(p.sabores || [])].join(' '));
-      // A logo stamp requires the fixed setup fee even for one biscuit.
-      const price = Math.min(...p.variantes.map(v => v.preco)) + (p.taxaArte || 0);
-      const match = (category === 'todos' || p.familias.includes(category)) && price <= limit && (!personalized.checked || p.personalizavel) && terms.every(term => haystack.includes(term));
+      const haystack = normalize([p.nome, p.descricao, p.detalhes, p.tipo, ...p.familias, ...p.variantes.map(v => v.nome), ...(p.sabores || []).map(s => s.nome)].join(' '));
+      const words = haystack.split(/[^\p{L}\p{N}]+/u);
+      const match = (category === 'todos' || p.familias.includes(category)) && terms.every(term => words.some(word => word === term || (term.length >= 3 && word.startsWith(term))));
       card.hidden = !match;
       if (match) count++;
     }
@@ -36,10 +32,10 @@
       group.hidden = !group.querySelector('[data-product]:not([hidden])');
     });
     document.getElementById('empty-state').hidden = count !== 0;
-    document.getElementById('catalog-status').textContent = `${count} ${count === 1 ? 'presente encontrado' : 'presentes encontrados'}${Number.isFinite(limit) ? ' · opções a partir do valor indicado' : ''}`;
+    document.getElementById('catalog-status').textContent = `${count} ${count === 1 ? 'presente encontrado' : 'presentes encontrados'}`;
   }
   function resetFilters() {
-    category = 'todos'; search.value = ''; budget.value = ''; personalized.checked = false;
+    category = 'todos'; search.value = '';
     document.querySelectorAll('[data-category]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === category)));
     filter();
   }
@@ -49,10 +45,35 @@
     filter();
   }));
   search.addEventListener('input', filter);
-  budget.addEventListener('change', filter);
-  personalized.addEventListener('change', filter);
   document.getElementById('clear-filters').addEventListener('click', resetFilters);
   document.querySelectorAll('[data-company-link]').forEach(link => link.addEventListener('click', resetFilters));
+
+  // Keep the shared navigation without loading Bootstrap on the Christmas page.
+  const dropdown = document.querySelector('[data-natal-dropdown]');
+  const dropdownLinks = document.getElementById('product-links');
+  const setDropdown = open => {
+    dropdown.setAttribute('aria-expanded', String(open));
+    dropdownLinks.classList.toggle('show', open);
+  };
+  dropdown.addEventListener('click', () => setDropdown(dropdown.getAttribute('aria-expanded') !== 'true'));
+  document.addEventListener('click', event => {
+    if (!dropdown.closest('.dropdown').contains(event.target)) setDropdown(false);
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && dropdown.getAttribute('aria-expanded') === 'true') {
+      setDropdown(false); dropdown.focus(); event.stopImmediatePropagation();
+    }
+    if (event.key === 'Tab' && document.body.classList.contains('menu-open')) {
+      const controls = [...document.querySelectorAll('#mainNav a, #mainNav button')].filter(el => el.getClientRects().length && getComputedStyle(el).visibility !== 'hidden');
+      const first = controls[0]; const last = controls.at(-1);
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    }
+  });
+  dropdownLinks.addEventListener('click', () => setDropdown(false));
+  const selectionBar = document.getElementById('selection-bar');
+  const sizeSelection = () => document.body.style.setProperty('--selection-height', `${selectionBar.getBoundingClientRect().height}px`);
+  new ResizeObserver(sizeSelection).observe(selectionBar);
 
   function imageFallback(image) {
     image.addEventListener('error', () => {
@@ -74,30 +95,58 @@
     const valid = Number.isInteger(amount) && amount >= 1 && amount <= 999;
     document.getElementById('dialog-price').textContent = valid ? `Subtotal: ${money(option.preco * amount + (current.taxaArte || 0))}` : 'Informe uma quantidade entre 1 e 999.';
     document.getElementById('dialog-disclaimer').textContent = current.taxaArte ? `${money(current.taxaArte)} de arte, cortador e carimbo incluídos uma vez. Para logos diferentes, solicite novo orçamento.` : 'Valor por unidade/kit conforme a versão escolhida.';
+    const selectedFlavor = current.sabores?.find(s => s.nome === flavor.value);
+    const visual = selectedFlavor || option;
+    const imageKey = JSON.stringify([current.id, variant.value, flavor.value]);
+    document.querySelectorAll('.thumb-option').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.choice === (selectedFlavor ? flavor.value : variant.value))));
+    const container = document.getElementById('dialog-photo');
+    if (container.dataset.imageKey === imageKey) return;
+    container.dataset.imageKey = imageKey;
     const image = document.createElement('img');
-    image.src = option.imagem || `https://placehold.co/800/${current.cor}/526055?text=${encodeURIComponent(option.foto)}&font=roboto`;
-    image.alt = option.imagem ? option.foto : `Foto em breve: ${option.foto}`;
+    image.src = visual.imagem || `https://placehold.co/800/${visual.cor || current.cor}/526055?text=${encodeURIComponent(visual.foto)}&font=roboto`;
+    image.alt = visual.imagem ? visual.foto : `Foto em breve: ${visual.foto}`;
     image.width = 800; image.height = 800;
     const frame = document.createElement('div'); frame.className = 'photo-frame'; frame.append(image);
     const label = document.createElement('span'); label.className = 'photo-label'; label.textContent = 'Foto em breve';
-    if (!option.imagem) frame.append(label);
-    document.getElementById('dialog-image').replaceChildren(frame);
+    if (!visual.imagem) frame.append(label);
+    container.replaceChildren(frame);
     imageFallback(image);
   }
-  function openProduct(id, trigger) {
+  function openProduct(id, trigger, chosenIndex = 0) {
     current = products.get(id);
     quantity.setCustomValidity('');
     lastTrigger = trigger;
     document.getElementById('dialog-title').textContent = current.nome;
     document.getElementById('dialog-description').textContent = current.detalhes;
     variant.replaceChildren(...current.variantes.map((v, index) => new Option(`${v.nome} · ${money(v.preco)}`, index)));
-    flavor.replaceChildren(...(current.sabores || []).map(name => new Option(name, name)));
+    variant.value = String(chosenIndex);
+    flavor.replaceChildren(...(current.sabores || []).map(s => new Option(s.nome, s.nome)));
     document.getElementById('flavor-field').hidden = !current.sabores;
+    const choices = current.sabores || current.variantes;
+    const thumbnails = document.getElementById('dialog-variant-photos');
+    thumbnails.replaceChildren();
+    thumbnails.hidden = choices.length < 2;
+    choices.forEach((choice, index) => {
+      const button = document.createElement('button'); button.type = 'button'; button.className = 'thumb-option';
+      button.dataset.choice = current.sabores ? choice.nome : String(index);
+      button.setAttribute('aria-label', `Ver e escolher ${choice.nome}`);
+      const image = document.createElement('img');
+      image.src = choice.imagem || `https://placehold.co/160/${choice.cor || current.cor}/526055?text=${encodeURIComponent(choice.foto)}&font=roboto`;
+      image.alt = ''; image.width = 80; image.height = 80;
+      const name = document.createElement('span'); name.textContent = choice.nome;
+      button.append(image, name);
+      button.addEventListener('click', () => {
+        if (current.sabores) flavor.value = choice.nome; else variant.value = String(index);
+        updateProduct();
+      });
+      thumbnails.append(button); imageFallback(image);
+    });
     quantity.value = 1;
     updateProduct(); dialog.showModal();
   }
-  document.querySelectorAll('[data-open-product]').forEach(button => button.addEventListener('click', () => openProduct(button.dataset.openProduct, button)));
+  document.querySelectorAll('[data-open-product]').forEach(button => button.addEventListener('click', () => openProduct(button.dataset.openProduct, button, Number(button.dataset.variantIndex || 0))));
   variant.addEventListener('change', updateProduct);
+  flavor.addEventListener('change', updateProduct);
   quantity.addEventListener('input', updateProduct);
   document.querySelectorAll('[data-close-dialog]').forEach(button => button.addEventListener('click', () => button.closest('dialog').close()));
   [dialog, listDialog].forEach(modal => {

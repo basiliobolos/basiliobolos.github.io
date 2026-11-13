@@ -2,13 +2,22 @@
 
 - Dados e textos em `data/natal.json`; empresa em `data/site.json`.
 - Renderização em `tools/gerar.js`, CSS próprio em `css/natal.css` e JS em `js/natal.js`.
-- Sem framework, bibliotecas adicionais ou carrossel. Imagens com dimensões e lazy loading.
+- Sem framework ou carrossel. Imagens com dimensões e lazy loading; subconjunto local de SVGs Lucide.
 - Categorias por produto; canecas agrupadas pelo objeto procurado. Busca encontra também os doces dos kits.
 - Cards com preços visíveis e detalhes nativos. Seleção opcional de vários itens em lista, sem checkout.
 - Preferir orçamento contextual por WhatsApp, sem prometer reserva ou pedido confirmado.
 - `publicado: false` mantém noindex e exclui do sitemap; ativação futura depende da revisão comercial.
 - Link de Natal na navegação apenas na branch, mantendo o layout principal.
 - Validar geração, dados, DOM, fluxos, teclado e tamanhos mobile/desktop. Não ler screenshots sem pedido.
+
+## Revisão da interface
+
+- Reutilizar navbar, footer, waFloat e privacyBanner; estilos próprios mantêm a paleta natalina.
+- Carregar app.js para preservar menu, consentimento e comportamento original do WhatsApp.
+- Dropdown nativo leve no Natal; Font Awesome apenas para símbolos de marcas existentes.
+- Remover filtro de orçamento e personalização, incluindo lógica, estilos e testes antigos.
+- Cards de variantes com duas fotos equivalentes e escolha direta; modal com miniaturas e fotos de recheios.
+- Dados de foto editáveis por variante e por sabor em natal.json, sem reutilizar uma foto para opções distintas.
 
 ## Validação do MVP
 
@@ -19,3 +28,11 @@
 - Conferidos catálogo sem JavaScript, fallback das imagens, noindex e exclusão do sitemap.
 - Teste reproduzível: `tools/verificar-natal.cjs`, com Playwright instalado apenas no ambiente de QA.
 - A conferência foi feita pelo DOM e comportamento; nenhuma captura foi lida.
+
+## Validação da revisão
+
+- 77 verificações passaram em Chromium, incluindo menu desktop/mobile, teclado, consentimento, fotos independentes por versão e recheio e busca sem acentos.
+- Conferidos preços, taxa única, lista, mensagem do WhatsApp e funcionamento sem JavaScript.
+- Larguras de 320, 390, 768, 1024 e 1440px sem overflow horizontal.
+- Gerador, JSON e diff validados; dist permanece fora do versionamento.
+- Conferência por DOM e comportamento, sem leitura de capturas.

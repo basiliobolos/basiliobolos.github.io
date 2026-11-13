@@ -6,9 +6,13 @@ MVP solicitado para revisão em branch, sem alterar a publicação atual.
 
 ## Critérios
 - Descoberta por tipo: biscoitos, chocotones e bites, pão de mel e canecas com doces.
-- Filtros complementares por preço e personalização; busca por nome e conteúdo.
+- Navegação por tipo e busca por nome/conteúdo; sem filtro de preço nem checkbox de foto/logo.
 - Todos os 22 itens/variantes presentes em 19 cards, incluindo as duas opções para empresas.
-- Saquinho e cartão de biscoito mostram foto e preço de cada versão; pão de mel mostra os dois tamanhos.
+- Saquinho, cartão e pão de mel apresentam fotos grandes lado a lado, com versão e preço próprios.
+- Fotos independentes para variantes visuais e recheios; seleção atualiza a foto, o preço e a mensagem.
+- Cabeçalho, rodapé e WhatsApp flutuante reutilizam os componentes originais, com cores de Natal.
+- Menu mobile, links sociais, navegação de produtos e preferências de cookies continuam funcionais.
+- Ícones gerais oficiais Lucide em SVG local; símbolos de redes sociais preservam as marcas originais.
 - Fotos placehold.co de tamanho fixo, cores por família e indicação de foto futura.
 - Preços e conteúdo propostos editáveis em JSON, claramente identificados como prévia.
 - Contato, retirada, endereço e pagamento vêm dos dados oficiais.

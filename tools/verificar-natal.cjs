@@ -16,6 +16,7 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     await page.goto(url, { waitUntil: 'domcontentloaded' });
     await page.waitForSelector('body.js-ready');
     await page.evaluate(() => document.fonts.ready);
+    await page.locator('[data-privacy-reject]').click();
     check(data.produtos.length === 19, '19 cards');
     check(data.produtos.reduce((sum, p) => sum + p.variantes.length, 0) === 22, '22 variants');
     check(await page.locator('[data-product]:visible').count() === 19, 'All cards visible');
@@ -24,11 +25,52 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     const schema = await page.locator('script[type="application/ld+json"]').allTextContents();
     check(schema.every(text => !text.includes('.br/https:')), 'Valid canonical breadcrumb');
     check(schema.every(text => !text.includes('"offers"')), 'No fabricated structured offers');
+    check(await page.locator('#mainNav .brand-icon').getAttribute('src') === '/assets/images/brand/logo.jpeg', 'Original brand logo');
+    check(await page.locator('#mainNav [aria-current="page"]').textContent().then(text => text.includes('Natal')), 'Christmas active navigation');
+    check(await page.locator('.footer-gradient .social-link').count() === 5, 'Original footer social links');
+    check(await page.locator('.whatsapp-float').isVisible(), 'Floating WhatsApp visible');
+    check((await page.locator('.whatsapp-float').getAttribute('href')).includes('Natal'), 'Contextual WhatsApp message');
+    check(await page.locator('svg.lucide').count() > 20, 'Official inline Lucide icons');
+    check(await page.locator('#product-budget, #personalized').count() === 0, 'Removed price and personalization controls');
+    await page.locator('[data-natal-dropdown]').click();
+    check(await page.locator('#product-links').isVisible(), 'Desktop product dropdown');
+    await page.keyboard.press('Escape');
+    check(!await page.locator('#product-links').isVisible(), 'Dropdown Escape');
     for (const width of [320, 390, 768, 1024, 1440]) {
       await page.setViewportSize({ width, height: 900 });
       check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `No horizontal overflow at ${width}`);
     }
     await page.setViewportSize({ width: 390, height: 844 });
+    await page.locator('[data-menu-toggle]').click();
+    check(await page.locator('#navbarContent').isVisible() && await page.locator('[data-menu-toggle]').getAttribute('aria-expanded') === 'true', 'Mobile menu opens');
+    await page.locator('[data-natal-dropdown]').click();
+    check(await page.locator('#product-links').isVisible(), 'Mobile product dropdown');
+    await page.keyboard.press('Escape');
+    check(await page.locator('[data-menu-toggle]').getAttribute('aria-expanded') === 'true', 'First Escape closes only dropdown');
+    await page.keyboard.press('Escape');
+    check(await page.locator('[data-menu-toggle]').getAttribute('aria-expanded') === 'false', 'Second Escape closes mobile menu');
+    check(await page.locator('[data-menu-toggle]').evaluate(el => el === document.activeElement), 'Mobile focus restored');
+    for (const id of ['biscoito-saquinho', 'cartao-biscoito', 'pao-mel-saquinho']) {
+      const images = page.locator(`#${id} .variant-gallery img`);
+      check(await images.count() === 2, `${id}: two separate main photos`);
+      const sources = await images.evaluateAll(elements => elements.map(el => el.src));
+      check(new Set(sources).size === 2, `${id}: distinct photo URLs`);
+      const positions = await images.evaluateAll(elements => elements.map(el => ({ x: el.getBoundingClientRect().x, y: el.getBoundingClientRect().y, width: el.getBoundingClientRect().width })));
+      check(Math.abs(positions[0].y - positions[1].y) < 2 && positions.every(p => p.width >= 140), `${id}: equal large photos side by side`);
+    }
+    await page.locator('#biscoito-saquinho .variant-choose[data-variant-index="1"]').click();
+    check(await page.locator('#variant-select').inputValue() === '1', 'Direct decorated choice');
+    check((await page.locator('#dialog-photo img').getAttribute('alt')).includes('decorado'), 'Decorated picture selected');
+    await page.locator('.thumb-option[data-choice="0"]').click();
+    check(await page.locator('#variant-select').inputValue() === '0' && (await page.locator('#dialog-price').textContent()).includes('8,00'), 'Thumbnail updates selected variant and price');
+    await page.keyboard.press('Escape');
+    await page.locator('.product-open[data-open-product="chocotone-trufado"]').click();
+    const originalFlavorPhoto = await page.locator('#dialog-photo img').getAttribute('src');
+    await page.locator('#flavor-select').selectOption('Leite em pó');
+    check(originalFlavorPhoto !== await page.locator('#dialog-photo img').getAttribute('src'), 'Flavor changes main photo');
+    await page.locator('.thumb-option[data-choice="Doce de leite"]').click();
+    check(await page.locator('#flavor-select').inputValue() === 'Doce de leite', 'Flavor thumbnail updates selection');
+    await page.keyboard.press('Escape');
     for (const [category, count] of [['biscoitos', 12], ['chocotones', 5], ['pao-de-mel', 2], ['canecas', 4]]) {
       await page.locator(`[data-category="${category}"]`).click();
       check(await page.locator('[data-product]:visible').count() === count, `${category}: ${count}`);
@@ -39,14 +81,11 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     await page.locator('#product-search').fill('zzzzzz');
     check(await page.locator('#empty-state').isVisible(), 'Empty state');
     await page.locator('#clear-filters').click();
-    await page.locator('#product-budget').selectOption('20');
-    check(!await page.locator('#logo-carimbada').isVisible(), 'Budget includes R$35 setup');
-    await page.locator('#product-budget').selectOption('');
-    await page.locator('#personalized').check();
-    check(await page.locator('[data-product]:visible').count() === 3, 'Photo or logo filters');
-    await page.locator('#personalized').uncheck();
+    await page.locator('#product-search').fill('leite em po');
+    check(await page.locator('[data-product]:visible').count() === 3, 'Flavor objects remain searchable');
+    await page.locator('#product-search').fill('');
     async function add(id, index, amount, flavor) {
-      await page.locator(`[data-open-product="${id}"]`).click();
+      await page.locator(`.product-open[data-open-product="${id}"]`).click();
       await page.locator('#variant-select').selectOption(String(index));
       if (flavor) await page.locator('#flavor-select').selectOption(flavor);
       await page.locator('#product-quantity').fill(String(amount));
@@ -57,6 +96,7 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     await add('logo-carimbada', 0, 10);
     await add('logo-carimbada', 0, 2);
     await add('chocotone-trufado', 0, 2, 'Leite em pó');
+    check(await page.evaluate(() => { const a = document.querySelector('.whatsapp-float').getBoundingClientRect(); const b = document.querySelector('#selection-bar').getBoundingClientRect(); return a.bottom < b.top; }), 'WhatsApp does not overlap selection bar');
     await page.locator('#open-selection').click();
     check((await page.locator('#selection-total').textContent()).includes('337,00'), 'Total: 28 + 96 + 35 + 178 = 337');
     const href = new URL(await page.locator('#send-selection').getAttribute('href'));
@@ -83,14 +123,25 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     await page.keyboard.press('Escape');
     await add('caixa-pao-mel', 0, 1);
     check(errors.length === 0, `No JS errors: ${errors.join(', ')}`);
+    await page.locator('[data-privacy-settings]').click();
+    check(await page.locator('[data-privacy-banner]').isVisible(), 'Original cookie preferences open');
+    await page.locator('[data-privacy-reject]').click();
+    check(!await page.locator('[data-privacy-banner]').isVisible(), 'Cookie preferences close');
     const noJs = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
     const fallback = await noJs.newPage();
     await fallback.goto(url, { waitUntil: 'domcontentloaded' });
     check(await fallback.locator('[data-product]:visible').count() === 19, 'Static catalogue without JS');
     check(!await fallback.locator('.catalog-tools').isVisible(), 'Nonfunctional controls hidden without JS');
+    check(await fallback.locator('#product-links a').first().isVisible(), 'Navigation available without JS');
+    check(await fallback.locator('#biscoito-saquinho .variant-gallery img').count() === 2, 'Both variant photos without JS');
     await fallback.locator('#biscoito-saquinho summary').click();
     check(await fallback.locator('#biscoito-saquinho .details-body a').isVisible(), 'WhatsApp without JS');
     await noJs.close();
+    const original = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    await original.goto(new URL('/', url).href, { waitUntil: 'domcontentloaded' });
+    check(await original.locator('#mainNav a[data-bs-toggle="dropdown"]').count() === 1, 'Original site retains Bootstrap dropdown');
+    check(await original.locator('.footer-gradient .social-link').count() === 5, 'Original footer remains intact');
+    await original.close();
     const missingImages = await browser.newContext();
     await missingImages.route('https://placehold.co/**', route => route.abort());
     const imagePage = await missingImages.newPage();

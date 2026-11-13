@@ -12,6 +12,7 @@
   --serif: "Fraunces", Georgia, "Times New Roman", serif;
   --sans: "Nunito Sans", "Segoe UI", sans-serif;
   margin: 0;
+  padding-top: 70px;
   color: var(--ink);
   background: var(--cream);
   font-family: var(--sans);
@@ -22,14 +23,12 @@
 .natal *, .natal *::before, .natal *::after { box-sizing: border-box; }
 .natal [hidden] { display: none !important; }
 .natal:not(.js-ready) .js-only { display: none; }
-.natal .skip-link { position: absolute; z-index: 20; top: -100px; left: 16px; padding: 12px; color: var(--paper); background: var(--pine); }
+.natal .skip-link { position: fixed; z-index: 80; top: -100px; left: 16px; padding: 12px; color: var(--paper); background: var(--pine); }
 .natal .skip-link:focus { top: 12px; }
 .natal .photo-fallback { position: absolute; inset: 20% 10%; display: grid; place-items: center; color: var(--pine); text-align: center; font-family: var(--serif); font-size: clamp(1rem, 3vw, 2rem); }
 .natal .fee-note { color: var(--wine); font-size: .78rem; margin-top: 8px; }
 .natal .order-policy { margin-top: 30px; color: var(--muted); font-size: .85rem; }
 .natal .category-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
-.natal .footer-row > div { display: flex; flex-wrap: wrap; gap: 20px; font-size: .8rem; }
-.natal .footer-row > span { font-size: .8rem; }
 .natal .visit-grid .n-button { margin-top: 24px; }
 .natal .visit-card h4 { margin-top: 24px; }
 .natal .dialog-grid h2 { font-size: 1.8rem; line-height: 1.15; }
@@ -44,7 +43,7 @@
 .natal button { color: inherit; }
 .natal :focus-visible { outline: 3px solid var(--wine); outline-offset: 4px; }
 .natal ::selection { color: var(--paper); background: var(--wine); }
-.natal .n-wrap { width: min(1240px, calc(100% - 40px)); margin-inline: auto; }
+.natal .n-wrap, .natal .container { width: min(1240px, calc(100% - 40px)); margin-inline: auto; }
 .natal .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
@@ -53,19 +52,60 @@
   padding: 8px 20px; color: #65452e; background: #eee3ce;
   text-align: center; font-size: .75rem; line-height: 1.5; letter-spacing: .015em;
 }
-.natal .n-header { border-bottom: 1px solid var(--line); background: var(--cream); }
-.natal .header-row { min-height: 85px; display: flex; align-items: center; gap: 24px; }
-.natal .n-brand { display: flex; align-items: center; gap: 11px; text-decoration: none; flex-shrink: 0; }
-.natal .brand-mark {
-  width: 40px; height: 40px; display: grid; place-items: center;
-  color: var(--pine); border: 1px solid #acb7a7; border-radius: 50%;
-  font-family: var(--serif); font-size: 1.4rem;
+/* The original site shell, with the Christmas palette. */
+.natal .navbar-glass {
+  position: fixed; inset: 0 0 auto; z-index: 50; min-height: 70px;
+  color: var(--pine); background: #f8f4ecef; border-bottom: 1px solid #d7dfd2;
+  backdrop-filter: blur(12px) saturate(160%); box-shadow: 0 4px 24px #173e3210;
 }
-.natal .brand-name { display: block; font-family: var(--serif); font-size: 1.45rem; line-height: 1.15; }
-.natal .brand-subtitle { display: block; margin-top: 4px; color: var(--muted); font-size: .6rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
-.natal .header-links { display: flex; align-items: center; justify-content: flex-end; flex: 1; gap: 30px; }
-.natal .header-links a { font-size: .82rem; font-weight: 600; text-decoration: none; }
-.natal .header-links a:hover { text-decoration: underline; }
+.natal .navbar-glass.scrolled { background: #f8f4ecfa; box-shadow: 0 4px 24px #173e3220; }
+.natal .navbar-glass > .container { min-height: 70px; display: flex; align-items: center; gap: 20px; }
+.natal .navbar-brand {
+  display: inline-flex; align-items: center; gap: 10px; flex: 0 0 auto;
+  color: var(--pine); font-family: var(--sans); font-weight: 800; font-size: 1.2rem;
+  text-decoration: none; min-height: 44px;
+}
+.natal .brand-icon { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
+.natal .navbar-toggler {
+  display: none; width: 44px; height: 44px; padding: 10px; border: 0;
+  border-radius: 8px; color: var(--pine); background: transparent;
+}
+.natal .navbar-toggler svg { width: 24px; height: 24px; }
+.natal .navbar-collapse { min-width: 0; margin-left: auto; }
+.natal .navbar-nav { display: flex; align-items: center; gap: 3px; margin: 0; padding: 0; list-style: none; }
+.natal .nav-item { position: relative; }
+.natal .nav-link {
+  min-height: 44px; padding: 9px 11px; display: inline-flex; align-items: center;
+  justify-content: center; gap: 7px; border: 0; border-radius: 8px;
+  color: var(--pine); background: transparent; font-size: .87rem; font-weight: 600;
+  line-height: 1.4; text-decoration: none; white-space: nowrap;
+}
+.natal .nav-link .icon { width: 18px; height: 18px; }
+.natal .nav-link:hover, .natal .nav-link.active { color: var(--pine); background: var(--pine-light); }
+.natal .nav-link.active { font-weight: 800; }
+.natal .dropdown-menu {
+  display: none; position: absolute; left: 0; top: calc(100% + 5px); z-index: 2;
+  min-width: 240px; max-width: calc(100vw - 40px); padding: 8px; margin: 0;
+  list-style: none; border: 1px solid var(--line); border-radius: 10px;
+  color: var(--pine); background: var(--paper); box-shadow: 0 12px 30px #173e3224;
+}
+.natal .dropdown-menu.show { display: block; }
+.natal .dropdown-item { display: flex; align-items: center; min-height: 44px; padding: 10px 12px; color: var(--pine); border-radius: 6px; font-size: .86rem; text-decoration: none; }
+.natal .dropdown-item:hover, .natal .dropdown-item.active { color: var(--pine); background: var(--pine-light); }
+.natal .btn-whatsapp {
+  min-height: 44px; display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 11px 16px; margin-left: 9px; border: 1px solid var(--pine);
+  border-radius: 8px; color: var(--paper); background: var(--pine);
+  font-size: .85rem; font-weight: 800; line-height: 1.4; text-decoration: none; white-space: nowrap;
+}
+.natal .btn-whatsapp:hover { color: var(--paper); background: #245340; }
+.natal .btn-whatsapp .fa-whatsapp { font-size: 1.15rem; }
+.natal:not(.js-ready) { padding-top: 0; }
+.natal:not(.js-ready) .navbar-glass { position: static; }
+.natal:not(.js-ready) .navbar-glass > .container { flex-wrap: wrap; padding-block: 12px; }
+.natal:not(.js-ready) .navbar-collapse { margin-left: 0; flex-basis: 100%; }
+.natal:not(.js-ready) .navbar-nav { flex-wrap: wrap; }
+.natal:not(.js-ready) .dropdown-menu { position: static; display: block; box-shadow: none; }
 .natal .n-button {
   min-height: 46px; display: inline-flex; justify-content: center; align-items: center;
   gap: 10px; padding: 12px 21px; border: 1px solid var(--pine); border-radius: 3px;
@@ -116,7 +156,7 @@
 .natal .promise-strip .n-wrap { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 14px 30px; padding-block: 17px; }
 .natal .promise-strip span { display: inline-flex; align-items: center; gap: 8px; font-size: .72rem; }
 .natal .promise-strip svg { width: 17px; height: 17px; flex-shrink: 0; }
-.natal :where(.catalog-section, .company-section, .steps-section, .faq-section, .visit-section) { padding-block: 66px; scroll-margin-top: 24px; }
+.natal :where(.catalog-section, .company-section, .steps-section, .faq-section, .visit-section) { padding-block: 66px; scroll-margin-top: 90px; }
 .natal .section-heading h2, .natal .company-intro h2, .natal .visit-grid h2 { margin-top: 12px; color: var(--pine); font-size: clamp(2rem, 3.5vw, 3.1rem); line-height: 1.13; letter-spacing: -.035em; }
 .natal .section-heading > p:not(.eyebrow), .natal .company-intro > p:not(.eyebrow) { max-width: 600px; margin-top: 17px; color: var(--muted); font-size: .9rem; }
 .natal .catalog-tools { margin-top: 30px; }
@@ -126,20 +166,16 @@
 .natal .category-button[aria-pressed="true"] { color: var(--paper); background: var(--pine); border-color: var(--pine); }
 .natal .filter-row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 14px 18px; padding-block: 18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .natal .search-field { position: relative; flex: 1 1 250px; }
-.natal .search-field label, .natal .budget-field label, .natal .field-group label { display: block; margin-bottom: 6px; font-size: .73rem; font-weight: 700; }
-.natal .search-field input, .natal .budget-field select, .natal .field-group input, .natal .field-group select {
+.natal .search-field label, .natal .field-group label { display: block; margin-bottom: 6px; font-size: .73rem; font-weight: 700; }
+.natal .search-field input, .natal .field-group input, .natal .field-group select {
   display: block; width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid #bcc4b7;
   border-radius: 3px; color: var(--ink); background: var(--paper); font-size: .84rem;
 }
 .natal .search-field input { padding-left: 39px; }
 .natal .search-field > svg, .natal .search-field > .icon { position: absolute; left: 12px; bottom: 13px; width: 18px; height: 18px; color: var(--muted); pointer-events: none; }
 .natal .search-field input::placeholder { color: #6c776e; opacity: 1; }
-.natal .budget-field { flex: 1 1 155px; }
-.natal .check-field { display: flex; align-items: center; min-height: 44px; gap: 8px; flex: 1 1 145px; }
-.natal .check-field input { width: 17px; height: 17px; margin: 0; accent-color: var(--pine); }
-.natal .check-field label { cursor: pointer; font-size: .79rem; }
 .natal .catalog-status { padding-top: 16px; color: var(--muted); font-size: .72rem; }
-.natal .catalog-group { margin-top: 39px; scroll-margin-top: 25px; }
+.natal .catalog-group { margin-top: 39px; scroll-margin-top: 90px; }
 .natal .group-heading { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 13px; margin-bottom: 23px; }
 .natal .group-heading h3 { color: var(--pine); font-size: 1.9rem; line-height: 1.2; letter-spacing: -.025em; }
 .natal .group-heading > span { font-size: .7rem; color: var(--muted); }
@@ -153,11 +189,17 @@
 .natal .product-kind { color: var(--wine); font-size: .6rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .natal .product-content h4 { margin-top: 8px; color: var(--pine); font-family: var(--serif); font-size: 1.42rem; font-weight: 400; line-height: 1.2; letter-spacing: -.015em; }
 .natal .product-description { margin-top: 11px; color: var(--muted); font-size: .8rem; line-height: 1.65; }
-.natal .variant-previews { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
-.natal .variant-preview { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; }
-.natal .variant-preview img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 2px; }
-.natal .variant-preview span { margin-top: 7px; color: var(--muted); font-size: .7rem; line-height: 1.4; }
-.natal .variant-preview strong { margin-top: 2px; color: var(--pine); font-size: .83rem; }
+.natal .variant-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 2px; background: var(--line); }
+.natal .variant-photo { min-width: 0; margin: 0; color: var(--pine); background: var(--paper); }
+.natal .variant-photo .photo-frame { aspect-ratio: 1; }
+.natal .variant-photo .photo-label { left: 5px; right: 5px; bottom: 10px; font-size: .53rem; letter-spacing: .035em; }
+.natal .variant-photo .photo-fallback { font-size: 1rem; }
+.natal .variant-photo figcaption { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 14px 9px; text-align: center; }
+.natal .variant-photo figcaption > span { font-size: .82rem; font-weight: 700; }
+.natal .variant-photo figcaption > strong { font-size: 1.04rem; font-weight: 800; }
+.natal .variant-choose { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 44px; width: 100%; margin-top: 4px; padding: 8px 5px; border: 1px solid #c5cebf; border-radius: 4px; color: var(--pine); background: var(--paper); font-size: .75rem; font-weight: 700; }
+.natal .variant-choose:hover { background: var(--pine-light); border-color: var(--pine); }
+.natal .variant-choose .icon { width: 16px; height: 16px; }
 .natal .product-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 5px 8px; margin-top: auto; padding-top: 21px; }
 .natal .product-price small { color: var(--muted); font-size: .68rem; }
 .natal .product-price strong { color: var(--pine); font-size: 1.2rem; font-weight: 800; letter-spacing: -.03em; }
@@ -198,11 +240,46 @@
 .natal .visit-card { padding: 26px; border: 1px solid #c8d0be; background: #f8f9f0; }
 .natal .visit-card h3 { color: var(--pine); font-size: 1.3rem; }
 .natal .visit-card a { margin-top: 17px; }
-.natal .n-footer { padding-block: 30px; background: var(--cream); }
-.natal .footer-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
-.natal .footer-row p, .natal .footer-row > a { color: var(--muted); font-size: .74rem; }
-.natal .footer-row .brand-name { color: var(--pine); font-size: 1.2rem; }
-.natal .footer-row > div { display: flex; flex-wrap: wrap; align-items: center; gap: 15px; }
+.natal .footer-gradient { padding-block: 26px; color: var(--paper); background: linear-gradient(135deg, var(--pine), #102b23); }
+.natal .footer-bar { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-right: 65px; }
+.natal .footer-note { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; font-size: .83rem; }
+.natal .footer-legal-links { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 6px 16px; }
+.natal .footer-legal-links a, .natal .footer-privacy-button { display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; color: #e1e9de; background: transparent; font-size: .8rem; line-height: 1.4; text-decoration: underline; text-underline-offset: .2em; }
+.natal .footer-legal-links a:hover, .natal .footer-privacy-button:hover { color: #fff; }
+.natal .social-links { display: flex; align-items: center; justify-content: center; flex-shrink: 0; gap: 8px; }
+.natal .social-link { width: 44px; height: 44px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: var(--paper); background: #ffffff15; font-size: 1.08rem; text-decoration: none; }
+.natal .social-link:hover { color: var(--pine); background: var(--paper); }
+.natal .footer-gradient :focus-visible { outline-color: #efd4aa; }
+.natal .whatsapp-float {
+  position: fixed; z-index: 30; right: 24px; bottom: 24px; width: 60px; height: 60px;
+  display: flex; align-items: center; justify-content: center; border: 1px solid #ffffff50;
+  border-radius: 50%; color: #fff; background: linear-gradient(135deg, #29704b, var(--pine));
+  box-shadow: 0 8px 24px #173e3240; font-size: 28px; text-decoration: none;
+}
+.natal .whatsapp-float:hover { color: #fff; background: #245340; }
+.natal .whatsapp-float.is-near-bottom { width: 44px; height: 44px; font-size: 23px; }
+.natal .whatsapp-float .pulse-ring { display: none; }
+.natal.has-selection .whatsapp-float { bottom: calc(var(--selection-height, 100px) + 20px); }
+.natal.menu-open .whatsapp-float, .natal.menu-open .selection-bar { visibility: hidden; }
+.natal:has(.privacy-banner:not([hidden])) .whatsapp-float { visibility: hidden; }
+.natal .privacy-banner {
+  position: fixed; z-index: 60; right: 16px; bottom: 16px; width: min(680px, calc(100% - 32px));
+  max-height: calc(100dvh - 100px); overflow: auto; border: 1px solid #ffffff40; border-radius: 12px;
+  color: var(--paper); background: #173e32; box-shadow: 0 12px 40px #102b2340;
+}
+.natal.has-selection .privacy-banner { bottom: calc(var(--selection-height, 100px) + 12px); max-height: calc(100dvh - var(--selection-height, 100px) - 100px); }
+.natal .privacy-banner-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px; }
+.natal .privacy-banner-copy { min-width: 0; flex: 1; }
+.natal .privacy-banner-title { font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
+.natal .privacy-banner-copy p:last-child { color: #e1e9de; font-size: .85rem; }
+.natal .privacy-banner a { color: #fff; text-decoration: underline; }
+.natal .privacy-banner-actions { display: flex; gap: 10px; flex-shrink: 0; }
+.natal .privacy-button { min-height: 44px; padding: 10px 14px; border: 1px solid #ffffff70; border-radius: 6px; font-size: .8rem; font-weight: 800; }
+.natal .privacy-button-secondary { color: #fff; background: transparent; }
+.natal .privacy-button-secondary:hover { background: #ffffff18; }
+.natal .privacy-button-primary { color: var(--pine); background: var(--paper); }
+.natal .privacy-button-primary:hover { background: #e4ebe2; }
+.natal .privacy-banner :focus-visible { outline-color: #efd4aa; }
 .natal .product-dialog, .natal #selection-dialog {
   width: min(840px, calc(100vw - 28px)); max-height: calc(100dvh - 32px);
   margin: auto; padding: 0; border: 1px solid #c7cdbf; border-radius: 5px;
@@ -218,14 +295,18 @@
 .natal .dialog-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; padding: 23px; }
 .natal .dialog-image { min-width: 0; }
 .natal .dialog-image .photo-frame { aspect-ratio: 1; border-radius: 3px; }
+.natal .variant-thumbnails { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 12px; }
+.natal .thumb-option { display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 0; padding: 7px; border: 1px solid var(--line); border-radius: 4px; color: var(--pine); background: var(--paper); font-size: .75rem; line-height: 1.4; text-align: center; }
+.natal .thumb-option img { width: 100%; max-width: 100px; aspect-ratio: 1; object-fit: cover; }
+.natal .thumb-option[aria-pressed="true"] { border: 2px solid var(--pine); padding: 6px; background: var(--pine-light); font-weight: 800; }
+.natal .thumb-option:hover { background: var(--pine-light); }
 .natal #product-form { min-width: 0; display: flex; flex-direction: column; gap: 17px; }
 .natal .dialog-description { color: var(--muted); font-size: .85rem; line-height: 1.65; }
 .natal .quantity-field { max-width: 130px; }
 .natal .dialog-price { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 7px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--pine); font-size: .83rem; }
 .natal .dialog-price strong { font-size: 1.5rem; }
 .natal .dialog-disclaimer { color: var(--muted); font-size: .7rem; line-height: 1.6; }
-.natal .has-selection { padding-bottom: 95px; }
-.natal.has-selection { padding-bottom: 95px; }
+.natal.has-selection { padding-bottom: var(--selection-height, 100px); }
 .natal .selection-bar { position: fixed; z-index: 20; inset: auto 0 0; padding: 14px 0 max(14px, env(safe-area-inset-bottom)); border-top: 1px solid #c5cebf; background: var(--paper); box-shadow: 0 -6px 30px #173e320d; }
 .natal .selection-bar .n-wrap { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
 .natal .selection-summary { min-width: 0; display: flex; flex-direction: column; color: var(--pine); font-size: .83rem; line-height: 1.5; }
@@ -253,7 +334,7 @@
   .natal .hero-art { width: 85%; }
 }
 @media (min-width: 760px) {
-  .natal .n-wrap { width: min(1240px, calc(100% - 72px)); }
+  .natal .n-wrap, .natal .container { width: min(1240px, calc(100% - 72px)); }
   .natal .hero-grid { grid-template-columns: 1.05fr 1fr; align-items: center; gap: 48px; padding-block: 65px 72px; }
   .natal .hero-art { width: 100%; }
   .natal .hero-seal { top: 20px; width: 85px; height: 85px; font-size: .9rem; }
@@ -263,7 +344,6 @@
   .natal .visit-grid { grid-template-columns: 1.15fr 1fr; gap: 70px; }
   .natal .dialog-grid { grid-template-columns: .9fr 1fr; gap: 27px; }
   .natal .search-field { flex: 1 1 300px; }
-  .natal .budget-field, .natal .check-field { flex: 0 1 190px; }
   .natal .company-grid .product-card { display: grid; grid-template-columns: .9fr 1.1fr; }
   .natal .company-grid .product-media { height: 100%; }
   .natal .company-grid .photo-frame { min-height: 100%; }
@@ -279,19 +359,35 @@
   .natal .company-grid .product-content { padding: 24px; }
 }
 @media (max-width: 759px) {
-  .natal .header-row { min-height: 76px; gap: 15px; justify-content: space-between; }
-  .natal .header-links { display: none; }
-  .natal .header-row > .n-button { min-height: 40px; padding: 9px 13px; font-size: .73rem; }
-  .natal .brand-name { font-size: 1.22rem; }
-  .natal .brand-subtitle { font-size: .52rem; }
-  .natal .brand-mark { width: 33px; height: 33px; font-size: 1.15rem; }
-  .natal .n-brand { gap: 8px; }
-  .natal .dialog-image { max-width: 240px; width: 100%; margin-inline: auto; }
+  .natal .dialog-image { max-width: 400px; width: 100%; margin-inline: auto; }
   .natal .promise-strip span { font-size: .65rem; }
+  .natal .footer-bar { flex-direction: column; padding-right: 0; padding-bottom: 55px; gap: 16px; }
+  .natal .footer-note { justify-content: center; text-align: center; }
+  .natal .footer-legal-links { justify-content: center; }
+  .natal .whatsapp-float { width: 56px; height: 56px; right: 20px; bottom: 20px; font-size: 26px; }
+  .natal .whatsapp-float.is-near-bottom { right: 14px; bottom: 14px; }
+  .natal.has-selection .whatsapp-float.is-near-bottom { bottom: calc(var(--selection-height, 100px) + 14px); }
+  .natal .privacy-banner-inner { flex-direction: column; align-items: stretch; gap: 14px; padding: 17px; }
+  .natal .privacy-banner-actions .privacy-button { flex: 1; padding-inline: 8px; }
+}
+@media (max-width: 991.98px) {
+  html.menu-open, .natal.menu-open { overflow: hidden; }
+  .natal .navbar-glass > .container { justify-content: space-between; }
+  .natal.js-ready .navbar-toggler { display: inline-flex; align-items: center; justify-content: center; }
+  .natal .navbar-brand, .natal .navbar-toggler { position: relative; z-index: 2; }
+  .natal.js-ready .navbar-collapse {
+    position: fixed; inset: 0; z-index: 1; width: 100%; height: 100dvh; min-height: 100vh;
+    padding: 86px 20px 24px; margin: 0; overflow-y: auto; overscroll-behavior: contain;
+    color: var(--pine); background: var(--cream); visibility: hidden; pointer-events: none;
+  }
+  .natal.js-ready .navbar-collapse.is-open { visibility: visible; pointer-events: auto; }
+  .natal .navbar-nav { flex-direction: column; align-items: stretch; gap: 8px; width: 100%; }
+  .natal .nav-link { width: 100%; min-height: 48px; padding: 12px 16px; justify-content: flex-start; font-size: 1rem; }
+  .natal .dropdown-menu { position: static; max-width: none; margin-top: 4px; padding-left: 20px; border: 0; background: #e4ebe280; box-shadow: none; }
+  .natal .btn-whatsapp { display: flex; margin: 10px 0 0; width: 100%; min-height: 48px; font-size: 1rem; }
 }
 @media (max-width: 359px) {
-  .natal .n-wrap { width: calc(100% - 28px); }
-  .natal .brand-mark { display: none; }
+  .natal .n-wrap, .natal .container { width: calc(100% - 28px); }
   .natal .hero-title { font-size: 2.6rem; }
   .natal .hero-actions { align-items: flex-start; flex-direction: column; gap: 16px; }
   .natal .hero-seal { width: 80px; height: 80px; font-size: .8rem; }
@@ -301,9 +397,10 @@
   .natal *, .natal *::before, .natal *::after { scroll-behavior: auto !important; transition: none !important; }
 }
 @media print {
-  .natal .preview-note, .natal .header-links, .natal .catalog-tools,
-  .natal .selection-bar, .natal .product-open, .natal dialog { display: none !important; }
-  .natal { background: white; color: black; }
+  .natal .preview-note, .natal .navbar-glass, .natal .catalog-tools,
+  .natal .whatsapp-float, .natal .privacy-banner, .natal .selection-bar,
+  .natal .variant-choose, .natal .product-open, .natal dialog { display: none !important; }
+  .natal { padding: 0; background: white; color: black; }
   .natal .product-card { break-inside: avoid; }
   .natal .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
