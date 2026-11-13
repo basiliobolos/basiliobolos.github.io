@@ -62,38 +62,38 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
       const p = data.produtos.find(p => p.id === id);
       for (const [index, v] of p.variantes.entries()) {
         const card = cards.nth(index);
-        check((await card.locator('h4').textContent()).includes(v.nome), `${v.codigo}: version in heading`);
-        check(await card.locator('.product-order').getAttribute('data-order-code') === v.codigo, `${v.codigo}: own WhatsApp button`);
+        check((await card.locator('h4').textContent()) === v.referencia, `${v.referencia}: version in heading`);
+        check(await card.locator('.product-order').getAttribute('data-order-reference') === v.referencia, `${v.referencia}: own WhatsApp button`);
         await card.locator('.product-open').click();
-        check(await page.locator('#variant-select').inputValue() === String(index) && await page.locator('#dialog-code').textContent() === v.codigo, `${v.codigo}: details open correct version`);
+        check(await page.locator('#variant-select').inputValue() === String(index) && await page.locator('#dialog-order').getAttribute('data-order-reference') === v.referencia, `${v.referencia}: details open correct version`);
         await page.keyboard.press('Escape');
       }
     }
+    check(await page.locator('.product-code, #dialog-code').count() === 0, 'No technical codes on cards or details');
+    check(!/N26-\d/.test(await page.locator('body').innerText()), 'No numeric product codes visible');
     const references = new Set();
     for (const p of data.produtos) {
-      check(!references.has(p.codigo), `Unique product code: ${p.codigo}`);
-      references.add(p.codigo);
       for (const v of p.variantes) {
-        check(!references.has(v.codigo), `Unique variant code: ${v.codigo}`);
-        references.add(v.codigo);
-        const link = page.locator(`[data-product="${p.id}"] [data-order-code="${v.codigo}"]`);
+        check(!references.has(v.referencia), `Unique variant name: ${v.referencia}`);
+        references.add(v.referencia);
+        const link = page.locator(`[data-product="${p.id}"] [data-order-reference="${v.referencia}"]`);
         const href = new URL(await link.getAttribute('href'));
         const message = href.searchParams.get('text');
-        check(href.origin === 'https://wa.me' && href.pathname === '/5511978458498', `Correct destination: ${v.codigo}`);
-        check(message.includes(p.nome) && message.includes(v.nome) && message.includes(`Código: ${v.codigo}.`), `Exact product and version: ${v.codigo}`);
-        check(await link.isVisible() && (await link.textContent()).includes('WhatsApp'), `Direct visible order button: ${v.codigo}`);
+        check(href.origin === 'https://wa.me' && href.pathname === '/5511978458498', `Correct destination: ${v.referencia}`);
+        check(message.includes(`\n${v.referencia}.\n`) && !message.includes('Código:'), `Exact product and version: ${v.referencia}`);
+        check(await link.isVisible() && (await link.textContent()).includes('WhatsApp'), `Direct visible order button: ${v.referencia}`);
       }
       for (const flavor of p.sabores || []) {
-        check(!references.has(flavor.codigo), `Unique flavor code: ${flavor.codigo}`);
-        references.add(flavor.codigo);
-        const href = new URL(await page.locator(`[data-product="${p.id}"] [data-order-code="${flavor.codigo}"]`).getAttribute('href'));
-        check(href.searchParams.get('text').includes(flavor.nome) && href.searchParams.get('text').includes(flavor.codigo), `Exact flavor message: ${flavor.codigo}`);
+        check(!references.has(flavor.referencia), `Unique flavor name: ${flavor.referencia}`);
+        references.add(flavor.referencia);
+        const href = new URL(await page.locator(`[data-product="${p.id}"] [data-order-reference="${flavor.referencia}"]`).getAttribute('href'));
+        check(href.searchParams.get('text').includes(flavor.nome) && href.searchParams.get('text').includes(flavor.referencia), `Exact flavor message: ${flavor.referencia}`);
       }
     }
     await page.context().route('https://wa.me/**', route => route.fulfill({ contentType: 'text/html', body: '<title>WhatsApp link test</title>' }));
-    const expectedHref = await page.locator('[data-product="biscoito-saquinho"] [data-order-code="N26-01-DEC"]').getAttribute('href');
+    const expectedHref = await page.locator('[data-product="biscoito-saquinho"] [data-order-reference="Biscoito decorado no saquinho"]').getAttribute('href');
     const popupPromise = page.waitForEvent('popup');
-    await page.locator('[data-product="biscoito-saquinho"] [data-order-code="N26-01-DEC"]').click();
+    await page.locator('[data-product="biscoito-saquinho"] [data-order-reference="Biscoito decorado no saquinho"]').click();
     const popup = await popupPromise;
     await popup.waitForLoadState('domcontentloaded');
     check(popup.url() === expectedHref, 'Card button opens the exact WhatsApp URL');
@@ -101,11 +101,11 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     await page.locator('.product-open[data-open-product="biscoito-saquinho"][data-variant-index="1"]').click();
     check(await page.locator('#variant-select').inputValue() === '1', 'Decorated card opens decorated version');
     check((await page.locator('#dialog-photo img').getAttribute('alt')).includes('decorado'), 'Decorated picture selected');
-    check((await page.locator('#dialog-code').textContent()) === 'N26-01-DEC', 'Decorated reference displayed');
+    check((await page.locator('#dialog-order').getAttribute('data-order-reference')) === 'Biscoito decorado no saquinho', 'Decorated reference displayed');
     check((await page.locator('#dialog-order').getAttribute('href')) === expectedHref, 'Details match direct card message');
     await page.locator('.thumb-option[data-choice="0"]').click();
     check(await page.locator('#variant-select').inputValue() === '0' && (await page.locator('#dialog-price').textContent()).includes('8,00'), 'Thumbnail updates selected variant and unit price');
-    check((await page.locator('#dialog-order').getAttribute('data-order-code')) === 'N26-01-CAR', 'Thumbnail updates WhatsApp code');
+    check((await page.locator('#dialog-order').getAttribute('data-order-reference')) === 'Biscoito carimbado no saquinho', 'Thumbnail updates WhatsApp code');
     await page.keyboard.press('Escape');
     check(await page.locator('.product-open[data-open-product="biscoito-saquinho"][data-variant-index="1"]').evaluate(el => el === document.activeElement), 'Details return focus');
     await page.locator('.product-open[data-open-product="chocotone-trufado"]').click();
@@ -113,10 +113,10 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     await page.locator('#flavor-select').selectOption('Leite em pó');
     check(originalFlavorPhoto !== await page.locator('#dialog-photo img').getAttribute('src'), 'Flavor changes main photo');
     const flavorMessage = new URL(await page.locator('#dialog-order').getAttribute('href')).searchParams.get('text');
-    check(flavorMessage.includes('Leite em pó') && flavorMessage.includes('N26-09-U-LPO'), 'Selected flavor and code in WhatsApp message');
+    check(flavorMessage.includes('Leite em pó') && flavorMessage.includes('Chocotone trufado · Leite em pó'), 'Selected flavor and code in WhatsApp message');
     await page.locator('.thumb-option[data-choice="Doce de leite"]').click();
     check(await page.locator('#flavor-select').inputValue() === 'Doce de leite', 'Flavor thumbnail updates selection');
-    check((await page.locator('#dialog-order').getAttribute('data-order-code')) === 'N26-09-U-DLE', 'Flavor thumbnail updates order reference');
+    check((await page.locator('#dialog-order').getAttribute('data-order-reference')) === 'Chocotone trufado · Doce de leite', 'Flavor thumbnail updates order reference');
     await page.keyboard.press('Escape');
     for (const [category, count] of [['biscoitos', 14], ['chocotones', 5], ['pao-de-mel', 3], ['canecas', 4]]) {
       await page.locator(`[data-category="${category}"]`).click();
@@ -138,7 +138,7 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     await page.locator('.product-open[data-open-product="logo-carimbada"]').click();
     check((await page.locator('#dialog-price').textContent()).includes('8,00'), 'Business unit price stays separate');
     check((await page.locator('#dialog-disclaimer').textContent()).includes('35,00'), 'Setup fee stays visible separately');
-    check((await page.locator('#dialog-code').textContent()) === 'N26-18-U', 'Business reference');
+    check((await page.locator('#dialog-order').getAttribute('data-order-reference')) === 'Biscoito com logo carimbada', 'Business reference');
     await page.keyboard.press('Escape');
     for (const width of [320, 390, 540, 768, 1024, 1280, 1440]) {
       await page.setViewportSize({ width, height: 900 });
@@ -160,8 +160,8 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
       }
     }
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.locator('#product-search').fill('N26-01-DEC');
-    check(await page.locator('[data-product]:visible').count() === 1 && await page.locator('[data-product="biscoito-saquinho"][data-variant-index="1"]').isVisible(), 'Search by exact reference');
+    await page.locator('#product-search').fill('Biscoito decorado no saquinho');
+    check(await page.locator('[data-product]:visible').count() === 1 && await page.locator('[data-product="biscoito-saquinho"][data-variant-index="1"]').isVisible(), 'Search by complete product name');
     await page.locator('#product-search').fill('biscoito saquinho carimbado');
     check(await page.locator('[data-product]:visible').count() === 1 && await page.locator('[data-product="biscoito-saquinho"][data-variant-index="0"]').isVisible(), 'Name search finds only matching version');
     await page.locator('#product-search').fill('pao mel grande');
@@ -179,9 +179,9 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     check(!await fallback.locator('.catalog-tools').isVisible(), 'Nonfunctional controls hidden without JS');
     check(await fallback.locator('#product-links a').first().isVisible(), 'Navigation available without JS');
     check(await fallback.locator('[data-product="biscoito-saquinho"] .product-media img').count() === 2, 'Both separate card photos without JS');
-    check(await fallback.locator('[data-product="biscoito-saquinho"] [data-order-code="N26-01-CAR"]').isVisible() && await fallback.locator('[data-product="biscoito-saquinho"] [data-order-code="N26-01-DEC"]').isVisible(), 'Both direct variant orders without JS');
+    check(await fallback.locator('[data-product="biscoito-saquinho"] [data-order-reference="Biscoito carimbado no saquinho"]').isVisible() && await fallback.locator('[data-product="biscoito-saquinho"] [data-order-reference="Biscoito decorado no saquinho"]').isVisible(), 'Both direct variant orders without JS');
     await fallback.locator('#chocotone-trufado summary').click();
-    check(await fallback.locator('#chocotone-trufado [data-order-code="N26-09-U-LPO"]').isVisible(), 'Flavor-specific WhatsApp without JS');
+    check(await fallback.locator('#chocotone-trufado [data-order-reference="Chocotone trufado · Leite em pó"]').isVisible(), 'Flavor-specific WhatsApp without JS');
     await noJs.close();
     const original = await browser.newPage({ viewport: { width: 1440, height: 900 } });
     await original.goto(new URL('/', url).href, { waitUntil: 'domcontentloaded' });

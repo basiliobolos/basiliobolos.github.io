@@ -39,7 +39,7 @@
 
 ## Pedido direto e redução de texto
 
-- Códigos explícitos em natal.json, independentes da ordem dos cards.
+- Referências descritivas explícitas em natal.json, usando o nome completo de cada versão e recheio.
 - Gerador valida referências e cria mensagens canônicas para produto, versão e recheio.
 - Links no próprio card funcionam sem JavaScript; modal opcional apenas para fotos, versões e recheios.
 - Remover lista, quantidade, totais, eventos e estilos associados.
@@ -56,6 +56,12 @@
 
 ## Cards separados por versão
 
-- Renderizar 22 cards a partir dos 19 produtos, sem duplicar dados ou alterar códigos.
+- Renderizar 22 cards a partir dos 19 produtos, sem duplicar dados.
 - Cada card tem ID próprio e índice de variante, com foto, título e link de pedido correspondentes.
 - Filtrar cada card pela própria variante; manter os recheios agrupados nos respectivos produtos.
+
+## Referências com significado
+
+- Usar o mesmo nome completo no card e na mensagem do WhatsApp, sem códigos numéricos visíveis.
+- Validar nomes únicos por versão e recheio; preservar fotos, preços, cards separados e pedido direto.
+- Validação: 240 verificações aprovadas, incluindo nomes únicos, mensagens exatas por versão e recheio, ausência de códigos técnicos, pedidos sem JavaScript e sete larguras de tela.

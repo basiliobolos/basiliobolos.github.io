@@ -1535,38 +1535,38 @@ function renderNatal() {
   const whatsapp = text => `https://wa.me/${site.whatsappNumero}?text=${encodeURIComponent(text)}`;
   const defaultWa = whatsapp('Olá! Quero saber mais sobre a coleção de Natal da Basilio Bolos.');
   const pedidos = {};
-  const codes = new Set();
-  const registerCode = code => {
-    if (!/^N26-\d{2}(?:-[A-Z]+)*$/.test(code) || codes.has(code)) throw new Error(`Código de Natal inválido ou repetido: ${code}`);
-    codes.add(code);
+  const references = new Set();
+  const registerReference = name => {
+    const key = typeof name === 'string' ? name.trim().normalize('NFC').toLocaleLowerCase('pt-BR') : '';
+    if (!key || references.has(key)) throw new Error(`Nome de Natal inválido ou repetido: ${name}`);
+    references.add(key);
   };
   for (const p of natal.produtos) {
-    registerCode(p.codigo);
     if (p.sabores && p.variantes.length !== 1) throw new Error(`Defina referências por versão e recheio para ${p.id}`);
     for (const v of p.variantes) {
       for (const flavor of [null, ...(p.sabores || [])]) {
-        const code = flavor ? flavor.codigo : v.codigo;
-        registerCode(code);
-        const message = `Olá! Quero pedir para o Natal:\n${p.nome} — ${v.nome}${flavor ? ` · ${flavor.nome}` : ''}\nCódigo: ${code}.\nPodemos combinar a quantidade e a retirada?`;
-        pedidos[code] = whatsapp(message);
+        const reference = flavor ? flavor.referencia : v.referencia;
+        registerReference(reference);
+        const message = `Olá! Quero pedir para o Natal:\n${reference}.\nPodemos combinar a quantidade e a retirada?`;
+        pedidos[reference] = whatsapp(message);
       }
     }
   }
   const orderLink = (p, v, flavor = null, className = 'n-button product-order') => {
-    const code = flavor ? flavor.codigo : v.codigo;
-    return `<a class="${className}" href="${esc(pedidos[code])}" target="_blank" rel="noopener" data-order-code="${esc(code)}" aria-label="Pedir ${esc(p.nome)} — ${esc(flavor ? flavor.nome : v.nome)} no WhatsApp (${esc(code)})">${waIcon} Pedir no WhatsApp</a>`;
+    const reference = flavor ? flavor.referencia : v.referencia;
+    return `<a class="${className}" href="${esc(pedidos[reference])}" target="_blank" rel="noopener" data-order-reference="${esc(reference)}" aria-label="Pedir ${esc(reference)} no WhatsApp">${waIcon} Pedir no WhatsApp</a>`;
   };
   const product = p => p.variantes.map((v, index) => {
     const multiple = p.variantes.length > 1;
-    const cardId = multiple ? `${p.id}-${v.codigo.toLowerCase()}` : p.id;
+    const cardId = multiple ? `${p.id}-${index}` : p.id;
     const media = `<div class="product-media">${photo(v.foto, v.cor || p.cor, false, v.imagem)}</div>`;
     return `<article class="product-card" id="${cardId}" data-product="${p.id}" data-variant-index="${index}" data-families="${p.familias.join(' ')}">
-      <h4>${esc(p.nome)}${multiple ? ` · ${esc(v.nome)}` : ''}</h4>${media}
+      <h4>${esc(v.referencia)}</h4>${media}
       <div class="product-content">
-      <div class="product-price"><strong>${money(v.preco)}</strong><small>${esc(v.nome)}</small></div><p class="product-code">${esc(v.codigo)}</p>
+      <div class="product-price"><strong>${money(v.preco)}</strong><small>${esc(v.nome)}</small></div>
       ${p.taxaArte ? `<p class="fee-note">+ ${money(p.taxaArte)} por arte, cortador e carimbo.</p>` : ''}
       ${orderLink(p, v)}
-      <details class="product-details"><summary>Detalhes${p.sabores ? ' e recheios' : ''}</summary><div class="details-body"><p>${esc(p.detalhes)}</p>${p.sabores ? `<ul class="flavor-links">${p.sabores.map(flavor => `<li><a href="${esc(pedidos[flavor.codigo])}" data-order-code="${esc(flavor.codigo)}" target="_blank" rel="noopener">${esc(flavor.nome)} <small>(${esc(flavor.codigo)})</small></a></li>`).join('')}</ul>` : ''}</div></details>
+      <details class="product-details"><summary>Detalhes${p.sabores ? ' e recheios' : ''}</summary><div class="details-body"><p>${esc(p.detalhes)}</p>${p.sabores ? `<ul class="flavor-links">${p.sabores.map(flavor => `<li><a href="${esc(pedidos[flavor.referencia])}" data-order-reference="${esc(flavor.referencia)}" target="_blank" rel="noopener">${esc(flavor.nome)}</a></li>`).join('')}</ul>` : ''}</div></details>
       <button class="text-link product-open js-only" type="button" data-open-product="${p.id}" data-variant-index="${index}">${icon('image')} Ver fotos${p.sabores ? ' e recheios' : ' e detalhes'}</button></div></article>`;
   }).join('');
   const cardCount = natal.produtos.reduce((sum, p) => sum + p.variantes.length, 0);
@@ -1603,7 +1603,7 @@ function renderNatal() {
     ${footer({ pinIcon: icon('pin') })}
     ${waFloat('Olá! Quero saber mais sobre os presentes de Natal.')}
     ${privacyBanner()}
-    <dialog class="product-dialog" id="product-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><p class="eyebrow">Detalhes do presente</p><button class="icon-button" type="button" data-close-dialog aria-label="Fechar detalhes">${icon('close')}</button></div><div class="dialog-grid"><div class="dialog-image" id="dialog-image"><div id="dialog-photo"></div><div id="dialog-variant-photos" class="variant-thumbnails" aria-label="Fotos das opções"></div></div><div id="product-options"><h2 id="dialog-title"></h2><p class="dialog-description" id="dialog-description"></p><div class="field-group"><label for="variant-select">Versão</label><select id="variant-select"></select></div><div class="field-group" id="flavor-field" hidden><label for="flavor-select">Recheio</label><select id="flavor-select"></select></div><p class="dialog-price" id="dialog-price" aria-live="polite"></p><p class="product-code" id="dialog-code"></p><p class="dialog-disclaimer" id="dialog-disclaimer"></p><a class="n-button" id="dialog-order" href="${defaultWa}" target="_blank" rel="noopener">${waIcon} Pedir no WhatsApp</a></div></div></dialog>
+    <dialog class="product-dialog" id="product-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><p class="eyebrow">Detalhes do presente</p><button class="icon-button" type="button" data-close-dialog aria-label="Fechar detalhes">${icon('close')}</button></div><div class="dialog-grid"><div class="dialog-image" id="dialog-image"><div id="dialog-photo"></div><div id="dialog-variant-photos" class="variant-thumbnails" aria-label="Fotos das opções"></div></div><div id="product-options"><h2 id="dialog-title"></h2><p class="dialog-description" id="dialog-description"></p><div class="field-group"><label for="variant-select">Versão</label><select id="variant-select"></select></div><div class="field-group" id="flavor-field" hidden><label for="flavor-select">Recheio</label><select id="flavor-select"></select></div><p class="dialog-price" id="dialog-price" aria-live="polite"></p><p class="dialog-disclaimer" id="dialog-disclaimer"></p><a class="n-button" id="dialog-order" href="${defaultWa}" target="_blank" rel="noopener">${waIcon} Pedir no WhatsApp</a></div></div></dialog>
     </body></html>`;
 }
 

@@ -19,7 +19,7 @@
     for (const card of cards) {
       const p = products.get(card.dataset.product);
       const v = p.variantes[Number(card.dataset.variantIndex)];
-      const haystack = normalize([p.nome, p.detalhes, ...p.familias, p.codigo, v.nome, v.codigo, ...(p.sabores || []).flatMap(s => [s.nome, s.codigo])].join(' '));
+      const haystack = normalize([p.nome, p.detalhes, ...p.familias, v.nome, v.referencia, ...(p.sabores || []).flatMap(s => [s.nome, s.referencia])].join(' '));
       const words = haystack.split(/[^\p{L}\p{N}]+/u);
       const match = (category === 'todos' || p.familias.includes(category)) && terms.every(term => words.some(word => word === term || (term.length >= 3 && word.startsWith(term))));
       card.hidden = !match;
@@ -86,13 +86,13 @@
   function updateProduct() {
     const option = current.variantes[Number(variant.value)];
     const selectedFlavor = current.sabores?.find(s => s.nome === flavor.value);
-    const code = selectedFlavor ? selectedFlavor.codigo : option.codigo;
+    const reference = selectedFlavor ? selectedFlavor.referencia : option.referencia;
     document.getElementById('dialog-price').textContent = `${money(option.preco)} · ${option.nome}`;
-    document.getElementById('dialog-code').textContent = code;
+    document.getElementById('dialog-title').textContent = reference;
     const order = document.getElementById('dialog-order');
-    order.href = data.pedidos[code];
-    order.dataset.orderCode = code;
-    order.setAttribute('aria-label', `Pedir ${current.nome} — ${selectedFlavor ? selectedFlavor.nome : option.nome} no WhatsApp (${code})`);
+    order.href = data.pedidos[reference];
+    order.dataset.orderReference = reference;
+    order.setAttribute('aria-label', `Pedir ${reference} no WhatsApp`);
     document.getElementById('dialog-disclaimer').textContent = current.taxaArte ? `+ ${money(current.taxaArte)} por arte, cortador e carimbo.` : '';
     const visual = selectedFlavor || option;
     const imageKey = JSON.stringify([current.id, variant.value, flavor.value]);
