@@ -1556,9 +1556,9 @@ function renderNatal() {
     const reference = flavor ? flavor.referencia : v.referencia;
     return `<a class="${className}" href="${esc(pedidos[reference])}" target="_blank" rel="noopener" data-order-reference="${esc(reference)}" aria-label="Pedir ${esc(reference)} no WhatsApp">${waIcon} Pedir no WhatsApp</a>`;
   };
+  const cardIdFor = (p, index) => p.variantes.length > 1 ? `${p.id}-${index}` : p.id;
   const product = p => p.variantes.map((v, index) => {
-    const multiple = p.variantes.length > 1;
-    const cardId = multiple ? `${p.id}-${index}` : p.id;
+    const cardId = cardIdFor(p, index);
     const media = `<div class="product-media">${photo(v.foto, v.cor || p.cor, false, v.imagem)}</div>`;
     return `<article class="product-card" id="${cardId}" data-product="${p.id}" data-variant-index="${index}" data-families="${p.familias.join(' ')}">
       <h4>${esc(v.referencia)}</h4>${media}
@@ -1571,8 +1571,30 @@ function renderNatal() {
   }).join('');
   const cardCount = natal.produtos.reduce((sum, p) => sum + p.variantes.length, 0);
   const data = { produtos: natal.produtos, pedidos };
-  const faq = [...natal.faq, { pergunta: 'Como funcionam retirada e pagamento?', resposta: `${site.politicas.retirada} ${site.politicas.antecedencia} ${site.politicas.confirmacao} ${site.politicas.pagamento}` }];
-  const jsonLd = [localBusinessLd(), breadcrumbLd('Natal', 'natal/')];
+  const faq = [...natal.faq, {
+    pergunta: natal.seo.faqLocal.pergunta,
+    resposta: `${natal.seo.faqLocal.resposta} Endereço: ${site.endereco.rua}, ${site.endereco.bairro}, ${site.endereco.cidade}/${site.endereco.uf}. Atendemos ${site.bairrosAtendidos.join(', ')}. ${site.politicas.retirada}`
+  }, { pergunta: 'Como funcionam retirada e pagamento?', resposta: `${site.politicas.retirada} ${site.politicas.antecedencia} ${site.politicas.confirmacao} ${site.politicas.pagamento}` }];
+  const catalogueItems = natal.produtos.flatMap(p => p.variantes.map((v, index) => ({
+    name: v.referencia, url: `${site.url}/natal/#${cardIdFor(p, index)}`
+  })));
+  const jsonLd = [localBusinessLd(), websiteLd(), breadcrumbLd('Natal', 'natal/'), {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${site.url}/natal/#webpage`,
+    url: `${site.url}/natal/`,
+    name: natal.seo.title,
+    description: natal.seo.description,
+    inLanguage: 'pt-BR',
+    isPartOf: { '@id': `${site.url}/#website` },
+    about: { '@id': `${site.url}/#organization` },
+    publisher: { '@id': `${site.url}/#organization` },
+    mainEntity: {
+      '@type': 'ItemList', '@id': `${site.url}/natal/#catalogo`,
+      numberOfItems: catalogueItems.length,
+      itemListElement: catalogueItems.map((item, index) => ({ '@type': 'ListItem', position: index + 1, ...item }))
+    }
+  }];
   if (natal.publicado) jsonLd.push(faqLd(faq.map(f => ({ q: f.pergunta, a: f.resposta }))));
   return `<!doctype html><html lang="pt-BR"><head>
     <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -1596,9 +1618,9 @@ function renderNatal() {
     <p class="no-js-note">Todos os produtos estão abaixo. Abra os detalhes para pedir pelo WhatsApp.</p>
     <div id="empty-state" class="empty-state" hidden><h3>Nenhum presente por aqui.</h3><p>Tente outro nome ou veja todos os produtos.</p><button type="button" class="n-button secondary" id="clear-filters">Ver todos os produtos</button></div>
     </div>
-    ${natal.categorias.map(c => `<section class="catalog-group" data-group="${c.id}" aria-labelledby="heading-${c.id}"><div class="n-wrap"><div class="group-heading"><span class="group-symbol">${icon(c.icone)}</span><h3 id="heading-${c.id}">${esc(c.nome)}</h3></div><div class="product-grid">${natal.produtos.filter(p => p.categoria === c.id).map(product).join('')}</div></div></section>`).join('')}
+    ${natal.categorias.map(c => `<section class="catalog-group" data-group="${c.id}" aria-labelledby="heading-${c.id}"><div class="n-wrap"><div class="group-heading"><span class="group-symbol">${icon(c.icone)}</span><h3 id="heading-${c.id}">${esc(c.titulo || c.nome)}</h3></div><div class="product-grid">${natal.produtos.filter(p => p.categoria === c.id).map(product).join('')}</div></div></section>`).join('')}
     </section>
-    <section class="company-section" id="empresas" data-group="empresas" aria-labelledby="company-title"><div class="n-wrap"><div class="company-intro"><h2 id="company-title">${esc(natal.empresas.titulo)}</h2></div><div class="company-grid">${natal.produtos.filter(p => p.categoria === 'empresas').map(product).join('')}</div></div></section>
+    <section class="company-section" id="empresas" data-group="empresas" aria-labelledby="company-title"><div class="n-wrap"><div class="company-intro"><h2 id="company-title">${esc(natal.empresas.titulo)}</h2><p>${esc(natal.empresas.descricao)}</p></div><div class="company-grid">${natal.produtos.filter(p => p.categoria === 'empresas').map(product).join('')}</div></div></section>
     <section class="faq-section"><div class="n-wrap faq-grid"><div class="section-heading"><h2>Dúvidas frequentes</h2></div><div class="faq-list">${faq.map(f => `<details><summary>${esc(f.pergunta)}</summary><p>${esc(f.resposta)}</p></details>`).join('')}</div></div></section>
     <section class="visit-section" id="retirada"><div class="n-wrap visit-grid"><div><h2>Retirada em Santo André</h2><p>${esc(site.endereco.rua)}<br>${esc(site.endereco.bairro)} · ${esc(site.endereco.cidade)}/${esc(site.endereco.uf)}</p><a class="n-button" href="${esc(site.endereco.mapsUrl)}" target="_blank" rel="noopener">${icon('pin')} Ver no mapa</a></div><div><h3>Horários de retirada</h3><p>${esc(site.horario)}.</p><p>No Natal, confirme o horário pelo WhatsApp.</p><details class="product-details"><summary>Retirada e pagamento</summary><div class="details-body"><p>${esc(site.politicas.retirada)} ${esc(site.politicas.antecedencia)} ${esc(site.politicas.confirmacao)} ${esc(site.politicas.pagamento)}</p></div></details></div></div></section></main>
     ${footer({ pinIcon: icon('pin') })}
@@ -1734,6 +1756,7 @@ function renderPrivacy() {
 
 function renderLlms() {
   const linhas = produtos.map((p) => `- [${p.titulo}](${site.url}/${p.url}): ${p.descricao} ${p.precoDestaque}.`);
+  if (natal.publicado) linhas.push(`- [${natal.seo.title}](${site.url}/natal/): ${natal.seo.description}`);
   return `# ${site.nome}
 
 > ${site.descricao}

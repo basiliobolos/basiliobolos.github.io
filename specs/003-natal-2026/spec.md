@@ -32,3 +32,13 @@ MVP solicitado para revisão em branch, sem alterar a publicação atual.
 ## Autorização de escopo
 O pedido atual autoriza visual diferente, valores sugeridos e branch para revisão.
 Esta experiência fica isolada dos estilos e scripts do catálogo permanente.
+
+## SEO local do Natal
+
+- Título, descrição e H1 relacionam presentes de Natal a Santo André, sem prometer posição nas buscas.
+- Títulos e detalhes cobrem lembrancinhas, cartões, biscoitos, chocotones, bites de panetone e presentes personalizados reais.
+- Lembrancinhas corporativas e biscoitos com logo têm conteúdo próprio, curto e verificável.
+- Endereço, bairros atendidos e retirada vêm de site.json; não anunciar entrega.
+- Catálogo estruturado contém as 22 versões e links para os cards; não usar fotos provisórias, preços sugeridos ou avaliações inventadas como ofertas estruturadas.
+- Preservar a vitrine enxuta; informações locais adicionais ficam nas dúvidas recolhidas.
+- Prévia permanece noindex e fora do sitemap e llms.txt; publicado:true habilita a descoberta após aprovação comercial e publicação.

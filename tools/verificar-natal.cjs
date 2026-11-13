@@ -25,6 +25,31 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     const schema = await page.locator('script[type="application/ld+json"]').allTextContents();
     check(schema.every(text => !text.includes('.br/https:')), 'Valid canonical breadcrumb');
     check(schema.every(text => !text.includes('"offers"')), 'No fabricated structured offers');
+    const site = require('../data/site.json');
+    check((await page.title()) === data.seo.title && (await page.title()).includes(site.endereco.cidade), 'Local search title');
+    const heading = await page.locator('h1').textContent();
+    check(heading.includes('Presentes de Natal') && heading.includes(site.endereco.cidade), 'Main heading connects Christmas gifts with the city');
+    check(await page.locator('meta[name="description"]').getAttribute('content') === data.seo.description, 'Description matches canonical editorial data');
+    check(await page.locator('meta[property="og:title"]').getAttribute('content') === data.seo.title, 'Sharing title matches local search title');
+    check(await page.locator('link[rel="canonical"]').getAttribute('href') === `${site.url}/natal/`, 'Stable canonical Christmas URL');
+    const structured = schema.map(text => JSON.parse(text));
+    const catalogue = structured.find(item => item['@type'] === 'CollectionPage');
+    check(catalogue && catalogue.mainEntity.numberOfItems === 22, 'Structured catalogue has all 22 versions');
+    check(catalogue.about['@id'] === `${site.url}/#organization` && catalogue.isPartOf['@id'] === `${site.url}/#website`, 'Catalogue linked to the business and website');
+    check(new Set(catalogue.mainEntity.itemListElement.map(item => item.url)).size === 22, 'Unique URLs for structured catalogue entries');
+    for (const item of catalogue.mainEntity.itemListElement) {
+      const anchor = new URL(item.url);
+      const card = page.locator(`[id="${anchor.hash.slice(1)}"]`);
+      check(anchor.origin === site.url && anchor.pathname === '/natal/' && await card.locator('h4').textContent() === item.name, `Structured item matches the actual card: ${item.name}`);
+    }
+    check(schema.every(text => !text.includes('placehold.co')), 'Placeholder photos absent from structured catalogue');
+    const bakery = structured.find(item => item['@type'] === 'Bakery');
+    check(bakery.address.streetAddress === site.endereco.rua && bakery.address.addressLocality === site.endereco.cidade, 'Business address matches official data');
+    const localFaq = page.locator('.faq-list details').filter({ has: page.locator('summary', { hasText: data.seo.faqLocal.pergunta }) });
+    check((await localFaq.textContent()).includes(site.endereco.rua) && (await localFaq.textContent()).includes(site.endereco.bairro), 'Local question contains canonical pickup address');
+    check((await localFaq.textContent()).includes(site.politicas.retirada), 'Local copy preserves no-delivery policy');
+    check((await page.locator('#company-title').textContent()).includes('Lembrancinhas corporativas'), 'Corporate gifting intent in visible heading');
+
     check(await page.locator('#mainNav .brand-icon').getAttribute('src') === '/assets/images/brand/logo.jpeg', 'Original brand logo');
     check(await page.locator('#mainNav [aria-current="page"]').textContent().then(text => text.includes('Natal')), 'Christmas active navigation');
     check(await page.locator('.footer-gradient .social-link').count() === 5, 'Original footer social links');
@@ -232,6 +257,32 @@ function check(condition, message) { assert.ok(condition, message); checks++; }
     await missingImages.close();
     const sitemap = fs.readFileSync(require('node:path').join(__dirname, '../dist/sitemap.xml'), 'utf8');
     check(!sitemap.includes('/natal/'), 'Preview excluded from sitemap');
+    const path = require('node:path');
+    check(!fs.readFileSync(path.join(__dirname, '../dist/llms.txt'), 'utf8').includes('/natal/'), 'Preview excluded from crawler summary');
+    // Build the published configuration in memory; source and preview files stay intact.
+    const generator = path.join(__dirname, 'gerar.js');
+    const realRequire = require('node:module').createRequire(generator);
+    const generated = new Map();
+    const virtualFs = {
+      ...fs,
+      rmSync() {}, mkdirSync() {}, cpSync() {}, copyFileSync() {},
+      readFileSync(file, ...args) {
+        if (path.resolve(file) === path.resolve(__dirname, '../data/natal.json')) return JSON.stringify({ ...data, publicado: true });
+        return fs.readFileSync(file, ...args);
+      },
+      writeFileSync(file, content) { generated.set(path.relative(path.join(__dirname, '../dist'), file), content); }
+    };
+    require('node:vm').runInNewContext(fs.readFileSync(generator, 'utf8'), {
+      require: name => name === 'fs' ? virtualFs : realRequire(name),
+      __dirname, console: { log() {} }
+    }, { filename: generator });
+    const published = generated.get('natal/index.html');
+    check(published.includes('name="robots" content="index, follow"') && !published.includes('noindex'), 'Publication enables indexing');
+    check(generated.get('sitemap.xml').includes(`<loc>${site.url}/natal/</loc>`), 'Published Christmas page enters sitemap');
+    check(generated.get('llms.txt').includes(`](${site.url}/natal/)`), 'Published Christmas page enters crawler summary');
+    check(!published.includes('class="preview-note"'), 'Published page omits preview banner');
+    check(require('../data/natal.json').publicado === false, 'Publication simulation leaves preview state unchanged');
+
     console.log(`${checks} checks passed: catalogue, references, direct WhatsApp, unclipped business cards, responsive layout, keyboard, no-JS and image fallback.`);
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

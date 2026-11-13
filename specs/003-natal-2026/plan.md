@@ -72,3 +72,14 @@
 - Conteúdo interno mantém a largura e a grade atuais; títulos com ícones reforçam as mudanças sem novos textos.
 - Imagens provisórias usam apenas creme e verde discretos em natal.json, também no modal e fallback; fotos reais não recebem filtros de cor.
 - A primeira faixa verde contrasta com a abertura creme; a última creme contrasta com empresas em verde pinho.
+
+## SEO local
+
+- Reforçar intenção e cidade nos metadados e H1; termos complementares aparecem em títulos, detalhes e dúvidas úteis, sem listas de palavras-chave.
+- Adicionar CollectionPage com ItemList das versões visíveis, vinculado ao WebSite e ao Bakery existentes; manter dados estruturados sem ofertas sugeridas.
+- Pergunta local combina texto editorial de natal.json com endereço e bairros canônicos de site.json.
+- Incluir o Natal em llms.txt somente quando publicado; o sitemap já segue essa condição.
+- Não alterar publicado:false nesta revisão: ainda há fotos e preços provisórios.
+- Na publicação: revisar preços/fotos/datas, ativar publicado, gerar e publicar pelo GitHub Actions; enviar sitemap e inspecionar /natal/ no Search Console.
+- Conferir o Perfil da Empresa no Google: nome, endereço, telefone, horários, site, fotos reais e produtos natalinos. Nenhuma mudança de conta externa nesta tarefa.
+- Fontes: https://developers.google.com/search/docs/fundamentals/seo-starter-guide?hl=pt-br ; https://support.google.com/business/answer/7091?hl=pt-BR ; https://developers.google.com/search/docs/crawling-indexing/block-indexing?hl=pt-br .
