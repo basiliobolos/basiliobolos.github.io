@@ -10,6 +10,8 @@ Site: https://basiliobolos.com.br/
 - [Arquitetura e publicação](ARCHITECTURE.md)
 - [Constituição do projeto](.specify/memory/constitution.md)
 - [Instruções operacionais para agentes](AGENTS.md)
+- [Fontes de SEO e busca com IA](docs/seo-geo/fontes-e-diretrizes.md)
+- [Regras de publicação do catálogo de Natal](specs/004-natal-seo-geo/contracts/publicacao-e-paginas.md)
 
 ## Quick Start
 
@@ -28,6 +30,23 @@ O conteúdo público é criado em `dist/`, que não deve ser editado nem version
 `.github/workflows/deploy-pages.yml` gera esse diretório no GitHub Actions e publica somente o
 artefato no GitHub Pages.
 
+### Natal de 2026
+
+A coleção tem 26 produtos em cinco páginas. A agenda está aberta.
+A disponibilidade para cada data e o horário de retirada são combinados pelo WhatsApp.
+Preços, variantes, fotos e seleções ficam em `data/natal.json`.
+
+Gere o site com `node tools/gerar.js`. Valide o catálogo antes do merge.
+
+```bash
+node tools/revisar-natal.cjs --check
+node tools/verificar-seo-natal.cjs
+```
+
+Para testar o navegador, execute `node tools/verificar-natal.cjs` com Playwright
+disponível no ambiente de QA. `NATAL_PREVIEW=1` gera uma prévia local com noindex.
+A divulgação da home vai até 31/12/2026. A agenda de pedidos é definida à parte.
+
 ### Onde editar
 
 | Arquivo | Conteúdo |
@@ -43,16 +62,13 @@ artefato no GitHub Pages.
 | `data/pipoca-gourmet.json` | Sabores, embalagens e preços de pipoca |
 | `data/campanhas.json` | Campanhas sazonais ativáveis |
 
-### Deploy
+### Publicar no GitHub Pages
 
-```bash
-git add .
-git commit -m "descreva a alteração"
-git push origin main
-```
-
-Em `Settings > Pages`, a origem deve ser `GitHub Actions`. Depois do push, acompanhe o
-workflow `Deploy site` na aba `Actions`.
+1. Abra um pull request da branch da entrega para `main`.
+2. Faça o merge. Aguarde o workflow `Deploy site` concluir no GitHub Actions.
+3. Abra a [home](https://basiliobolos.com.br/) e o [catálogo de Natal](https://basiliobolos.com.br/natal/).
+4. Envie o [sitemap](https://basiliobolos.com.br/sitemap.xml) no [Google Search Console](https://search.google.com/search-console) e no [Bing Webmaster Tools](https://www.bing.com/webmasters/).
+5. No Search Console, inspecione a home e o catálogo. Clique em **Solicitar indexação**.
 
 ## Informações Oficiais
 

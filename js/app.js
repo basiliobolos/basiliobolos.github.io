@@ -13,6 +13,21 @@ document.addEventListener('DOMContentLoaded', function(){
   const anoEl = document.getElementById('anoAtual');
   if(anoEl) anoEl.innerText = new Date().getFullYear();
 
+  // Divulgação sazonal: limite absoluto de São Paulo, independente da agenda de pedidos.
+  document.querySelectorAll('[data-natal-promotion]').forEach(element => {
+    const end = Date.parse(element.dataset.natalUntil);
+    let timer;
+    const refresh = () => {
+      window.clearTimeout(timer);
+      const remaining = end - Date.now();
+      element.hidden = !Number.isFinite(remaining) || remaining <= 0;
+      if (!element.hidden) timer = window.setTimeout(refresh, Math.min(remaining, 86400000));
+    };
+    refresh();
+    document.addEventListener('visibilitychange', refresh);
+    window.addEventListener('pageshow', refresh);
+  });
+
   // ---------- Privacidade e consentimento ----------
   const ANALYTICS_ID = 'G-C07W6E0102';
   const CONSENT_STORAGE_KEY = 'basilio_privacy_consent';
@@ -150,10 +165,17 @@ document.addEventListener('DOMContentLoaded', function(){
   // Rastreio de cliques no WhatsApp (links já vêm prontos no HTML estático)
   document.querySelectorAll('a[href*="wa.me"]').forEach(el => {
     el.addEventListener('click', () => {
-      trackEvent('whatsapp_click', {
-        location: el.dataset.track || el.getAttribute('aria-label') || 'cta',
-        page: window.location.pathname
-      });
+      const params = { page: window.location.pathname };
+      if (document.body.dataset.catalogPage) {
+        params.catalog_page = document.body.dataset.catalogPage;
+        params.campaign_year = Number(document.body.dataset.campaignYear);
+        const placements = new Set(['card', 'detalhes', 'modal', 'empresas', 'cabecalho', 'flutuante', 'rodape']);
+        params.placement = placements.has(el.dataset.placement) ? el.dataset.placement : el.closest('#mainNav') ? 'cabecalho' : el.closest('footer') ? 'rodape' : el.classList.contains('whatsapp-float') ? 'flutuante' : 'detalhes';
+        for (const [key, field] of [['product_id', 'productId'], ['variant_id', 'variantId'], ['flavor_id', 'flavorId']]) {
+          if (/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(el.dataset[field] || '')) params[key] = el.dataset[field];
+        }
+      } else params.location = el.dataset.track || el.getAttribute('aria-label') || 'cta';
+      trackEvent('whatsapp_click', params);
     });
   });
 

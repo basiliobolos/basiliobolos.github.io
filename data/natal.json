@@ -1,0 +1,3509 @@
+{
+  "ano": 2026,
+  "divulgacao": {
+    "ativa": true,
+    "fimExclusivo": "2027-01-01T00:00:00-03:00",
+    "eyebrow": "Coleção de Natal 2026",
+    "titulo": "Um doce presente",
+    "descricao": "Biscoitos, chocotones e kits para presentear quem faz seu ano especial.",
+    "botao": "Ver toda a coleção de Natal",
+    "heroEyebrow": "Um Natal cheio de carinho",
+    "botaoHero": "Natal 2026",
+    "logo": {
+      "imagem": "/assets/images/brand/logo-natal.png",
+      "largura": 1112,
+      "altura": 1037
+    },
+    "destaques": [
+      {
+        "produtoId": "cartao-biscoito-decorado",
+        "varianteId": "decorado",
+        "titulo": "Cartão com biscoito decorado"
+      },
+      {
+        "produtoId": "livro-polaroid",
+        "varianteId": "unidade-personalizada",
+        "titulo": "Livro com biscoito Polaroid"
+      },
+      {
+        "produtoId": "caneca-mini-chocotone",
+        "varianteId": "kit-recheado",
+        "titulo": "Caneca & mini chocotone",
+        "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-neve-fora.webp"
+      }
+    ],
+    "link404": "Conheça a coleção de Natal"
+  },
+  "publicado": true,
+  "seo": {
+    "title": "Presentes de Natal 2026 em Santo André | Basilio Bolos",
+    "description": "Biscoitos decorados, chocotones, kits e lembrancinhas para empresas. Encomende pelo WhatsApp e retire com hora marcada no Parque das Nações, em Santo André.",
+    "faqLocal": {
+      "pergunta": "Onde retirar presentes de Natal em Santo André?",
+      "resposta": "Encomende pelo WhatsApp e retire no ateliê, com horário marcado."
+    }
+  },
+  "preview": "Prévia da coleção de Natal.",
+  "hero": {
+    "eyebrow": "Basilio Bolos · Natal 2026",
+    "titulo": "Presentes de Natal",
+    "destaque": "em Santo André.",
+    "descricao": "Lembrancinhas, biscoitos e chocotones feitos para presentear.",
+    "nota": "Retirada em Santo André",
+    "foto": "Tubo lata com globo",
+    "fotoMenor": "Papai Noel decorado no saquinho",
+    "selo": "Feito para presentear",
+    "imagem": "/assets/images/natal/colecao-2026/tubolata-globo-v3.webp",
+    "imagemMenor": "/assets/images/natal/colecao-2026/saquinho-papai-noel.webp",
+    "alt": "Tubo lata com globo",
+    "altMenor": "Papai Noel decorado no saquinho",
+    "largura": 800,
+    "altura": 800,
+    "larguraMenor": 800,
+    "alturaMenor": 800,
+    "imagemProvisoria": false,
+    "imagemMenorProvisoria": false
+  },
+  "catalogo": {
+    "eyebrow": "Escolha pelo que você ama",
+    "titulo": "Presentes de Natal",
+    "descricao": ""
+  },
+  "categorias": [
+    {
+      "id": "biscoitos",
+      "nome": "Biscoitos de Natal",
+      "icone": "cookie",
+      "descricao": "Do mimo no saquinho à caixa para compartilhar."
+    },
+    {
+      "id": "chocotones",
+      "nome": "Chocotones e bites",
+      "icone": "popcorn",
+      "descricao": "Recheados, em miniatura ou em pequenos pedaços.",
+      "titulo": "Chocotones e bites"
+    },
+    {
+      "id": "pao-de-mel",
+      "nome": "Pão de mel",
+      "icone": "heart",
+      "descricao": "Um clássico aconchegante, em dois tamanhos ou em dupla."
+    },
+    {
+      "id": "canecas",
+      "nome": "Canecas com doces",
+      "icone": "cup",
+      "descricao": "Um presente para saborear. Uma caneca para guardar."
+    },
+    {
+      "id": "cupcakes",
+      "nome": "Cupcakes com logo",
+      "icone": "cake",
+      "descricao": "Chantilly e topo de papel com logo, em caixa individual."
+    }
+  ],
+  "produtos": [
+    {
+      "id": "biscoito-saquinho",
+      "nome": "Biscoito carimbado no saquinho",
+      "categoria": "biscoitos",
+      "familias": [
+        "biscoitos"
+      ],
+      "tipo": "Um pequeno carinho",
+      "descricao": "Biscoito amanteigado carimbado, embalado em um saquinho com laço.",
+      "detalhes": "Cada saquinho com laço leva um biscoito amanteigado.",
+      "cor": "eee7d9",
+      "variantes": [
+        {
+          "nome": "Modelos de 5 a 5,5 cm",
+          "preco": 2.9,
+          "foto": "Papai Noel carimbado no saquinho",
+          "imagem": "/assets/images/natal/colecao-2026/saquinho-carimbado.webp",
+          "cor": "eee7d9",
+          "referencia": "Biscoito carimbado no saquinho",
+          "id": "carimbado",
+          "ancorasLegadas": [
+            "biscoito-saquinho-0"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Papai Noel carimbado no saquinho",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/saquinho-carimbado-arvore-v2.webp",
+              "alt": "Árvore de Natal carimbada no saquinho",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            },
+            {
+              "imagem": "/assets/images/natal/colecao-2026/saquinho-carimbado-gengibre.webp",
+              "alt": "Boneco de gengibre carimbado no saquinho",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            },
+            {
+              "imagem": "/assets/images/natal/colecao-2026/saquinho-carimbado-casinha.webp",
+              "alt": "Casinha carimbada no saquinho",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            },
+            {
+              "imagem": "/assets/images/natal/colecao-2026/saquinho-carimbado-neve.webp",
+              "alt": "Boneco de neve carimbado no saquinho",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ],
+          "detalhes": "Escolha entre Papai Noel, árvore, boneco de gengibre, casinha e boneco de neve. Cada biscoito mede de 5 a 5,5 cm."
+        },
+        {
+          "id": "bola-jesus-meu-natal",
+          "nome": "Bola Jesus, meu Natal",
+          "referencia": "Biscoito carimbado no saquinho · Bola Jesus, meu Natal",
+          "preco": 3.2,
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "detalhes": "Biscoito amanteigado carimbado de 6,5 cm. Vai em saquinho transparente com laço.",
+          "foto": "Bola Jesus, meu Natal carimbada no saquinho",
+          "imagem": "/assets/images/natal/colecao-2026/saquinho-bola-carimbada.webp",
+          "imagemProvisoria": false,
+          "alt": "Bola Jesus, meu Natal carimbada no saquinho",
+          "largura": 800,
+          "altura": 800
+        },
+        {
+          "id": "sagrada-familia",
+          "nome": "Sagrada Família",
+          "referencia": "Biscoito carimbado no saquinho · Sagrada Família",
+          "preco": 3.2,
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "detalhes": "Biscoito amanteigado carimbado de 7 cm. Vai em saquinho transparente com laço.",
+          "foto": "Sagrada Família carimbada no saquinho",
+          "imagem": "/assets/images/natal/colecao-2026/saquinho-sagrada-familia.webp",
+          "imagemProvisoria": false,
+          "alt": "Sagrada Família carimbada no saquinho",
+          "largura": 800,
+          "altura": 800
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "biscoitos",
+      "publicos": [
+        "presentes"
+      ],
+      "minimo": {
+        "estado": "confirmado",
+        "quantidade": 10,
+        "unidade": "unidades",
+        "mensagem": "Pedido mínimo de 10 unidades."
+      },
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "94eb0391696ec1236af6546e57c962d751473ec67cf9db94854d82caae72853d"
+      }
+    },
+    {
+      "id": "biscoito-saquinho-decorado",
+      "nome": "Biscoito decorado no saquinho",
+      "categoria": "biscoitos",
+      "familias": [
+        "biscoitos"
+      ],
+      "tipo": "Um pequeno carinho",
+      "descricao": "Biscoito amanteigado decorado com glacê real, em um saquinho com laço.",
+      "detalhes": "Cada saquinho com laço leva um biscoito amanteigado.",
+      "cor": "eee7d9",
+      "variantes": [
+        {
+          "nome": "Modelos de 5 a 5,5 cm",
+          "preco": 5.5,
+          "foto": "Árvore decorada no saquinho",
+          "imagem": "/assets/images/natal/colecao-2026/saquinho-arvore.webp",
+          "cor": "eee7d9",
+          "referencia": "Biscoito decorado no saquinho",
+          "id": "decorado",
+          "ancorasLegadas": [
+            "biscoito-saquinho-1"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Árvore decorada no saquinho",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/saquinho-gengibre.webp",
+              "alt": "Gengibre decorado no saquinho",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            },
+            {
+              "imagem": "/assets/images/natal/colecao-2026/saquinho-casinha.webp",
+              "alt": "Casinha decorada no saquinho",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ],
+          "detalhes": "Escolha entre boneco de gengibre, árvore, casinha, boneco de neve e saco de presentes. Cada biscoito mede de 5 a 5,5 cm."
+        },
+        {
+          "id": "bola-jesus-meu-natal",
+          "nome": "Bola Jesus, meu Natal",
+          "referencia": "Biscoito decorado no saquinho · Bola Jesus, meu Natal",
+          "preco": 5.5,
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "detalhes": "Biscoito amanteigado decorado com glacê real de 6,5 cm. Vai em saquinho transparente com laço.",
+          "foto": "Bola Jesus, meu Natal decorada no saquinho",
+          "imagem": "/assets/images/natal/colecao-2026/saquinho-bola-decorada.webp",
+          "imagemProvisoria": false,
+          "alt": "Bola Jesus, meu Natal decorada no saquinho",
+          "largura": 800,
+          "altura": 800
+        },
+        {
+          "id": "papai-noel-pequeno",
+          "nome": "Papai Noel · 5 cm",
+          "referencia": "Biscoito decorado no saquinho · Papai Noel · 5 cm",
+          "preco": 5.5,
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "detalhes": "Biscoito amanteigado de 5 cm, decorado com glacê real. Vai em saquinho com laço.",
+          "foto": "Papai Noel pequeno decorado no saquinho",
+          "imagem": "/assets/images/natal/revisao-fotos-reais/saquinho-papainoel-v1.webp",
+          "cor": "eee7d9",
+          "alt": "Papai Noel decorado de 5 cm no saquinho",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false
+        },
+        {
+          "id": "papai-noel",
+          "nome": "Papai Noel · 6,5 cm",
+          "referencia": "Biscoito decorado no saquinho · Papai Noel · 6,5 cm",
+          "preco": 6,
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "detalhes": "Biscoito amanteigado de 6,5 cm, decorado com glacê real. Vai em saquinho com laço.",
+          "foto": "Papai Noel decorado no saquinho",
+          "imagem": "/assets/images/natal/colecao-2026/saquinho-papai-noel.webp",
+          "cor": "eee7d9",
+          "alt": "Papai Noel decorado no saquinho",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "biscoitos",
+      "publicos": [
+        "presentes"
+      ],
+      "minimo": {
+        "estado": "confirmado",
+        "quantidade": 10,
+        "unidade": "unidades",
+        "mensagem": "Pedido mínimo de 10 unidades."
+      },
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "4826091b4e62cc45f3484a4b314b5035afd1025c4eac214d79ca34ef13c13f37"
+      }
+    },
+    {
+      "id": "cartao-biscoito",
+      "nome": "Cartão com biscoito carimbado",
+      "categoria": "biscoitos",
+      "familias": [
+        "biscoitos"
+      ],
+      "tipo": "Uma mensagem doce",
+      "descricao": "Cartão de Natal com um biscoito amanteigado carimbado.",
+      "detalhes": "Cada cartão vem com um biscoito amanteigado embalado individualmente. Consulte a opção de mensagem personalizada.",
+      "cor": "eee7d9",
+      "variantes": [
+        {
+          "nome": "Carta de Natal",
+          "preco": 5.5,
+          "foto": "Carta de Natal com Papai Noel carimbado",
+          "imagem": "/assets/images/natal/colecao-2026/carta-carimbada-noel.webp",
+          "cor": "eee7d9",
+          "referencia": "Cartão com biscoito carimbado · Carta de Natal",
+          "id": "carimbado",
+          "ancorasLegadas": [
+            "cartao-biscoito-0"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Carta de Natal com Papai Noel carimbado",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/carta-carimbada-arvore-v2.webp",
+              "alt": "Carta de Natal com árvore carimbada",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            },
+            {
+              "imagem": "/assets/images/natal/colecao-2026/carta-carimbada-gengibre.webp",
+              "alt": "Carta de Natal com gengibre carimbado",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            },
+            {
+              "imagem": "/assets/images/natal/colecao-2026/carta-carimbada-casinha.webp",
+              "alt": "Carta de Natal com casinha carimbada",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            },
+            {
+              "imagem": "/assets/images/natal/colecao-2026/carta-carimbada-neve.webp",
+              "alt": "Carta de Natal com boneco de neve carimbado",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ],
+          "detalhes": "A Carta de Natal leva um biscoito de 5 a 5,5 cm. Escolha entre Papai Noel, árvore, boneco de gengibre, casinha e boneco de neve."
+        },
+        {
+          "id": "bola-jesus-meu-natal",
+          "nome": "Cartão Sagrada Família · Bola Jesus, meu Natal",
+          "referencia": "Cartão com biscoito carimbado · Cartão Sagrada Família · Bola Jesus, meu Natal",
+          "preco": 6,
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "detalhes": "Biscoito amanteigado carimbado de 6,5 cm. Vai embalado no cartão da Sagrada Família.",
+          "foto": "Cartão Sagrada Família com bola carimbada",
+          "imagem": "/assets/images/natal/colecao-2026/sagrada-cartao-bola-carimbada.webp",
+          "imagemProvisoria": false,
+          "alt": "Cartão Sagrada Família com bola carimbada",
+          "largura": 800,
+          "altura": 800
+        },
+        {
+          "id": "sagrada-familia",
+          "nome": "Cartão Sagrada Família · Sagrada Família",
+          "referencia": "Cartão com biscoito carimbado · Cartão Sagrada Família · Sagrada Família",
+          "preco": 6,
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "detalhes": "Biscoito amanteigado carimbado de 7 cm. Vai embalado no cartão da Sagrada Família.",
+          "foto": "Cartão com biscoito Sagrada Família",
+          "imagem": "/assets/images/natal/colecao-2026/sagrada-cartao-carimbado.webp",
+          "imagemProvisoria": false,
+          "alt": "Cartão com biscoito Sagrada Família",
+          "largura": 800,
+          "altura": 800
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "biscoitos",
+      "publicos": [
+        "presentes"
+      ],
+      "minimo": {
+        "estado": "confirmado",
+        "quantidade": 5,
+        "unidade": "unidades",
+        "mensagem": "Pedido mínimo de 5 unidades."
+      },
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "e69dac05f7e5fc9878a48e3e4dc2a2dd7334da3eaa7fa68876bbc0042555b6a9"
+      }
+    },
+    {
+      "id": "cartao-biscoito-decorado",
+      "nome": "Cartão com biscoito decorado",
+      "categoria": "biscoitos",
+      "familias": [
+        "biscoitos"
+      ],
+      "tipo": "Uma mensagem doce",
+      "descricao": "Cartão de Natal com um biscoito amanteigado decorado com glacê real.",
+      "detalhes": "Cada cartão vem com um biscoito amanteigado embalado individualmente. Consulte a opção de mensagem personalizada.",
+      "cor": "eee7d9",
+      "variantes": [
+        {
+          "nome": "Carta de Natal",
+          "preco": 8,
+          "foto": "Carta de Natal com árvore decorada",
+          "imagem": "/assets/images/natal/colecao-2026/carta-decorada-arvore.webp",
+          "cor": "eee7d9",
+          "referencia": "Cartão com biscoito decorado · Carta de Natal",
+          "id": "decorado",
+          "ancorasLegadas": [
+            "cartao-biscoito-1"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Carta de Natal com árvore decorada",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/carta-decorada-casinha.webp",
+              "alt": "Carta de Natal com casinha decorada",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            },
+            {
+              "imagem": "/assets/images/natal/colecao-2026/carta-decorada-gengibre.webp",
+              "alt": "Carta de Natal com gengibre decorado",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            },
+            {
+              "imagem": "/assets/images/natal/revisao-fotos-reais/cartao-papainoel-v1.webp",
+              "alt": "Carta de Natal com Papai Noel decorado de 5 cm",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ],
+          "detalhes": "Escolha entre Papai Noel, boneco de gengibre, árvore, casinha, boneco de neve e saco de presentes. O Papai Noel mede 5 cm. Os demais biscoitos medem de 5 a 5,5 cm."
+        },
+        {
+          "id": "bola-jesus-meu-natal",
+          "nome": "Cartão Sagrada Família · Bola Jesus, meu Natal",
+          "referencia": "Cartão com biscoito decorado · Cartão Sagrada Família · Bola Jesus, meu Natal",
+          "preco": 8,
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "detalhes": "Biscoito amanteigado decorado com glacê real de 6,5 cm. Vai embalado no cartão da Sagrada Família.",
+          "foto": "Cartão Sagrada Família com bola decorada",
+          "imagem": "/assets/images/natal/colecao-2026/sagrada-cartao-bola-decorada.webp",
+          "imagemProvisoria": false,
+          "alt": "Cartão Sagrada Família com bola decorada",
+          "largura": 800,
+          "altura": 800
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "biscoitos",
+      "publicos": [
+        "presentes"
+      ],
+      "minimo": {
+        "estado": "confirmado",
+        "quantidade": 5,
+        "unidade": "unidades",
+        "mensagem": "Pedido mínimo de 5 unidades."
+      },
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "e7b7d2893c4332ec021fd12ac31e7f878bf9e29d8d0921ad074ce44ca4e41577"
+      }
+    },
+    {
+      "id": "cartao-meio-globo",
+      "nome": "Cartão com meio-globo",
+      "categoria": "biscoitos",
+      "familias": [
+        "biscoitos"
+      ],
+      "tipo": "Um Natal delicado",
+      "descricao": "Cartão natalino com meio-globo transparente e dois biscoitos amanteigados.",
+      "detalhes": "Na frente vai um boneco de gengibre decorado com glacê real, sobre flocos de arroz. Atrás vai um boneco carimbado do mesmo formato, sem decoração, quase todo coberto pelo primeiro.",
+      "cor": "eee7d9",
+      "variantes": [
+        {
+          "nome": "Unidade",
+          "preco": 13,
+          "foto": "Cartão com meio-globo e dois biscoitos",
+          "imagem": "/assets/images/natal/colecao-2026/cartao-meio-globo-gengibre-v2.webp",
+          "cor": "eee7d9",
+          "referencia": "Cartão com meio-globo",
+          "id": "unidade",
+          "ancorasLegadas": [
+            "cartao-meio-globo"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Cartão com meio-globo e dois biscoitos",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "biscoitos",
+      "publicos": [
+        "presentes"
+      ],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "946c06c08eaf6d1f138cb341f1de07f8126078a74063f5cf8245c93e20cd5c1e"
+      }
+    },
+    {
+      "id": "livro-polaroid",
+      "nome": "Livro com biscoito Polaroid",
+      "categoria": "biscoitos",
+      "familias": [
+        "biscoitos"
+      ],
+      "tipo": "Sua foto, seu presente",
+      "descricao": "Caixa em formato de livro com um biscoito amanteigado Polaroid com sua foto.",
+      "detalhes": "A caixa tem um encaixe para um biscoito amanteigado em formato Polaroid de 7,5 × 10,5 cm. Envie sua foto pelo WhatsApp para combinar o enquadramento e a arte.",
+      "cor": "eee7d9",
+      "personalizavel": true,
+      "etiqueta": "Com sua foto",
+      "variantes": [
+        {
+          "nome": "Unidade personalizada",
+          "preco": 27,
+          "foto": "Caixa livro aberta com biscoito Polaroid",
+          "imagem": "/assets/images/natal/colecao-2026/livro-polaroid-aberto-v2.webp",
+          "cor": "eee7d9",
+          "referencia": "Livro com biscoito Polaroid",
+          "id": "unidade-personalizada",
+          "ancorasLegadas": [
+            "livro-polaroid"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Caixa livro aberta com biscoito Polaroid",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/livro-polaroid-fechado.webp",
+              "alt": "Caixa livro fechada",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ]
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "biscoitos",
+      "publicos": [
+        "presentes"
+      ],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "41c549c19189d045911411f3f3a1931040057519bf3ff00c25b4743eb5038e62"
+      }
+    },
+    {
+      "id": "globo-mini-biscoitos",
+      "nome": "Globo com mini biscoitos",
+      "categoria": "biscoitos",
+      "familias": [
+        "biscoitos"
+      ],
+      "tipo": "Pequenos encantos",
+      "descricao": "Globo transparente com oito mini biscoitos amanteigados decorados com glacê real.",
+      "detalhes": "O globo vem com oito mini biscoitos de 4 cm de diâmetro, decorados com glacê real. Combine os desenhos natalinos no atendimento.",
+      "cor": "eee7d9",
+      "variantes": [
+        {
+          "nome": "Globo",
+          "preco": 29,
+          "foto": "Globo com mini biscoitos",
+          "imagem": "/assets/images/natal/colecao-2026/globo-mini-biscoitos-v2.webp",
+          "cor": "eee7d9",
+          "referencia": "Globo com mini biscoitos",
+          "id": "globo",
+          "ancorasLegadas": [
+            "globo-mini-biscoitos"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Globo com mini biscoitos",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/globo-mini-biscoitos-detalhe-v2.webp",
+              "alt": "Globo e mini biscoitos redondos de 4 cm",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ]
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "biscoitos",
+      "publicos": [
+        "presentes"
+      ],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "d33f3e04e3938d9fb363e3b2aad0cbcbdb2194c1c8afff940f78ba0f298cc367"
+      }
+    },
+    {
+      "id": "tubo-lata",
+      "nome": "Tubo lata com globo",
+      "categoria": "biscoitos",
+      "familias": [
+        "biscoitos"
+      ],
+      "tipo": "Presente com surpresa",
+      "descricao": "Tubo lata com globo transparente e seis biscoitos amanteigados decorados.",
+      "detalhes": "Os seis biscoitos vão no globo do topo, sobre palha. Cada um mede cerca de 5 a 5,5 cm e leva glacê real.",
+      "cor": "eee7d9",
+      "variantes": [
+        {
+          "nome": "Tubo com globo",
+          "preco": 39,
+          "foto": "Tubo lata com globo",
+          "imagem": "/assets/images/natal/colecao-2026/tubolata-globo-v3.webp",
+          "cor": "eee7d9",
+          "referencia": "Tubo lata com globo",
+          "id": "tubo-com-globo",
+          "ancorasLegadas": [
+            "tubo-lata"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Tubo lata com globo",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "biscoitos",
+      "publicos": [
+        "presentes"
+      ],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "4e51575012f67e463fe4c96d48beaac5df85268a42730766f26661d9fe4d80ba"
+      }
+    },
+    {
+      "id": "caixa-biscoitos",
+      "nome": "Caixa de biscoitos & doce de leite",
+      "categoria": "biscoitos",
+      "familias": [
+        "biscoitos"
+      ],
+      "tipo": "Para dividir à mesa",
+      "descricao": "Caixa com 12 biscoitos de três sabores e um pote de doce de leite Havanna Original.",
+      "detalhes": "São quatro biscoitos por divisória: amanteigados, sabor panetone com frutas cristalizadas e sabor chocotone com gotas de chocolate. A quarta divisória leva um pote de doce de leite Havanna Original (60 g).",
+      "cor": "eee7d9",
+      "etiqueta": "Para compartilhar",
+      "variantes": [
+        {
+          "nome": "Caixa",
+          "preco": 54,
+          "foto": "Caixa de biscoitos e doce de leite aberta",
+          "imagem": "/assets/images/natal/colecao-2026/caixa-biscoitos-aberta.webp",
+          "cor": "eee7d9",
+          "referencia": "Caixa de biscoitos & doce de leite",
+          "id": "caixa",
+          "ancorasLegadas": [
+            "caixa-biscoitos"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "caixa",
+          "alt": "Caixa de biscoitos e doce de leite aberta",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/caixa-biscoitos-fechada.webp",
+              "alt": "Caixa de biscoitos fechada com laço",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ]
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "biscoitos",
+      "publicos": [
+        "presentes"
+      ],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "9d9d7a77b539e01b1052e1507050fbf96a5caee17fd0dd617d2f6901b2aae69c"
+      }
+    },
+    {
+      "id": "globo-bites",
+      "nome": "Globo com bites de chocotone",
+      "categoria": "chocotones",
+      "familias": [
+        "chocotones"
+      ],
+      "tipo": "Um pedacinho de Natal",
+      "descricao": "Pequenos pedaços de chocotone em um globo transparente.",
+      "detalhes": "O globo leva cerca de 80 g de bites de chocotone cobertos de chocolate. A decoração é fixa.",
+      "cor": "dee7da",
+      "variantes": [
+        {
+          "nome": "Globo",
+          "preco": 19,
+          "foto": "Globo com bites de chocotone",
+          "imagem": "/assets/images/natal/colecao-2026/globo-bites-chocotone.webp",
+          "cor": "dee7da",
+          "referencia": "Globo com bites de chocotone",
+          "id": "globo",
+          "ancorasLegadas": [
+            "globo-bites"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Globo com bites de chocotone",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "chocotones",
+      "publicos": [
+        "presentes"
+      ],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "6c9e29188f1eebcfe6f790bfebd44c5bff625e524a5d3fe545d5d53889698678"
+      }
+    },
+    {
+      "id": "mini-chocotone",
+      "nome": "Mini chocotone com cobertura",
+      "categoria": "chocotones",
+      "familias": [
+        "chocotones"
+      ],
+      "tipo": "Todo seu",
+      "descricao": "Mini chocotone recheado com cobertura de chocolate, em caixa individual.",
+      "detalhes": "Mini chocotone de aproximadamente 180 g. Escolha seu recheio. O doce ou bombom do topo é combinado no atendimento. Vai em caixa individual transparente.",
+      "cor": "dee7da",
+      "sabores": [
+        {
+          "id": "recheado-brigadeiro",
+          "nome": "Brigadeiro",
+          "referencia": "Mini chocotone com cobertura e recheio · Cobertura de chocolate na caixa · Brigadeiro",
+          "varianteId": "recheado",
+          "saborId": "brigadeiro",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-inteiro.webp",
+          "alt": "Mini chocotone com cobertura inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-leite-em-po",
+          "nome": "Leite Ninho",
+          "referencia": "Mini chocotone com cobertura e recheio · Cobertura de chocolate na caixa · Leite Ninho",
+          "varianteId": "recheado",
+          "saborId": "leite-em-po",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-inteiro.webp",
+          "alt": "Mini chocotone com cobertura inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-prestigio",
+          "nome": "Prestígio",
+          "referencia": "Mini chocotone com cobertura e recheio · Cobertura de chocolate na caixa · Prestígio",
+          "varianteId": "recheado",
+          "saborId": "prestigio",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-inteiro.webp",
+          "alt": "Mini chocotone com cobertura inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-mousse-maracuja",
+          "nome": "Mousse de maracujá",
+          "referencia": "Mini chocotone com cobertura e recheio · Cobertura de chocolate na caixa · Mousse de maracujá",
+          "varianteId": "recheado",
+          "saborId": "mousse-maracuja",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-inteiro.webp",
+          "alt": "Mini chocotone com cobertura inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-mousse-limao",
+          "nome": "Mousse de limão",
+          "referencia": "Mini chocotone com cobertura e recheio · Cobertura de chocolate na caixa · Mousse de limão",
+          "varianteId": "recheado",
+          "saborId": "mousse-limao",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-inteiro.webp",
+          "alt": "Mini chocotone com cobertura inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-leite-ninho-nutella",
+          "nome": "Leite Ninho com Nutella",
+          "referencia": "Mini chocotone com cobertura e recheio · Cobertura de chocolate na caixa · Leite Ninho com Nutella",
+          "varianteId": "recheado",
+          "saborId": "leite-ninho-nutella",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-inteiro.webp",
+          "alt": "Mini chocotone com cobertura inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-trufado",
+          "nome": "Trufado",
+          "referencia": "Mini chocotone com cobertura e recheio · Cobertura de chocolate na caixa · Trufado",
+          "varianteId": "recheado",
+          "saborId": "trufado",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-inteiro.webp",
+          "alt": "Mini chocotone com cobertura inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-pacoca",
+          "nome": "Paçoca",
+          "referencia": "Mini chocotone com cobertura e recheio · Cobertura de chocolate na caixa · Paçoca",
+          "varianteId": "recheado",
+          "saborId": "pacoca",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-inteiro.webp",
+          "alt": "Mini chocotone com cobertura inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-kinder-bueno",
+          "nome": "Kinder Bueno",
+          "referencia": "Mini chocotone com cobertura e recheio · Cobertura de chocolate na caixa · Kinder Bueno",
+          "varianteId": "recheado",
+          "saborId": "kinder-bueno",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-inteiro.webp",
+          "alt": "Mini chocotone com cobertura inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-ferrero-rocher",
+          "nome": "Ferrero Rocher",
+          "referencia": "Mini chocotone com cobertura e recheio · Cobertura de chocolate na caixa · Ferrero Rocher",
+          "varianteId": "recheado",
+          "saborId": "ferrero-rocher",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-inteiro.webp",
+          "alt": "Mini chocotone com cobertura inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-maracuja-trufado",
+          "nome": "Maracujá trufado",
+          "referencia": "Mini chocotone com cobertura e recheio · Cobertura de chocolate na caixa · Maracujá trufado",
+          "varianteId": "recheado",
+          "saborId": "maracuja-trufado",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-inteiro.webp",
+          "alt": "Mini chocotone com cobertura inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        }
+      ],
+      "variantes": [
+        {
+          "nome": "Cobertura de chocolate na caixa",
+          "preco": 29,
+          "foto": "Mini chocotone com cobertura inteiro",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-inteiro.webp",
+          "cor": "dee7da",
+          "referencia": "Mini chocotone com cobertura e recheio · Cobertura de chocolate na caixa",
+          "id": "recheado",
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Mini chocotone com cobertura inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "detalhes": "Mini chocotone de aproximadamente 180 g, com cobertura de chocolate. O doce ou bombom do topo é combinado no atendimento. Vai em caixa individual transparente.",
+          "embalagem": {
+            "nome": "Caixa individual transparente com base branca"
+          },
+          "cobertura": {
+            "tipo": "Chocolate com um doce ou bombom escolhido no atendimento"
+          },
+          "galeria": []
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "chocotones",
+      "publicos": [
+        "presentes"
+      ],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "bd4781fa2404bd72d34153cd552ddf0c956ca94f4251a2ba7cb9888e11d655f0"
+      }
+    },
+    {
+      "id": "mini-chocotone-neve",
+      "nome": "Mini chocotone com globo de neve",
+      "categoria": "chocotones",
+      "familias": [
+        "chocotones"
+      ],
+      "tipo": "Todo seu",
+      "descricao": "Mini chocotone com cobertura de brigadeiro de leite Ninho e globo de neve, na caixa.",
+      "detalhes": "Escolha o recheio. A cobertura é de brigadeiro de leite Ninho com confeitos. No topo vai um globo de acrílico com o rosto do Papai Noel de gorro dourado.",
+      "cor": "dee7da",
+      "sabores": [
+        {
+          "id": "neve-com-globo-brigadeiro",
+          "nome": "Brigadeiro",
+          "referencia": "Mini chocotone com cobertura e recheio · Neve com globo na caixa · Brigadeiro",
+          "varianteId": "neve-com-globo",
+          "saborId": "brigadeiro",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-neve-v2.webp",
+          "alt": "Mini chocotone com globo de neve e Papai Noel de gorro dourado",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "neve-com-globo-leite-em-po",
+          "nome": "Leite Ninho",
+          "referencia": "Mini chocotone com cobertura e recheio · Neve com globo na caixa · Leite Ninho",
+          "varianteId": "neve-com-globo",
+          "saborId": "leite-em-po",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-neve-v2.webp",
+          "alt": "Mini chocotone com globo de neve e Papai Noel de gorro dourado",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "neve-com-globo-prestigio",
+          "nome": "Prestígio",
+          "referencia": "Mini chocotone com cobertura e recheio · Neve com globo na caixa · Prestígio",
+          "varianteId": "neve-com-globo",
+          "saborId": "prestigio",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-neve-v2.webp",
+          "alt": "Mini chocotone com globo de neve e Papai Noel de gorro dourado",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "neve-com-globo-mousse-maracuja",
+          "nome": "Mousse de maracujá",
+          "referencia": "Mini chocotone com cobertura e recheio · Neve com globo na caixa · Mousse de maracujá",
+          "varianteId": "neve-com-globo",
+          "saborId": "mousse-maracuja",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-neve-v2.webp",
+          "alt": "Mini chocotone com globo de neve e Papai Noel de gorro dourado",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "neve-com-globo-mousse-limao",
+          "nome": "Mousse de limão",
+          "referencia": "Mini chocotone com cobertura e recheio · Neve com globo na caixa · Mousse de limão",
+          "varianteId": "neve-com-globo",
+          "saborId": "mousse-limao",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-neve-v2.webp",
+          "alt": "Mini chocotone com globo de neve e Papai Noel de gorro dourado",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        }
+      ],
+      "variantes": [
+        {
+          "nome": "Neve com globo na caixa",
+          "preco": 32,
+          "foto": "Mini chocotone com globo de neve e Papai Noel de gorro dourado",
+          "imagem": "/assets/images/natal/colecao-2026/mini-chocotone-neve-v2.webp",
+          "cor": "dee7da",
+          "referencia": "Mini chocotone com cobertura e recheio · Neve com globo na caixa",
+          "id": "neve-com-globo",
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Mini chocotone com globo de neve e Papai Noel de gorro dourado",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "detalhes": "Escolha o recheio. A cobertura é de brigadeiro de leite Ninho com confeitos. No topo vai um globo de acrílico com o rosto do Papai Noel de gorro dourado. Vai em caixa individual transparente.",
+          "embalagem": {
+            "nome": "Caixa individual transparente com base branca"
+          },
+          "cobertura": {
+            "tipo": "Brigadeiro de leite Ninho, confeitos e globo com Papai Noel"
+          },
+          "galeria": [],
+          "ancorasLegadas": [
+            "produto-mini-chocotone-neve-com-globo"
+          ]
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "chocotones",
+      "publicos": [
+        "presentes"
+      ],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "5d15bf1281a3a79ff5ca95b95aedcc2f188ab2d97059b84173d7fc2c27ba31ed"
+      }
+    },
+    {
+      "id": "chocotone-trufado",
+      "nome": "Chocotone trufado",
+      "categoria": "chocotones",
+      "familias": [
+        "chocotones"
+      ],
+      "tipo": "O centro da mesa",
+      "descricao": "Chocotone grande recheado, com cobertura de chocolate e cinta natalina.",
+      "detalhes": "Chocotone de aproximadamente 780 g, com cobertura de chocolate e cinta natalina. O doce ou bombom do topo é combinado no atendimento. Vai em caixa individual.",
+      "cor": "dee7da",
+      "etiqueta": "Escolha o recheio",
+      "sabores": [
+        {
+          "nome": "Brigadeiro",
+          "foto": "Chocotone trufado inteiro · Brigadeiro",
+          "imagem": "/assets/images/natal/colecao-2026/chocotone-grande-inteiro.webp",
+          "cor": "dee7da",
+          "referencia": "Chocotone trufado · Brigadeiro",
+          "id": "brigadeiro",
+          "alt": "Chocotone trufado inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "nome": "Leite Ninho",
+          "foto": "Chocotone trufado inteiro · Leite Ninho",
+          "imagem": "/assets/images/natal/colecao-2026/chocotone-grande-inteiro.webp",
+          "cor": "dee7da",
+          "referencia": "Chocotone trufado · Leite Ninho",
+          "id": "leite-em-po",
+          "alt": "Chocotone trufado inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "nome": "Prestígio",
+          "foto": "Chocotone trufado inteiro · Prestígio",
+          "imagem": "/assets/images/natal/colecao-2026/chocotone-grande-inteiro.webp",
+          "cor": "dee7da",
+          "referencia": "Chocotone trufado · Prestígio",
+          "id": "prestigio",
+          "alt": "Chocotone trufado inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "nome": "Mousse de maracujá",
+          "foto": "Chocotone trufado inteiro · Mousse de maracujá",
+          "imagem": "/assets/images/natal/colecao-2026/chocotone-grande-inteiro.webp",
+          "cor": "dee7da",
+          "referencia": "Chocotone trufado · Mousse de maracujá",
+          "id": "mousse-maracuja",
+          "alt": "Chocotone trufado inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "nome": "Mousse de limão",
+          "foto": "Chocotone trufado inteiro · Mousse de limão",
+          "imagem": "/assets/images/natal/colecao-2026/chocotone-grande-inteiro.webp",
+          "cor": "dee7da",
+          "referencia": "Chocotone trufado · Mousse de limão",
+          "id": "mousse-limao",
+          "alt": "Chocotone trufado inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "nome": "Leite Ninho com Nutella",
+          "foto": "Chocotone trufado inteiro · Leite Ninho com Nutella",
+          "imagem": "/assets/images/natal/colecao-2026/chocotone-grande-inteiro.webp",
+          "cor": "dee7da",
+          "referencia": "Chocotone trufado · Leite Ninho com Nutella",
+          "id": "leite-ninho-nutella",
+          "alt": "Chocotone trufado inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "nome": "Trufado",
+          "foto": "Chocotone trufado inteiro · Trufado",
+          "imagem": "/assets/images/natal/colecao-2026/chocotone-grande-inteiro.webp",
+          "cor": "dee7da",
+          "referencia": "Chocotone trufado · Trufado",
+          "id": "trufado",
+          "alt": "Chocotone trufado inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "nome": "Paçoca",
+          "foto": "Chocotone trufado inteiro · Paçoca",
+          "imagem": "/assets/images/natal/colecao-2026/chocotone-grande-inteiro.webp",
+          "cor": "dee7da",
+          "referencia": "Chocotone trufado · Paçoca",
+          "id": "pacoca",
+          "alt": "Chocotone trufado inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "nome": "Kinder Bueno",
+          "foto": "Chocotone trufado inteiro · Kinder Bueno",
+          "imagem": "/assets/images/natal/colecao-2026/chocotone-grande-inteiro.webp",
+          "cor": "dee7da",
+          "referencia": "Chocotone trufado · Kinder Bueno",
+          "id": "kinder-bueno",
+          "alt": "Chocotone trufado inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "nome": "Ferrero Rocher",
+          "foto": "Chocotone trufado inteiro · Ferrero Rocher",
+          "imagem": "/assets/images/natal/colecao-2026/chocotone-grande-inteiro.webp",
+          "cor": "dee7da",
+          "referencia": "Chocotone trufado · Ferrero Rocher",
+          "id": "ferrero-rocher",
+          "alt": "Chocotone trufado inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "nome": "Maracujá trufado",
+          "foto": "Chocotone trufado inteiro · Maracujá trufado",
+          "imagem": "/assets/images/natal/colecao-2026/chocotone-grande-inteiro.webp",
+          "cor": "dee7da",
+          "referencia": "Chocotone trufado · Maracujá trufado",
+          "id": "maracuja-trufado",
+          "alt": "Chocotone trufado inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        }
+      ],
+      "variantes": [
+        {
+          "nome": "Cobertura de chocolate na caixa",
+          "preco": 89,
+          "foto": "Chocotone trufado inteiro",
+          "imagem": "/assets/images/natal/colecao-2026/chocotone-grande-inteiro.webp",
+          "cor": "dee7da",
+          "referencia": "Chocotone trufado",
+          "id": "unidade",
+          "ancorasLegadas": [
+            "chocotone-trufado"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Chocotone trufado inteiro",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "detalhes": "Chocotone de aproximadamente 780 g, com cobertura de chocolate e cinta natalina. O doce ou bombom do topo é combinado no atendimento. Vai em caixa individual.",
+          "embalagem": {
+            "nome": "Caixa individual transparente com base branca"
+          },
+          "cobertura": {
+            "tipo": "Chocolate com um doce ou bombom escolhido no atendimento"
+          },
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/chocotone-grande-fatia.webp",
+              "alt": "Fatia do chocotone trufado",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ]
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "chocotones",
+      "publicos": [
+        "presentes"
+      ],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "054f94619e35074c0cb4127e7a213976a642088041965575647fff1eb78cfbcc"
+      }
+    },
+    {
+      "id": "pao-mel-saquinho",
+      "nome": "Pão de mel pequeno no saquinho",
+      "categoria": "pao-de-mel",
+      "familias": [
+        "pao-de-mel"
+      ],
+      "tipo": "Abraço em forma de doce",
+      "descricao": "Pão de mel pequeno embalado em saquinho transparente com laço.",
+      "detalhes": "Uma unidade de aproximadamente 36 g, recheada com doce de leite. Vai em saquinho transparente com laço.",
+      "cor": "eee7d9",
+      "variantes": [
+        {
+          "nome": "Pequeno",
+          "preco": 5,
+          "foto": "Pão de mel pequeno no saquinho",
+          "imagem": "/assets/images/natal/colecao-2026/pao-mel-pequeno-saquinho.webp",
+          "cor": "eee7d9",
+          "referencia": "Pão de mel pequeno no saquinho",
+          "id": "pequeno",
+          "ancorasLegadas": [
+            "pao-mel-saquinho-0"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Pão de mel pequeno no saquinho",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "detalhes": "Uma unidade de aproximadamente 36 g, recheada com doce de leite. Vai em saquinho transparente com laço.",
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/pao-mel-pequeno-corte.webp",
+              "alt": "Corte do pão de mel pequeno",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ]
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "pao-de-mel",
+      "publicos": [
+        "presentes"
+      ],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "175bc5712e7dd747bf8e7eaa5d49edde024c80387bcca2da16e239ec867ae671"
+      }
+    },
+    {
+      "id": "pao-mel-saquinho-grande",
+      "nome": "Pão de mel grande no saquinho",
+      "categoria": "pao-de-mel",
+      "familias": [
+        "pao-de-mel"
+      ],
+      "tipo": "Abraço em forma de doce",
+      "descricao": "Pão de mel grande embalado em saquinho transparente com laço.",
+      "detalhes": "Uma unidade de aproximadamente 82 g, recheada com doce de leite. Vai em saquinho transparente com laço.",
+      "cor": "eee7d9",
+      "variantes": [
+        {
+          "nome": "Grande",
+          "preco": 9,
+          "foto": "Pão de mel grande no saquinho",
+          "imagem": "/assets/images/natal/colecao-2026/pao-mel-grande-saquinho.webp",
+          "cor": "eee7d9",
+          "referencia": "Pão de mel grande no saquinho",
+          "id": "grande",
+          "ancorasLegadas": [
+            "pao-mel-saquinho-1"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Pão de mel grande no saquinho",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "detalhes": "Uma unidade de aproximadamente 82 g, recheada com doce de leite. Vai em saquinho transparente com laço.",
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/pao-mel-grande-corte.webp",
+              "alt": "Pão de mel grande cortado ao meio com recheio de doce de leite",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ]
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "pao-de-mel",
+      "publicos": [
+        "presentes"
+      ],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "b0030ef8fdf41ec6e5cf3ddcaf90392d3664aecad651dc72887e4495d1fe1b1f"
+      }
+    },
+    {
+      "id": "caixa-pao-mel",
+      "nome": "Caixinha com 2 pães de mel",
+      "categoria": "pao-de-mel",
+      "familias": [
+        "pao-de-mel"
+      ],
+      "tipo": "Carinho em dobro",
+      "descricao": "Caixa com dois pães de mel grandes.",
+      "detalhes": "Dois pães de mel grandes recheados com doce de leite. Vão em saquinhos individuais sobre uma camada de palha.",
+      "cor": "eee7d9",
+      "variantes": [
+        {
+          "nome": "Caixa com 2",
+          "preco": 25,
+          "foto": "Caixa aberta com dois pães de mel",
+          "imagem": "/assets/images/natal/colecao-2026/pao-mel-caixa-aberta.webp",
+          "cor": "eee7d9",
+          "referencia": "Caixinha com 2 pães de mel",
+          "id": "caixa-com-2",
+          "ancorasLegadas": [
+            "caixa-pao-mel"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "caixa",
+          "alt": "Caixa aberta com dois pães de mel",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/pao-mel-caixa-fechada.webp",
+              "alt": "Caixa fechada com dois pães de mel",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            },
+            {
+              "imagem": "/assets/images/natal/colecao-2026/pao-mel-caixa-corte.webp",
+              "alt": "Corte do pão de mel grande com a caixa",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ]
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "pao-de-mel",
+      "publicos": [
+        "presentes"
+      ],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "e80985830a48b22c8b35559963b66d93c788e6c9fefcee8582252487ad7ac45f"
+      }
+    },
+    {
+      "id": "caneca-biscoitos",
+      "nome": "Caneca com biscoitos",
+      "categoria": "canecas",
+      "familias": [
+        "canecas",
+        "biscoitos"
+      ],
+      "tipo": "Para a hora do café",
+      "descricao": "Caneca natalina com um saquinho de seis biscoitos amanteigados carimbados.",
+      "detalhes": "Dentro da caneca vai um saquinho com laço e seis biscoitos carimbados de 5 a 5,5 cm. Escolha o modelo da caneca.",
+      "cor": "dee7da",
+      "variantes": [
+        {
+          "nome": "Caneca 1 · Boneco de neve",
+          "preco": 50,
+          "foto": "Caneca Boneco de neve com biscoitos",
+          "imagem": "/assets/images/natal/colecao-2026/caneca-biscoitos-neve.webp",
+          "cor": "dee7da",
+          "referencia": "Caneca com biscoitos · Caneca 1 · Boneco de neve",
+          "id": "kit",
+          "ancorasLegadas": [
+            "caneca-biscoitos"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Caneca Boneco de neve com biscoitos",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": [],
+          "opcoes": {
+            "caneca": "Caneca 1 · Boneco de neve"
+          },
+          "embalagem": {
+            "nome": "Saquinho transparente com laço dentro da caneca"
+          }
+        },
+        {
+          "nome": "Caneca 2 · Papai Noel com rosto",
+          "preco": 50,
+          "foto": "Caneca Papai Noel com rosto e biscoitos",
+          "imagem": "/assets/images/natal/colecao-2026/caneca-biscoitos-noel.webp",
+          "cor": "dee7da",
+          "referencia": "Caneca com biscoitos · Caneca 2 · Papai Noel com rosto",
+          "id": "kit-caneca-2",
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Caneca Papai Noel com rosto e biscoitos",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": [],
+          "opcoes": {
+            "caneca": "Caneca 2 · Papai Noel com rosto"
+          },
+          "embalagem": {
+            "nome": "Saquinho transparente com laço dentro da caneca"
+          }
+        },
+        {
+          "nome": "Caneca 3 · Casaco de Papai Noel",
+          "preco": 50,
+          "foto": "Caneca Casaco de Papai Noel com biscoitos",
+          "imagem": "/assets/images/natal/colecao-2026/caneca-biscoitos-casaco.webp",
+          "cor": "dee7da",
+          "referencia": "Caneca com biscoitos · Caneca 3 · Casaco de Papai Noel",
+          "id": "kit-caneca-3",
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Caneca Casaco de Papai Noel com biscoitos",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": [],
+          "opcoes": {
+            "caneca": "Caneca 3 · Casaco de Papai Noel"
+          },
+          "embalagem": {
+            "nome": "Saquinho transparente com laço dentro da caneca"
+          }
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "caneca",
+      "publicos": [
+        "presentes"
+      ],
+      "conservacao": {
+        "texto": "Conservação dos biscoitos sob consulta."
+      },
+      "validade": {
+        "texto": "Validade dos biscoitos sob consulta."
+      },
+      "fotoGeral": {
+        "imagem": "/assets/images/natal/colecao-2026/caneca-biscoitos-modelos.webp",
+        "alt": "As três canecas com biscoitos alinhadas",
+        "largura": 800,
+        "altura": 800,
+        "imagemProvisoria": false
+      },
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "94a770d44eed2ce2ce65f319a82b3fcb83d210214b0f09c4497f83a717845fb5"
+      }
+    },
+    {
+      "id": "caneca-globo-bites",
+      "nome": "Caneca & globo de bites",
+      "categoria": "canecas",
+      "familias": [
+        "canecas",
+        "chocotones"
+      ],
+      "tipo": "Para saborear sem pressa",
+      "descricao": "Caneca natalina com um globo de aproximadamente 80 g de bites de chocotone.",
+      "detalhes": "Escolha o modelo da caneca. O kit vai na sacola fosca com alças douradas e base branca.",
+      "cor": "dee7da",
+      "variantes": [
+        {
+          "nome": "Caneca 1 · Boneco de neve",
+          "preco": 55,
+          "foto": "Boneco de neve com globo de bites de chocotone na sacola",
+          "imagem": "/assets/images/natal/colecao-2026/kit-globo-bites-neve-na-sacola-v3.webp",
+          "cor": "dee7da",
+          "referencia": "Caneca & globo de bites · Caneca 1 · Boneco de neve",
+          "id": "kit",
+          "ancorasLegadas": [
+            "caneca-globo-bites"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "kit",
+          "alt": "Boneco de neve com globo de bites de chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "opcoes": {
+            "caneca": "Caneca 1 · Boneco de neve"
+          },
+          "embalagem": {
+            "nome": "Sacola fosca com alças douradas e base branca"
+          },
+          "detalhes": "O kit leva a caneca escolhida, a sacola e um globo com cerca de 80 g de bites de chocotone.",
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/kit-globo-bites-neve-fora.webp",
+              "alt": "Boneco de neve com globo de bites de chocotone fora da sacola",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ]
+        },
+        {
+          "nome": "Caneca 2 · Papai Noel com rosto",
+          "preco": 55,
+          "foto": "Papai Noel com rosto com globo de bites de chocotone na sacola",
+          "imagem": "/assets/images/natal/colecao-2026/kit-globo-bites-noel-na-sacola-v3.webp",
+          "cor": "dee7da",
+          "referencia": "Caneca & globo de bites · Caneca 2 · Papai Noel com rosto",
+          "id": "kit-caneca-2",
+          "precoStatus": "confirmado",
+          "unidade": "kit",
+          "alt": "Papai Noel com rosto com globo de bites de chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "opcoes": {
+            "caneca": "Caneca 2 · Papai Noel com rosto"
+          },
+          "embalagem": {
+            "nome": "Sacola fosca com alças douradas e base branca"
+          },
+          "detalhes": "O kit leva a caneca escolhida, a sacola e um globo com cerca de 80 g de bites de chocotone.",
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/kit-globo-bites-noel-fora.webp",
+              "alt": "Papai Noel com rosto com globo de bites de chocotone fora da sacola",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ]
+        },
+        {
+          "nome": "Caneca 3 · Casaco de Papai Noel",
+          "preco": 55,
+          "foto": "Casaco de Papai Noel com globo de bites de chocotone na sacola",
+          "imagem": "/assets/images/natal/colecao-2026/kit-globo-bites-casaco-na-sacola-v3.webp",
+          "cor": "dee7da",
+          "referencia": "Caneca & globo de bites · Caneca 3 · Casaco de Papai Noel",
+          "id": "kit-caneca-3",
+          "precoStatus": "confirmado",
+          "unidade": "kit",
+          "alt": "Casaco de Papai Noel com globo de bites de chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "opcoes": {
+            "caneca": "Caneca 3 · Casaco de Papai Noel"
+          },
+          "embalagem": {
+            "nome": "Sacola fosca com alças douradas e base branca"
+          },
+          "detalhes": "O kit leva a caneca escolhida, a sacola e um globo com cerca de 80 g de bites de chocotone.",
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/kit-globo-bites-casaco-fora.webp",
+              "alt": "Casaco de Papai Noel com globo de bites de chocotone fora da sacola",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ]
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "kit",
+      "publicos": [
+        "presentes"
+      ],
+      "componentes": [
+        {
+          "nome": "Caneca natalina do modelo escolhido",
+          "quantidade": 1,
+          "unidade": "unidade"
+        },
+        {
+          "produtoId": "globo-bites",
+          "quantidade": 1,
+          "unidade": "globo"
+        },
+        {
+          "nome": "Sacola transparente com alças douradas, base branca e laço",
+          "quantidade": 1,
+          "unidade": "unidade"
+        }
+      ],
+      "conservacao": {
+        "texto": "Conservação do kit sob consulta."
+      },
+      "validade": {
+        "texto": "Validade do kit sob consulta."
+      },
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "59a85e91f8a69d219b698005bbaf7a8ff76e7cd30460d940f36ad37f4c434fc1"
+      }
+    },
+    {
+      "id": "caneca-mini-chocotone",
+      "nome": "Caneca & mini chocotone",
+      "categoria": "canecas",
+      "familias": [
+        "canecas",
+        "chocotones"
+      ],
+      "tipo": "Um café com Natal",
+      "descricao": "Caneca natalina e mini chocotone recheado, com cobertura de chocolate, na sacola.",
+      "detalhes": "Escolha o modelo da caneca. O kit vai na sacola fosca com alças douradas e base branca.",
+      "cor": "dee7da",
+      "sabores": [
+        {
+          "id": "recheado-brigadeiro",
+          "nome": "Brigadeiro",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 1 · Boneco de neve · Brigadeiro",
+          "varianteId": "kit-recheado",
+          "saborId": "brigadeiro",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-neve-v2.webp",
+          "alt": "Boneco de neve com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-leite-em-po",
+          "nome": "Leite Ninho",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 1 · Boneco de neve · Leite Ninho",
+          "varianteId": "kit-recheado",
+          "saborId": "leite-em-po",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-neve-v2.webp",
+          "alt": "Boneco de neve com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-prestigio",
+          "nome": "Prestígio",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 1 · Boneco de neve · Prestígio",
+          "varianteId": "kit-recheado",
+          "saborId": "prestigio",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-neve-v2.webp",
+          "alt": "Boneco de neve com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-mousse-maracuja",
+          "nome": "Mousse de maracujá",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 1 · Boneco de neve · Mousse de maracujá",
+          "varianteId": "kit-recheado",
+          "saborId": "mousse-maracuja",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-neve-v2.webp",
+          "alt": "Boneco de neve com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-mousse-limao",
+          "nome": "Mousse de limão",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 1 · Boneco de neve · Mousse de limão",
+          "varianteId": "kit-recheado",
+          "saborId": "mousse-limao",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-neve-v2.webp",
+          "alt": "Boneco de neve com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-leite-ninho-nutella",
+          "nome": "Leite Ninho com Nutella",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 1 · Boneco de neve · Leite Ninho com Nutella",
+          "varianteId": "kit-recheado",
+          "saborId": "leite-ninho-nutella",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-neve-v2.webp",
+          "alt": "Boneco de neve com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-trufado",
+          "nome": "Trufado",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 1 · Boneco de neve · Trufado",
+          "varianteId": "kit-recheado",
+          "saborId": "trufado",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-neve-v2.webp",
+          "alt": "Boneco de neve com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-pacoca",
+          "nome": "Paçoca",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 1 · Boneco de neve · Paçoca",
+          "varianteId": "kit-recheado",
+          "saborId": "pacoca",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-neve-v2.webp",
+          "alt": "Boneco de neve com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-kinder-bueno",
+          "nome": "Kinder Bueno",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 1 · Boneco de neve · Kinder Bueno",
+          "varianteId": "kit-recheado",
+          "saborId": "kinder-bueno",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-neve-v2.webp",
+          "alt": "Boneco de neve com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-ferrero-rocher",
+          "nome": "Ferrero Rocher",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 1 · Boneco de neve · Ferrero Rocher",
+          "varianteId": "kit-recheado",
+          "saborId": "ferrero-rocher",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-neve-v2.webp",
+          "alt": "Boneco de neve com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-maracuja-trufado",
+          "nome": "Maracujá trufado",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 1 · Boneco de neve · Maracujá trufado",
+          "varianteId": "kit-recheado",
+          "saborId": "maracuja-trufado",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-neve-v2.webp",
+          "alt": "Boneco de neve com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-brigadeiro-caneca-2",
+          "nome": "Brigadeiro",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 2 · Papai Noel com rosto · Brigadeiro",
+          "varianteId": "kit-recheado-caneca-2",
+          "saborId": "brigadeiro",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-noel-v2.webp",
+          "alt": "Papai Noel com rosto com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-leite-em-po-caneca-2",
+          "nome": "Leite Ninho",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 2 · Papai Noel com rosto · Leite Ninho",
+          "varianteId": "kit-recheado-caneca-2",
+          "saborId": "leite-em-po",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-noel-v2.webp",
+          "alt": "Papai Noel com rosto com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-prestigio-caneca-2",
+          "nome": "Prestígio",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 2 · Papai Noel com rosto · Prestígio",
+          "varianteId": "kit-recheado-caneca-2",
+          "saborId": "prestigio",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-noel-v2.webp",
+          "alt": "Papai Noel com rosto com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-mousse-maracuja-caneca-2",
+          "nome": "Mousse de maracujá",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 2 · Papai Noel com rosto · Mousse de maracujá",
+          "varianteId": "kit-recheado-caneca-2",
+          "saborId": "mousse-maracuja",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-noel-v2.webp",
+          "alt": "Papai Noel com rosto com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-mousse-limao-caneca-2",
+          "nome": "Mousse de limão",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 2 · Papai Noel com rosto · Mousse de limão",
+          "varianteId": "kit-recheado-caneca-2",
+          "saborId": "mousse-limao",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-noel-v2.webp",
+          "alt": "Papai Noel com rosto com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-leite-ninho-nutella-caneca-2",
+          "nome": "Leite Ninho com Nutella",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 2 · Papai Noel com rosto · Leite Ninho com Nutella",
+          "varianteId": "kit-recheado-caneca-2",
+          "saborId": "leite-ninho-nutella",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-noel-v2.webp",
+          "alt": "Papai Noel com rosto com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-trufado-caneca-2",
+          "nome": "Trufado",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 2 · Papai Noel com rosto · Trufado",
+          "varianteId": "kit-recheado-caneca-2",
+          "saborId": "trufado",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-noel-v2.webp",
+          "alt": "Papai Noel com rosto com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-pacoca-caneca-2",
+          "nome": "Paçoca",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 2 · Papai Noel com rosto · Paçoca",
+          "varianteId": "kit-recheado-caneca-2",
+          "saborId": "pacoca",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-noel-v2.webp",
+          "alt": "Papai Noel com rosto com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-kinder-bueno-caneca-2",
+          "nome": "Kinder Bueno",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 2 · Papai Noel com rosto · Kinder Bueno",
+          "varianteId": "kit-recheado-caneca-2",
+          "saborId": "kinder-bueno",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-noel-v2.webp",
+          "alt": "Papai Noel com rosto com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-ferrero-rocher-caneca-2",
+          "nome": "Ferrero Rocher",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 2 · Papai Noel com rosto · Ferrero Rocher",
+          "varianteId": "kit-recheado-caneca-2",
+          "saborId": "ferrero-rocher",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-noel-v2.webp",
+          "alt": "Papai Noel com rosto com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-maracuja-trufado-caneca-2",
+          "nome": "Maracujá trufado",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 2 · Papai Noel com rosto · Maracujá trufado",
+          "varianteId": "kit-recheado-caneca-2",
+          "saborId": "maracuja-trufado",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-noel-v2.webp",
+          "alt": "Papai Noel com rosto com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-brigadeiro-caneca-3",
+          "nome": "Brigadeiro",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 3 · Casaco de Papai Noel · Brigadeiro",
+          "varianteId": "kit-recheado-caneca-3",
+          "saborId": "brigadeiro",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-casaco-v2.webp",
+          "alt": "Casaco de Papai Noel com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-leite-em-po-caneca-3",
+          "nome": "Leite Ninho",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 3 · Casaco de Papai Noel · Leite Ninho",
+          "varianteId": "kit-recheado-caneca-3",
+          "saborId": "leite-em-po",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-casaco-v2.webp",
+          "alt": "Casaco de Papai Noel com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-prestigio-caneca-3",
+          "nome": "Prestígio",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 3 · Casaco de Papai Noel · Prestígio",
+          "varianteId": "kit-recheado-caneca-3",
+          "saborId": "prestigio",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-casaco-v2.webp",
+          "alt": "Casaco de Papai Noel com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-mousse-maracuja-caneca-3",
+          "nome": "Mousse de maracujá",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 3 · Casaco de Papai Noel · Mousse de maracujá",
+          "varianteId": "kit-recheado-caneca-3",
+          "saborId": "mousse-maracuja",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-casaco-v2.webp",
+          "alt": "Casaco de Papai Noel com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-mousse-limao-caneca-3",
+          "nome": "Mousse de limão",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 3 · Casaco de Papai Noel · Mousse de limão",
+          "varianteId": "kit-recheado-caneca-3",
+          "saborId": "mousse-limao",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-casaco-v2.webp",
+          "alt": "Casaco de Papai Noel com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-leite-ninho-nutella-caneca-3",
+          "nome": "Leite Ninho com Nutella",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 3 · Casaco de Papai Noel · Leite Ninho com Nutella",
+          "varianteId": "kit-recheado-caneca-3",
+          "saborId": "leite-ninho-nutella",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-casaco-v2.webp",
+          "alt": "Casaco de Papai Noel com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-trufado-caneca-3",
+          "nome": "Trufado",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 3 · Casaco de Papai Noel · Trufado",
+          "varianteId": "kit-recheado-caneca-3",
+          "saborId": "trufado",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-casaco-v2.webp",
+          "alt": "Casaco de Papai Noel com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-pacoca-caneca-3",
+          "nome": "Paçoca",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 3 · Casaco de Papai Noel · Paçoca",
+          "varianteId": "kit-recheado-caneca-3",
+          "saborId": "pacoca",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-casaco-v2.webp",
+          "alt": "Casaco de Papai Noel com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-kinder-bueno-caneca-3",
+          "nome": "Kinder Bueno",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 3 · Casaco de Papai Noel · Kinder Bueno",
+          "varianteId": "kit-recheado-caneca-3",
+          "saborId": "kinder-bueno",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-casaco-v2.webp",
+          "alt": "Casaco de Papai Noel com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-ferrero-rocher-caneca-3",
+          "nome": "Ferrero Rocher",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 3 · Casaco de Papai Noel · Ferrero Rocher",
+          "varianteId": "kit-recheado-caneca-3",
+          "saborId": "ferrero-rocher",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-casaco-v2.webp",
+          "alt": "Casaco de Papai Noel com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        },
+        {
+          "id": "recheado-maracuja-trufado-caneca-3",
+          "nome": "Maracujá trufado",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 3 · Casaco de Papai Noel · Maracujá trufado",
+          "varianteId": "kit-recheado-caneca-3",
+          "saborId": "maracuja-trufado",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-casaco-v2.webp",
+          "alt": "Casaco de Papai Noel com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "galeria": []
+        }
+      ],
+      "variantes": [
+        {
+          "nome": "Caneca 1 · Boneco de neve",
+          "preco": 69,
+          "foto": "Boneco de neve com mini chocotone na sacola",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-neve-v2.webp",
+          "cor": "dee7da",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 1 · Boneco de neve",
+          "id": "kit-recheado",
+          "precoStatus": "confirmado",
+          "unidade": "kit",
+          "alt": "Boneco de neve com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "detalhes": "Inclui caneca 1 · boneco de neve e sacola fosca com alças douradas. O valor é próprio deste modelo de caneca. Mini chocotone em saquinho individual, com o recheio da sua escolha. O doce ou bombom do topo é combinado no atendimento.",
+          "opcoes": {
+            "caneca": "Caneca 1 · Boneco de neve"
+          },
+          "embalagem": {
+            "nome": "Sacola fosca com alças douradas e base branca"
+          },
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-neve-fora.webp",
+              "alt": "Caneca de boneco de neve ao lado do mini chocotone fora da sacola",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ],
+          "cobertura": {
+            "tipo": "Chocolate com um doce ou bombom escolhido no atendimento"
+          }
+        },
+        {
+          "nome": "Caneca 2 · Papai Noel com rosto",
+          "preco": 69,
+          "foto": "Papai Noel com rosto com mini chocotone na sacola",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-noel-v2.webp",
+          "cor": "dee7da",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 2 · Papai Noel com rosto",
+          "id": "kit-recheado-caneca-2",
+          "precoStatus": "confirmado",
+          "unidade": "kit",
+          "alt": "Papai Noel com rosto com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "detalhes": "Inclui caneca 2 · papai noel com rosto e sacola fosca com alças douradas. O valor é próprio deste modelo de caneca. Mini chocotone em saquinho individual, com o recheio da sua escolha. O doce ou bombom do topo é combinado no atendimento.",
+          "opcoes": {
+            "caneca": "Caneca 2 · Papai Noel com rosto"
+          },
+          "embalagem": {
+            "nome": "Sacola fosca com alças douradas e base branca"
+          },
+          "galeria": [],
+          "cobertura": {
+            "tipo": "Chocolate com um doce ou bombom escolhido no atendimento"
+          }
+        },
+        {
+          "nome": "Caneca 3 · Casaco de Papai Noel",
+          "preco": 69,
+          "foto": "Casaco de Papai Noel com mini chocotone na sacola",
+          "imagem": "/assets/images/natal/colecao-2026/kit-mini-chocotone-casaco-v2.webp",
+          "cor": "dee7da",
+          "referencia": "Caneca & mini chocotone com cobertura e recheio · Caneca 3 · Casaco de Papai Noel",
+          "id": "kit-recheado-caneca-3",
+          "precoStatus": "confirmado",
+          "unidade": "kit",
+          "alt": "Casaco de Papai Noel com mini chocotone na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "detalhes": "Inclui caneca 3 · casaco de papai noel e sacola fosca com alças douradas. O valor é próprio deste modelo de caneca. Mini chocotone em saquinho individual, com o recheio da sua escolha. O doce ou bombom do topo é combinado no atendimento.",
+          "opcoes": {
+            "caneca": "Caneca 3 · Casaco de Papai Noel"
+          },
+          "embalagem": {
+            "nome": "Sacola fosca com alças douradas e base branca"
+          },
+          "galeria": [],
+          "cobertura": {
+            "tipo": "Chocolate com um doce ou bombom escolhido no atendimento"
+          }
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "kit",
+      "publicos": [
+        "presentes"
+      ],
+      "componentes": [
+        {
+          "nome": "Caneca natalina do modelo escolhido",
+          "quantidade": 1,
+          "unidade": "unidade"
+        },
+        {
+          "produtoId": "mini-chocotone",
+          "quantidade": 1,
+          "unidade": "unidade",
+          "varianteId": "recheado"
+        },
+        {
+          "nome": "Sacola transparente com alças douradas e base branca",
+          "quantidade": 1,
+          "unidade": "unidade"
+        }
+      ],
+      "conservacao": {
+        "texto": "Conservação do kit sob consulta."
+      },
+      "validade": {
+        "texto": "Validade do kit sob consulta."
+      },
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "aff3ec94bce900a91473dccafabd9da1bd7053f88f609f919c34d4c17f5ebf71"
+      }
+    },
+    {
+      "id": "caneca-globo-biscoitos",
+      "nome": "Caneca & globo de biscoitos",
+      "categoria": "canecas",
+      "familias": [
+        "canecas",
+        "biscoitos"
+      ],
+      "tipo": "Um presente completo",
+      "descricao": "Caneca natalina com um globo de oito mini biscoitos decorados com glacê real.",
+      "detalhes": "O globo contém oito mini biscoitos amanteigados de 4 cm de diâmetro, decorados com glacê real. Escolha a caneca. O kit vai na sacola fosca com alças douradas e base branca.",
+      "cor": "dee7da",
+      "variantes": [
+        {
+          "nome": "Caneca 1 · Boneco de neve",
+          "preco": 75,
+          "foto": "Boneco de neve com globo de biscoitos na sacola",
+          "imagem": "/assets/images/natal/colecao-2026/kit-globo-biscoitos-neve-na-sacola-v3.webp",
+          "cor": "dee7da",
+          "referencia": "Caneca & globo de biscoitos · Caneca 1 · Boneco de neve",
+          "id": "kit",
+          "ancorasLegadas": [
+            "caneca-globo-biscoitos"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "kit",
+          "alt": "Boneco de neve com globo de biscoitos na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "opcoes": {
+            "caneca": "Caneca 1 · Boneco de neve"
+          },
+          "embalagem": {
+            "nome": "Sacola fosca com alças douradas e base branca"
+          },
+          "detalhes": "Inclui caneca 1 · boneco de neve e sacola fosca com alças douradas. O valor é próprio deste modelo de caneca.",
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/kit-globo-biscoitos-neve-fora-v2.webp",
+              "alt": "Boneco de neve com globo de biscoitos fora da sacola",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ]
+        },
+        {
+          "nome": "Caneca 2 · Papai Noel com rosto",
+          "preco": 75,
+          "foto": "Papai Noel com rosto com globo de biscoitos na sacola",
+          "imagem": "/assets/images/natal/colecao-2026/kit-globo-biscoitos-noel-na-sacola-v3.webp",
+          "cor": "dee7da",
+          "referencia": "Caneca & globo de biscoitos · Caneca 2 · Papai Noel com rosto",
+          "id": "kit-caneca-2",
+          "precoStatus": "confirmado",
+          "unidade": "kit",
+          "alt": "Papai Noel com rosto com globo de biscoitos na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "opcoes": {
+            "caneca": "Caneca 2 · Papai Noel com rosto"
+          },
+          "embalagem": {
+            "nome": "Sacola fosca com alças douradas e base branca"
+          },
+          "detalhes": "Inclui caneca 2 · papai noel com rosto e sacola fosca com alças douradas. O valor é próprio deste modelo de caneca.",
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/kit-globo-biscoitos-noel-fora-v2.webp",
+              "alt": "Papai Noel com rosto com globo de biscoitos fora da sacola",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ]
+        },
+        {
+          "nome": "Caneca 3 · Casaco de Papai Noel",
+          "preco": 75,
+          "foto": "Casaco de Papai Noel com globo de biscoitos na sacola",
+          "imagem": "/assets/images/natal/colecao-2026/kit-globo-biscoitos-casaco-na-sacola-v3.webp",
+          "cor": "dee7da",
+          "referencia": "Caneca & globo de biscoitos · Caneca 3 · Casaco de Papai Noel",
+          "id": "kit-caneca-3",
+          "precoStatus": "confirmado",
+          "unidade": "kit",
+          "alt": "Casaco de Papai Noel com globo de biscoitos na sacola",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "opcoes": {
+            "caneca": "Caneca 3 · Casaco de Papai Noel"
+          },
+          "embalagem": {
+            "nome": "Sacola fosca com alças douradas e base branca"
+          },
+          "detalhes": "Inclui caneca 3 · casaco de papai noel e sacola fosca com alças douradas. O valor é próprio deste modelo de caneca.",
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/colecao-2026/kit-globo-biscoitos-casaco-fora-v2.webp",
+              "alt": "Casaco de Papai Noel com globo de biscoitos fora da sacola",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ]
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "kit",
+      "publicos": [
+        "presentes"
+      ],
+      "componentes": [
+        {
+          "nome": "Caneca natalina do modelo escolhido",
+          "quantidade": 1,
+          "unidade": "unidade"
+        },
+        {
+          "produtoId": "globo-mini-biscoitos",
+          "quantidade": 1,
+          "unidade": "globo"
+        },
+        {
+          "nome": "Sacola transparente com alças douradas e base branca",
+          "quantidade": 1,
+          "unidade": "unidade"
+        }
+      ],
+      "conservacao": {
+        "texto": "Conservação do kit sob consulta."
+      },
+      "validade": {
+        "texto": "Validade do kit sob consulta."
+      },
+      "conteudoEmbalagem": "O globo contém oito mini biscoitos amanteigados de 4 cm de diâmetro, decorados com glacê real.",
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "fd83861d107fa274b0d4c8cb97445ac7d9d050e196582051836facc389922897"
+      }
+    },
+    {
+      "id": "logo-carimbada",
+      "nome": "Biscoito com logo carimbada",
+      "categoria": "empresas",
+      "familias": [
+        "biscoitos"
+      ],
+      "tipo": "Sua marca em relevo",
+      "descricao": "Biscoito amanteigado com a sua marca carimbada em relevo.",
+      "detalhes": "Biscoito amanteigado em formato de gorro. A taxa por arte inclui cortador e carimbo.",
+      "cor": "dee7da",
+      "personalizavel": true,
+      "taxaArte": 35,
+      "variantes": [
+        {
+          "nome": "Gorro carimbado",
+          "preco": 2.9,
+          "foto": "Gorro com logo Basilio Bolos carimbada",
+          "imagem": "/assets/images/natal/colecao-2026/logo-gorro-carimbado.webp",
+          "cor": "dee7da",
+          "referencia": "Biscoito com logo carimbada · Gorro carimbado",
+          "id": "por-unidade",
+          "ancorasLegadas": [
+            "logo-carimbada"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Gorro com logo Basilio Bolos carimbada",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "opcoes": {
+            "formato": "Gorro carimbado"
+          },
+          "detalhes": "Biscoito amanteigado em formato de gorro. A taxa por arte inclui cortador e carimbo.",
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/revisao-fotos-reais/logo-carimbada-gorro-v1.webp",
+              "alt": "Gorro carimbado com sua logo no centro",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ]
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "biscoitos",
+      "publicos": [
+        "corporativo"
+      ],
+      "minimo": {
+        "estado": "confirmado",
+        "quantidade": 10,
+        "unidade": "unidades",
+        "mensagem": "Pedido mínimo de 10 unidades."
+      },
+      "prazo": {
+        "estado": "sob-consulta",
+        "mensagem": "Prazo de produção sob consulta."
+      },
+      "personalizacao": {
+        "tecnica": "Logo carimbada em relevo",
+        "condicoes": "Envie a marca, a quantidade desejada e a data para orçamento."
+      },
+      "taxaArteDescricao": "por arte",
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "0580d9f183cce92e6a227f23707239ecedce569aa4fc7263413451d4a4694178"
+      }
+    },
+    {
+      "id": "logo-decorada",
+      "nome": "Biscoito decorado com logo",
+      "categoria": "empresas",
+      "familias": [
+        "biscoitos"
+      ],
+      "tipo": "Gorro pintado",
+      "descricao": "Biscoito amanteigado com logo carimbada e gorro pintado com glacê real.",
+      "detalhes": "Biscoito amanteigado com gorro decorado com glacê real e logo carimbada em relevo. A taxa por arte inclui cortador e carimbo.",
+      "cor": "dee7da",
+      "personalizavel": true,
+      "taxaArte": 35,
+      "variantes": [
+        {
+          "nome": "Gorro pintado",
+          "preco": 4.9,
+          "foto": "Biscoito em forma de gorro decorado com a marca Basilio Bolos carimbada",
+          "imagem": "/assets/images/natal/colecao-2026/logo-gorro-decorado.webp",
+          "cor": "dee7da",
+          "referencia": "Biscoito decorado com logo · Gorro pintado",
+          "id": "gorro-decorado",
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Biscoito em forma de gorro decorado com a marca Basilio Bolos carimbada",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "opcoes": {
+            "formato": "Gorro pintado"
+          },
+          "detalhes": "Biscoito amanteigado com gorro decorado com glacê real e logo carimbada em relevo. A taxa por arte inclui cortador e carimbo.",
+          "galeria": [
+            {
+              "imagem": "/assets/images/natal/revisao-fotos-reais/logo-carimbada-gorro-decorado-v1.webp",
+              "alt": "Gorro decorado e logo carimbada com sua logo no centro",
+              "largura": 800,
+              "altura": 800,
+              "imagemProvisoria": false
+            }
+          ],
+          "ancorasLegadas": [
+            "produto-logo-carimbada-gorro-decorado"
+          ]
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "biscoitos",
+      "publicos": [
+        "corporativo"
+      ],
+      "minimo": {
+        "estado": "confirmado",
+        "quantidade": 10,
+        "unidade": "unidades",
+        "mensagem": "Pedido mínimo de 10 unidades."
+      },
+      "prazo": {
+        "estado": "sob-consulta",
+        "mensagem": "Prazo de produção sob consulta."
+      },
+      "personalizacao": {
+        "tecnica": "Logo carimbada em relevo",
+        "condicoes": "Envie a marca, a quantidade desejada e a data para orçamento."
+      },
+      "taxaArteDescricao": "por arte",
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "10f20cfac9c79f2636f7c1b08ed71d1152dad0f76bf96d1d71f5cd34ac33acd5"
+      }
+    },
+    {
+      "id": "logo-impressa",
+      "nome": "Biscoito com logo impressa",
+      "categoria": "empresas",
+      "familias": [
+        "biscoitos"
+      ],
+      "tipo": "Sua marca, suas cores",
+      "descricao": "Biscoito amanteigado com logo impressa em papel de arroz sobre glacê real.",
+      "detalhes": "Biscoito amanteigado com glacê real e papel de arroz. Os formatos redondo e quadrado medem 6 × 6 cm. A bola de Natal tem 6,5 cm de diâmetro. A personalização está inclusa nos três formatos.",
+      "cor": "dee7da",
+      "personalizavel": true,
+      "variantes": [
+        {
+          "nome": "Redondo",
+          "preco": 5.9,
+          "foto": "Biscoito redondo com logo impressa",
+          "imagem": "/assets/images/natal/colecao-2026/logo-impressa-redondo.webp",
+          "cor": "dee7da",
+          "referencia": "Biscoito com logo impressa · Redondo",
+          "id": "por-unidade",
+          "ancorasLegadas": [
+            "logo-impressa"
+          ],
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Biscoito redondo com logo impressa",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "opcoes": {
+            "formato": "Redondo"
+          },
+          "detalhes": "Biscoito redondo de 6 × 6 cm. Inclui a logo em papel de arroz sobre glacê real.",
+          "galeria": []
+        },
+        {
+          "nome": "Quadrado",
+          "preco": 5.9,
+          "foto": "Biscoito quadrado com logo impressa",
+          "imagem": "/assets/images/natal/colecao-2026/logo-impressa-quadrado.webp",
+          "cor": "dee7da",
+          "referencia": "Biscoito com logo impressa · Quadrado",
+          "id": "quadrado",
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Biscoito quadrado com logo impressa",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "opcoes": {
+            "formato": "Quadrado"
+          },
+          "detalhes": "Biscoito quadrado de 6 × 6 cm. Inclui a logo em papel de arroz sobre glacê real.",
+          "galeria": []
+        },
+        {
+          "nome": "Bola de Natal",
+          "preco": 6.9,
+          "foto": "Bola de Natal com logo impressa",
+          "imagem": "/assets/images/natal/colecao-2026/logo-impressa-bola.webp",
+          "cor": "dee7da",
+          "referencia": "Biscoito com logo impressa · Bola de Natal",
+          "id": "bola-de-natal",
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "alt": "Bola de Natal com logo impressa",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "opcoes": {
+            "formato": "Bola de Natal"
+          },
+          "detalhes": "Biscoito em forma de bola de Natal, com 6,5 cm de diâmetro. Inclui a logo em papel de arroz sobre glacê real.",
+          "galeria": []
+        }
+      ],
+      "statusCatalogo": "pronto",
+      "tipoProduto": "biscoitos",
+      "publicos": [
+        "corporativo"
+      ],
+      "minimo": {
+        "estado": "confirmado",
+        "quantidade": 10,
+        "unidade": "unidades",
+        "mensagem": "Pedido mínimo de 10 unidades."
+      },
+      "prazo": {
+        "estado": "sob-consulta",
+        "mensagem": "Prazo de produção sob consulta."
+      },
+      "personalizacao": {
+        "tecnica": "Logo impressa em papel de arroz sobre glacê real",
+        "condicoes": "Envie a marca, a quantidade desejada e a data para orçamento."
+      },
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "8484382e6b316c5d07838806ad81ecdfa5edec1e68e510cf5b1e18f995df35b0"
+      }
+    },
+    {
+      "id": "cupcakes-logo-chantilly-quatro",
+      "nome": "Cupcake com logo | Chantilly",
+      "tipoProduto": "cupcakes",
+      "publicos": [
+        "corporativo"
+      ],
+      "statusCatalogo": "pronto",
+      "opcoes": {
+        "massa": [
+          "branca",
+          "chocolate"
+        ],
+        "recheio": [
+          "Brigadeiro tradicional",
+          "Brigadeiro de leite Ninho"
+        ]
+      },
+      "cobertura": {
+        "tipo": "Chantilly",
+        "logo": "Topo de papel em duas camadas, com logo, apoiado sobre o chantilly"
+      },
+      "variantes": [
+        {
+          "id": "caixa-1",
+          "referencia": "Caixa com 1 cupcake com logo e chantilly",
+          "preco": 12,
+          "precoStatus": "confirmado",
+          "unidade": "caixa",
+          "imagem": "/assets/images/natal/colecao-2026/cupcake-chantilly-logo-v2.webp",
+          "nome": "Caixa com 1 cupcake",
+          "foto": "Cupcake com logo de papel em duas camadas e caixa com laço vinho",
+          "cor": "eee7d9",
+          "alt": "Cupcake com logo de papel em duas camadas e caixa com laço vinho",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "conteudoEmbalagem": {
+            "quantidade": 1,
+            "item": "cupcake"
+          },
+          "embalagem": {
+            "nome": "Caixa com 1 cupcake"
+          },
+          "detalhes": "Caixa com 1 cupcake, cobertura de chantilly e topo de papel com logo em duas camadas."
+        }
+      ],
+      "validade": {
+        "tipo": "consumo-sugerido",
+        "dias": 3,
+        "marcoInicial": "após o preparo"
+      },
+      "conservacao": {
+        "texto": "Manter na geladeira.",
+        "refrigeracao": "refrigerado"
+      },
+      "categoria": "cupcakes",
+      "familias": [
+        "cupcakes"
+      ],
+      "descricao": "Cupcake com chantilly e topo de papel com logo, em caixa individual.",
+      "detalhes": "Escolha a massa e o recheio. O topo de papel com sua logo tem duas camadas e fica apoiado sobre o chantilly.",
+      "cor": "eee7d9",
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "f8aeec58705214ab08fb363e52a76dedbdb628950dfd7e58c80002930d609a9c"
+      }
+    },
+    {
+      "id": "biscoitos-logo-mini-tubo-kraft",
+      "nome": "Tubolata com biscoitos",
+      "tipoProduto": "biscoitos",
+      "publicos": [
+        "corporativo"
+      ],
+      "statusCatalogo": "pronto",
+      "variantes": [
+        {
+          "id": "biscoitos-natalinos",
+          "nome": "Biscoitos decorados de Natal",
+          "referencia": "Tubolata com rótulo personalizado e biscoitos decorados de Natal",
+          "preco": 27,
+          "precoStatus": "confirmado",
+          "unidade": "tubo",
+          "imagem": "/assets/images/natal/colecao-2026/tubolata-corporativa-natal-v2.webp",
+          "alt": "Tubolata corporativa com quatro biscoitos de Natal",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "detalhes": "Tubolata com rótulo de Natal personalizável e quatro biscoitos amanteigados decorados com glacê real.",
+          "embalagem": {
+            "nome": "Mini tubolata kraft com tampa nas duas extremidades",
+            "dimensoesInformadas": "7 x 6 cm",
+            "rotuloPersonalizado": true
+          },
+          "personalizacao": {
+            "tecnica": "Logo impressa no rótulo",
+            "condicoes": "Pode usar a logo da empresa ou dos seus clientes. Envie o arquivo da logo, a quantidade desejada e a data para orçamento."
+          },
+          "conteudoEmbalagem": {
+            "quantidade": 4,
+            "item": "biscoitos decorados de Natal"
+          },
+          "foto": "Tubolata corporativa com quatro biscoitos de Natal"
+        },
+        {
+          "id": "tubo",
+          "referencia": "Tubolata com 4 biscoitos e logo em papel arroz",
+          "preco": 27,
+          "precoStatus": "confirmado",
+          "unidade": "tubo",
+          "imagem": "/assets/images/natal/colecao-2026/tubolata-corporativa-logo-v2.webp",
+          "nome": "Quatro biscoitos com logo",
+          "foto": "Tubolata corporativa com quatro biscoitos com logo",
+          "alt": "Tubolata corporativa com quatro biscoitos com logo",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "cor": "dee7da",
+          "embalagem": {
+            "nome": "Mini tubolata kraft com tampa nas duas extremidades",
+            "dimensoesInformadas": "7 x 6 cm",
+            "rotuloPersonalizado": true
+          },
+          "conteudoEmbalagem": {
+            "quantidade": 4,
+            "item": "biscoitos com logo"
+          },
+          "opcoes": {
+            "formatoBiscoitos": [
+              "redondo",
+              "quadrado"
+            ]
+          },
+          "tamanhoBiscoitosInformado": "5 x 5 cm",
+          "decoracao": "logo",
+          "validade": {
+            "tipo": "validade",
+            "dias": 10,
+            "marcoInicial": null
+          },
+          "conservacao": {
+            "texto": "Manter em local fresco. Não refrigerar.",
+            "refrigeracao": "nao-refrigerar"
+          },
+          "personalizacao": {
+            "tecnica": "Logo aplicada em papel arroz sobre glacê real",
+            "condicoes": "Pode usar a logo da empresa ou dos seus clientes. Envie o arquivo da logo, a quantidade desejada e a data para orçamento."
+          },
+          "detalhes": "Mini tubolata com tampa nas duas extremidades e rótulo com a arte que você escolher. Inclui quatro biscoitos amanteigados com logo em papel de arroz sobre glacê real."
+        }
+      ],
+      "categoria": "empresas",
+      "familias": [
+        "biscoitos"
+      ],
+      "tipo": "Sua marca para presentear",
+      "descricao": "Tubolata de Natal com rótulo personalizado e biscoitos amanteigados.",
+      "detalhes": "Cada tubolata de 7 × 6 cm leva quatro biscoitos. Escolha biscoitos decorados de Natal ou biscoitos com logo em papel de arroz.",
+      "cor": "dee7da",
+      "personalizavel": true,
+      "minimo": {
+        "estado": "sob-consulta",
+        "mensagem": "Quantidade mínima sob consulta."
+      },
+      "prazo": {
+        "estado": "sob-consulta",
+        "mensagem": "Prazo de produção sob consulta."
+      },
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "370e4cbea8afcbee21176670b1ca4bd85683bd14135d85bc13405261e9d1d40c"
+      }
+    },
+    {
+      "id": "mini-chocotone-corporativo",
+      "nome": "Mini chocotone com cinta personalizada",
+      "categoria": "empresas",
+      "familias": [
+        "chocotones"
+      ],
+      "tipoProduto": "chocotones",
+      "publicos": [
+        "corporativo"
+      ],
+      "statusCatalogo": "pronto",
+      "cor": "dee7da",
+      "personalizavel": true,
+      "descricao": "Mini chocotone com cinta que pode receber a arte da sua empresa. Escolha só cobertura ou cobertura e recheio.",
+      "detalhes": "Cinta personalizada com a arte da empresa. O exemplo mostra sua logo; envie o arquivo da marca, quantidade e data para orçamento.",
+      "personalizacao": {
+        "tecnica": "Arte da empresa impressa na cinta do mini chocotone",
+        "condicoes": "Envie o arquivo da marca. Arte, eventuais taxas e disponibilidade sob consulta."
+      },
+      "minimo": {
+        "estado": "sob-consulta",
+        "mensagem": "Quantidade mínima sob consulta."
+      },
+      "prazo": {
+        "estado": "sob-consulta",
+        "mensagem": "Prazo de produção sob consulta."
+      },
+      "variantes": [
+        {
+          "id": "cobertura",
+          "nome": "Só cobertura",
+          "referencia": "Mini chocotone corporativo só com cobertura",
+          "preco": 27,
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "imagem": "/assets/images/natal/colecao-2026/mini-corporativo-inteiro.webp",
+          "alt": "Mini chocotone inteiro com cinta personalizada",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "detalhes": "Mini chocotone sem recheio, com cobertura de chocolate. O doce ou bombom do topo é combinado no atendimento. Cinta com a arte da empresa e caixa individual. Condições da personalização sob consulta.",
+          "galeria": []
+        },
+        {
+          "id": "recheado",
+          "nome": "Cobertura e recheio",
+          "referencia": "Mini chocotone corporativo com cobertura e recheio",
+          "preco": 29,
+          "precoStatus": "confirmado",
+          "unidade": "unidade",
+          "imagem": "/assets/images/natal/colecao-2026/mini-corporativo-inteiro.webp",
+          "alt": "Mini chocotone inteiro com cinta personalizada",
+          "largura": 800,
+          "altura": 800,
+          "imagemProvisoria": false,
+          "detalhes": "Mini chocotone recheado, com cobertura de chocolate. O doce ou bombom do topo é combinado no atendimento. Cinta com a arte da empresa e caixa individual. Condições da personalização sob consulta.",
+          "opcoes": {
+            "recheio": "Brigadeiro, Leite Ninho, Prestígio, Mousse de maracujá, Mousse de limão, Leite Ninho com Nutella, Trufado, Paçoca, Kinder Bueno, Ferrero Rocher, Maracujá trufado"
+          },
+          "galeria": []
+        }
+      ],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "9b29b356d90f4de67cc25f5869fc11a9e3b529e1e57b120a55d690e9e8e478de"
+      }
+    }
+  ],
+  "empresas": {
+    "eyebrow": "Para a sua empresa",
+    "titulo": "Lembrancinhas corporativas",
+    "descricao": "Biscoitos, cupcakes e tubolata com logo para sua empresa ou seus clientes."
+  },
+  "comoPedir": {
+    "titulo": "Do seu carinho para as nossas mãos.",
+    "passos": [
+      {
+        "titulo": "Escolha seus doces",
+        "texto": "Veja as fotos e escolha seu presente."
+      },
+      {
+        "titulo": "Fale com a gente",
+        "texto": "Toque em Pedir no WhatsApp. Combinamos quantidade, data e pagamento."
+      },
+      {
+        "titulo": "Retire e presenteie",
+        "texto": "Busque sua encomenda no horário combinado em Santo André."
+      }
+    ]
+  },
+  "faq": [
+    {
+      "pergunta": "Como faço minha encomenda?",
+      "resposta": "Toque em Pedir no WhatsApp no produto desejado. A mensagem já leva o nome completo do produto. Quantidade, data e pagamento são combinados no atendimento.",
+      "id": "como-pedir"
+    },
+    {
+      "pergunta": "Até quando posso pedir para o Natal?",
+      "resposta": "A agenda de Natal está aberta. Consulte a disponibilidade para sua data pelo WhatsApp.",
+      "id": "agenda"
+    },
+    {
+      "pergunta": "Posso trocar os sabores ou personalizar?",
+      "resposta": "Nos produtos com opções de sabor, escolha seu favorito. Fotos, mensagens e logos são combinados no atendimento. Outras alterações dependem da viabilidade de produção.",
+      "id": "personalizar"
+    },
+    {
+      "pergunta": "Tem quantidade mínima para empresas?",
+      "resposta": "Veja o pedido mínimo junto ao preço, quando definido. Para confirmar outras quantidades, fale com a gente pelo WhatsApp.",
+      "id": "minimo"
+    },
+    {
+      "pergunta": "E as restrições alimentares?",
+      "resposta": "Avise sobre alergias e restrições antes de pedir. Confirme os ingredientes e o risco de contato com alergênicos no atendimento; este catálogo não garante opções livres de alérgenos.",
+      "id": "alergias"
+    },
+    {
+      "pergunta": "As fotos e os valores já são finais?",
+      "resposta": "Confira as informações da coleção antes de divulgar a prévia.",
+      "id": "previa"
+    },
+    {
+      "pergunta": "Tem panetone ou chocotone?",
+      "resposta": "A coleção tem chocotones trufados, minis com cobertura e recheio, e bites de chocotone no globo e nos kits com caneca. O mini corporativo também tem versão só com cobertura.",
+      "id": "panetone"
+    },
+    {
+      "pergunta": "Quais lembrancinhas de Natal posso personalizar?",
+      "resposta": "Há biscoitos com logo, cupcakes com disco de papel, mini chocotone com cinta da empresa e biscoito Polaroid com foto. Arte, quantidade e data são combinadas pelo WhatsApp.",
+      "id": "lembrancinhas"
+    }
+  ],
+  "agenda": {
+    "estado": "aberta",
+    "mensagem": "A agenda de Natal está aberta. Consulte a disponibilidade para sua data pelo WhatsApp."
+  },
+  "paginas": [
+    {
+      "habilitada": true,
+      "publicada": true,
+      "updatedAt": "2026-11-27",
+      "id": "colecao",
+      "hero": {
+        "foto": "Coleção de Natal da Basilio Bolos",
+        "imagem": "/assets/images/natal/colecao-2026/hero-colecao-composicao.webp",
+        "imagemMenor": null,
+        "alt": "Tubo lata com meio globo, mini chocotone com cobertura, pão de mel grande, caneca de boneco de neve com biscoitos e livro aberto com biscoito Polaroid.",
+        "largura": 800,
+        "altura": 800,
+        "imagemProvisoria": false
+      },
+      "nome": "Natal",
+      "rota": "/natal/",
+      "tipo": "colecao",
+      "intencao": "Escolher um presente entre os itens da coleção de Natal.",
+      "h1": "Presentes de Natal em Santo André",
+      "introducao": "Lembrancinhas, biscoitos e chocotones feitos para presentear.",
+      "seo": {
+        "title": "Presentes de Natal 2026 em Santo André | Basilio Bolos",
+        "description": "Biscoitos decorados, chocotones, kits e lembrancinhas para empresas. Encomende pelo WhatsApp e retire com hora marcada no Parque das Nações, em Santo André.",
+        "faqLocal": {
+          "pergunta": "Onde retirar presentes de Natal em Santo André?",
+          "resposta": "Encomende pelo WhatsApp e retire no ateliê, com horário marcado."
+        },
+        "imagemSocial": "/assets/images/natal/colecao-2026/hero-colecao-composicao.webp",
+        "imagemSocialAlt": "Tubo lata com meio globo, mini chocotone com cobertura, pão de mel grande, caneca de boneco de neve com biscoitos e livro aberto com biscoito Polaroid."
+      },
+      "breadcrumb": [],
+      "grupos": [
+        {
+          "id": "presentes",
+          "titulo": "Presentes de Natal",
+          "funcao": "principal",
+          "selecao": {
+            "modo": "prontos"
+          }
+        }
+      ],
+      "faqIds": [
+        "como-pedir",
+        "agenda",
+        "personalizar",
+        "minimo",
+        "alergias",
+        "previa",
+        "panetone",
+        "lembrancinhas"
+      ],
+      "linksIds": [
+        "biscoitos",
+        "chocotones",
+        "kits",
+        "corporativo"
+      ],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "0fcb25741b15b282b3c3f4068057714a3582206234efe5387d81212ba3e9f93e"
+      }
+    },
+    {
+      "habilitada": true,
+      "publicada": true,
+      "updatedAt": "2026-11-27",
+      "id": "biscoitos",
+      "hero": {
+        "foto": "Globo com mini biscoitos",
+        "fotoMenor": "Carta de Natal com árvore carimbada",
+        "imagem": "/assets/images/natal/colecao-2026/globo-mini-biscoitos-v2.webp",
+        "imagemMenor": "/assets/images/natal/colecao-2026/carta-carimbada-arvore-v2.webp",
+        "alt": "Globo com mini biscoitos",
+        "altMenor": "Carta de Natal com árvore carimbada",
+        "largura": 800,
+        "altura": 800,
+        "larguraMenor": 800,
+        "alturaMenor": 800,
+        "imagemProvisoria": false,
+        "imagemMenorProvisoria": false
+      },
+      "nome": "Biscoitos e cartões",
+      "rota": "/natal/biscoitos/",
+      "tipo": "categoria",
+      "intencao": "Comparar biscoitos e cartões pela decoração e embalagem.",
+      "h1": "Biscoitos e cartões de Natal",
+      "introducao": "Escolha o carimbo, o glacê real ou a foto para presentear.",
+      "seo": {
+        "title": "Biscoitos de Natal 2026 em Santo André | Basilio Bolos",
+        "description": "Compare biscoitos e cartões de Natal, carimbados, decorados ou com foto. Encomendas com retirada agendada em Santo André.",
+        "imagemSocial": "/assets/images/natal/colecao-2026/globo-mini-biscoitos-v2.webp",
+        "imagemSocialAlt": "Globo com mini biscoitos"
+      },
+      "breadcrumb": [
+        "colecao"
+      ],
+      "grupos": [
+        {
+          "id": "biscoitos",
+          "titulo": "Biscoitos e cartões",
+          "funcao": "principal",
+          "selecao": {
+            "modo": "tipo",
+            "tipoProduto": "biscoitos",
+            "excluirIds": [
+              "logo-carimbada",
+              "logo-decorada",
+              "logo-impressa",
+              "biscoitos-logo-mini-tubo-kraft"
+            ]
+          }
+        },
+        {
+          "id": "relacionados",
+          "titulo": "Ver também",
+          "funcao": "relacionados",
+          "selecao": {
+            "modo": "ids",
+            "ids": [
+              "caneca-biscoitos",
+              "logo-carimbada"
+            ]
+          }
+        }
+      ],
+      "faqIds": [
+        "como-pedir",
+        "personalizar",
+        "alergias",
+        "previa"
+      ],
+      "faqProprias": [
+        {
+          "pergunta": "Qual a diferença entre carimbado e decorado?",
+          "resposta": "Os dois são biscoitos amanteigados. O carimbado tem desenho em relevo e o decorado leva glacê real."
+        },
+        {
+          "pergunta": "Como envio a foto do biscoito Polaroid?",
+          "resposta": "Envie a foto pelo WhatsApp para combinar enquadramento e arte antes da produção."
+        }
+      ],
+      "linksIds": [],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "7e020e78db2d3d36147e652854813856a7de5383a3cbf08d985bff395573071f"
+      },
+      "revisaoEditorial": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "7e020e78db2d3d36147e652854813856a7de5383a3cbf08d985bff395573071f",
+        "aprovada": true,
+        "diferencaUtil": "Comparar biscoitos e cartões pela decoração e embalagem."
+      }
+    },
+    {
+      "habilitada": true,
+      "publicada": true,
+      "updatedAt": "2026-11-27",
+      "id": "corporativo",
+      "hero": {
+        "foto": "Bola de Natal com logo impressa",
+        "fotoMenor": "Cupcake com logo de papel em duas camadas e caixa com laço vinho",
+        "imagem": "/assets/images/natal/colecao-2026/logo-impressa-bola.webp",
+        "imagemMenor": "/assets/images/natal/colecao-2026/cupcake-chantilly-logo-v2.webp",
+        "alt": "Bola de Natal com logo impressa",
+        "altMenor": "Cupcake com logo de papel em duas camadas e caixa com laço vinho",
+        "largura": 800,
+        "altura": 800,
+        "larguraMenor": 800,
+        "alturaMenor": 800,
+        "imagemProvisoria": false,
+        "imagemMenorProvisoria": false
+      },
+      "nome": "Para empresas",
+      "rota": "/natal/corporativo/",
+      "tipo": "intencao",
+      "intencao": "Pedir orçamento de presentes personalizados para uma empresa.",
+      "h1": "Lembrancinhas de Natal para empresas",
+      "introducao": "Compare as opções e envie produto, quantidade desejada e data.",
+      "seo": {
+        "title": "Natal corporativo 2026 em Santo André | Basilio Bolos",
+        "description": "Biscoitos com logo, cupcake com chantilly, tubolata e mini chocotone com cinta personalizada para empresas. Orçamento por WhatsApp e retirada em Santo André.",
+        "imagemSocial": "/assets/images/natal/colecao-2026/logo-impressa-bola.webp",
+        "imagemSocialAlt": "Bola de Natal com logo impressa"
+      },
+      "breadcrumb": [
+        "colecao"
+      ],
+      "grupos": [
+        {
+          "id": "empresas",
+          "titulo": "Opções para empresas",
+          "funcao": "principal",
+          "selecao": {
+            "modo": "publico",
+            "publico": "corporativo"
+          }
+        },
+        {
+          "id": "relacionados",
+          "titulo": "Ver também",
+          "funcao": "relacionados",
+          "selecao": {
+            "modo": "ids",
+            "ids": [
+              "cartao-biscoito",
+              "cartao-biscoito-decorado",
+              "caneca-biscoitos"
+            ]
+          }
+        }
+      ],
+      "faqIds": [
+        "minimo",
+        "agenda",
+        "alergias",
+        "previa"
+      ],
+      "faqProprias": [
+        {
+          "pergunta": "O orçamento confirma meu pedido?",
+          "resposta": "Não. Envie produto, quantidade desejada, data e arquivo da marca. A viabilidade e as condições são combinadas no atendimento."
+        },
+        {
+          "pergunta": "A personalização tem taxa de arte?",
+          "resposta": "A condição depende do produto. No biscoito com logo carimbada, o valor por unidade é separado da taxa por arte, cortador e carimbo. Confira a condição junto ao preço."
+        },
+        {
+          "pergunta": "Como conservar o cupcake com topo de papel?",
+          "resposta": "O cupcake avulso leva chantilly e topo de papel personalizado. Mantenha na geladeira e consuma em até três dias após o preparo."
+        },
+        {
+          "pergunta": "Posso usar a logo dos meus clientes no tubolata?",
+          "resposta": "Sim. Na versão com biscoitos natalinos, a logo vai no rótulo. Na versão com quatro biscoitos, a logo pode ser aplicada em papel de arroz sobre glacê real."
+        },
+        {
+          "pergunta": "Posso personalizar a cinta do mini chocotone?",
+          "resposta": "Sim. A cinta pode receber a arte da sua empresa. Escolha só cobertura ou cobertura e recheio; envie a marca, quantidade e data pelo WhatsApp."
+        }
+      ],
+      "linksIds": [],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "f812225d3d3452f55a8c3e7a963d0d792db9cfa42256141075e25b80c2f05bd9"
+      },
+      "revisaoEditorial": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "f812225d3d3452f55a8c3e7a963d0d792db9cfa42256141075e25b80c2f05bd9",
+        "aprovada": true,
+        "diferencaUtil": "Pedir orçamento de presentes personalizados para uma empresa."
+      }
+    },
+    {
+      "id": "chocotones",
+      "hero": {
+        "foto": "Chocotone trufado inteiro",
+        "fotoMenor": "Mini chocotone com globo de neve e Papai Noel de gorro dourado",
+        "imagem": "/assets/images/natal/colecao-2026/chocotone-grande-inteiro.webp",
+        "imagemMenor": "/assets/images/natal/colecao-2026/mini-chocotone-neve-v2.webp",
+        "alt": "Chocotone trufado inteiro",
+        "altMenor": "Mini chocotone com globo de neve e Papai Noel de gorro dourado",
+        "largura": 800,
+        "altura": 800,
+        "larguraMenor": 800,
+        "alturaMenor": 800,
+        "imagemProvisoria": false,
+        "imagemMenorProvisoria": false
+      },
+      "nome": "Chocotones e bites",
+      "rota": "/natal/chocotones/",
+      "tipo": "categoria",
+      "habilitada": true,
+      "publicada": true,
+      "intencao": "Comparar chocotones, mini chocotones e bites pelas versões e recheios.",
+      "breadcrumb": [
+        "colecao"
+      ],
+      "grupos": [
+        {
+          "id": "chocotones",
+          "titulo": "Chocotones e bites",
+          "funcao": "principal",
+          "selecao": {
+            "modo": "tipo",
+            "tipoProduto": "chocotones"
+          }
+        },
+        {
+          "id": "relacionados",
+          "titulo": "Ver também",
+          "funcao": "relacionados",
+          "selecao": {
+            "modo": "ids",
+            "ids": [
+              "caneca-mini-chocotone",
+              "caneca-globo-bites"
+            ]
+          }
+        }
+      ],
+      "linksIds": [],
+      "updatedAt": "2026-11-27",
+      "h1": "Chocotones e bites de Natal",
+      "introducao": "Escolha entre chocotones recheados, minis e bites para presentear.",
+      "seo": {
+        "title": "Chocotones de Natal 2026 em Santo André | Basilio Bolos",
+        "description": "Compare chocotone trufado, mini chocotone e bites de chocotone. Veja recheios e opções de presente, com retirada agendada em Santo André.",
+        "imagemSocial": "/assets/images/natal/colecao-2026/chocotone-grande-inteiro.webp",
+        "imagemSocialAlt": "Chocotone trufado inteiro"
+      },
+      "faqIds": [
+        "como-pedir",
+        "agenda",
+        "panetone",
+        "alergias",
+        "previa"
+      ],
+      "faqProprias": [
+        {
+          "pergunta": "Quais recheios posso escolher?",
+          "resposta": "Os recheios estão nos detalhes de cada produto. Escolha a opção no WhatsApp e confirme a disponibilidade para sua data."
+        },
+        {
+          "pergunta": "Qual o peso dos chocotones?",
+          "resposta": "O peso final de cada versão será confirmado no atendimento."
+        },
+        {
+          "pergunta": "O mini chocotone pode vir sem recheio?",
+          "resposta": "Os minis avulsos e o kit com caneca têm cobertura e recheio. Veja os sabores nos detalhes de cada produto. O mini corporativo com cinta personalizada também tem uma versão só com cobertura."
+        }
+      ],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "c343469c37ff889f001de6d755ddcc753ae02d8de35e26ec2ef003cb379fe97b"
+      },
+      "revisaoEditorial": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "c343469c37ff889f001de6d755ddcc753ae02d8de35e26ec2ef003cb379fe97b",
+        "aprovada": true,
+        "diferencaUtil": "Comparar chocotones, mini chocotones e bites pelas versões e recheios."
+      }
+    },
+    {
+      "id": "kits",
+      "hero": {
+        "foto": "Casaco de Papai Noel com globo de bites de chocotone na sacola",
+        "fotoMenor": "Caneca de boneco de neve ao lado do mini chocotone fora da sacola",
+        "imagem": "/assets/images/natal/colecao-2026/kit-globo-bites-casaco-na-sacola-v3.webp",
+        "imagemMenor": "/assets/images/natal/colecao-2026/kit-mini-chocotone-neve-fora.webp",
+        "alt": "Casaco de Papai Noel com globo de bites de chocotone na sacola",
+        "altMenor": "Caneca de boneco de neve ao lado do mini chocotone fora da sacola",
+        "largura": 800,
+        "altura": 800,
+        "larguraMenor": 800,
+        "alturaMenor": 800,
+        "imagemProvisoria": false,
+        "imagemMenorProvisoria": false
+      },
+      "nome": "Kits de Natal",
+      "rota": "/natal/kits/",
+      "tipo": "categoria",
+      "habilitada": true,
+      "publicada": true,
+      "updatedAt": "2026-11-27",
+      "linksIds": [],
+      "intencao": "Escolher um kit pela composição, embalagem e opções de doces.",
+      "h1": "Kits de Natal para presentear",
+      "introducao": "Compare os kits e confira o que acompanha cada presente.",
+      "seo": {
+        "title": "Kits de Natal 2026 em Santo André | Basilio Bolos",
+        "description": "Kits de Natal com caneca, biscoitos, mini chocotone ou bites. Compare a composição e o preço por kit, com retirada agendada em Santo André.",
+        "imagemSocial": "/assets/images/natal/colecao-2026/kit-globo-bites-casaco-na-sacola-v3.webp",
+        "imagemSocialAlt": "Casaco de Papai Noel com globo de bites de chocotone na sacola"
+      },
+      "breadcrumb": [
+        "colecao"
+      ],
+      "grupos": [
+        {
+          "id": "kits",
+          "titulo": "Kits para presentear",
+          "funcao": "principal",
+          "selecao": {
+            "modo": "tipo",
+            "tipoProduto": "kit"
+          }
+        },
+        {
+          "id": "relacionados",
+          "titulo": "Ver também",
+          "funcao": "relacionados",
+          "selecao": {
+            "modo": "ids",
+            "ids": [
+              "caixa-biscoitos",
+              "mini-chocotone",
+              "mini-chocotone-neve"
+            ]
+          }
+        }
+      ],
+      "faqIds": [
+        "como-pedir",
+        "agenda",
+        "alergias",
+        "previa"
+      ],
+      "faqProprias": [
+        {
+          "pergunta": "O que acompanha cada kit?",
+          "resposta": "Cada kit inclui a caneca escolhida e os doces descritos nos detalhes. O preço depende do kit. Os três modelos de caneca têm o mesmo preço dentro de cada kit."
+        },
+        {
+          "pergunta": "O preço é por kit?",
+          "resposta": "Sim. Cada kit tem preço próprio; não é calculado pela soma dos produtos avulsos."
+        },
+        {
+          "pergunta": "Como conservar meu kit?",
+          "resposta": "A conservação e a validade são próprias de cada kit. Consulte as condições nos detalhes e confirme no atendimento."
+        }
+      ],
+      "revisao": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "09348b87d187a0a587e58d7a621a40b6502dac3b36331a1cf845455a82c29482"
+      },
+      "revisaoEditorial": {
+        "ano": 2026,
+        "responsavel": "Basilio Bolos",
+        "revisadoEm": "2026-11-27",
+        "assinatura": "09348b87d187a0a587e58d7a621a40b6502dac3b36331a1cf845455a82c29482",
+        "aprovada": true,
+        "diferencaUtil": "Escolher um kit pela composição, embalagem e opções de doces."
+      }
+    },
+    {
+      "id": "pao-de-mel",
+      "nome": "Pão de mel",
+      "rota": "/natal/pao-de-mel/",
+      "tipo": "categoria",
+      "habilitada": false,
+      "publicada": false,
+      "intencao": "Pendente de conteúdo e revisão próprios.",
+      "breadcrumb": [
+        "colecao"
+      ],
+      "grupos": [],
+      "linksIds": []
+    },
+    {
+      "id": "canecas",
+      "nome": "Canecas",
+      "rota": "/natal/canecas/",
+      "tipo": "categoria",
+      "habilitada": false,
+      "publicada": false,
+      "intencao": "Pendente de conteúdo e revisão próprios.",
+      "breadcrumb": [
+        "colecao"
+      ],
+      "grupos": [],
+      "linksIds": []
+    }
+  ]
+}

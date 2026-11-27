@@ -52,6 +52,9 @@ temp/
 # PDFs de referência (cardápios usados como fonte de dados)
 *.pdf
 
+# Fotos originais e materiais locais de trabalho (não publicar)
+/recursos/
+
 # Documentação interna
 *.internal.*
 .env.local
@@ -65,3 +68,7 @@ test/
 tests/
 *.test.js
 *.spec.js
+
+# Materiais privados de revisão do catálogo
+/data/natal-rascunhos.json
+/docs/seo-geo/fotos-natal-2026-revisao.json
