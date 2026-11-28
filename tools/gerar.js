@@ -1713,8 +1713,8 @@ function renderNatal(ctx) {
       itemListElement: catalogueItems.map((item, index) => ({ '@type': 'ListItem', position: index + 1, item }))
     }
   }];
-  const agendaNota = ctx.publico || ctx.encerrada
-    ? `<p class="agenda-note" role="status">${ctx.encerrada ? 'Agenda de Natal encerrada. ' : ''}${esc(natal.agenda.mensagem)}</p>`
+  const agendaNota = ctx.encerrada
+    ? `<p class="agenda-note" role="status">Agenda de Natal encerrada. ${esc(natal.agenda.mensagem)}</p>`
     : '';
   const social = natalCatalogo.fotoLocal(page.seo.imagemSocial);
   const visualGroupId = p => p.publicos.includes('corporativo') ? 'empresas' : p.categoria || p.tipoProduto;
