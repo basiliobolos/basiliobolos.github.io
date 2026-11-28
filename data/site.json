@@ -14,6 +14,9 @@
     "mapsUrl": "https://maps.app.goo.gl/2Jw8sBdD5A7s3rWm9"
   },
   "horario": "Segunda a sexta, das 9h às 19h; sábado, das 9h às 14h; domingo fechado",
+  "horariosEspeciais": [],
+  "horariosEspeciaisNota": "No Natal, confirme o horário pelo WhatsApp.",
+  "coordenadas": { "lat": -23.6621, "lng": -46.5308, "estado": "pendente" },
   "horarioSchema": [
     { "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "19:00" },
     { "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "14:00" }
@@ -25,10 +28,15 @@
     "tiktok": "https://www.tiktok.com/@basiliobolos"
   },
   "mensagemPadrao": "Olá! Vi o site de vocês e gostaria de fazer uma encomenda. Pode me ajudar?",
+  "privacidade": {
+    "atualizadaEm": "2026-11-14",
+    "eventosNatal": "No Natal, o evento também pode incluir os IDs públicos da página, produto, versão e recheio, a posição do link e o ano da coleção. Não inclui mensagem, consulta digitada ou dados de cliente."
+  },
   "politicas": {
     "antecedencia": "Pedidos com no mínimo 3 dias úteis de antecedência.",
     "confirmacao": "O pedido só é confirmado após o pagamento de 30% do valor.",
     "pagamento": "Pix, dinheiro, cartão de débito e crédito (por link ou aproximação, com taxa de 4,2%).",
     "retirada": "Não realizamos entregas. A retirada é feita no local, com horário marcado, ou via Uber/99 por conta e responsabilidade do cliente."
-  }
+  },
+  "revisao": {"ano":2026,"responsavel":"Basilio Bolos","revisadoEm":"2026-11-27","assinatura":"645699a986ee8aea044f90b406dc3a06d19943cd0b4f3dee14a94434e6c4c0bb"}
 }

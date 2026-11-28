@@ -104,6 +104,19 @@ GitHub Pages. Não há etapa válida de edição manual ou publicação de arqui
 - Dependências novas exigem justificativa; o gerador não depende de pacotes externos em tempo
   de execução.
 
+## Catálogo de Natal
+
+O gerador lê a agenda e os produtos em `data/natal.json`. A biblioteca
+`tools/natal-catalogo.cjs` valida as revisões comerciais e as fotos das páginas
+habilitadas. A mesma seleção alimenta o HTML, o sitemap e o resumo em `llms.txt`.
+O build copia as fotos do catálogo e dos destaques da home.
+Pedidos levam a referência escolhida ao WhatsApp da loja.
+
+A prévia local usa `NATAL_PREVIEW=1`. A publicação usa o build normal do
+GitHub Actions. Preços e fotos precisam de nova revisão quando mudam.
+Os [critérios de publicação](specs/004-natal-seo-geo/contracts/publicacao-e-paginas.md)
+descrevem os estados da agenda e das páginas.
+
 ## Validação Externa
 
 Quando uma mudança afetar páginas públicas, revisar também:

@@ -14,6 +14,7 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
+const natalCssVersion = require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(ROOT, 'css/natal.css'))).digest('hex').slice(0, 12);
 
 const PUBLIC_DIRECTORIES = ['css', 'js', 'assets'];
 const PUBLIC_FILES = [
@@ -42,7 +43,11 @@ function copyPublicDirectory(relPath) {
   const source = path.join(ROOT, relPath);
   const destination = path.join(DIST, relPath);
   if (!fs.existsSync(source)) throw new Error(`Recurso público não encontrado: ${relPath}`);
-  fs.cpSync(source, destination, { recursive: true });
+  const natalDir = path.join(ROOT, 'assets/images/natal') + path.sep;
+  fs.cpSync(source, destination, {
+    recursive: true,
+    filter: file => !file.startsWith(natalDir) || fotosNatal.has(file) || fs.statSync(file).isDirectory()
+  });
   console.log('✔', `${relPath}/`);
 }
 
@@ -54,8 +59,6 @@ function copyPublicFile(relPath) {
   console.log('✔', relPath);
 }
 
-prepareDist();
-
 // ---------- Carregamento dos dados ----------
 const readJSON = (file) => JSON.parse(fs.readFileSync(path.join(ROOT, 'data', file), 'utf8'));
 
@@ -65,6 +68,26 @@ const produtos = produtosData.produtos;
 const recomendacoes = produtosData.recomendacoes || {};
 const produtoPorSlug = new Map(produtos.map((p) => [p.slug, p]));
 const campanha = readJSON('campanhas.json');
+const natal = readJSON('natal.json');
+const seoPages = readJSON('seo-pages.json');
+const natalCatalogo = require('./natal-catalogo.cjs');
+// Validar antes de limpar/escrever dist: build rejeitado não produz artefato publicável.
+const natalRegistro = natalCatalogo.criarRegistro(natal, site);
+const natalPreview = process.env.NATAL_PREVIEW === '1';
+const natalPublico = natalPreview ? [] : natalRegistro.filter(ctx => ctx.publico);
+const divulgarNatal = natalCatalogo.divulgacaoAtiva(natal, natalRegistro, { preview: natalPreview });
+const fotosNatal = new Set();
+function registrarFotos(valor) {
+  if (typeof valor === 'string' && /^\/?assets\/images\/natal\//.test(valor)) {
+    fotosNatal.add(path.join(ROOT, valor));
+  } else if (valor && typeof valor === 'object') {
+    Object.values(valor).forEach(registrarFotos);
+  }
+}
+for (const ctx of natalRegistro) {
+  registrarFotos([ctx.hero, ctx.pagina.seo, ctx.produtos.map(natalCatalogo.produtoPublico)]);
+}
+if (divulgarNatal) registrarFotos(natal.divulgacao);
 const bolos = readJSON('bolos.json');
 const bolosRetangulares = readJSON('bolos-retangulares.json');
 const doces = readJSON('doces.json');
@@ -120,8 +143,6 @@ function metadadosImagemSocial(slug) {
   };
 }
 
-const hoje = new Date().toISOString().slice(0, 10);
-
 // ---------- Helpers ----------
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
 
@@ -132,7 +153,7 @@ const safeUrl = (u) => {
 };
 
 /** Coordenadas do negócio (fonte única). */
-const GEO = { lat: '-23.6621', lng: '-46.5308' };
+const GEO = site.coordenadas?.estado === 'confirmado' ? site.coordenadas : null;
 
 const money = (n) => 'R$ ' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 const moneyCents = (n) => 'R$ ' + Number(n).toFixed(2).replace('.', ',');
@@ -279,7 +300,9 @@ const primeiroNumero = (texto) => {
 const SEO = {
   home: {
     title: 'Basilio Bolos | Confeitaria em Santo André',
-    description: 'Bolos de aniversário e doces sob encomenda no Parque das Nações, em Santo André, perto de Santa Terezinha e Vila Curuçá. Peça pelo WhatsApp!'
+    description: divulgarNatal
+      ? `Bolos e doces sob encomenda em Santo André. Conheça o Natal ${natal.ano} da Basilio Bolos, com biscoitos, chocotones e kits. Retirada no Parque das Nações.`
+      : 'Bolos de aniversário e doces sob encomenda no Parque das Nações, em Santo André, perto de Santa Terezinha e Vila Curuçá. Peça pelo WhatsApp!'
   },
   bolos: {
     title: 'Bolos de Aniversário em Santo André | Basilio Bolos',
@@ -337,8 +360,8 @@ function head({ seo, canonical, jsonLd, ogType = 'website', robots = 'index, fol
   <meta name="author" content="${esc(site.nome)}" />
   <meta name="geo.region" content="BR-SP" />
   <meta name="geo.placename" content="Santo André" />
-  <meta name="geo.position" content="${GEO.lat};${GEO.lng}" />
-  <meta name="ICBM" content="${GEO.lat}, ${GEO.lng}" />
+  ${GEO ? `<meta name="geo.position" content="${GEO.lat};${GEO.lng}" />` : ''}
+  ${GEO ? `<meta name="ICBM" content="${GEO.lat}, ${GEO.lng}" />` : ''}
   <link rel="canonical" href="${site.url}${canonical}" />
   <meta property="og:locale" content="pt_BR" />
   <meta property="og:type" content="${ogType}" />
@@ -375,8 +398,10 @@ ${ldScripts}
 </head>`;
 }
 
-function navbar(active) {
+function navbar(active, { icon: renderIcon, nativeDropdown = false, message, closed = false } = {}) {
+  const showNatal = (natalPreview ? natalRegistro : natalPublico).some(ctx => ctx.pagina.rota === '/natal/');
   const isProductPage = produtos.some((p) => p.slug === active);
+  const glyph = (name, fa) => renderIcon ? renderIcon(name) : `<i class="fa-solid fa-${fa}" aria-hidden="true"></i>`;
   const item = (href, label, slug) => `
           <li class="nav-item">
             <a class="nav-link${slug && active === slug ? ' active' : ''}" href="${href}"${slug && active === slug ? ' aria-current="page"' : ''}>${label}</a>
@@ -392,20 +417,20 @@ function navbar(active) {
       </a>
       <button class="navbar-toggler border-0" type="button" data-menu-toggle
               aria-controls="navbarContent" aria-expanded="false" aria-label="Abrir menu">
-        <span class="navbar-toggler-icon"></span>
+        ${renderIcon ? renderIcon('menu') : '<span class="navbar-toggler-icon"></span>'}
       </button>
       <div class="navbar-collapse" id="navbarContent" data-menu-panel>
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-1">${item('/#hero', '<i class="fa-solid fa-home" aria-hidden="true"></i> Início', active === 'home' ? 'home' : null)}
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-1">${item('/#hero', `${glyph('home', 'home')} Início`, active === 'home' ? 'home' : null)}
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle${isProductPage ? ' active' : ''}" href="/#produtos" id="produtosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa-solid fa-cake-candles" aria-hidden="true"></i> Produtos
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="produtosDropdown">${dropdownItems}
+            <${nativeDropdown ? 'button type="button"' : 'a href="/#produtos" role="button"'} class="nav-link dropdown-toggle${isProductPage ? ' active' : ''}" id="produtosDropdown" ${nativeDropdown ? 'data-natal-dropdown aria-controls="product-links"' : 'data-bs-toggle="dropdown"'} aria-expanded="false">
+              ${glyph('cake', 'cake-candles')} Produtos ${renderIcon ? renderIcon('chevron') : ''}
+            </${nativeDropdown ? 'button' : 'a'}>
+            <ul class="dropdown-menu" id="product-links" aria-labelledby="produtosDropdown">${dropdownItems}
             </ul>
-          </li>${item('/#sobre', '<i class="fa-solid fa-heart" aria-hidden="true"></i> Sobre')}${item('/#contato', '<i class="fa-solid fa-envelope" aria-hidden="true"></i> Contato')}
+          </li>${showNatal ? item('/natal/', `${glyph('gift', 'gift')} Natal`, 'natal') : ''}${item('/#sobre', `${glyph('heart', 'heart')} Sobre`)}${item('/#contato', `${glyph('mail', 'envelope')} Contato`)}
           <li class="nav-item ms-lg-2">
-            <a class="btn btn-sm btn-whatsapp" href="${waHref()}" target="_blank" rel="noopener" data-track="nav">
-              ${waIcon} Fazer Pedido
+            <a class="btn btn-sm btn-whatsapp" href="${waHref(message)}" target="_blank" rel="noopener" data-track="nav">
+              ${waIcon} ${closed ? 'Fale com a gente' : 'Fazer Pedido'}
             </a>
           </li>
         </ul>
@@ -414,7 +439,7 @@ function navbar(active) {
   </nav>`;
 }
 
-function footer() {
+function footer({ pinIcon = '<i class="fa-solid fa-location-dot"></i>' } = {}) {
   return `
   <footer class="py-4 footer-gradient">
     <div class="container footer-bar d-flex justify-content-between align-items-center">
@@ -430,15 +455,15 @@ function footer() {
         <a href="${safeUrl(site.social.facebook)}" class="social-link" aria-label="Facebook" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i></a>
         <a href="${safeUrl(site.social.tiktok)}" class="social-link" aria-label="TikTok" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i></a>
         <a href="${waHref()}" target="_blank" rel="noopener" aria-label="WhatsApp" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
-        <a href="${safeUrl(site.endereco.mapsUrl)}" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Ver endereço no Google Maps"><i class="fa-solid fa-location-dot"></i></a>
+        <a href="${safeUrl(site.endereco.mapsUrl)}" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Ver endereço no Google Maps">${pinIcon}</a>
       </div>
     </div>
   </footer>`;
 }
 
-function waFloat() {
+function waFloat(message) {
   return `
-  <a href="${waHref()}" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Fale conosco no WhatsApp" data-track="float">
+  <a href="${waHref(message)}" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Fale conosco no WhatsApp" data-track="float">
     ${waIcon}
     <span class="pulse-ring"></span>
   </a>`;
@@ -467,7 +492,7 @@ function privacyBanner() {
 function layout({ seo, canonical, active, jsonLd, body, usaSwiper = false, ogType = active === 'home' ? 'website' : 'product', robots = 'index, follow', minimal = false, ogImage, ogImageAlt, ogImageType, ogImageWidth, ogImageHeight }) {
   return `<!doctype html>
 <html lang="pt-BR">
-${head({ seo, canonical, jsonLd, ogType, robots, usaSwiper, ogImage, ogImageAlt, ogImageType, ogImageWidth, ogImageHeight })}
+${head({ seo, canonical, jsonLd, ogType, robots: natalPreview ? 'noindex, nofollow' : robots, usaSwiper, ogImage, ogImageAlt, ogImageType, ogImageWidth, ogImageHeight })}
 <body>
   <a class="skip-link" href="#conteudoPrincipal">Pular para o conteúdo principal</a>
 ${navbar(active)}
@@ -689,7 +714,8 @@ function localBusinessLd() {
       addressCountry: 'BR',
       addressNeighborhood: site.endereco.bairro
     },
-    geo: { '@type': 'GeoCoordinates', latitude: GEO.lat, longitude: GEO.lng },
+    ...(GEO ? { geo: { '@type': 'GeoCoordinates', latitude: GEO.lat, longitude: GEO.lng } } : {}),
+    ...((site.horariosEspeciais || []).length ? { specialOpeningHoursSpecification: site.horariosEspeciais.map(h => ({ '@type': 'OpeningHoursSpecification', validFrom: h.data, validThrough: h.data, ...(h.fechado ? {} : { opens: h.abre, closes: h.fecha }) })) } : {}),
     areaServed: [
       { '@type': 'City', name: 'Santo André' },
       ...site.bairrosAtendidos.map((b) => ({ '@type': 'Neighborhood', name: b, containedIn: 'Santo André, SP' }))
@@ -732,13 +758,11 @@ function faqLd(faq) {
 }
 
 function breadcrumbLd(pageTitle, pageUrl) {
+  const items = Array.isArray(pageTitle) ? pageTitle : [{ nome: 'Início', url: '/' }, { nome: pageTitle, url: pageUrl }];
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Início', item: `${site.url}/` },
-      { '@type': 'ListItem', position: 2, name: pageTitle, item: `${site.url}/${pageUrl}` }
-    ]
+    itemListElement: items.map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it.nome, item: new URL(it.url, `${site.url}/`).href }))
   };
 }
 
@@ -746,29 +770,45 @@ function productLd(data, url, lowPrice, highPrice, extra = {}) {
   const productUrl = `${site.url}/${url}`;
   return {
     '@context': 'https://schema.org',
-    '@type': 'Product',
-    '@id': `${productUrl}#product`,
+    '@type': 'CollectionPage',
+    '@id': `${productUrl}#webpage`,
     name: `${data.tituloCompleto} | ${site.nome}`,
     description: data.subtitulo,
     url: productUrl,
     image: [`${site.url}/${data.imagem}`],
-    brand: { '@type': 'Brand', name: site.nome },
-    category: 'Confeitaria',
-    offers: {
-      '@type': 'AggregateOffer',
-      url: productUrl,
-      priceCurrency: 'BRL',
-      lowPrice: lowPrice,
-      highPrice: highPrice,
-      offerCount: extra.offerCount || 4,
-      seller: { '@id': `${site.url}/#organization` },
-      areaServed: { '@type': 'City', name: 'Santo André' }
-    },
-    ...extra.props
+    isPartOf: { '@id': `${site.url}/#website` },
+    about: { '@id': `${site.url}/#organization` }
   };
 }
 
 // ---------- Página inicial ----------
+function natalGiftIcon(size = 24) {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${require('./lucide-icons').gift}</svg>`;
+}
+function chamadaNatal() {
+  if (!divulgarNatal) return '';
+  const info = natal.divulgacao;
+  const hub = natalRegistro.find(ctx => ctx.pagina.id === 'colecao');
+  const cards = (info.destaques || []).map(ref => {
+    const item = hub?.itensPrincipais.find(({ produto, variante }) => produto.id === ref.produtoId && variante.id === ref.varianteId);
+    if (!item) return '';
+    const { produto: p, variante: v } = item;
+    const url = `/natal/#${natalCatalogo.ancoraVersao(p, v)}`;
+    const foto = v.galeria?.find(extra => extra.imagem && extra.imagem === ref.imagem) || v;
+    const media = foto.imagem
+      ? `<img src="${esc(foto.imagem)}" alt="${esc(foto.alt || v.referencia)}" width="${Number(foto.largura) || 800}" height="${Number(foto.altura) || 800}" loading="lazy" decoding="async">`
+      : `<span class="natal-feature-placeholder">${natalGiftIcon(40)}<span>Foto em breve</span></span>`;
+    return `<a class="natal-feature" href="${esc(url)}" data-feature-product="${esc(p.id)}" data-feature-variant="${esc(v.id)}"><div class="natal-feature-media">${media}</div><div class="natal-feature-copy"><h3>${esc(ref.titulo || v.referencia)}</h3><span class="natal-feature-action" aria-hidden="true">→</span></div></a>`;
+  }).join('');
+  return `<section class="natal-callout" id="natal-em-destaque" data-natal-promotion data-natal-until="${esc(info.fimExclusivo)}" aria-labelledby="natal-callout-title">
+    <div class="container"><div class="natal-callout-card">
+      <div class="natal-callout-copy"><div><p class="natal-callout-eyebrow">${esc(info.eyebrow)}</p>
+        <h2 id="natal-callout-title">${esc(info.titulo)}</h2><p class="natal-callout-description">${esc(info.descricao)}</p></div>
+        <a class="natal-callout-button" href="/natal/">${esc(info.botao)} <span aria-hidden="true">→</span></a>
+      </div><div class="natal-feature-grid">${cards}</div>
+    </div></div>
+  </section>`;
+}
 function renderHome() {
   const faqHome = [
     { q: 'Onde fica a Basilio Bolos e quais bairros de Santo André vocês atendem?', a: `A ${site.nome} fica na ${site.endereco.rua} - ${site.endereco.bairro}, ${site.endereco.cidade}/${site.endereco.uf}. Atendemos principalmente ${site.bairrosAtendidos.join(', ')} e toda a região do ABC.` },
@@ -824,6 +864,7 @@ function renderHome() {
       <div class="container">
         <div class="row align-items-center g-4">
           <div class="col-lg-6 hero-copy">
+            ${divulgarNatal ? `<p class="hero-natal-eyebrow" data-natal-promotion data-natal-until="${esc(natal.divulgacao.fimExclusivo)}">${natalGiftIcon(18)} ${esc(natal.divulgacao.heroEyebrow)}</p>` : ''}
             <h1 class="display-4 fw-bold hero-title">${esc(site.nome)}</h1>
             <p class="hero-subtitle">${esc(site.slogan)} · Bolos de aniversário e confeitaria artesanal em Santo André/SP</p>
             <div class="hero-cta-stack">
@@ -831,17 +872,20 @@ function renderHome() {
                 ${waIcon} Fazer Pedido
               </a>
               <a href="#produtos" class="btn btn-lg hero-cta-secondary">Ver Produtos</a>
+              ${divulgarNatal ? `<a href="/natal/" class="btn btn-lg hero-natal-cta" data-natal-promotion data-natal-until="${esc(natal.divulgacao.fimExclusivo)}"><svg class="lucide lucide-tree-pine" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${require('./lucide-icons').tree}</svg> ${esc(natal.divulgacao.botaoHero)}</a>` : ''}
             </div>
           </div>
           <div class="col-lg-6 hero-visual-wrapper">
             <div class="hero-visual" aria-hidden="true">
-              <img src="/assets/images/hero/hero-circle.png" alt="" loading="eager" fetchpriority="high" decoding="async" width="502" height="497">
+              ${divulgarNatal ? `<img class="hero-natal-logo" data-natal-promotion data-natal-until="${esc(natal.divulgacao.fimExclusivo)}" src="${esc(natal.divulgacao.logo.imagem)}" alt="" loading="eager" fetchpriority="high" decoding="async" width="${natal.divulgacao.logo.largura}" height="${natal.divulgacao.logo.altura}">` : ''}
+              <img class="hero-default-logo" src="/assets/images/hero/hero-circle.png" alt="" loading="${divulgarNatal ? 'lazy' : 'eager'}"${divulgarNatal ? '' : ' fetchpriority="high"'} decoding="async" width="502" height="497">
             </div>
           </div>
         </div>
       </div>
       <div class="hero-decoration"></div>
     </header>
+${chamadaNatal()}
 ${campanhaSection}
     <section id="produtos" class="py-5 ${surface(campanhaAtiva ? 'dark' : 'light')}">
       <div class="container">
@@ -1521,8 +1565,203 @@ ${relatedSection(data.slug, { tone: 'dark' })}`;
 }
 
 // ---------- Sitemap e llms.txt ----------
+function horariosNatal() {
+  const especiais = site.horariosEspeciais || [];
+  if (!especiais.length) return [site.horariosEspeciaisNota].filter(Boolean);
+  return especiais.map(h => `${h.data}: ${h.fechado ? 'Fechado para retirada.' : `${h.abre} às ${h.fecha} · retirada agendada.`}`);
+}
+
+function renderNatal(ctx) {
+  const page = ctx.pagina;
+  const hero = ctx.hero;
+  const selected = ctx.produtos;
+  const mainSelected = ctx.produtosPrincipais;
+  const canonical = `${site.url}${page.rota}`;
+  const corporate = page.id === 'corporativo';
+  const crumbs = [{ nome: 'Início', url: '/' }, ...ctx.trail, { nome: page.nome || page.h1, url: page.rota }];
+  const links = (page.linksIds || []).map(id => natalRegistro.find(other => other.pagina.id === id)).filter(other => other && (!ctx.publico || other.publico));
+  const itemUrl = (p, v) => {
+    const related = ctx.itensRelacionados.some(item => item.produto.id === p.id && item.variante.id === v.id);
+    const destination = related ? natalRegistro.find(other => other.pagina.id !== page.id && other.pagina.tipo !== 'colecao' && (!ctx.publico || other.publico) && other.produtosPrincipais.some(product => product.id === p.id)) : null;
+    return `${destination?.pagina.rota || '/natal/'}#${natalCatalogo.ancoraVersao(p, v)}`;
+  };
+  const money = value => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+  const icon = name => {
+    const paths = require('./lucide-icons');
+    if (!paths[name]) throw new Error(`Ícone Lucide desconhecido: ${name}`);
+    return `<svg class="icon lucide lucide-${name}" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name]}</svg>`;
+  };
+  const imageUrl = (label, color, size = '800') => `https://placehold.co/${size}/${color}/25392e?text=${encodeURIComponent(label)}&font=roboto`;
+  const photo = (label, color = 'eee7d9', eager = false, image = null, width = 800, height = 800) => `<div class="photo-frame" style="background-color:#${esc(color)}"><img src="${esc(image || imageUrl(label, color))}" alt="${esc(image ? label : `Foto em breve: ${label}`)}" width="${Number(width) || 800}" height="${Number(height) || 800}" loading="${eager ? 'eager' : 'lazy'}" decoding="async"${eager ? ' fetchpriority="high"' : ''}>${image ? '' : `<span class="photo-label">${icon('image')} Foto em breve</span>`}</div>`;
+  const comImagemMenor = hero.imagemMenor !== null;
+  const heroArt = `<div class="hero-art${comImagemMenor ? '' : ' hero-art--single'}">
+    <div class="hero-main">${photo(hero.alt || hero.foto, 'dee7da', true, hero.imagem, hero.largura, hero.altura)}</div>${comImagemMenor ? `
+    <div class="hero-small">${photo(hero.altMenor || hero.fotoMenor, 'eee7d9', false, hero.imagemMenor, hero.larguraMenor, hero.alturaMenor)}</div>
+    <span class="hero-seal">${icon('star')} ${esc(hero.selo)}</span>` : ''}
+  </div>`;
+  const whatsapp = text => `https://wa.me/${site.whatsappNumero}?text=${encodeURIComponent(text)}`;
+  const defaultWa = whatsapp(ctx.encerrada ? site.mensagemPadrao : corporate ? 'Olá! Quero um orçamento para minha empresa. Podemos combinar produto, quantidade desejada e data?' : 'Olá! Quero saber mais sobre a coleção de Natal da Basilio Bolos.');
+  const pedidos = {};
+  const references = new Set();
+  const registerReference = name => {
+    const key = typeof name === 'string' ? name.trim().normalize('NFC').toLocaleLowerCase('pt-BR') : '';
+    if (!key || references.has(key)) throw new Error(`Nome de Natal inválido ou repetido: ${name}`);
+    references.add(key);
+  };
+  const flavorsFor = (p, v) => (p.sabores || []).filter(s => !s.varianteId || s.varianteId === v.id);
+  const priceFor = option => {
+    if (option.precoStatus === 'sob-consulta' || !Number.isFinite(option.preco)) return { prefix: '', value: 'Sob consulta' };
+    const unit = option.unidade;
+    const prefix = unit && unit !== 'unidade' ? `${unit[0].toUpperCase()}${unit.slice(1)} a partir de` : 'A partir de';
+    return { prefix, value: money(option.preco) };
+  };
+  const prices = new Map(selected.map(p => {
+    const options = p.variantes.filter(v => v.precoStatus !== 'sob-consulta' && Number.isFinite(v.preco));
+    const varies = new Set(options.map(v => v.preco)).size > 1;
+    const lowest = options.reduce((min, v) => !min || v.preco < min.preco ? v : min, null);
+    const option = varies || p.fotoGeral ? lowest || p.variantes[0] : p.variantes[0];
+    return [p.id, { ...priceFor(option), productOrder: varies || Boolean(p.fotoGeral) }];
+  }));
+  const priceMarkup = ({ prefix, value }) => `<small${prefix ? '' : ' hidden'}>${esc(prefix)}</small> <strong>${esc(value)}</strong>`;
+  const registerOrder = reference => {
+    registerReference(reference);
+    const message = corporate ? `Olá! Quero um orçamento para minha empresa:\n${reference}.\nPodemos combinar quantidade desejada, data e personalização?` : `Olá! Quero pedir para o Natal:\n${reference}.\nPodemos combinar a quantidade e a retirada?`;
+    if (!ctx.encerrada) pedidos[reference] = whatsapp(message);
+  };
+  for (const p of selected) {
+    if (prices.get(p.id).productOrder && !p.variantes.some(v => v.referencia === p.nome)) registerOrder(p.nome);
+    for (const v of p.variantes) {
+      registerOrder(v.referencia);
+      for (const flavor of flavorsFor(p, v)) registerOrder(flavor.referencia);
+    }
+  }
+  const cardOrderLabel = corporate ? 'Orçar' : 'Pedir';
+  const fullOrderLabel = ctx.encerrada ? 'Contato geral' : corporate ? 'Pedir orçamento' : 'Pedir pelo WhatsApp';
+  const orderLink = (p, v, flavor = null, className = 'n-button product-order') => {
+    const reference = flavor?.referencia || v?.referencia || p.nome;
+    if (ctx.encerrada) return `<a class="${className}" href="${esc(defaultWa)}" target="_blank" rel="noopener" data-placement="card">${waIcon} Contato geral</a>`;
+    const label = flavor?.nome || (className === 'n-button product-order' ? cardOrderLabel : fullOrderLabel);
+    return `<a class="${className}" href="${esc(pedidos[reference])}" target="_blank" rel="noopener" data-order-reference="${esc(reference)}" data-product-id="${esc(p.id)}"${v ? ` data-variant-id="${esc(v.id)}"` : ''}${flavor ? ` data-flavor-id="${esc(flavor.id)}"` : ''} data-placement="${corporate ? 'empresas' : 'card'}" aria-label="${corporate ? 'Orçar' : 'Pedir'} ${esc(reference)} no WhatsApp">${waIcon} ${esc(label)}</a>`;
+  };
+  const cardIdFor = (p, index) => natalCatalogo.ancoraVersao(p, p.variantes[index]);
+  const valueText = value => {
+    if (value == null) return '';
+    if (typeof value === 'boolean') return value ? 'Sim' : 'Não';
+    if (Array.isArray(value)) return value.map(valueText).join(', ');
+    if (typeof value !== 'object') return String(value);
+    if (value.texto || value.mensagem) return value.texto || value.mensagem;
+    if (Number.isFinite(value.dias)) return `${value.dias} dias; ${value.marcoInicial || 'marco inicial sob consulta'}`;
+    const labels = { nome: '', tipo: '', quantidade: 'Quantidade', item: '', massa: 'Massa', recheio: 'Recheio', formato: 'Formato', formatoBiscoitos: 'Formato', embalagem: 'Embalagem', opcoes: 'Opções', logo: 'Logo', tecnica: 'Técnica', condicoes: 'Condições', dimensoesInformadas: 'Medidas informadas', rotuloPersonalizado: 'Rótulo personalizado' };
+    return Object.entries(value).filter(([k]) => !['estado', 'refrigeracao', 'segueRecheio'].includes(k)).map(([k, v]) => `${labels[k] === '' ? '' : `${labels[k] || k}: `}${valueText(v)}`).join('; ');
+  };
+  const conditions = (p, v) => {
+    const fields = [['Embalagem', v.embalagem], ['Conteúdo', v.conteudoEmbalagem], ['Opções', v.opcoes], ['Cobertura', v.cobertura], ['Personalização', v.personalizacao], ['Mínimo', v.minimo || (corporate ? { mensagem: 'Quantidade mínima sob consulta.' } : null)], ['Prazo', v.prazo || (corporate ? { mensagem: 'Prazo de produção sob consulta.' } : null)], ['Conservação', v.conservacao], [v.validade?.tipo === 'consumo-sugerido' ? 'Consumo sugerido' : 'Validade', v.validade], ['Alérgenos', v.alergenicos]];
+    const composition = (p.componentes || []).map(c => `${c.quantidade == null ? 'Quantidade sob consulta' : c.quantidade} ${c.unidade}: ${c.nome || natal.produtos.find(other => other.id === c.produtoId)?.nome || c.produtoId}`);
+    return (composition.length ? `<p><strong>Composição:</strong> ${composition.map(esc).join('; ')}.</p>` : '') + fields.filter(([, value]) => value).map(([label, value]) => `<p><strong>${label}:</strong> ${esc(valueText(value))}</p>`).join('');
+  };
+  const priceNotes = p => [
+    p.taxaArte ? '+ ' + money(p.taxaArte) + ' ' + (p.taxaArteDescricao || 'por arte') + '.' : '',
+    p.minimo?.estado === 'confirmado' ? p.minimo.mensagem : ''
+  ].filter(Boolean).map(note => '<p class="fee-note">' + esc(note) + '</p>').join('');
+  const product = p => {
+    const v = p.variantes[0];
+    const cardId = cardIdFor(p, 0);
+    const cover = p.fotoGeral || v;
+    const price = prices.get(p.id);
+    const media = `<div class="product-media">${photo(cover.alt || v.foto || v.referencia, cover.cor || p.cor, false, cover.imagem, cover.largura, cover.altura)}<button class="product-open js-only" type="button" data-open-product="${p.id}" data-variant-id="${v.id}" aria-label="Ver fotos e detalhes de ${esc(p.nome)}" aria-haspopup="dialog" aria-controls="product-dialog"></button></div>`;
+    const anchors = p.variantes.flatMap((option, index) => [
+      ...(index === 0 ? [] : [cardIdFor(p, index)]), ...(option.ancorasLegadas || [])
+    ].map(anchor => `<span class="catalog-anchor" id="${esc(anchor)}" data-anchor-variant="${esc(option.id)}"></span>`)).join('');
+    const details = p.variantes.map((option, index) => `<details class="product-details" data-details-variant="${esc(option.id)}"><summary>${p.variantes.length > 1 ? esc(option.nome) : 'Detalhes'}</summary><div class="details-body">${!ctx.publico && p.statusCatalogo === 'rascunho' ? '<p class="fee-note">Em preparação · dados em revisão.</p>' : ''}<p>${esc(option.detalhes || p.detalhes || p.descricao || '')}</p>${conditions(p, option)}${index || price.productOrder ? `<p class="fallback-order">${priceMarkup(priceFor(option))} ${orderLink(p, option, null, 'text-link')}</p>` : ''}${p.sabores ? `<ul class="flavor-links">${flavorsFor(p, option).map(flavor => `<li>${ctx.encerrada ? esc(flavor.nome) : orderLink(p, option, flavor, 'text-link')}</li>`).join('')}</ul>` : ''}</div></details>`).join('');
+    return `<article class="product-card" id="${cardId}" data-product="${p.id}" data-variant-id="${v.id}" data-families="${p.familias.join(' ')}">
+      <span class="catalog-anchor" id="${natalCatalogo.ancoraProduto(p)}"></span>${anchors}${media}
+      <div class="product-content">
+      <h4 class="product-title" title="${esc(p.nome)}">${esc(p.nome)}</h4>
+      <div class="product-pricing">
+      <div class="product-price">${priceMarkup(price)}</div>
+      ${priceNotes(p)}
+      </div>
+      ${orderLink(p, price.productOrder ? null : v)}
+      ${details}
+      </div></article>`;
+  };
+  const cardCount = ctx.produtosPrincipais.length;
+  const data = { produtos: selected.map(p => ({ ...natalCatalogo.produtoPublico(p), cardPrice: prices.get(p.id) })), pedidos, pagina: page.id, ano: natal.ano, encerrada: ctx.encerrada, corporativo: corporate, contatoGeral: defaultWa };
+  const faq = [...ctx.faq.filter(f => f.id !== 'previa').filter(f => !ctx.encerrada || !['agenda', 'como-pedir'].includes(f.id)), {
+    pergunta: natal.seo.faqLocal.pergunta,
+    resposta: `${natal.seo.faqLocal.resposta} Endereço: ${site.endereco.rua}, ${site.endereco.bairro}, ${site.endereco.cidade}/${site.endereco.uf}. Atendemos ${site.bairrosAtendidos.join(', ')}. ${site.politicas.retirada}`
+  }, { pergunta: 'Como funcionam retirada e pagamento?', resposta: `${site.politicas.retirada} ${site.politicas.antecedencia} ${site.politicas.confirmacao} ${site.politicas.pagamento}` }];
+  const catalogueItems = selected.flatMap(p => p.variantes.map(v => {
+    const url = `${site.url}/natal/#${natalCatalogo.ancoraVersao(p, v)}`;
+    const image = ctx.publico && natalCatalogo.fotoLocal(v.imagem);
+    return { '@type': 'Thing', '@id': url, url, name: v.referencia, ...(image ? { image: `${site.url}${image.url}` } : {}) };
+  }));
+  const jsonLd = [localBusinessLd(), websiteLd(), breadcrumbLd(crumbs), {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${canonical}#webpage`,
+    url: canonical,
+    name: page.seo.title,
+    description: page.seo.description,
+    inLanguage: 'pt-BR',
+    isPartOf: { '@id': `${site.url}/#website` },
+    about: { '@id': `${site.url}/#organization` },
+    publisher: { '@id': `${site.url}/#organization` },
+    mainEntity: {
+      '@type': 'ItemList', '@id': `${canonical}#catalogo`,
+      numberOfItems: catalogueItems.length,
+      itemListElement: catalogueItems.map((item, index) => ({ '@type': 'ListItem', position: index + 1, item }))
+    }
+  }];
+  const agendaNota = ctx.publico || ctx.encerrada
+    ? `<p class="agenda-note" role="status">${ctx.encerrada ? 'Agenda de Natal encerrada. ' : ''}${esc(natal.agenda.mensagem)}</p>`
+    : '';
+  const social = natalCatalogo.fotoLocal(page.seo.imagemSocial);
+  const visualGroupId = p => p.publicos.includes('corporativo') ? 'empresas' : p.categoria || p.tipoProduto;
+  const visualGroups = page.id === 'colecao' || corporate ? [...new Set(mainSelected.map(visualGroupId))].map(id => ({ id, titulo: corporate ? ctx.grupos.find(g => g.id === id)?.titulo || natal.empresas.titulo : id === 'empresas' ? natal.empresas.titulo : natal.categorias.find(c => c.id === id)?.titulo || natal.categorias.find(c => c.id === id)?.nome || id, icone: natal.categorias.find(c => c.id === id)?.icone || 'gift', funcao: 'principal', produtos: mainSelected.filter(p => visualGroupId(p) === id) })) : ctx.grupos.filter(g => g.funcao === 'principal');
+  const groupAliases = group => page.id === 'colecao' || corporate ? [...new Set(group.produtos.map(p => p.categoria))].filter(id => id && id !== group.id && !visualGroups.some(g => g.id === id)).map(id => `<span class="catalog-anchor" id="grupo-${esc(id)}"></span>`).join('') : '';
+  const renderGroup = group => `<section class="${group.id === 'empresas' ? 'company-section' : 'catalog-group'}" id="${group.id === 'empresas' ? 'empresas' : `grupo-${esc(group.id)}`}" data-group="${esc(group.id)}" data-group-role="${group.funcao}" aria-labelledby="heading-${esc(group.id)}">${groupAliases(group)}<div class="n-wrap"><div class="group-heading"><span class="group-symbol">${icon(group.icone || 'gift')}</span><h3 id="heading-${esc(group.id)}">${esc(group.titulo)}</h3></div><div class="${group.id === 'empresas' ? 'company-grid' : 'product-grid'}">${group.produtos.map(product).join('')}</div></div></section>`;
+  const filterCategories = [...new Set(mainSelected.flatMap(p => p.familias))].map(id => natal.categorias.find(c => c.id === id) || { id, nome: id, icone: 'gift' });
+  const renderRelated = () => ctx.itensRelacionados.length ? `<section class="related-section" aria-labelledby="related-title"><div class="n-wrap"><h2 id="related-title">Ver também</h2><div class="related-grid">${ctx.itensRelacionados.filter(({ produto, variante }) => variante === produto.variantes[0]).map(({ produto: p, variante: v }) => `<a class="related-card" id="${natalCatalogo.ancoraVersao(p, v)}" data-related-product="${esc(p.id)}" data-related-variant="${esc(v.id)}" href="${esc(itemUrl(p, v))}">${p.variantes.slice(1).map(option => `<span class="catalog-anchor" id="${natalCatalogo.ancoraVersao(p, option)}"></span>`).join('')}${photo(v.alt || v.foto || v.referencia, v.cor || p.cor, false, v.imagem, v.largura, v.altura)}<div class="related-copy"><h3>${esc(v.referencia)}</h3><p class="product-price">${priceMarkup(priceFor(v))}</p>${priceNotes(p)}<span class="related-action">Ver produto ${icon('arrow')}</span></div></a>`).join('')}</div></div></section>` : '';
+  return `<!doctype html><html lang="pt-BR"><head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>${esc(page.seo.title)}</title><meta name="description" content="${esc(page.seo.description)}">
+    <meta name="robots" content="${ctx.publico && !natalPreview ? 'index, follow' : 'noindex, nofollow'}">
+    <link rel="canonical" href="${canonical}"><meta name="theme-color" content="#173e32">
+    <meta property="og:type" content="website"><meta property="og:locale" content="pt_BR"><meta property="og:title" content="${esc(page.seo.title)}"><meta property="og:description" content="${esc(page.seo.description)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${site.url}${social?.url || '/assets/images/brand/logo.jpeg'}"><meta property="og:image:alt" content="${esc(social ? page.seo.imagemSocialAlt : 'Logo Basilio Bolos')}">
+    <meta property="og:site_name" content="${esc(site.nome)}"><meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="/favicon-v2.svg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400,20,1;9..144,500,20,1&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="/css/natal.css?v=${natalCssVersion}"><script src="/js/app.js" defer></script><script src="/js/natal.js" defer></script>
+    ${jsonLd.map(value => `<script type="application/ld+json">${JSON.stringify(value).replace(/</g, '\\u003c')}</script>`).join('')}
+    <script id="natal-data" type="application/json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>
+    </head><body class="natal" data-catalog-page="${page.id}" data-campaign-year="${natal.ano}">
+    <a href="#catalogo" class="skip-link">Pular para o catálogo</a>
+    ${navbar('natal', { icon, nativeDropdown: true, message: ctx.encerrada ? site.mensagemPadrao : corporate ? 'Olá! Quero um orçamento para minha empresa.' : 'Olá! Quero fazer uma encomenda da coleção de Natal.', closed: ctx.encerrada })}
+    <main>${breadcrumb(crumbs.map((c, i) => i === crumbs.length - 1 ? { nome: c.nome } : c))}<section class="hero"><div class="n-wrap hero-grid"><div class="hero-copy"><p class="eyebrow">${icon('star')} ${esc(hero.eyebrow)}</p><h1 class="hero-title">${esc(page.h1)}</h1><p class="hero-description">${esc(page.introducao)}</p>${agendaNota}<div class="hero-actions"><a class="n-button" href="#catalogo">Ver presentes ${icon('arrow')}</a></div><nav class="selection-links" aria-label="Coleções de Natal">${links.map(other => `<a class="text-link" href="${other.pagina.rota}">${esc(other.pagina.nome)}</a>`).join('')}</nav><p class="hero-note">${icon('pin')} ${esc(hero.nota)}</p></div>${heroArt}</div></section>
+    <section class="catalog-section" id="catalogo" aria-labelledby="catalog-title"><div class="n-wrap"><div class="section-heading"><h2 id="catalog-title">${esc(natal.catalogo.titulo)}</h2></div>
+    <div class="catalog-tools js-only"><nav class="category-nav" aria-label="Filtrar por tipo de produto"><button type="button" class="category-button" data-category="todos" aria-pressed="true">${icon('gift')} Ver tudo</button>${filterCategories.map(c => `<button type="button" class="category-button" data-category="${esc(c.id)}" aria-pressed="false">${icon(c.icone)} ${esc(c.nome)}</button>`).join('')}</nav><div class="filter-row"><div class="search-field"><label class="sr-only" for="product-search">Buscar por produto ou presente</label>${icon('search')}<input type="search" id="product-search" placeholder="O que você procura?" autocomplete="off"></div></div><p class="catalog-status" id="catalog-status" role="status" aria-live="polite">${cardCount} presentes para descobrir</p></div>
+    <p class="no-js-note">Todos os produtos estão abaixo. Abra os detalhes para pedir pelo WhatsApp.</p>
+    <div id="empty-state" class="empty-state" hidden><h3>Nenhum presente por aqui.</h3><p>Tente outro nome ou veja todos os produtos.</p><button type="button" class="n-button secondary" id="clear-filters">Ver todos os produtos</button></div>
+    </div>
+    ${visualGroups.filter(g => g.id !== 'empresas').map(renderGroup).join('')}
+    </section>
+    ${visualGroups.filter(g => g.id === 'empresas').map(renderGroup).join('')}
+    <section class="faq-section"><div class="n-wrap faq-grid"><div class="section-heading"><h2>Dúvidas frequentes</h2></div><div class="faq-list">${faq.map(f => `<details><summary>${esc(f.pergunta)}</summary><p>${esc(f.resposta)}</p></details>`).join('')}</div></div></section>
+    <section class="visit-section" id="retirada"><div class="n-wrap visit-grid"><div><h2>Retirada em Santo André</h2><p>${esc(site.endereco.rua)}<br>${esc(site.endereco.bairro)} · ${esc(site.endereco.cidade)}/${esc(site.endereco.uf)}</p><a class="n-button" href="${esc(site.endereco.mapsUrl)}" target="_blank" rel="noopener">${icon('pin')} Ver no mapa</a></div><div><h3>Horários de retirada</h3><p>${esc(site.horario)}.</p>${horariosNatal().map(texto => `<p>${esc(texto)}</p>`).join('')}<details class="product-details"><summary>Retirada e pagamento</summary><div class="details-body"><p>${esc(site.politicas.retirada)} ${esc(site.politicas.antecedencia)} ${esc(site.politicas.confirmacao)} ${esc(site.politicas.pagamento)}</p></div></details></div></div></section>${renderRelated()}</main>
+    ${footer({ pinIcon: icon('pin') })}
+    ${waFloat(ctx.encerrada ? site.mensagemPadrao : corporate ? 'Olá! Quero um orçamento para minha empresa.' : 'Olá! Quero saber mais sobre os presentes de Natal.')}
+    ${privacyBanner()}
+    <dialog class="product-dialog" id="product-dialog" aria-labelledby="dialog-title">
+      <button class="icon-button dialog-close" type="button" data-close-dialog aria-label="Fechar detalhes" autofocus>${icon('close')}</button>
+      <div class="dialog-grid"><div class="dialog-image" id="dialog-image" role="group" aria-label="Fotos deste produto"><div class="gallery-frame"><div id="dialog-photo"></div><div class="gallery-arrows" id="gallery-arrows" hidden><button class="icon-button gallery-prev" type="button" aria-label="Foto anterior">${icon('chevron')}</button><button class="icon-button gallery-next" type="button" aria-label="Próxima foto">${icon('chevron')}</button></div></div><div class="gallery-dots" id="gallery-dots" hidden></div><p class="gallery-status" id="gallery-status" aria-live="polite" hidden></p></div><div id="product-options"><h2 id="dialog-title"></h2><p class="dialog-description" id="dialog-description"></p><div class="field-group" id="variant-field"><label for="variant-select">Versão</label><select id="variant-select"></select></div><div class="field-group" id="flavor-field" hidden><label for="flavor-select">Sabor</label><select id="flavor-select"></select></div><div class="dialog-price" id="dialog-price" aria-live="polite"><p class="product-price"><small></small> <strong></strong></p><p class="dialog-disclaimer" id="dialog-disclaimer"></p><p class="dialog-disclaimer" id="dialog-minimum" hidden></p></div><a class="n-button" id="dialog-order" href="${defaultWa}" target="_blank" rel="noopener">${waIcon}<span>${fullOrderLabel}</span></a><details class="product-details" id="dialog-details"><summary>Detalhes</summary><div class="details-body" id="dialog-details-body"></div></details></div></div></dialog>
+    </body></html>`;
+}
+
 function renderSitemap() {
   const urls = [
+    ...natalPublico.map(ctx => ({ loc: ctx.pagina.rota, updatedAt: ctx.pagina.updatedAt, priority: '0.9', changefreq: 'weekly', images: [{ loc: natalCatalogo.fotoLocal(ctx.pagina.seo.imagemSocial).url, title: ctx.pagina.seo.imagemSocialAlt }] })),
     {
       loc: '/', priority: '1.0', changefreq: 'weekly',
       images: [
@@ -1545,7 +1784,7 @@ function renderSitemap() {
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls.map((u) => `  <url>
     <loc>${site.url}${u.loc}</loc>
-    <lastmod>${hoje}</lastmod>
+    ${natalCatalogo.dataValida(u.updatedAt || seoPages[u.loc]?.updatedAt) ? `<lastmod>${u.updatedAt || seoPages[u.loc].updatedAt}</lastmod>` : ''}
     <changefreq>${u.changefreq}</changefreq>
     <priority>${u.priority}</priority>${imageTags(u)}
   </url>`).join('\n')}
@@ -1562,6 +1801,7 @@ function render404() {
         <h1 id="not-found-title" class="not-found-title">Esta página não existe</h1>
         <p class="not-found-text">O endereço que você tentou acessar não foi encontrado.</p>
         <a href="/" class="btn btn-lg not-found-button"><i class="fa-solid fa-house" aria-hidden="true"></i> Ir para a página principal</a>
+        ${divulgarNatal ? `<div class="not-found-natal" data-natal-promotion data-natal-until="${esc(natal.divulgacao.fimExclusivo)}"><a href="/natal/" class="natal-callout-button">${natalGiftIcon()} ${esc(natal.divulgacao.link404)}</a></div>` : ''}
       </div>
     </section>`;
   return layout({
@@ -1592,7 +1832,7 @@ function renderPrivacy() {
     </header>
     <section class="py-5 ${surface('light')}">
       <article class="container privacy-content">
-        <p class="privacy-lead"><strong>Última atualização:</strong> 13 de agosto de 2026.</p>
+        <p class="privacy-lead"><strong>Última atualização:</strong> ${esc(new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${site.privacidade.atualizadaEm}T12:00:00Z`)))}.</p>
         <p>Esta página descreve exatamente o uso de cookies e métricas no site Basilio Bolos. O único serviço de medição utilizado é o Google Analytics 4, identificado pela propriedade <code>G-C07W6E0102</code>.</p>
 
         <h2>1. Quem administra o tratamento</h2>
@@ -1602,7 +1842,7 @@ function renderPrivacy() {
         <p>O Google Analytics é carregado somente depois que você clica em <strong>Aceitar cookies</strong>. Com o consentimento, o site envia:</p>
         <ul>
           <li><strong>Visualização de página:</strong> o caminho da página visitada, como <code>/bolos/</code>.</li>
-          <li><strong>Evento <code>whatsapp_click</code>:</strong> o clique em um botão de WhatsApp, um rótulo técnico da posição do link, como <code>nav</code>, <code>hero</code>, <code>contato</code>, <code>cta-band</code> ou <code>float</code>, e o caminho da página onde ocorreu o clique.</li>
+          <li><strong>Evento <code>whatsapp_click</code>:</strong> o clique em um botão de WhatsApp, um rótulo técnico da posição do link, como <code>nav</code>, <code>hero</code>, <code>contato</code>, <code>cta-band</code> ou <code>float</code>, e o caminho da página onde ocorreu o clique. ${esc(site.privacidade.eventosNatal)}</li>
           <li><strong>Dados técnicos do serviço:</strong> o Google pode receber informações técnicas necessárias ao funcionamento do Analytics, como navegador, dispositivo e identificadores dos cookies.</li>
         </ul>
         <p>O código do site não envia ao Analytics nome, telefone, endereço, mensagem pré-preenchida do WhatsApp, conteúdo do pedido, CPF, e-mail, User-ID ou dados de pagamento. Também não usamos Google Signals, personalização de anúncios, Meta Pixel, TikTok Pixel, Hotjar, Clarity ou outro serviço de rastreamento.</p>
@@ -1646,6 +1886,13 @@ function renderPrivacy() {
 
 function renderLlms() {
   const linhas = produtos.map((p) => `- [${p.titulo}](${site.url}/${p.url}): ${p.descricao} ${p.precoDestaque}.`);
+  if (natalPublico.length) {
+    linhas.push('', `## Natal ${natal.ano}`, '', natal.agenda.mensagem, ...horariosNatal(), '');
+  }
+  for (const ctx of natalPublico) {
+    linhas.push(`- [${ctx.pagina.seo.title}](${site.url}${ctx.pagina.rota}): ${ctx.pagina.seo.description}${ctx.encerrada ? ' Agenda de Natal encerrada; contato geral.' : ''}`);
+    for (const { produto: p, variante: v } of ctx.itens) linhas.push(`  - ${v.referencia}: ${v.precoStatus === 'sob-consulta' ? 'sob consulta' : `${moneyCents(v.preco)} por ${v.unidade}`}.${p.taxaArte ? ` Taxa adicional de ${moneyCents(p.taxaArte)} ${p.taxaArteDescricao || 'por arte'}.` : ''}${v.minimo?.mensagem ? ` ${v.minimo.mensagem}` : ''}${v.prazo?.mensagem ? ` ${v.prazo.mensagem}` : ''}`);
+  }
   return `# ${site.nome}
 
 > ${site.descricao}
@@ -1654,7 +1901,7 @@ Confeitaria artesanal que trabalha sob encomenda em Santo André/SP (Brasil), h�
 Endereço de retirada: ${site.endereco.rua} - ${site.endereco.bairro}, ${site.endereco.cidade}/${site.endereco.uf} - CEP ${site.endereco.cep}.
 Retiradas com horário marcado: ${site.horario}. Pedidos pelo WhatsApp ${site.telefoneDisplay}.
 Bairros atendidos: ${site.bairrosAtendidos.join(', ')}.
-Pedidos com no mínimo 3 dias úteis de antecedência; confirmação mediante pagamento de 30% do valor. Não fazemos entregas (retirada no local ou Uber/99 por conta do cliente).
+${site.politicas.antecedencia} ${site.politicas.confirmacao} ${site.politicas.retirada}
 
 ## Produtos
 
@@ -1671,17 +1918,21 @@ ${linhas.join('\n')}
 }
 
 // ---------- Escrita dos arquivos ----------
+const paginasGeradas = [];
 function writeFile(relPath, content) {
   const full = path.join(DIST, relPath);
   fs.mkdirSync(path.dirname(full), { recursive: true });
   fs.writeFileSync(full, content, 'utf8');
+  if (relPath.endsWith('.html')) paginasGeradas.push('/' + relPath.replace(/index\.html$/, ''));
   console.log('✔', relPath);
 }
 
+prepareDist();
 for (const relPath of PUBLIC_DIRECTORIES) copyPublicDirectory(relPath);
 for (const relPath of PUBLIC_FILES) copyPublicFile(relPath);
 
 writeFile('index.html', renderHome());
+for (const ctx of natalRegistro) writeFile(`${ctx.pagina.rota.slice(1)}index.html`, renderNatal(ctx));
 writeFile('bolos/index.html', renderBolos('redondo'));
 writeFile('bento-cake/index.html', renderBentoCake());
 writeFile('doces/index.html', renderDoces());
@@ -1693,4 +1944,4 @@ writeFile('llms.txt', renderLlms());
 writeFile('404.html', render404());
 writeFile('privacidade/index.html', renderPrivacy());
 
-console.log('\nSite gerado com sucesso! Páginas: /, ' + produtos.map((p) => '/' + p.url).join(', ') + ', /privacidade/, /404.html');
+console.log('\nSite gerado com sucesso! Páginas: ' + paginasGeradas.join(', '));
