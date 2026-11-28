@@ -77,7 +77,7 @@ function testar() {
     check(html.includes('content="index, follow"') && html.includes(ctx.pagina.seo.imagemSocial), 'HTML público indexável com imagem aprovada');
     check(publicado.get('sitemap.xml').includes(`<loc>${site.url}${ctx.pagina.rota}</loc>`), 'Página pública está no sitemap real');
     check(ctx.itens.every(({ variante }) => variante.imagemProvisoria !== true), 'Versões públicas com imagens definitivas');
-    check(html.includes(vigente.agenda.mensagem), 'Agenda visível no HTML público');
+    check(html.includes('class="agenda-note"') === ctx.encerrada, 'Aviso no topo somente quando a agenda encerrar');
     check(publicado.get('llms.txt').includes(vigente.agenda.mensagem), 'Resumo traz a agenda publicada no catálogo');
   }
   const real = clone(vigente);
